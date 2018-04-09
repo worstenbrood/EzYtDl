@@ -8,8 +8,10 @@ namespace YtEzDL
     {
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
+
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool ChangeClipboardChain(IntPtr hWndRemove,IntPtr hWndNewNext);
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
         

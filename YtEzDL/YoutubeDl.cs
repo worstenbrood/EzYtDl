@@ -107,12 +107,7 @@ namespace YtEzDL
             process.WaitForExit();
 
             // Error
-            if (process.ExitCode != 0)
-            {
-                return null;
-            }
-
-            return output.ToString();
+            return process.ExitCode != 0 ? null : output.ToString();
         }
     }
 }
