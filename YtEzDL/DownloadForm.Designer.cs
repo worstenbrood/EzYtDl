@@ -42,7 +42,7 @@ namespace YtEzDL
             // Download
             // 
             this.Download.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.Download.Location = new System.Drawing.Point(34, 241);
+            this.Download.Location = new System.Drawing.Point(37, 241);
             this.Download.Name = "Download";
             this.Download.Size = new System.Drawing.Size(148, 37);
             this.Download.Style = MetroFramework.MetroColorStyle.Blue;
