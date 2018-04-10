@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 
@@ -26,9 +25,6 @@ namespace YtEzDL
                 Visible = true,
             };
 
-            // Click
-            _notifyIcon.BalloonTipClicked += (sender, args) => MessageBox.Show(Thread.CurrentThread.GetHashCode().ToString());
-            
             // Start youtube-dl
             _youtubeDl = new YoutubeDl();
 
@@ -58,7 +54,7 @@ namespace YtEzDL
                     var json = JObject.Parse(info);
 
                     // Show form
-                    var downloadForm = new DownloadForm(json);
+                    var downloadForm = new DownloadForm(json, _youtubeDl, _notifyIcon);
                     downloadForm.Show();
                 }
             }
