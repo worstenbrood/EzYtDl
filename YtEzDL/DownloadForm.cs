@@ -23,7 +23,8 @@ namespace YtEzDL
         protected override void OnLoad(EventArgs e)
         {
             // Set title
-            Text = _json["title"].ToString();
+            metroLabelTitleContent.Text = Text = _json["title"].ToString();
+            metroLabelUrlContent.Text = _json["webpage_url"].ToString();
 
             // Show notification
             _notifyIcon.ShowBalloonTip(10000, _json["extractor"].ToString(), _json["title"].ToString(), ToolTipIcon.None);
@@ -34,6 +35,11 @@ namespace YtEzDL
         private void Download_Click(object sender, EventArgs e)
         {
             _youtubeDl.Download(_json["webpage_url"].ToString());
+        }
+
+        private void metroLabel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
