@@ -37,9 +37,9 @@ namespace YtEzDL
             _youtubeDl.Download(_json["webpage_url"].ToString());
         }
 
-        private void metroLabel1_Click(object sender, EventArgs e)
+        private void metroButtonCancel_Click(object sender, EventArgs e)
         {
-
+            Close();
         }
     }
 }
