@@ -41,15 +41,33 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClipboardMonitor.cs" />
+    <Compile Include="DownloadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DownloadForm.Designer.cs">
+      <DependentUpon>DownloadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadForm1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DownloadForm.resx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="YoutubeDl.cs" />
     <Compile Include="ApplicationContext.cs" />
+    <EmbeddedResource Include="DownloadForm.resx">
+      <Generator>ResXFileCodeGeneratorEx</Generator>
+      <LastGenOutput>DownloadForm1.Designer.cs</LastGenOutput>
+      <DependentUpon>DownloadForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

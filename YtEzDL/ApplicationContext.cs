@@ -12,7 +12,7 @@ namespace YtEzDL
         private readonly NotifyIcon _notifyIcon;
         private readonly ClipboardMonitor _clipboardMonitor;
         private readonly YoutubeDl _youtubeDl;
-        
+       
         public ApplicationContext()
         {
             IContainer container = new Container();
@@ -25,13 +25,16 @@ namespace YtEzDL
                 Text = "youtube-dl",
                 Visible = true,
             };
+
+            // Click
+            _notifyIcon.BalloonTipClicked += (sender, args) => MessageBox.Show(Thread.CurrentThread.GetHashCode().ToString());
             
             // Start youtube-dl
             _youtubeDl = new YoutubeDl();
 
             // Start clipboard monitor
             _clipboardMonitor = new ClipboardMonitor();
-            _clipboardMonitor.OnClipboardDataChanged += data => new Thread(() => HandleClipboard(data)).Start();
+            _clipboardMonitor.OnClipboardDataChanged += HandleClipboard;
             _clipboardMonitor.Monitor();
         }
 
@@ -53,9 +56,10 @@ namespace YtEzDL
                 if (info != null)
                 {
                     var json = JObject.Parse(info);
-                    
-                    // Show on tooltip
-                    _notifyIcon.ShowBalloonTip(5000, json["extractor"].ToString(), json["title"].ToString(), ToolTipIcon.None);
+
+                    // Show form
+                    var downloadForm = new DownloadForm(json);
+                    downloadForm.Show();
                 }
             }
             catch (Exception)
