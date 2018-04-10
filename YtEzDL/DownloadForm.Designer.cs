@@ -1,4 +1,6 @@
-﻿namespace YtEzDL
+﻿using MetroFramework.Controls;
+
+namespace YtEzDL
 {
     partial class DownloadForm
     {
@@ -29,14 +31,16 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
-            this.Download = new System.Windows.Forms.Button();
+            this.Download = new MetroButton();
             this.SuspendLayout();
             // 
             // Download
             // 
-            this.Download.Location = new System.Drawing.Point(12, 243);
+            this.Download.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Download.Location = new System.Drawing.Point(8, 158);
+            this.Download.Margin = new System.Windows.Forms.Padding(2);
             this.Download.Name = "Download";
-            this.Download.Size = new System.Drawing.Size(285, 34);
+            this.Download.Size = new System.Drawing.Size(78, 22);
             this.Download.TabIndex = 0;
             this.Download.Text = "Download";
             this.Download.UseVisualStyleBackColor = true;
@@ -44,12 +48,15 @@
             // 
             // DownloadForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(515, 289);
+            this.ClientSize = new System.Drawing.Size(343, 188);
             this.Controls.Add(this.Download);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "DownloadForm";
+            this.Padding = new System.Windows.Forms.Padding(20, 30, 20, 20);
             this.Text = "DownloadForm";
             this.ResumeLayout(false);
 

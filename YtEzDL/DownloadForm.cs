@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using Newtonsoft.Json.Linq;
 
 namespace YtEzDL
 {
-    public partial class DownloadForm : Form
+    public partial class DownloadForm : MetroForm
     {
         private readonly JObject _json;
         private readonly YoutubeDl _youtubeDl;
