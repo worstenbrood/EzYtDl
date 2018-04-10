@@ -14,9 +14,13 @@ namespace YtEzDL
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
-        
-        private const int WmDrawclipboard = 0x0308;
-        private const int WmChangecbchain = 0x030D;
+
+        public enum Messages
+        {
+            WmDrawclipboard = 0x0308,
+            WmChangecbchain = 0x030D
+        }
+
         private IntPtr _clipboardViewerNext;
 
         // Event
@@ -34,9 +38,9 @@ namespace YtEzDL
 
         protected override void WndProc(ref Message m)
         {
-            switch (m.Msg)
+            switch ((Messages)m.Msg)
             {
-                case WmDrawclipboard:
+                case Messages.WmDrawclipboard:
                 {
                     if (OnClipboardDataChanged != null)
                     {
@@ -51,7 +55,7 @@ namespace YtEzDL
                     break;
                 }
 
-                case WmChangecbchain:
+                case Messages.WmChangecbchain:
                 {
                     // Monitor chain changed
                     if (m.WParam == _clipboardViewerNext)
