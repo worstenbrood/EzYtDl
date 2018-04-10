@@ -50,8 +50,12 @@ namespace YtEzDL
                         OnClipboardDataChanged.Invoke(data);
                     }
 
-                    // Pass message to chain
-                    SendMessage(_clipboardViewerNext, m.Msg, m.WParam, m.LParam);
+                    if (_clipboardViewerNext != IntPtr.Zero)
+                    {
+                        // Pass message to chain
+                        SendMessage(_clipboardViewerNext, m.Msg, m.WParam, m.LParam);
+                    }
+                    
                     break;
                 }
 
@@ -64,8 +68,11 @@ namespace YtEzDL
                     }
                     else
                     {
-                        // Pass message to chain
-                        SendMessage(_clipboardViewerNext, m.Msg, m.WParam, m.LParam);
+                        if (_clipboardViewerNext != IntPtr.Zero)
+                        {
+                            // Pass message to chain
+                            SendMessage(_clipboardViewerNext, m.Msg, m.WParam, m.LParam);
+                        }
                     }
                     break;
                 }
