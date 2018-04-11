@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
 using System.Threading;
@@ -11,11 +12,11 @@ namespace YtEzDL
 {
     public partial class DownloadForm : MetroForm
     {
-        private readonly JObject _json;
+        private readonly List<JObject> _json;
         private readonly YoutubeDl _youtubeDl;
         private readonly NotifyIcon _notifyIcon;
 
-        public DownloadForm(JObject json, YoutubeDl youtubeDl, NotifyIcon notifyIcon)
+        public DownloadForm(List<JObject> json, YoutubeDl youtubeDl, NotifyIcon notifyIcon)
         {
             _json = json;
             _youtubeDl = youtubeDl;
@@ -53,7 +54,7 @@ namespace YtEzDL
 
         private void LoadThumbNail()
         {
-            var thumbnail = _json["thumbnail"];
+            var thumbnail = _json[0]["thumbnail"];
             if (thumbnail != null)
             {
                 var request = WebRequest.Create(thumbnail.ToString());
@@ -70,14 +71,14 @@ namespace YtEzDL
         protected override void OnLoad(EventArgs e)
         {
             // Set title
-            Text = _json["title"].ToString();
+            Text = _json[0]["title"].ToString();
             
             // Set info
             textBoxTitle.Font = MetroFonts.Subtitle;
-            textBoxTitle.Text = Text + Environment.NewLine + _json["webpage_url"];
+            textBoxTitle.Text = Text + Environment.NewLine + _json[0]["webpage_url"];
 
             // Add duration
-            var duration = _json["duration"];
+            var duration = _json[0]["duration"];
             if (duration != null)
             {
                 var timespan = TimeSpan.FromSeconds(Convert.ToDouble(duration));
@@ -92,7 +93,7 @@ namespace YtEzDL
 
                 // Show notification
                 BeginInvoke(new MethodInvoker(() =>
-                    _notifyIcon.ShowBalloonTip(10000, _json["extractor"].ToString(), Text, ToolTipIcon.None)));
+                    _notifyIcon.ShowBalloonTip(10000, _json[0]["extractor"].ToString(), Text, ToolTipIcon.None)));
             });
             thread.Start();
 
@@ -101,7 +102,7 @@ namespace YtEzDL
 
         private void Download_Click(object sender, EventArgs e)
         {
-            _youtubeDl.Download(_json["webpage_url"].ToString());
+            _youtubeDl.Download(_json[0]["webpage_url"].ToString());
         }
 
         private void metroButtonCancel_Click(object sender, EventArgs e)

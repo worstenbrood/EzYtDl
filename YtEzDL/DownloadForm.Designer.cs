@@ -37,8 +37,9 @@ namespace YtEzDL
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
             this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
             this.tabPageInfo = new System.Windows.Forms.TabPage();
-            this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.textBoxTitle = new System.Windows.Forms.TextBox();
+            this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.metroTabControl.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -81,9 +82,10 @@ namespace YtEzDL
             // metroTabControl
             // 
             this.metroTabControl.Controls.Add(this.tabPageInfo);
+            this.metroTabControl.Controls.Add(this.tabPageSettings);
             this.metroTabControl.Location = new System.Drawing.Point(23, 63);
             this.metroTabControl.Name = "metroTabControl";
-            this.metroTabControl.SelectedIndex = 0;
+            this.metroTabControl.SelectedIndex = 1;
             this.metroTabControl.Size = new System.Drawing.Size(604, 164);
             this.metroTabControl.TabIndex = 10;
             this.metroTabControl.UseSelectable = true;
@@ -100,6 +102,14 @@ namespace YtEzDL
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Info";
             // 
+            // pictureBox
+            // 
+            this.pictureBox.Location = new System.Drawing.Point(16, 8);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(117, 103);
+            this.pictureBox.TabIndex = 11;
+            this.pictureBox.TabStop = false;
+            // 
             // textBoxTitle
             // 
             this.textBoxTitle.BackColor = System.Drawing.Color.White;
@@ -112,13 +122,14 @@ namespace YtEzDL
             this.textBoxTitle.TabIndex = 10;
             this.textBoxTitle.Text = "Title";
             // 
-            // pictureBox
+            // tabPageSettings
             // 
-            this.pictureBox.Location = new System.Drawing.Point(16, 8);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(117, 103);
-            this.pictureBox.TabIndex = 11;
-            this.pictureBox.TabStop = false;
+            this.tabPageSettings.BackColor = System.Drawing.Color.White;
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 38);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Size = new System.Drawing.Size(596, 122);
+            this.tabPageSettings.TabIndex = 1;
+            this.tabPageSettings.Text = "Settings";
             // 
             // DownloadForm
             // 
@@ -155,5 +166,6 @@ namespace YtEzDL
         private System.Windows.Forms.TabPage tabPageInfo;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.TextBox textBoxTitle;
+        private System.Windows.Forms.TabPage tabPageSettings;
     }
 }

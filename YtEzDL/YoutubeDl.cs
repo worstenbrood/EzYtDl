@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace YtEzDL
 {
@@ -90,10 +91,10 @@ namespace YtEzDL
             }
         }
 
-        public string GetInfo(string url)
+        public List<JObject> GetInfo(string url)
         {
-            var output = new StringBuilder();
-
+            var result = new List<JObject>();
+            
             // Parameters
             var parameters = new List<string>
             {
@@ -101,13 +102,19 @@ namespace YtEzDL
                 $"\"{url}\""
             };
 
-            var process = CreateProcess(parameters, (o, e) => output.Append(e.Data));
+            var process = CreateProcess(parameters, (o, e) =>
+            {
+                if (e.Data != null)
+                {
+                    result.Add(JObject.Parse(e.Data));
+                }
+            });
 
             // Wait for exit
             process.WaitForExit();
 
             // Error
-            return process.ExitCode != 0 ? null : output.ToString();
+            return process.ExitCode != 0 ? null : result;
         }
     }
 }

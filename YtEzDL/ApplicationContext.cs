@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
@@ -57,10 +58,8 @@ namespace YtEzDL
                 // Check if url is supported
                 if (info != null)
                 {
-                    var json = JObject.Parse(info);
-
                     // Show form
-                    var downloadForm = new DownloadForm(json, _youtubeDl, _notifyIcon);
+                    var downloadForm = new DownloadForm(info, _youtubeDl, _notifyIcon);
                     Application.Run(downloadForm);
                 }
             }
