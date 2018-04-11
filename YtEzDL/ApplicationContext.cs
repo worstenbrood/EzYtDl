@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Newtonsoft.Json.Linq;
 
 namespace YtEzDL
 {
@@ -61,6 +59,7 @@ namespace YtEzDL
                     // Show form
                     var downloadForm = new DownloadForm(info, _youtubeDl, _notifyIcon);
                     Application.Run(downloadForm);
+                    downloadForm.Activate();
                 }
             }
             catch (Exception)

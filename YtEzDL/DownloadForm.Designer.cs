@@ -85,13 +85,14 @@ namespace YtEzDL
             this.metroTabControl.Controls.Add(this.tabPageSettings);
             this.metroTabControl.Location = new System.Drawing.Point(23, 63);
             this.metroTabControl.Name = "metroTabControl";
-            this.metroTabControl.SelectedIndex = 1;
+            this.metroTabControl.SelectedIndex = 0;
             this.metroTabControl.Size = new System.Drawing.Size(604, 164);
             this.metroTabControl.TabIndex = 10;
             this.metroTabControl.UseSelectable = true;
             // 
             // tabPageInfo
             // 
+            this.tabPageInfo.AutoScroll = true;
             this.tabPageInfo.BackColor = System.Drawing.Color.White;
             this.tabPageInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPageInfo.Controls.Add(this.pictureBox);

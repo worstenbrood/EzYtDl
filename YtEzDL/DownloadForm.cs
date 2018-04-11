@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
@@ -29,27 +31,41 @@ namespace YtEzDL
         /// Resize the image to the specified width and height.
         /// </summary>
         /// <param name="image">The image to resize.</param>
-        /// <param name="box"></param>
+        /// <param name="boxSize"></param>
         /// <returns>The resized image.</returns>
-        private Bitmap ResizeImage(Image image, Size box)
+        public Bitmap ResizeImage(Image image, Size boxSize)
         {
-            var size = new Size();
+            // Figure out the ratio
+            double ratioX = (double)boxSize.Width / (double)image.Width;
+            double ratioY = (double)boxSize.Height / (double)image.Height;
+            // Use whichever multiplier is smaller
+            double ratio = ratioX < ratioY ? ratioX : ratioY;
 
-            if (image.Height > box.Height)
+            // Now we can get the new height and width
+            int newHeight = Convert.ToInt32(image.Height * ratio);
+            int newWidth = Convert.ToInt32(image.Width * ratio);
+
+            // Now calculate the X,Y position of the upper-left corner 
+            // (one of these will always be zero)
+            int posX = Convert.ToInt32((boxSize.Width - (image.Width * ratio)) / 2);
+            int posY = Convert.ToInt32((boxSize.Height - (image.Height * ratio)) / 2);
+
+            var destRect = new Rectangle(posX, posY, newWidth, newHeight);
+            var destImage = new Bitmap(boxSize.Width, boxSize.Height, PixelFormat.Format24bppRgb);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
             {
-                var ratio = (double)image.Height / box.Height;
-                size.Height = box.Height;
-                size.Width = (int)(image.Width / ratio);
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.Clear(tabPageInfo.BackColor);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
             }
 
-            if (image.Width > box.Width)
-            {
-                var ratio = (double)image.Width / box.Width;
-                size.Width = box.Width;
-                size.Height = (int)(image.Height / ratio);
-            }
-            
-            return new Bitmap(image, size.Width, size.Height);
+            return destImage;
         }
 
         private void LoadThumbNail()
