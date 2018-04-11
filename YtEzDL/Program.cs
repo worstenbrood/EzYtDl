@@ -22,6 +22,7 @@ namespace YtEzDL
                 return;
 
             _mutex = new Mutex(true, mutexName);
+            _mutex.WaitOne();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
