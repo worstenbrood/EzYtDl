@@ -42,6 +42,7 @@ namespace YtEzDL
             // 
             // Download
             // 
+            this.Download.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Download.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.Download.Location = new System.Drawing.Point(19, 192);
             this.Download.Margin = new System.Windows.Forms.Padding(2);
@@ -55,6 +56,7 @@ namespace YtEzDL
             // 
             // metroButtonCancel
             // 
+            this.metroButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.metroButtonCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.metroButtonCancel.Location = new System.Drawing.Point(140, 192);
             this.metroButtonCancel.Margin = new System.Windows.Forms.Padding(2);
@@ -68,6 +70,7 @@ namespace YtEzDL
             // 
             // metroProgressBar
             // 
+            this.metroProgressBar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.metroProgressBar.Location = new System.Drawing.Point(19, 164);
             this.metroProgressBar.Margin = new System.Windows.Forms.Padding(2);
             this.metroProgressBar.Name = "metroProgressBar";
