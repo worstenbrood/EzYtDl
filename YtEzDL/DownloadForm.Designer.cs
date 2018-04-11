@@ -35,16 +35,19 @@ namespace YtEzDL
             this.Download = new MetroFramework.Controls.MetroButton();
             this.metroButtonCancel = new MetroFramework.Controls.MetroButton();
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
+            this.tabPageInfo = new System.Windows.Forms.TabPage();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.metroTabControl.SuspendLayout();
+            this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // Download
             // 
-            this.Download.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Download.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.Download.Location = new System.Drawing.Point(19, 192);
+            this.Download.Location = new System.Drawing.Point(27, 260);
             this.Download.Margin = new System.Windows.Forms.Padding(2);
             this.Download.Name = "Download";
             this.Download.Size = new System.Drawing.Size(100, 24);
@@ -56,9 +59,8 @@ namespace YtEzDL
             // 
             // metroButtonCancel
             // 
-            this.metroButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.metroButtonCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonCancel.Location = new System.Drawing.Point(140, 192);
+            this.metroButtonCancel.Location = new System.Drawing.Point(143, 260);
             this.metroButtonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.metroButtonCancel.Name = "metroButtonCancel";
             this.metroButtonCancel.Size = new System.Drawing.Size(113, 24);
@@ -70,41 +72,61 @@ namespace YtEzDL
             // 
             // metroProgressBar
             // 
-            this.metroProgressBar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.metroProgressBar.Location = new System.Drawing.Point(19, 164);
+            this.metroProgressBar.Location = new System.Drawing.Point(27, 232);
             this.metroProgressBar.Margin = new System.Windows.Forms.Padding(2);
             this.metroProgressBar.Name = "metroProgressBar";
-            this.metroProgressBar.Size = new System.Drawing.Size(619, 15);
+            this.metroProgressBar.Size = new System.Drawing.Size(596, 15);
             this.metroProgressBar.TabIndex = 6;
             // 
-            // pictureBox
+            // metroTabControl
             // 
-            this.pictureBox.Location = new System.Drawing.Point(23, 59);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(108, 90);
-            this.pictureBox.TabIndex = 7;
-            this.pictureBox.TabStop = false;
+            this.metroTabControl.Controls.Add(this.tabPageInfo);
+            this.metroTabControl.Location = new System.Drawing.Point(23, 63);
+            this.metroTabControl.Name = "metroTabControl";
+            this.metroTabControl.SelectedIndex = 0;
+            this.metroTabControl.Size = new System.Drawing.Size(604, 164);
+            this.metroTabControl.TabIndex = 10;
+            this.metroTabControl.UseSelectable = true;
+            // 
+            // tabPageInfo
+            // 
+            this.tabPageInfo.BackColor = System.Drawing.Color.White;
+            this.tabPageInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPageInfo.Controls.Add(this.pictureBox);
+            this.tabPageInfo.Controls.Add(this.textBoxTitle);
+            this.tabPageInfo.Location = new System.Drawing.Point(4, 38);
+            this.tabPageInfo.Name = "tabPageInfo";
+            this.tabPageInfo.Size = new System.Drawing.Size(596, 122);
+            this.tabPageInfo.TabIndex = 0;
+            this.tabPageInfo.Text = "Info";
             // 
             // textBoxTitle
             // 
             this.textBoxTitle.BackColor = System.Drawing.Color.White;
             this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxTitle.Location = new System.Drawing.Point(137, 59);
+            this.textBoxTitle.Location = new System.Drawing.Point(139, 8);
             this.textBoxTitle.Multiline = true;
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(501, 90);
-            this.textBoxTitle.TabIndex = 9;
+            this.textBoxTitle.Size = new System.Drawing.Size(437, 103);
+            this.textBoxTitle.TabIndex = 10;
             this.textBoxTitle.Text = "Title";
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Location = new System.Drawing.Point(16, 8);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(117, 103);
+            this.pictureBox.TabIndex = 11;
+            this.pictureBox.TabStop = false;
             // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(653, 231);
-            this.Controls.Add(this.textBoxTitle);
-            this.Controls.Add(this.pictureBox);
+            this.ClientSize = new System.Drawing.Size(653, 297);
+            this.Controls.Add(this.metroTabControl);
             this.Controls.Add(this.metroProgressBar);
             this.Controls.Add(this.metroButtonCancel);
             this.Controls.Add(this.Download);
@@ -116,9 +138,11 @@ namespace YtEzDL
             this.Padding = new System.Windows.Forms.Padding(12, 60, 12, 13);
             this.Resizable = false;
             this.Text = "DownloadForm";
+            this.metroTabControl.ResumeLayout(false);
+            this.tabPageInfo.ResumeLayout(false);
+            this.tabPageInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -127,6 +151,8 @@ namespace YtEzDL
         private MetroButton Download;
         private MetroButton metroButtonCancel;
         private MetroProgressBar metroProgressBar;
+        private MetroTabControl metroTabControl;
+        private System.Windows.Forms.TabPage tabPageInfo;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.TextBox textBoxTitle;
     }

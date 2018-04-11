@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using MetroFramework;
-using MetroFramework.Controls;
 using MetroFramework.Forms;
 using Newtonsoft.Json.Linq;
 
@@ -67,13 +67,6 @@ namespace YtEzDL
             }
         }
 
-        private void ResizeTextBox(TextBox textBox)
-        {
-            Size sz = new Size(textBox.Width, Int32.MaxValue);
-            sz = TextRenderer.MeasureText(textBox.Text, textBox.Font, sz, TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl);
-            textBox.Height = sz.Height;
-        }
-
         protected override void OnLoad(EventArgs e)
         {
             // Set title
@@ -87,18 +80,21 @@ namespace YtEzDL
             var duration = _json["duration"];
             if (duration != null)
             {
-                var timespan = TimeSpan.FromMinutes(Convert.ToDouble(duration));
-                textBoxTitle.Text += Environment.NewLine + timespan.ToString("g");
+                var timespan = TimeSpan.FromSeconds(Convert.ToDouble(duration));
+                textBoxTitle.Text += Environment.NewLine + timespan.ToString(@"hh\:mm\:ss");
             }
             
-            // Resizebox
-            ResizeTextBox(textBoxTitle);
-            
-            // Show notification
-            BeginInvoke(new MethodInvoker(() => _notifyIcon.ShowBalloonTip(10000, _json["extractor"].ToString(), Text, ToolTipIcon.None)));
-            
-            // Load thumbnail
-            pictureBox.BeginInvoke(new MethodInvoker(LoadThumbNail));
+            // Do this threaded
+            var thread = new Thread(() =>
+            {
+                // Load thumbnail
+                pictureBox.BeginInvoke(new MethodInvoker(LoadThumbNail));
+
+                // Show notification
+                BeginInvoke(new MethodInvoker(() =>
+                    _notifyIcon.ShowBalloonTip(10000, _json["extractor"].ToString(), Text, ToolTipIcon.None)));
+            });
+            thread.Start();
 
             base.OnLoad(e);
         }

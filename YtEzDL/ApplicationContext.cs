@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 
@@ -30,7 +31,12 @@ namespace YtEzDL
 
             // Start clipboard monitor
             _clipboardMonitor = new ClipboardMonitor();
-            _clipboardMonitor.OnClipboardDataChanged += HandleClipboard;
+            _clipboardMonitor.OnClipboardDataChanged += data =>
+            {
+                // Start thread
+                var thread = new Thread(() => HandleClipboard(data));
+                thread.Start();
+            };
             _clipboardMonitor.Monitor();
         }
 
@@ -55,7 +61,7 @@ namespace YtEzDL
 
                     // Show form
                     var downloadForm = new DownloadForm(json, _youtubeDl, _notifyIcon);
-                    downloadForm.Show();
+                    Application.Run(downloadForm);
                 }
             }
             catch (Exception)
