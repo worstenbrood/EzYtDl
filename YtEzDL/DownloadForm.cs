@@ -48,9 +48,9 @@ namespace YtEzDL
             // Now calculate the X,Y position of the upper-left corner 
             // (one of these will always be zero)
             int posX = Convert.ToInt32((boxSize.Width - (image.Width * ratio)) / 2);
-            //int posY = Convert.ToInt32((boxSize.Height - (image.Height * ratio)) / 2);
+            int posY = Convert.ToInt32((boxSize.Height - (image.Height * ratio)) / 2);
 
-            var destRect = new Rectangle(posX, 0, newWidth, newHeight);
+            var destRect = new Rectangle(posX, posY, newWidth, newHeight);
             var destImage = new Bitmap(boxSize.Width, boxSize.Height, PixelFormat.Format24bppRgb);
 
             destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);

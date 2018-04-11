@@ -59,6 +59,7 @@ namespace YtEzDL
                     // Show form
                     var downloadForm = new DownloadForm(info, _youtubeDl, _notifyIcon);
                     Application.Run(downloadForm);
+                    downloadForm.BringToFront();
                 }
             }
             catch (Exception)
