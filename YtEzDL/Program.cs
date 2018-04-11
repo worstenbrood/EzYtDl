@@ -7,8 +7,6 @@ namespace YtEzDL
 {
     static class Program
     {
-        private static Mutex _mutex;
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -18,11 +16,11 @@ namespace YtEzDL
             var mutexName = Assembly.GetExecutingAssembly().FullName;
 
             // Check if mutex already exists
-            if (Mutex.TryOpenExisting(mutexName, out _mutex))
+            if (Mutex.TryOpenExisting(mutexName, out var mutex))
                 return;
 
-            _mutex = new Mutex(true, mutexName);
-            _mutex.WaitOne();
+            mutex = new Mutex(true, mutexName);
+            mutex.WaitOne();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
