@@ -94,7 +94,7 @@ namespace YtEzDL
             // 
             this.tabPageInfo.AutoScroll = true;
             this.tabPageInfo.BackColor = System.Drawing.Color.White;
-            this.tabPageInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            //this.tabPageInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPageInfo.Controls.Add(this.pictureBox);
             this.tabPageInfo.Controls.Add(this.textBoxTitle);
             this.tabPageInfo.Location = new System.Drawing.Point(4, 38);

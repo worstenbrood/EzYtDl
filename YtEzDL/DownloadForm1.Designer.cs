@@ -87,23 +87,9 @@ namespace YtEzDL {
         }
         
         /// <summary>
-        /// Looks up a resource 'statusStrip1.TrayLocation'.
-        /// </summary>
-        public static System.Drawing.Point statusStrip1_TrayLocation {
-            get {
-                return ((System.Drawing.Point)(ResourceManager.GetObject(ResourceNames.statusStrip1_TrayLocation, _resourceCulture)));
-            }
-        }
-        
-        /// <summary>
         /// Lists all the resource names as constant string fields.
         /// </summary>
         public class ResourceNames {
-            
-            /// <summary>
-            /// Stores the resource name 'statusStrip1.TrayLocation'.
-            /// </summary>
-            public const string statusStrip1_TrayLocation = "statusStrip1.TrayLocation";
         }
     }
 }
