@@ -22,7 +22,7 @@ namespace YtEzDL
 
                 var assembly = Assembly.GetExecutingAssembly();
                 var fileInfo = new FileInfo(assembly.Location);
-                return _youtubeDlPath = Path.Combine(fileInfo.DirectoryName, YoutubeDlExe);
+                return _youtubeDlPath = Path.Combine(fileInfo.DirectoryName, "Tools", YoutubeDlExe);
             }
         }
         
