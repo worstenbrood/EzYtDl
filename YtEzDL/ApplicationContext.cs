@@ -61,7 +61,7 @@ namespace YtEzDL
                 if (info != null && info.Count > 0)
                 {
                     // Show form
-                    var downloadForm = new DownloadForm(info, _youtubeDl, _notifyIcon) {TopMost = true};
+                    var downloadForm = new DownloadForm(info, _notifyIcon);
                     Application.Run(downloadForm);
                 }
             }

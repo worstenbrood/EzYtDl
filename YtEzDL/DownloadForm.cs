@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -16,17 +18,16 @@ namespace YtEzDL
     public partial class DownloadForm : MetroForm
     {
         private readonly List<JObject> _json;
-        private readonly YoutubeDl _youtubeDl;
         private readonly NotifyIcon _notifyIcon;
-        private Thread _downloadThread;
-
+        private readonly YoutubeDl _youtubeDl = new YoutubeDl();
+        private readonly AutoResetEvent _downloadEvent = new AutoResetEvent(true);
+       
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SetForegroundWindow(IntPtr hWnd);
         
-        public DownloadForm(List<JObject> json, YoutubeDl youtubeDl, NotifyIcon notifyIcon)
+        public DownloadForm(List<JObject> json, NotifyIcon notifyIcon)
         {
             _json = json;
-            _youtubeDl = youtubeDl;
             _notifyIcon = notifyIcon;
 
             InitializeComponent();
@@ -135,35 +136,59 @@ namespace YtEzDL
             SetForegroundWindow(Handle);
         }
 
-        private void Download_Click(object sender, EventArgs e)
+        private void StartDownload()
         {
-            // Aborting currrent thread
-            if (_downloadThread != null && _downloadThread.IsAlive)
-            {
-                _downloadThread.Abort();
-                _downloadThread.Join();
-            }
-
-            // Start download
-            _downloadThread = new Thread(() =>
+            var downloadThread = new Thread(() =>
             {
                 try
                 {
-                    _youtubeDl.Download(_json[0]["webpage_url"].ToString(), progress => metroProgressBar.Invoke(new MethodInvoker(() => metroProgressBar.Value = (int)progress)));
+                    // Reset event
+                    _downloadEvent.Reset();
+
+                    // Start download
+                    _youtubeDl.Download(_json[0]["webpage_url"].ToString(), new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName,
+                        progress => metroProgressBar.Invoke(new MethodInvoker(() => metroProgressBar.Value = (int)progress)));
                 }
-                finally 
+                catch (Exception ex)
                 {
-                    // Do something
-                    string a = "test";
+                    // todo
+                    MessageBox.Show(ex.Message);
                 }
-                
+                finally
+                {
+                    // Signal
+                    _downloadEvent.Set();
+                }
             });
-            _downloadThread.Start();
+            downloadThread.Start();
+        }
+
+        private void StopDownLoad()
+        {
+            var stopThread = new Thread(() =>
+            {
+                // Stop youtube-dl
+                _youtubeDl.Cancel(new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName, _json[0]["_filename"].ToString());
+
+                // Wait for signal
+                _downloadEvent.WaitOne();
+
+                // Close form
+                Invoke(new MethodInvoker(Close));
+            });
+
+            stopThread.Start();
+        }
+
+        
+        private void Download_Click(object sender, EventArgs e)
+        {
+            StartDownload();
         }
 
         private void metroButtonCancel_Click(object sender, EventArgs e)
         {
-            Close();
+            StopDownLoad();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Management;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,8 +14,10 @@ namespace YtEzDL
     public class YoutubeDl
     {
         private const string YoutubeDlExe = "youtube-dl.exe";
-
         private string _youtubeDlPath;
+
+        private readonly object _lock = new object();
+        private Process _process;
 
         private string YoutubeDlPath
         {
@@ -43,20 +46,25 @@ namespace YtEzDL
                 Arguments = string.Join(" ", parameters),
             };
 
-            var process = new Process { StartInfo = processStartInfo };
-            if (data != null)
+            lock (_lock)
             {
-                process.OutputDataReceived += data;
-            }
-            if (error != null)
-            {
-                process.ErrorDataReceived += error;
-            }
+                _process = new Process {StartInfo = processStartInfo, EnableRaisingEvents = true};
+                if (data != null)
+                {
+                    _process.OutputDataReceived += data;
+                }
+                if (error != null)
+                {
+                    _process.ErrorDataReceived += error;
+                }
 
-            process.Start();
-            process.BeginErrorReadLine();
-            process.BeginOutputReadLine();
-            return process;
+                _process.Start();
+
+                _process.BeginErrorReadLine();
+                _process.BeginOutputReadLine();
+
+                return _process;
+            }
         }
 
         private static readonly Regex Regex = new Regex(@"\[(?<type>\w+)\].[^\d]*(?<pct>\d+.\d+)%", RegexOptions.Compiled);
@@ -80,11 +88,10 @@ namespace YtEzDL
 #if DEBUG
             Debug.WriteLine("Pct: {0}", pct);
 #endif
-
             progress.Invoke(pct);
         }
 
-        public void Download(string url, Action<double> progress)
+        public void Download(string url, string directory, Action<double> progress)
         {
             var error = new StringBuilder();
             
@@ -109,7 +116,10 @@ namespace YtEzDL
             // Error
             if (process.ExitCode != 0)
             {
-                throw new Exception(error.ToString());
+                if (error.Length != 0)
+                {
+                    throw new Exception(error.ToString());
+                }
             }
         }
 
@@ -157,6 +167,59 @@ namespace YtEzDL
 
             // Error
             return process.ExitCode != 0 ? null : output.ToString();
+        }
+
+        private static void KillChildProcesses(int parentProcessId)
+        {
+            // NOTE: Process Ids are reused!
+            var searcher = new ManagementObjectSearcher(
+                "SELECT * " +
+                "FROM Win32_Process " +
+                "WHERE ParentProcessId=" + parentProcessId);
+            ManagementObjectCollection collection = searcher.Get();
+            if (collection.Count > 0)
+            {
+                foreach (var item in collection)
+                {
+                    var childProcessId = Convert.ToInt32(item["ProcessId"]);
+                    if (childProcessId != Process.GetCurrentProcess().Id)
+                    {
+                        KillChildProcesses(childProcessId);
+                        var childProcess = Process.GetProcessById(childProcessId);
+                        childProcess.Kill();
+                    }
+                }
+            }
+        }
+
+        public void Cancel(string directory, string filename)
+        {
+            lock (_lock)
+            {
+                if (_process != null)
+                {
+                    _process.Exited += (sender, args) =>
+                    {
+                        // Cleanup files
+                        foreach (var file in Directory.EnumerateFiles(directory, Path.GetFileNameWithoutExtension(filename) + ".*"))
+                        {
+                            File.Delete(file);
+                        }
+                    };
+
+                    // Kill child process
+                    KillChildProcesses(_process.Id);
+
+                    // Kill process
+                    if (!_process.HasExited)
+                    {
+                        _process.Kill();
+                    }
+                    
+                    // Reset
+                    _process = null;
+                }
+            }
         }
     }
 }
