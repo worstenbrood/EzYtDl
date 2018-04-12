@@ -58,7 +58,7 @@ namespace YtEzDL
                 var info = _youtubeDl.GetInfo(url.OriginalString);
 
                 // Check if url is supported
-                if (info != null)
+                if (info != null && info.Count > 0)
                 {
                     // Show form
                     var downloadForm = new DownloadForm(info, _youtubeDl, _notifyIcon) {TopMost = true};

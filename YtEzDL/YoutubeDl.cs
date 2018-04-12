@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -71,7 +72,7 @@ namespace YtEzDL
             if (!match.Groups["type"].Value.Equals("download", StringComparison.OrdinalIgnoreCase))
                 return;
 
-            var pct = double.Parse(match.Groups["pct"].Value);
+            var pct = double.Parse(match.Groups["pct"].Value, CultureInfo.InvariantCulture);
 
 #if DEBUG
             Debug.WriteLine("Pct: {0}", pct);
