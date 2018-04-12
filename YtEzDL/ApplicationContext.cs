@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -27,6 +28,9 @@ namespace YtEzDL
 
             // Start youtube-dl
             _youtubeDl = new YoutubeDl();
+#if DEBUG
+            Debug.WriteLine(_youtubeDl.GetVersion(), "youtube-dl version");
+#endif
 
             // Start clipboard monitor
             _clipboardMonitor = new ClipboardMonitor();
@@ -57,9 +61,8 @@ namespace YtEzDL
                 if (info != null)
                 {
                     // Show form
-                    var downloadForm = new DownloadForm(info, _youtubeDl, _notifyIcon);
+                    var downloadForm = new DownloadForm(info, _youtubeDl, _notifyIcon) {TopMost = true};
                     Application.Run(downloadForm);
-                    downloadForm.BringToFront();
                 }
             }
             catch (Exception)

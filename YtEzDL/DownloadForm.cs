@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using MetroFramework;
@@ -18,6 +19,9 @@ namespace YtEzDL
         private readonly YoutubeDl _youtubeDl;
         private readonly NotifyIcon _notifyIcon;
 
+        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int SetForegroundWindow(IntPtr hWnd);
+        
         public DownloadForm(List<JObject> json, YoutubeDl youtubeDl, NotifyIcon notifyIcon)
         {
             _json = json;
@@ -86,9 +90,9 @@ namespace YtEzDL
             return null;
         }
 
-        private void LoadThumbNail()
+        private void LoadThumbNail(int index = 0)
         {
-            var thumbnail = GetThumbNail(_json[0], pictureBox.Size);
+            var thumbnail = GetThumbNail(_json[index], pictureBox.Size);
             if (thumbnail != null)
             {
                 pictureBox.Image = thumbnail;
@@ -116,14 +120,18 @@ namespace YtEzDL
             var thread = new Thread(() =>
             {
                 // Load thumbnail
-                pictureBox.BeginInvoke(new MethodInvoker(LoadThumbNail));
+                pictureBox.BeginInvoke(new MethodInvoker(() => LoadThumbNail()));
 
                 // Show notification
                 BeginInvoke(new MethodInvoker(() => _notifyIcon.ShowBalloonTip(10000, _json[0]["extractor"].ToString(), Text, ToolTipIcon.None)));
             });
             thread.Start();
 
+            // Base
             base.OnLoad(e);
+
+            // Set foregroundwindow
+            SetForegroundWindow(Handle);
         }
 
         private void Download_Click(object sender, EventArgs e)
