@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 
 namespace YtEzDL
@@ -57,12 +58,29 @@ namespace YtEzDL
             return process;
         }
 
-        private void ParseProgress(object sender, DataReceivedEventArgs args)
+        private static readonly Regex Regex = new Regex(@"\[(?<type>\w+)\].[^\d]*(?<pct>\d+.\d+)%", RegexOptions.Compiled);
+
+        private void ParseProgress(string data, Action<double> progress)
         {
             // [download]  10.0% of 40.17MiB at  3.86MiB/s ETA 00:09.net 
+            var match = Regex.Match(data);
+            if (!match.Success)
+                return;
+
+            // download
+            if (!match.Groups["type"].Value.Equals("download", StringComparison.OrdinalIgnoreCase))
+                return;
+
+            var pct = double.Parse(match.Groups["pct"].Value);
+
+#if DEBUG
+            Debug.WriteLine("Pct: {0}", pct);
+#endif
+
+            progress.Invoke(pct);
         }
 
-        public void Download(string url)
+        public void Download(string url, Action<double> progress)
         {
             var error = new StringBuilder();
             
@@ -79,7 +97,7 @@ namespace YtEzDL
                 $"\"{url}\""
             };
             
-            var process = CreateProcess(parameters, ParseProgress, (o, e) => error.Append(e.Data));
+            var process = CreateProcess(parameters, (o, e) => ParseProgress(e.Data, progress), (o, e) => error.Append(e.Data));
 
             // Wait for exit
             process.WaitForExit();

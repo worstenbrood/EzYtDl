@@ -18,6 +18,7 @@ namespace YtEzDL
         private readonly List<JObject> _json;
         private readonly YoutubeDl _youtubeDl;
         private readonly NotifyIcon _notifyIcon;
+        private Thread _downloadThread;
 
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SetForegroundWindow(IntPtr hWnd);
@@ -136,7 +137,28 @@ namespace YtEzDL
 
         private void Download_Click(object sender, EventArgs e)
         {
-            _youtubeDl.Download(_json[0]["webpage_url"].ToString());
+            // Aborting currrent thread
+            if (_downloadThread != null && _downloadThread.IsAlive)
+            {
+                _downloadThread.Abort();
+                _downloadThread.Join();
+            }
+
+            // Start download
+            _downloadThread = new Thread(() =>
+            {
+                try
+                {
+                    _youtubeDl.Download(_json[0]["webpage_url"].ToString(), progress => metroProgressBar.Invoke(new MethodInvoker(() => metroProgressBar.Value = (int)progress)));
+                }
+                finally 
+                {
+                    // Do something
+                    string a = "test";
+                }
+                
+            });
+            _downloadThread.Start();
         }
 
         private void metroButtonCancel_Click(object sender, EventArgs e)
