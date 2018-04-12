@@ -32,7 +32,7 @@ namespace YtEzDL
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
-            this.Download = new MetroFramework.Controls.MetroButton();
+            this.metroButtonDownload = new MetroFramework.Controls.MetroButton();
             this.metroButtonCancel = new MetroFramework.Controls.MetroButton();
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
             this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
@@ -45,18 +45,18 @@ namespace YtEzDL
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // Download
+            // metroButtonDownload
             // 
-            this.Download.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.Download.Location = new System.Drawing.Point(27, 260);
-            this.Download.Margin = new System.Windows.Forms.Padding(2);
-            this.Download.Name = "Download";
-            this.Download.Size = new System.Drawing.Size(100, 24);
-            this.Download.Style = MetroFramework.MetroColorStyle.Blue;
-            this.Download.TabIndex = 0;
-            this.Download.Text = "Download";
-            this.Download.UseSelectable = true;
-            this.Download.Click += new System.EventHandler(this.Download_Click);
+            this.metroButtonDownload.FontSize = MetroFramework.MetroButtonSize.Medium;
+            this.metroButtonDownload.Location = new System.Drawing.Point(27, 260);
+            this.metroButtonDownload.Margin = new System.Windows.Forms.Padding(2);
+            this.metroButtonDownload.Name = "Download";
+            this.metroButtonDownload.Size = new System.Drawing.Size(100, 24);
+            this.metroButtonDownload.Style = MetroFramework.MetroColorStyle.Blue;
+            this.metroButtonDownload.TabIndex = 0;
+            this.metroButtonDownload.Text = "Download";
+            this.metroButtonDownload.UseSelectable = true;
+            this.metroButtonDownload.Click += new System.EventHandler(this.metroButtonDownload_Click);
             // 
             // metroButtonCancel
             // 
@@ -121,6 +121,7 @@ namespace YtEzDL
             this.textBoxTitle.Size = new System.Drawing.Size(437, 103);
             this.textBoxTitle.TabIndex = 10;
             this.textBoxTitle.Text = "Title";
+            this.textBoxTitle.UseWaitCursor = false;
             // 
             // tabPageSettings
             // 
@@ -140,7 +141,7 @@ namespace YtEzDL
             this.Controls.Add(this.metroTabControl);
             this.Controls.Add(this.metroProgressBar);
             this.Controls.Add(this.metroButtonCancel);
-            this.Controls.Add(this.Download);
+            this.Controls.Add(this.metroButtonDownload);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(1);
@@ -159,7 +160,7 @@ namespace YtEzDL
 
         #endregion
 
-        private MetroButton Download;
+        private MetroButton metroButtonDownload;
         private MetroButton metroButtonCancel;
         private MetroProgressBar metroProgressBar;
         private MetroTabControl metroTabControl;

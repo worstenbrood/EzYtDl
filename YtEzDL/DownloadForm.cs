@@ -31,6 +31,8 @@ namespace YtEzDL
             _notifyIcon = notifyIcon;
 
             InitializeComponent();
+
+            metroButtonCancel.Enabled = false;
         }
 
         /// <summary>
@@ -145,6 +147,13 @@ namespace YtEzDL
                     // Reset event
                     _downloadEvent.Reset();
 
+                    // Set buttons
+                    Invoke(new MethodInvoker(() =>
+                    {
+                        metroButtonCancel.Enabled = true;
+                        metroButtonDownload.Enabled = false;
+                    }));
+
                     // Start download
                     _youtubeDl.Download(_json[0]["webpage_url"].ToString(), new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName,
                         progress => metroProgressBar.Invoke(new MethodInvoker(() => metroProgressBar.Value = (int)progress)));
@@ -158,6 +167,13 @@ namespace YtEzDL
                 {
                     // Signal
                     _downloadEvent.Set();
+
+                    // Set buttons
+                    Invoke(new MethodInvoker(() =>
+                    {
+                        metroButtonCancel.Enabled = false;
+                        metroButtonDownload.Enabled = true;
+                    }));
                 }
             });
             downloadThread.Start();
@@ -181,7 +197,7 @@ namespace YtEzDL
         }
 
         
-        private void Download_Click(object sender, EventArgs e)
+        private void metroButtonDownload_Click(object sender, EventArgs e)
         {
             StartDownload();
         }
