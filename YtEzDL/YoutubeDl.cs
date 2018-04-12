@@ -63,6 +63,9 @@ namespace YtEzDL
 
         private void ParseProgress(string data, Action<double> progress)
         {
+            if (data == null)
+                return;
+
             // [download]  10.0% of 40.17MiB at  3.86MiB/s ETA 00:09.net 
             var match = Regex.Match(data);
             if (!match.Success)
