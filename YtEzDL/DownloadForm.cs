@@ -68,9 +68,9 @@ namespace YtEzDL
             return destImage;
         }
 
-        private void LoadThumbNail()
+        private Image GetThumbNail(JObject json, Size size)
         {
-            var thumbnail = _json[0]["thumbnail"];
+            var thumbnail = json["thumbnail"];
             if (thumbnail != null)
             {
                 var request = WebRequest.Create(thumbnail.ToString());
@@ -78,9 +78,20 @@ namespace YtEzDL
                 {
                     using (var stream = response.GetResponseStream())
                     {
-                        pictureBox.Image = ResizeImage(Image.FromStream(stream), pictureBox.Size);
+                        return ResizeImage(Image.FromStream(stream), size);
                     }
                 }
+            }
+
+            return null;
+        }
+
+        private void LoadThumbNail()
+        {
+            var thumbnail = GetThumbNail(_json[0], pictureBox.Size);
+            if (thumbnail != null)
+            {
+                pictureBox.Image = thumbnail;
             }
         }
 
