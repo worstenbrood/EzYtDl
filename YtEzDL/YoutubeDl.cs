@@ -223,7 +223,6 @@ namespace YtEzDL
                 {
                     // Ignore
                 }
-                
             }
         }
 
