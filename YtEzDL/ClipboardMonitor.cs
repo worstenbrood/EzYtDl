@@ -12,8 +12,11 @@ namespace YtEzDL
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool ChangeClipboardChain(IntPtr hWndRemove,IntPtr hWndNewNext);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int GetClipboardSequenceNumber();
 
         public enum Messages
         {
@@ -22,6 +25,7 @@ namespace YtEzDL
         }
 
         private IntPtr _clipboardViewerNext;
+        private int _sequence;
 
         // Event
         public delegate void ClipboardDataChanged(IDataObject dataObject);
@@ -31,6 +35,9 @@ namespace YtEzDL
         {
             // Create handle
             CreateHandle(new CreateParams());
+
+            // Get current sequence
+            _sequence = GetClipboardSequenceNumber();
 
             // Set clipboard viewer
             _clipboardViewerNext = SetClipboardViewer(Handle);
@@ -42,6 +49,11 @@ namespace YtEzDL
             {
                 case Messages.WmDrawclipboard:
                 {
+                    // Skip current clipboard content (content thats was there before we started monitoring)
+                    var sequence = GetClipboardSequenceNumber();
+                    if (_sequence == sequence)
+                        break;
+
                     if (OnClipboardDataChanged != null)
                     {
                         // Get clipboard data
