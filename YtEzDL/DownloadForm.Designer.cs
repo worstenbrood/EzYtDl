@@ -50,7 +50,7 @@ namespace YtEzDL
             this.metroButtonDownload.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.metroButtonDownload.Location = new System.Drawing.Point(27, 260);
             this.metroButtonDownload.Margin = new System.Windows.Forms.Padding(2);
-            this.metroButtonDownload.Name = "Download";
+            this.metroButtonDownload.Name = "metroButtonDownload";
             this.metroButtonDownload.Size = new System.Drawing.Size(100, 24);
             this.metroButtonDownload.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroButtonDownload.TabIndex = 0;
@@ -121,7 +121,7 @@ namespace YtEzDL
             this.textBoxTitle.Size = new System.Drawing.Size(437, 103);
             this.textBoxTitle.TabIndex = 10;
             this.textBoxTitle.Text = "Title";
-            this.textBoxTitle.UseWaitCursor = false;
+            this.textBoxTitle.GotFocus += new System.EventHandler(this.TextBoxTitle_GotFocus);
             // 
             // tabPageSettings
             // 

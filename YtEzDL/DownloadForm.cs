@@ -24,7 +24,10 @@ namespace YtEzDL
         
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SetForegroundWindow(IntPtr hWnd);
-        
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool HideCaret(IntPtr hWnd);
+
         public DownloadForm(List<JObject> json, NotifyIcon notifyIcon)
         {
             _json = json;
@@ -205,6 +208,12 @@ namespace YtEzDL
         private void MetroButtonCancel_Click(object sender, EventArgs e)
         {
             StopDownLoad();
+        }
+
+        private void TextBoxTitle_GotFocus(object sender, EventArgs e)
+        {
+            // Hide editbox caret
+            HideCaret(textBoxTitle.Handle);
         }
     }
 }
