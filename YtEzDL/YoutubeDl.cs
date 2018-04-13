@@ -67,31 +67,56 @@ namespace YtEzDL
             }
         }
 
-        private static readonly Regex Regex = new Regex(@"\[(?<type>\w+)\].[^\d]*(?<pct>\d+.\d+)%", RegexOptions.Compiled);
+        private static readonly Regex PercentRegex = new Regex(@"\[(?<type>\w+)\].[^\d]*(?<pct>\d+.\d+)%", RegexOptions.Compiled);
+        private static readonly Regex ActionRegex = new Regex(@"^\[(?<type>\w+)\]", RegexOptions.Compiled);
+        
+        public enum DownloadAction
+        {
+            Download,
+            Ffmpeg
+        }
 
-        private void ParseProgress(string data, Action<double> progress)
+        private void ParseProgress(string data, Action<double, DownloadAction> progress)
         {
             if (data == null)
                 return;
 
             // [download]  10.0% of 40.17MiB at  3.86MiB/s ETA 00:09.net 
-            var match = Regex.Match(data);
+            var match = ActionRegex.Match(data);
             if (!match.Success)
                 return;
 
-            // download
-            if (!match.Groups["type"].Value.Equals("download", StringComparison.OrdinalIgnoreCase))
+            // Parse
+            if (!Enum.TryParse(match.Groups["type"].Value, true, out DownloadAction action))
                 return;
 
-            var pct = double.Parse(match.Groups["pct"].Value, CultureInfo.InvariantCulture);
+            switch (action)
+            {
+                case DownloadAction.Download:
+                {
+                    var m = PercentRegex.Match(data);
+                    if (!m.Success)
+                        break;
+
+                    var pct = double.Parse(m.Groups["pct"].Value, CultureInfo.InvariantCulture);
 
 #if DEBUG
-            Debug.WriteLine("Pct: {0}", pct);
+                    Debug.WriteLine("Pct: {0}", pct);
 #endif
-            progress.Invoke(pct);
+
+                    progress.Invoke(pct, DownloadAction.Download);
+                    break;
+                }
+
+                default:
+                {
+                    progress.Invoke(0, action);
+                    break;
+                }
+            }
         }
 
-        public void Download(string url, string directory, Action<double> progress)
+        public void Download(string url, string directory, Action<double, DownloadAction> progress)
         {
             var error = new StringBuilder();
             

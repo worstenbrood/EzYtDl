@@ -20,7 +20,6 @@ namespace YtEzDL
         private readonly List<JObject> _json;
         private readonly NotifyIcon _notifyIcon;
         private readonly YoutubeDl _youtubeDl = new YoutubeDl();
-        private readonly AutoResetEvent _downloadEvent = new AutoResetEvent(false);
         
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SetForegroundWindow(IntPtr hWnd);
@@ -147,12 +146,6 @@ namespace YtEzDL
             {
                 try
                 {
-                    // Already running
-                    if (_downloadEvent.WaitOne(1))
-                        return;
-
-                    _downloadEvent.Set();
-
                     // Set buttons
                     Invoke(new MethodInvoker(() =>
                     {
@@ -162,7 +155,32 @@ namespace YtEzDL
 
                     // Start download
                     _youtubeDl.Download(_json[0]["webpage_url"].ToString(), new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName,
-                        progress => metroProgressBar.Invoke(new MethodInvoker(() => metroProgressBar.Value = (int)progress)));
+                        (progress, action) =>
+                        {
+                            switch (action)
+                            {
+                                case YoutubeDl.DownloadAction.Download:
+                                {
+                                    metroProgressBar.Invoke(new MethodInvoker(() =>
+                                    {
+                                        metroLabelAction.Text = "Downloading...";
+                                        metroProgressBar.Value = (int) progress;
+                                    }));
+                                    break;
+                                }
+
+                                case YoutubeDl.DownloadAction.Ffmpeg:
+                                {
+                                    metroProgressBar.Invoke(new MethodInvoker(() =>
+                                    {
+                                        metroLabelAction.Text = "Converting...";
+                                        metroProgressBar.ProgressBarStyle = ProgressBarStyle.Marquee;
+                                        metroProgressBar.Value = 0;
+                                    }));
+                                    break;
+                                }
+                            }
+                        });
                 }
                 catch (Exception ex)
                 {
@@ -175,9 +193,10 @@ namespace YtEzDL
                     {
                         metroButtonCancel.Enabled = false;
                         metroButtonDownload.Enabled = true;
+                        metroProgressBar.ProgressBarStyle = ProgressBarStyle.Continuous;
+                        metroProgressBar.Value = 0;
+                        metroLabelAction.Text = string.Empty;
                     }));
-
-                    _downloadEvent.Reset();
                 }
             });
             downloadThread.Start();
@@ -189,12 +208,6 @@ namespace YtEzDL
             {
                 // Stop youtube-dl
                 _youtubeDl.Cancel(new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName, _json[0]["_filename"].ToString());
-
-                // Wait for finish
-                _downloadEvent.WaitOne();
-
-                // Reset progressbar
-                Invoke(new MethodInvoker(() => metroProgressBar.Value = 0));
             });
 
             stopThread.Start();
