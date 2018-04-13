@@ -169,26 +169,28 @@ namespace YtEzDL
             return process.ExitCode != 0 ? null : output.ToString();
         }
 
-        private static void KillChildProcesses(int parentProcessId)
+        private static void KillProcessTree(int parentProcessId)
         {
-            // NOTE: Process Ids are reused!
-            var searcher = new ManagementObjectSearcher(
-                "SELECT * " +
-                "FROM Win32_Process " +
-                "WHERE ParentProcessId=" + parentProcessId);
-            ManagementObjectCollection collection = searcher.Get();
-            if (collection.Count > 0)
+            var searcher = new ManagementObjectSearcher($"SELECT * FROM Win32_Process WHERE ParentProcessId={parentProcessId}");
+            var collection = searcher.Get();
+
+            if (collection.Count <= 0)
             {
-                foreach (var item in collection)
+                return;
+            }
+
+            foreach (var item in collection)
+            {
+                var childProcessId = Convert.ToInt32(item["ProcessId"]);
+                if (childProcessId == Process.GetCurrentProcess().Id)
                 {
-                    var childProcessId = Convert.ToInt32(item["ProcessId"]);
-                    if (childProcessId != Process.GetCurrentProcess().Id)
-                    {
-                        KillChildProcesses(childProcessId);
-                        var childProcess = Process.GetProcessById(childProcessId);
-                        childProcess.Kill();
-                    }
+                    continue;
                 }
+
+                KillProcessTree(childProcessId);
+
+                var childProcess = Process.GetProcessById(childProcessId);
+                childProcess.Kill();
             }
         }
 
@@ -198,6 +200,7 @@ namespace YtEzDL
             {
                 if (_process != null)
                 {
+                    // Do this when process Exited, otherwise files will be in use
                     _process.Exited += (sender, args) =>
                     {
                         // Cleanup files
@@ -208,7 +211,7 @@ namespace YtEzDL
                     };
 
                     // Kill child process
-                    KillChildProcesses(_process.Id);
+                    KillProcessTree(_process.Id);
 
                     // Kill process
                     if (!_process.HasExited)

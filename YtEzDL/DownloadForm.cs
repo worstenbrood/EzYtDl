@@ -163,7 +163,6 @@ namespace YtEzDL
                 }
                 catch (Exception ex)
                 {
-                    // todo
                     MessageBox.Show(ex.Message);
                 }
                 finally
