@@ -132,7 +132,6 @@ namespace YtEzDL
                 // Get thumbnail
                 var thumbnail = GetThumbNail();
                 
-                // Show notification
                 BeginInvoke(new MethodInvoker(() =>
                 {
                     // Set thumbnail
@@ -141,6 +140,7 @@ namespace YtEzDL
                         pictureBox.Image = thumbnail;
                     }
 
+                    // Show notification
                     _notifyIcon.ShowBalloonTip(10000, _json[0]["extractor"].ToString(), Text, ToolTipIcon.None);
                 }));
             });
