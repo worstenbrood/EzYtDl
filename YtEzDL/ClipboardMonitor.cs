@@ -43,6 +43,14 @@ namespace YtEzDL
             _clipboardViewerNext = SetClipboardViewer(Handle);
         }
 
+        private void ForwardMessage(Message m)
+        {
+            if (_clipboardViewerNext != IntPtr.Zero)
+            {
+                SendMessage(_clipboardViewerNext, m.Msg, m.WParam, m.LParam);
+            }
+        }
+
         protected override void WndProc(ref Message m)
         {
             switch ((Messages)m.Msg)
@@ -65,11 +73,8 @@ namespace YtEzDL
                         OnClipboardDataChanged.Invoke(data);
                     }
 
-                    if (_clipboardViewerNext != IntPtr.Zero)
-                    {
-                        // Pass message to chain
-                        SendMessage(_clipboardViewerNext, m.Msg, m.WParam, m.LParam);
-                    }
+                    // Forward message
+                    ForwardMessage(m);
                     
                     break;
                 }
@@ -83,11 +88,8 @@ namespace YtEzDL
                     }
                     else
                     {
-                        if (_clipboardViewerNext != IntPtr.Zero)
-                        {
-                            // Pass message to chain
-                            SendMessage(_clipboardViewerNext, m.Msg, m.WParam, m.LParam);
-                        }
+                        // Forward message
+                        ForwardMessage(m);
                     }
                     break;
                 }
