@@ -20,6 +20,7 @@ namespace YtEzDL
         private readonly List<JObject> _json;
         private readonly NotifyIcon _notifyIcon;
         private readonly YoutubeDl _youtubeDl = new YoutubeDl();
+        private readonly AutoResetEvent _downloadEvent = new AutoResetEvent(false);
         
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SetForegroundWindow(IntPtr hWnd);
@@ -197,6 +198,9 @@ namespace YtEzDL
                         metroProgressBar.Value = 0;
                         metroLabelAction.Text = string.Empty;
                     }));
+
+                    // Set
+                    _downloadEvent.Set();
                 }
             });
             downloadThread.Start();
@@ -227,6 +231,11 @@ namespace YtEzDL
         {
             // Hide editbox caret
             HideCaret(textBoxTitle.Handle);
+        }
+
+        private void DownloadForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning();
         }
     }
 }

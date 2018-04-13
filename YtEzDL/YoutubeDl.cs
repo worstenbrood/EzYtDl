@@ -67,8 +67,8 @@ namespace YtEzDL
             }
         }
 
-        private static readonly Regex PercentRegex = new Regex(@"\[(?<type>\w+)\].[^\d]*(?<pct>\d+.\d+)%", RegexOptions.Compiled);
-        private static readonly Regex ActionRegex = new Regex(@"^\[(?<type>\w+)\]", RegexOptions.Compiled);
+        private static readonly Regex PercentRegex = new Regex(@"\[(?<action>\w+)\].[^\d]*(?<pct>\d+.\d+)%", RegexOptions.Compiled);
+        private static readonly Regex ActionRegex = new Regex(@"^\[(?<action>\w+)\]", RegexOptions.Compiled);
         
         public enum DownloadAction
         {
@@ -87,7 +87,7 @@ namespace YtEzDL
                 return;
 
             // Parse
-            if (!Enum.TryParse(match.Groups["type"].Value, true, out DownloadAction action))
+            if (!Enum.TryParse(match.Groups["action"].Value, true, out DownloadAction action))
                 return;
 
             switch (action)
@@ -214,8 +214,16 @@ namespace YtEzDL
 
                 KillProcessTree(childProcessId);
 
-                var childProcess = Process.GetProcessById(childProcessId);
-                childProcess.Kill();
+                try
+                {
+                    var childProcess = Process.GetProcessById(childProcessId);
+                    childProcess.Kill();
+                }
+                catch (Exception)
+                {
+                    // Ignore
+                }
+                
             }
         }
 
@@ -247,6 +255,14 @@ namespace YtEzDL
                     // Reset
                     _process = null;
                 }
+            }
+        }
+
+        public bool IsRunning()
+        {
+            lock (_lock)
+            {
+                return _process != null && !_process.HasExited;
             }
         }
     }

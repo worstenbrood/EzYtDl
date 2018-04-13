@@ -161,6 +161,7 @@ namespace YtEzDL
             this.Padding = new System.Windows.Forms.Padding(12, 60, 12, 13);
             this.Resizable = false;
             this.Text = "DownloadForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadForm_FormClosing);
             this.metroTabControl.ResumeLayout(false);
             this.tabPageInfo.ResumeLayout(false);
             this.tabPageInfo.PerformLayout();
