@@ -79,27 +79,34 @@ namespace YtEzDL
             return destImage;
         }
 
-        private Image GetThumbNail(JObject json, Size size)
+        private Image DonwloadThumbNail(JObject json, Size size)
         {
             var thumbnail = json["thumbnail"];
             if (thumbnail != null)
             {
-                var request = WebRequest.Create(thumbnail.ToString());
-                using (var response = request.GetResponse())
+                try
                 {
-                    using (var stream = response.GetResponseStream())
+                    var request = WebRequest.Create(thumbnail.ToString());
+                    using (var response = request.GetResponse())
                     {
-                        return ResizeImage(Image.FromStream(stream), size);
+                        using (var stream = response.GetResponseStream())
+                        {
+                            return ResizeImage(Image.FromStream(stream), size);
+                        }
                     }
+                }
+                catch (Exception)
+                {
+                    return null;
                 }
             }
 
             return null;
         }
 
-        private Image LoadThumbNail(int index = 0)
+        private Image GetThumbNail(int index = 0)
         {
-            return GetThumbNail(_json[index], pictureBox.Size);
+            return DonwloadThumbNail(_json[index], pictureBox.Size);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -122,8 +129,8 @@ namespace YtEzDL
             // Do this threaded
             var thread = new Thread(() =>
             {
-                // Load thumbnail
-                var thumbnail = LoadThumbNail();
+                // Get thumbnail
+                var thumbnail = GetThumbNail();
                 
                 // Show notification
                 BeginInvoke(new MethodInvoker(() =>
