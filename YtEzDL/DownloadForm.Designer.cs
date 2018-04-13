@@ -1,5 +1,5 @@
-﻿using MetroFramework;
-using MetroFramework.Controls;
+﻿using MetroFramework.Controls;
+using System.Windows.Forms;
 
 namespace YtEzDL
 {
@@ -122,6 +122,7 @@ namespace YtEzDL
             this.textBoxTitle.TabIndex = 10;
             this.textBoxTitle.Text = "Title";
             this.textBoxTitle.GotFocus += new System.EventHandler(this.TextBoxTitle_GotFocus);
+            this.textBoxTitle.Cursor = Cursors.Arrow;
             // 
             // tabPageSettings
             // 
