@@ -116,7 +116,7 @@ namespace YtEzDL
             // Error
             if (process.ExitCode != 0)
             {
-                if (error.Length != 0)
+                if (error.Length != 0) // This probably means we're force killed
                 {
                     throw new Exception(error.ToString());
                 }
@@ -204,7 +204,7 @@ namespace YtEzDL
                     _process.Exited += (sender, args) =>
                     {
                         // Cleanup files
-                        foreach (var file in Directory.EnumerateFiles(directory, Path.GetFileNameWithoutExtension(filename) + ".*"))
+                        foreach (var file in Directory.EnumerateFiles(directory, $"{Path.GetFileNameWithoutExtension(filename)}.*"))
                         {
                             File.Delete(file);
                         }
