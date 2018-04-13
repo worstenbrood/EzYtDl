@@ -56,7 +56,7 @@ namespace YtEzDL
             this.metroButtonDownload.TabIndex = 0;
             this.metroButtonDownload.Text = "Download";
             this.metroButtonDownload.UseSelectable = true;
-            this.metroButtonDownload.Click += new System.EventHandler(this.metroButtonDownload_Click);
+            this.metroButtonDownload.Click += new System.EventHandler(this.MetroButtonDownload_Click);
             // 
             // metroButtonCancel
             // 
@@ -69,7 +69,7 @@ namespace YtEzDL
             this.metroButtonCancel.TabIndex = 5;
             this.metroButtonCancel.Text = "Cancel";
             this.metroButtonCancel.UseSelectable = true;
-            this.metroButtonCancel.Click += new System.EventHandler(this.metroButtonCancel_Click);
+            this.metroButtonCancel.Click += new System.EventHandler(this.MetroButtonCancel_Click);
             // 
             // metroProgressBar
             // 

@@ -20,8 +20,8 @@ namespace YtEzDL
         private readonly List<JObject> _json;
         private readonly NotifyIcon _notifyIcon;
         private readonly YoutubeDl _youtubeDl = new YoutubeDl();
-        private readonly AutoResetEvent _downloadEvent = new AutoResetEvent(true);
-       
+        private readonly AutoResetEvent _downloadEvent = new AutoResetEvent(false);
+        
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SetForegroundWindow(IntPtr hWnd);
         
@@ -144,8 +144,11 @@ namespace YtEzDL
             {
                 try
                 {
-                    // Reset event
-                    _downloadEvent.Reset();
+                    // Already running
+                    if (_downloadEvent.WaitOne(1))
+                        return;
+
+                    _downloadEvent.Set();
 
                     // Set buttons
                     Invoke(new MethodInvoker(() =>
@@ -165,15 +168,14 @@ namespace YtEzDL
                 }
                 finally
                 {
-                    // Signal
-                    _downloadEvent.Set();
-
                     // Set buttons
                     Invoke(new MethodInvoker(() =>
                     {
                         metroButtonCancel.Enabled = false;
                         metroButtonDownload.Enabled = true;
                     }));
+
+                    _downloadEvent.Reset();
                 }
             });
             downloadThread.Start();
@@ -186,23 +188,22 @@ namespace YtEzDL
                 // Stop youtube-dl
                 _youtubeDl.Cancel(new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName, _json[0]["_filename"].ToString());
 
-                // Wait for signal
+                // Wait for finish
                 _downloadEvent.WaitOne();
 
-                // Close form
-                Invoke(new MethodInvoker(Close));
+                // Reset progressbar
+                Invoke(new MethodInvoker(() => metroProgressBar.Value = 0));
             });
 
             stopThread.Start();
         }
-
         
-        private void metroButtonDownload_Click(object sender, EventArgs e)
+        private void MetroButtonDownload_Click(object sender, EventArgs e)
         {
             StartDownload();
         }
 
-        private void metroButtonCancel_Click(object sender, EventArgs e)
+        private void MetroButtonCancel_Click(object sender, EventArgs e)
         {
             StopDownLoad();
         }
