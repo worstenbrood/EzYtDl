@@ -79,7 +79,7 @@ namespace YtEzDL
             return destImage;
         }
 
-        private Image DonwloadThumbNail(JObject json, Size size)
+        private Image DownloadThumbNail(JObject json, Size size)
         {
             var thumbnail = json["thumbnail"];
             if (thumbnail != null)
@@ -106,7 +106,7 @@ namespace YtEzDL
 
         private Image GetThumbNail(int index = 0)
         {
-            return DonwloadThumbNail(_json[index], pictureBox.Size);
+            return DownloadThumbNail(_json[index], pictureBox.Size);
         }
 
         protected override void OnLoad(EventArgs e)
