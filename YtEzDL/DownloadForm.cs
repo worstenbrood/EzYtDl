@@ -97,13 +97,9 @@ namespace YtEzDL
             return null;
         }
 
-        private void LoadThumbNail(int index = 0)
+        private Image LoadThumbNail(int index = 0)
         {
-            var thumbnail = GetThumbNail(_json[index], pictureBox.Size);
-            if (thumbnail != null)
-            {
-                pictureBox.Image = thumbnail;
-            }
+            return GetThumbNail(_json[index], pictureBox.Size);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -127,10 +123,19 @@ namespace YtEzDL
             var thread = new Thread(() =>
             {
                 // Load thumbnail
-                pictureBox.BeginInvoke(new MethodInvoker(() => LoadThumbNail()));
-
+                var thumbnail = LoadThumbNail();
+                
                 // Show notification
-                BeginInvoke(new MethodInvoker(() => _notifyIcon.ShowBalloonTip(10000, _json[0]["extractor"].ToString(), Text, ToolTipIcon.None)));
+                BeginInvoke(new MethodInvoker(() =>
+                {
+                    // Set thumbnail
+                    if (thumbnail != null)
+                    {
+                        pictureBox.Image = thumbnail;
+                    }
+
+                    _notifyIcon.ShowBalloonTip(10000, _json[0]["extractor"].ToString(), Text, ToolTipIcon.None);
+                }));
             });
             thread.Start();
 
@@ -162,7 +167,7 @@ namespace YtEzDL
                             {
                                 case YoutubeDl.DownloadAction.Download:
                                 {
-                                    metroProgressBar.Invoke(new MethodInvoker(() =>
+                                    Invoke(new MethodInvoker(() =>
                                     {
                                         metroLabelAction.Text = "Downloading...";
                                         metroProgressBar.Value = (int) progress;
@@ -172,7 +177,7 @@ namespace YtEzDL
 
                                 case YoutubeDl.DownloadAction.Ffmpeg:
                                 {
-                                    metroProgressBar.Invoke(new MethodInvoker(() =>
+                                    Invoke(new MethodInvoker(() =>
                                     {
                                         metroLabelAction.Text = "Converting...";
                                         metroProgressBar.ProgressBarStyle = ProgressBarStyle.Marquee;
