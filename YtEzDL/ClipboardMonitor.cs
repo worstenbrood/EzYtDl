@@ -54,6 +54,9 @@ namespace YtEzDL
                     if (_sequence == sequence)
                         break;
 
+                    // Update sequence
+                    _sequence = sequence;
+
                     if (OnClipboardDataChanged != null)
                     {
                         // Get clipboard data
