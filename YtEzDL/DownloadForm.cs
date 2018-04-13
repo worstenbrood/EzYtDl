@@ -25,7 +25,7 @@ namespace YtEzDL
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int SetForegroundWindow(IntPtr hWnd);
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool HideCaret(IntPtr hWnd);
 
         public DownloadForm(List<JObject> json, NotifyIcon notifyIcon)
