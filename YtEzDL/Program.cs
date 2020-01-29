@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
@@ -17,7 +18,10 @@ namespace YtEzDL
 
             // Check if mutex already exists
             if (Mutex.TryOpenExisting(mutexName, out var mutex))
+            {
+                MessageBox.Show("Already running...", Process.GetCurrentProcess().ProcessName);
                 return;
+            }
 
             mutex = new Mutex(true, mutexName);
             mutex.WaitOne();

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
@@ -15,16 +16,12 @@ using Newtonsoft.Json.Linq;
 
 namespace YtEzDL
 {
-    public partial class DownloadForm : MetroForm
+    public partial class DownloadForm : MetroForm, IProgress
     {
         private readonly List<JObject> _json;
         private readonly NotifyIcon _notifyIcon;
-        private readonly YoutubeDl _youtubeDl = new YoutubeDl();
-        private readonly AutoResetEvent _downloadEvent = new AutoResetEvent(false);
+        private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
         
-        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int SetForegroundWindow(IntPtr hWnd);
-
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool HideCaret(IntPtr hWnd);
 
@@ -109,29 +106,12 @@ namespace YtEzDL
             return DownloadThumbNail(_json[index], pictureBox.Size);
         }
 
-        protected override void OnLoad(EventArgs e)
+        private async Task SetThumbNail()
         {
-            // Set title
-            Text = _json[0]["title"].ToString();
-            
-            // Set info
-            textBoxTitle.Font = MetroFonts.Subtitle;
-            textBoxTitle.Text = Text + Environment.NewLine + _json[0]["webpage_url"];
-
-            // Add duration
-            var duration = _json[0]["duration"];
-            if (duration != null)
+            await Task.Run(() =>
             {
-                var timespan = TimeSpan.FromSeconds(Convert.ToDouble(duration));
-                textBoxTitle.Text += Environment.NewLine + timespan.ToString(@"hh\:mm\:ss");
-            }
-            
-            // Do this threaded
-            var thread = new Thread(() =>
-            {
-                // Get thumbnail
                 var thumbnail = GetThumbNail();
-                
+
                 BeginInvoke(new MethodInvoker(() =>
                 {
                     // Set thumbnail
@@ -144,18 +124,46 @@ namespace YtEzDL
                     _notifyIcon.ShowBalloonTip(10000, _json[0]["extractor"].ToString(), Text, ToolTipIcon.None);
                 }));
             });
-            thread.Start();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            // Set title
+            Text = _json[0]["title"].Value<string>().Replace("&", "&&");
+            
+            // Set info
+            textBoxTitle.Font = MetroFonts.Subtitle;
+            textBoxTitle.Text = _json[0]["title"] + Environment.NewLine + _json[0]["webpage_url"];
+
+            // Add duration
+            var duration = _json[0]["duration"];
+            if (duration != null)
+            {
+                var timespan = TimeSpan.FromSeconds(Convert.ToDouble(duration));
+                textBoxTitle.Text += Environment.NewLine + timespan.ToString(@"hh\:mm\:ss");
+            }
+
+            // Add upload date
+            var uploadDate = _json[0]["upload_date"];
+            if (uploadDate != null)
+            {
+                var date = DateTime.ParseExact(uploadDate.ToString(), "yyyyMMdd", CultureInfo.DefaultThreadCurrentCulture, DateTimeStyles.None);
+                textBoxTitle.Text += Environment.NewLine + date.ToString("D");
+            }
+
+            Task.Run(SetThumbNail);
 
             // Base
             base.OnLoad(e);
 
             // Set foregroundwindow
-            SetForegroundWindow(Handle);
+            //SetForegroundWindow(Handle);
+            Activate();
         }
 
-        private void StartDownload()
+        private async Task StartDownload()
         {
-            var downloadThread = new Thread(() =>
+            await Task.Run(() =>
             {
                 try
                 {
@@ -167,33 +175,14 @@ namespace YtEzDL
                     }));
 
                     // Start download
-                    _youtubeDl.Download(_json[0]["webpage_url"].ToString(), new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName,
-                        (progress, action) =>
-                        {
-                            switch (action)
-                            {
-                                case YoutubeDl.DownloadAction.Download:
-                                {
-                                    Invoke(new MethodInvoker(() =>
-                                    {
-                                        metroLabelAction.Text = "Downloading...";
-                                        metroProgressBar.Value = (int) progress;
-                                    }));
-                                    break;
-                                }
-
-                                case YoutubeDl.DownloadAction.Ffmpeg:
-                                {
-                                    Invoke(new MethodInvoker(() =>
-                                    {
-                                        metroLabelAction.Text = "Converting...";
-                                        metroProgressBar.ProgressBarStyle = ProgressBarStyle.Marquee;
-                                        metroProgressBar.Value = 0;
-                                    }));
-                                    break;
-                                }
-                            }
-                        });
+                    _youtubeDl
+                        .Reset()
+                        .ExtractAudio()
+                        .AddMetadata()
+                        .EmbedThumbnail()
+                        .AudioFormat(AudioFormat.Mp3)
+                        .AudioQuality(AudioQuality.Best)
+                        .Download(_json[0]["webpage_url"].Value<string>(), new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName, this);
                 }
                 catch (Exception ex)
                 {
@@ -206,37 +195,31 @@ namespace YtEzDL
                     {
                         metroButtonCancel.Enabled = false;
                         metroButtonDownload.Enabled = true;
-                        metroProgressBar.ProgressBarStyle = ProgressBarStyle.Continuous;
                         metroProgressBar.Value = 0;
-                        metroLabelAction.Text = string.Empty;
+                        metroLabelAction.Text = "Finished";
                     }));
-
-                    // Set
-                    _downloadEvent.Set();
                 }
             });
-            downloadThread.Start();
         }
 
-        private void StopDownLoad()
+        private async Task StopDownLoad()
         {
-            var stopThread = new Thread(() =>
+            await Task.Run(() =>
             {
                 // Stop youtube-dl
-                _youtubeDl.Cancel(new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName, _json[0]["_filename"].ToString());
+                _youtubeDl.Cancel(new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName,
+                    _json[0]["_filename"].ToString());
             });
-
-            stopThread.Start();
         }
         
         private void MetroButtonDownload_Click(object sender, EventArgs e)
         {
-            StartDownload();
+            Task.Run(StartDownload);
         }
 
         private void MetroButtonCancel_Click(object sender, EventArgs e)
         {
-            StopDownLoad();
+            Task.Run(StopDownLoad);
         }
 
         private void TextBoxTitle_GotFocus(object sender, EventArgs e)
@@ -248,6 +231,24 @@ namespace YtEzDL
         private void DownloadForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning();
+        }
+
+        public void Download(double progress)
+        {
+            Invoke(new MethodInvoker(() =>
+            {
+                metroLabelAction.Text = "Downloading...";
+                metroProgressBar.Value = (int)progress;
+            }));
+        }
+
+        public void FfMpeg(double progress)
+        {
+            Invoke(new MethodInvoker(() =>
+            {
+                metroLabelAction.Text = "Converting...";
+                metroProgressBar.Value = 100;
+            }));
         }
     }
 }

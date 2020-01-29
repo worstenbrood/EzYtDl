@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
+using YtEzDL.Utils;
 
 namespace YtEzDL
 {
@@ -11,7 +15,7 @@ namespace YtEzDL
     {
         private readonly NotifyIcon _notifyIcon;
         private readonly ClipboardMonitor _clipboardMonitor;
-        private readonly YoutubeDl _youtubeDl;
+        private readonly YoutubeDownload _youtubeDl;
        
         public ApplicationContext()
         {
@@ -27,7 +31,7 @@ namespace YtEzDL
             };
 
             // Start youtube-dl
-            _youtubeDl = new YoutubeDl();
+            _youtubeDl = new YoutubeDownload();
 #if DEBUG
             Debug.WriteLine(_youtubeDl.GetVersion(), "youtube-dl version");
 #endif
@@ -43,13 +47,27 @@ namespace YtEzDL
             _clipboardMonitor.Monitor();
         }
 
+        private async Task ShowDownLoadForm(List<JObject> info)
+        {
+            // Show form
+            var downloadForm = new DownloadForm(info, _notifyIcon);
+            Application.EnableVisualStyles();
+            Application.Run(downloadForm);
+        }
+
+        private readonly TimedVariable<string> _prevData = new TimedVariable<string>(string.Empty, 1000, string.Empty);
+
         private void HandleClipboard(IDataObject dataObject)
         {
             if (!dataObject.GetDataPresent(DataFormats.StringFormat))
                 return;
 
             var text = (string) dataObject.GetData(DataFormats.StringFormat);
+            if (_prevData.Value.Equals(text))
+                return;
 
+            _prevData.Value = text;
+            
             try
             {
                 var url = new Uri(text);
@@ -60,9 +78,7 @@ namespace YtEzDL
                 // Check if url is supported
                 if (info != null && info.Count > 0)
                 {
-                    // Show form
-                    var downloadForm = new DownloadForm(info, _notifyIcon);
-                    Application.Run(downloadForm);
+                    Task.Run(() => ShowDownLoadForm(info));
                 }
             }
             catch (Exception)
@@ -74,7 +90,6 @@ namespace YtEzDL
         protected override void ExitThreadCore()
         {
             _notifyIcon.Visible = false; // should remove lingering tray icon
-            _clipboardMonitor.Dispose();
             base.ExitThreadCore();
         }
     }

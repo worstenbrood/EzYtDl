@@ -2,11 +2,11 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace YtEzDL
+namespace YtEzDL.Utils
 {
     public class ClipboardMonitor : Form
     {
-        public static IntPtr HWND_MESSAGE = new IntPtr(-3);
+        public static IntPtr HwndMessage = new IntPtr(-3);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
@@ -17,7 +17,7 @@ namespace YtEzDL
 
         public enum Messages
         {
-            WM_CLIPBOARDUPDATE = 0x031D
+            WmClipboardupdate = 0x031D
         }
 
         // Event
@@ -27,7 +27,7 @@ namespace YtEzDL
         public void Monitor()
         {
             //Turn the child window into a message-only window (refer to Microsoft docs)
-            SetParent(Handle, HWND_MESSAGE);
+            SetParent(Handle, HwndMessage);
 
             //Place window in the system-maintained clipboard format listener list
             AddClipboardFormatListener(Handle);
@@ -37,7 +37,7 @@ namespace YtEzDL
         {
             switch ((Messages)m.Msg)
             {
-                case Messages.WM_CLIPBOARDUPDATE:
+                case Messages.WmClipboardupdate:
                 {
                     if (OnClipboardDataChanged != null)
                     {

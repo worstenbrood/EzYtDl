@@ -11,8 +11,88 @@ using Newtonsoft.Json.Linq;
 
 namespace YtEzDL
 {
-    public class YoutubeDl
+    public enum AudioFormat
     {
+        Best,
+        Aac,
+        Flac,
+        Mp3,
+        M4A,
+        Opus,
+        Vorbis,
+        Wav
+    }
+
+    public enum AudioQuality
+    {
+        Best = 0,
+        Medium = 1,
+        Worst = 9
+    }
+
+    public enum DownloadAction
+    {
+        Download,
+        Ffmpeg
+    }
+
+    public class YoutubeDownload
+    {
+        private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
+
+        public YoutubeDownload ExtractAudio()
+        {
+            _parameters["-x"] = string.Empty;
+            return this;
+        }
+
+        public YoutubeDownload AddMetadata()
+        {
+            _parameters["--add-metadata"] = string.Empty;
+            return this;
+        }
+
+        public YoutubeDownload EmbedThumbnail()
+        {
+            _parameters["--embed-thumbnail"] = string.Empty;
+            return this;
+        }
+
+        public YoutubeDownload AudioFormat(AudioFormat format)
+        {
+            _parameters["--audio-format"] = format.ToString("G").ToLowerInvariant();
+            return this;
+        }
+
+        public YoutubeDownload AudioQuality(AudioQuality quality)
+        {
+            _parameters["--audio-quality"] = quality.ToString("D");
+            return this;
+        }
+
+        public YoutubeDownload Reset()
+        {
+            _parameters.Clear();
+            return this;
+        }
+
+        private List<string> GetParameters()
+        {
+            var parameters = new List<string>();
+            foreach (var parameter in _parameters)
+            {
+                parameters.Add(parameter.Key);
+
+                if (!string.IsNullOrEmpty(parameter.Value))
+                {
+                    parameters.Add(parameter.Value);
+                }
+            }
+
+            return parameters;
+        }
+        
+        private const string DownloadUrl = "https://yt-dl.org/downloads/latest/youtube-dl.exe";
         private const string YoutubeDlExe = "youtube-dl.exe";
         private string _youtubeDlPath;
 
@@ -31,7 +111,7 @@ namespace YtEzDL
                 return _youtubeDlPath = Path.Combine(fileInfo.DirectoryName, "Tools", YoutubeDlExe);
             }
         }
-        
+
         private Process CreateProcess(IEnumerable<string> parameters, DataReceivedEventHandler data = null, DataReceivedEventHandler error = null)
         {
             var processStartInfo = new ProcessStartInfo
@@ -48,7 +128,7 @@ namespace YtEzDL
 
             lock (_lock)
             {
-                _process = new Process {StartInfo = processStartInfo, EnableRaisingEvents = true};
+                _process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
                 if (data != null)
                 {
                     _process.OutputDataReceived += data;
@@ -69,14 +149,8 @@ namespace YtEzDL
 
         private static readonly Regex PercentRegex = new Regex(@"\[(?<action>\w+)\].[^\d]*(?<pct>\d+.\d+)%", RegexOptions.Compiled);
         private static readonly Regex ActionRegex = new Regex(@"^\[(?<action>\w+)\]", RegexOptions.Compiled);
-        
-        public enum DownloadAction
-        {
-            Download,
-            Ffmpeg
-        }
 
-        private void ParseProgress(string data, Action<double, DownloadAction> progress)
+        private void ParseProgress(string data, IProgress progress)
         {
             if (data == null)
                 return;
@@ -93,45 +167,34 @@ namespace YtEzDL
             switch (action)
             {
                 case DownloadAction.Download:
-                {
-                    var m = PercentRegex.Match(data);
-                    if (!m.Success)
-                        break;
+                    {
+                        var m = PercentRegex.Match(data);
+                        if (!m.Success)
+                            break;
 
-                    var pct = double.Parse(m.Groups["pct"].Value, CultureInfo.InvariantCulture);
+                        var pct = double.Parse(m.Groups["pct"].Value, CultureInfo.InvariantCulture);
 
 #if DEBUG
-                    Debug.WriteLine("Pct: {0}", pct);
+                        Debug.WriteLine("Pct: {0}", pct);
 #endif
 
-                    progress.Invoke(pct, DownloadAction.Download);
-                    break;
-                }
+                        progress.Download(pct);
+                        break;
+                    }
 
                 default:
-                {
-                    progress.Invoke(0, action);
-                    break;
-                }
+                    {
+                        progress.FfMpeg(0);
+                        break;
+                    }
             }
         }
 
-        public void Download(string url, string directory, Action<double, DownloadAction> progress)
+        public void Download(string url, string directory, IProgress progress)
         {
             var error = new StringBuilder();
-            
-            // Parameters
-            var parameters = new List<string>
-            {
-                "-x",
-                "--add-metadata",
-                "--embed-thumbnail",
-                "--audio-format",
-                "mp3",
-                "--audio-quality",
-                "0",
-                $"\"{url}\""
-            };
+            var parameters = GetParameters();
+            parameters.Add($"\"{url}\"");
             
             var process = CreateProcess(parameters, (o, e) => ParseProgress(e.Data, progress), (o, e) => error.Append(e.Data));
 
@@ -151,7 +214,7 @@ namespace YtEzDL
         public List<JObject> GetInfo(string url)
         {
             var result = new List<JObject>();
-            
+
             // Parameters
             var parameters = new List<string>
             {
@@ -250,7 +313,7 @@ namespace YtEzDL
                     {
                         _process.Kill();
                     }
-                    
+
                     // Reset
                     _process = null;
                 }
@@ -264,5 +327,6 @@ namespace YtEzDL
                 return _process != null && !_process.HasExited;
             }
         }
+
     }
 }
