@@ -47,7 +47,7 @@ namespace YtEzDL
             _clipboardMonitor.Monitor();
         }
 
-        private async Task ShowDownLoadForm(List<JObject> info)
+        private void ShowDownLoadForm(List<JObject> info)
         {
             // Show form
             var downloadForm = new DownloadForm(info, _notifyIcon);

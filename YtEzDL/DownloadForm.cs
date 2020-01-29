@@ -21,6 +21,7 @@ namespace YtEzDL
         private readonly List<JObject> _json;
         private readonly NotifyIcon _notifyIcon;
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
+        private static string _directoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool HideCaret(IntPtr hWnd);
@@ -106,24 +107,21 @@ namespace YtEzDL
             return DownloadThumbNail(_json[index], pictureBox.Size);
         }
 
-        private async Task SetThumbNail()
+        private void SetThumbNail()
         {
-            await Task.Run(() =>
+            var thumbnail = GetThumbNail();
+
+            BeginInvoke(new MethodInvoker(() =>
             {
-                var thumbnail = GetThumbNail();
-
-                BeginInvoke(new MethodInvoker(() =>
+                // Set thumbnail
+                if (thumbnail != null)
                 {
-                    // Set thumbnail
-                    if (thumbnail != null)
-                    {
-                        pictureBox.Image = thumbnail;
-                    }
+                    pictureBox.Image = thumbnail;
+                }
 
-                    // Show notification
-                    _notifyIcon.ShowBalloonTip(10000, _json[0]["extractor"].ToString(), Text, ToolTipIcon.None);
-                }));
-            });
+                // Show notification
+                _notifyIcon.ShowBalloonTip(10000, _json[0]["extractor"].ToString(), Text, ToolTipIcon.None);
+            }));
         }
 
         protected override void OnLoad(EventArgs e)
@@ -151,7 +149,7 @@ namespace YtEzDL
                 textBoxTitle.Text += Environment.NewLine + date.ToString("D");
             }
 
-            Task.Run(SetThumbNail);
+            Task.Run(() => SetThumbNail());
 
             // Base
             base.OnLoad(e);
@@ -161,65 +159,58 @@ namespace YtEzDL
             Activate();
         }
 
-        private async Task StartDownload()
+        private void StartDownload()
         {
-            await Task.Run(() =>
+            try
             {
-                try
+                // Set buttons
+                Invoke(new MethodInvoker(() =>
                 {
-                    // Set buttons
-                    Invoke(new MethodInvoker(() =>
-                    {
-                        metroButtonCancel.Enabled = true;
-                        metroButtonDownload.Enabled = false;
-                    }));
+                    metroButtonCancel.Enabled = true;
+                    metroButtonDownload.Enabled = false;
+                }));
 
-                    // Start download
-                    _youtubeDl
-                        .Reset()
-                        .ExtractAudio()
-                        .AddMetadata()
-                        .EmbedThumbnail()
-                        .AudioFormat(AudioFormat.Mp3)
-                        .AudioQuality(AudioQuality.Best)
-                        .Download(_json[0]["webpage_url"].Value<string>(), new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName, this);
-                }
-                catch (Exception ex)
+                // Start download
+                _youtubeDl
+                    .Reset()
+                    .ExtractAudio()
+                    .AddMetadata()
+                    .EmbedThumbnail()
+                    .AudioFormat(AudioFormat.Mp3)
+                    .AudioQuality(AudioQuality.Best)
+                    .Download(_json[0]["webpage_url"].Value<string>(), _directoryName, this);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                // Set buttons
+                Invoke(new MethodInvoker(() =>
                 {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    // Set buttons
-                    Invoke(new MethodInvoker(() =>
-                    {
-                        metroButtonCancel.Enabled = false;
-                        metroButtonDownload.Enabled = true;
-                        metroProgressBar.Value = 0;
-                        metroLabelAction.Text = "Finished";
-                    }));
-                }
-            });
+                    metroButtonCancel.Enabled = false;
+                    metroButtonDownload.Enabled = true;
+                    metroProgressBar.Value = 0;
+                    metroLabelAction.Text = "Finished";
+                }));
+            }
         }
 
-        private async Task StopDownLoad()
+        private void StopDownLoad()
         {
-            await Task.Run(() =>
-            {
-                // Stop youtube-dl
-                _youtubeDl.Cancel(new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName,
-                    _json[0]["_filename"].ToString());
-            });
+            // Stop youtube-dl
+            _youtubeDl.Cancel(_directoryName, _json[0]["_filename"].Value<string>());
         }
         
         private void MetroButtonDownload_Click(object sender, EventArgs e)
         {
-            Task.Run(StartDownload);
+            Task.Run(() => StartDownload());
         }
 
         private void MetroButtonCancel_Click(object sender, EventArgs e)
         {
-            Task.Run(StopDownLoad);
+            Task.Run(() => StopDownLoad());
         }
 
         private void TextBoxTitle_GotFocus(object sender, EventArgs e)
