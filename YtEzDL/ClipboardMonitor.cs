@@ -4,28 +4,21 @@ using System.Windows.Forms;
 
 namespace YtEzDL
 {
-    public class ClipboardMonitor : NativeWindow, IDisposable
+    public class ClipboardMonitor : Form
     {
-        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
+        public static IntPtr HWND_MESSAGE = new IntPtr(-3);
 
-        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool ChangeClipboardChain(IntPtr hWndRemove,IntPtr hWndNewNext);
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
-        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
-
-        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int GetClipboardSequenceNumber();
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool AddClipboardFormatListener(IntPtr hwnd);
 
         public enum Messages
         {
-            WmDrawclipboard = 0x0308,
-            WmChangecbchain = 0x030D
+            WM_CLIPBOARDUPDATE = 0x031D
         }
-
-        private IntPtr _clipboardViewerNext;
-        private int _sequence;
 
         // Event
         public delegate void ClipboardDataChanged(IDataObject dataObject);
@@ -33,38 +26,19 @@ namespace YtEzDL
 
         public void Monitor()
         {
-            // Create handle
-            CreateHandle(new CreateParams());
+            //Turn the child window into a message-only window (refer to Microsoft docs)
+            SetParent(Handle, HWND_MESSAGE);
 
-            // Get current sequence
-            _sequence = GetClipboardSequenceNumber();
-
-            // Set clipboard viewer
-            _clipboardViewerNext = SetClipboardViewer(Handle);
-        }
-
-        private void ForwardMessage(Message m)
-        {
-            if (_clipboardViewerNext != IntPtr.Zero)
-            {
-                SendMessage(_clipboardViewerNext, m.Msg, m.WParam, m.LParam);
-            }
+            //Place window in the system-maintained clipboard format listener list
+            AddClipboardFormatListener(Handle);
         }
 
         protected override void WndProc(ref Message m)
         {
             switch ((Messages)m.Msg)
             {
-                case Messages.WmDrawclipboard:
+                case Messages.WM_CLIPBOARDUPDATE:
                 {
-                    // Skip current clipboard content (content thats was there before we started monitoring)
-                    var sequence = GetClipboardSequenceNumber();
-                    if (_sequence == sequence)
-                        break;
-
-                    // Update sequence
-                    _sequence = sequence;
-
                     if (OnClipboardDataChanged != null)
                     {
                         // Get clipboard data
@@ -72,46 +46,12 @@ namespace YtEzDL
                         // Pass to event
                         OnClipboardDataChanged.Invoke(data);
                     }
-
-                    // Forward message
-                    ForwardMessage(m);
                     
                     break;
                 }
-
-                case Messages.WmChangecbchain:
-                {
-                    // Monitor chain changed
-                    if (m.WParam == _clipboardViewerNext)
-                    {
-                        _clipboardViewerNext = m.LParam;
-                    }
-                    else
-                    {
-                        // Forward message
-                        ForwardMessage(m);
-                    }
-                    break;
-                }
-
-                default:
-                {
-                    base.WndProc(ref m);
-                    break;
-                }
             }
-        }
 
-        public void Dispose()
-        {
-            if (Handle != IntPtr.Zero)
-            {
-                // Remove from chain
-                ChangeClipboardChain(Handle, _clipboardViewerNext);
-
-                // Destroy window/handle
-                DestroyHandle();
-            }
+            base.WndProc(ref m);
         }
     }
 }
