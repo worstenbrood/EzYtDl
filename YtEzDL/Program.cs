@@ -19,7 +19,9 @@ namespace YtEzDL
             // Check if mutex already exists
             if (Mutex.TryOpenExisting(mutexName, out var mutex))
             {
-                MessageBox.Show("Already running...", Process.GetCurrentProcess().ProcessName);
+                var currentProcess = Process.GetCurrentProcess();
+                var message = $"{currentProcess.ProcessName}(PID:{currentProcess.Id}) is already running.";
+                MessageBox.Show(message, currentProcess.ProcessName);
                 return;
             }
 
