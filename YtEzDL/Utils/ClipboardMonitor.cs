@@ -15,6 +15,10 @@ namespace YtEzDL.Utils
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool AddClipboardFormatListener(IntPtr hwnd);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.U4)]
+        public static extern uint GetClipboardSequenceNumber();
+
         public enum Messages
         {
             WmClipboardupdate = 0x031D
@@ -24,8 +28,14 @@ namespace YtEzDL.Utils
         public delegate void ClipboardDataChanged(IDataObject dataObject);
         public event ClipboardDataChanged OnClipboardDataChanged;
 
+        // Globals
+        private volatile uint _prevSequence;
+
         public void Monitor()
         {
+            // Initial sequence
+            _prevSequence = GetClipboardSequenceNumber();
+
             //Turn the child window into a message-only window (refer to Microsoft docs)
             SetParent(Handle, HwndMessage);
 
@@ -41,8 +51,15 @@ namespace YtEzDL.Utils
                 {
                     if (OnClipboardDataChanged != null)
                     {
+                        var sequence = GetClipboardSequenceNumber();
+                        if (_prevSequence == sequence)
+                            break;
+
+                        _prevSequence = sequence;
+
                         // Get clipboard data
                         var data = Clipboard.GetDataObject();
+                        
                         // Pass to event
                         OnClipboardDataChanged.Invoke(data);
                     }
