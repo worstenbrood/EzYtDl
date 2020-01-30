@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
@@ -14,7 +13,6 @@ namespace YtEzDL
     public class ApplicationContext : System.Windows.Forms.ApplicationContext
     {
         private readonly NotifyIcon _notifyIcon;
-        private readonly ClipboardMonitor _clipboardMonitor;
         private readonly YoutubeDownload _youtubeDl;
        
         public ApplicationContext()
@@ -37,14 +35,9 @@ namespace YtEzDL
 #endif
 
             // Start clipboard monitor
-            _clipboardMonitor = new ClipboardMonitor();
-            _clipboardMonitor.OnClipboardDataChanged += data =>
-            {
-                // Start thread
-                var thread = new Thread(() => HandleClipboard(data));
-                thread.Start();
-            };
-            _clipboardMonitor.Monitor();
+            var clipboardMonitor = new ClipboardMonitor();
+            clipboardMonitor.OnClipboardDataChanged += data => Task.Run(() => HandleClipboard(data));
+            clipboardMonitor.Monitor();
         }
 
         private void ShowDownLoadForm(List<JObject> info)
