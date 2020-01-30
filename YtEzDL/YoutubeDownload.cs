@@ -30,6 +30,16 @@ namespace YtEzDL
         Worst = 9
     }
 
+    public enum VideoFormat
+    {
+        Mp4,
+        Flv,
+        Ogg,
+        Webm,
+        Mkv,
+        Avi
+    }
+
     public enum DownloadAction
     {
         Download,
@@ -67,6 +77,24 @@ namespace YtEzDL
         public YoutubeDownload AudioQuality(AudioQuality quality)
         {
             _parameters["--audio-quality"] = quality.ToString("D");
+            return this;
+        }
+
+        public YoutubeDownload MetadataFromTitle(string format)
+        {
+            _parameters["--metadata-from-title"] = format;
+            return this;
+        }
+
+        public YoutubeDownload VideoFormat(VideoFormat format)
+        {
+            _parameters["--recode-video"] = format.ToString("G").ToLowerInvariant();
+            return this;
+        }
+
+        public YoutubeDownload IgnoreErrors()
+        {
+            _parameters["--ignore-errors"] = string.Empty;
             return this;
         }
 
