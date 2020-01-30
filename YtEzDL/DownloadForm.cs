@@ -21,10 +21,13 @@ namespace YtEzDL
         private readonly List<JObject> _json;
         private readonly NotifyIcon _notifyIcon;
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-        private static string _directoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
+        private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool HideCaret(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         public DownloadForm(List<JObject> json, NotifyIcon notifyIcon)
         {
@@ -155,7 +158,7 @@ namespace YtEzDL
             base.OnLoad(e);
 
             // Set foregroundwindow
-            //SetForegroundWindow(Handle);
+            SetForegroundWindow(Handle);
             Activate();
         }
 
@@ -178,7 +181,7 @@ namespace YtEzDL
                     .EmbedThumbnail()
                     .AudioFormat(AudioFormat.Mp3)
                     .AudioQuality(AudioQuality.Best)
-                    .Download(_json[0]["webpage_url"].Value<string>(), _directoryName, this);
+                    .Download(_json[0]["webpage_url"].Value<string>(), DirectoryName, this);
             }
             catch (Exception ex)
             {
@@ -200,7 +203,7 @@ namespace YtEzDL
         private void StopDownLoad()
         {
             // Stop youtube-dl
-            _youtubeDl.Cancel(_directoryName, _json[0]["_filename"].Value<string>());
+            _youtubeDl.Cancel(DirectoryName, _json[0]["_filename"].Value<string>());
         }
         
         private void MetroButtonDownload_Click(object sender, EventArgs e)
