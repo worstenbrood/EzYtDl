@@ -7,6 +7,7 @@ using System.Management;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 
 namespace YtEzDL
@@ -223,7 +224,7 @@ namespace YtEzDL
             var error = new StringBuilder();
             var parameters = GetParameters();
             parameters.Add($"\"{url}\"");
-            
+
             var process = CreateProcess(parameters, (o, e) => ParseProgress(e.Data, progress), (o, e) => error.Append(e.Data));
 
             // Wait for exit

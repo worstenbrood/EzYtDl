@@ -48,7 +48,7 @@ namespace YtEzDL
             Application.Run(downloadForm);
         }
 
-        private readonly TimedVariable<string> _prevData = new TimedVariable<string>(string.Empty, 1000, string.Empty);
+        private readonly TimedVariable<string> _prevData = new TimedVariable<string>(string.Empty, 5000, string.Empty);
 
         private void HandleClipboard(IDataObject dataObject)
         {

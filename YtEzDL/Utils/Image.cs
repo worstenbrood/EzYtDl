@@ -1,0 +1,52 @@
+﻿using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+
+namespace YtEzDL.Utils
+{
+    public class ImageUtils
+    {
+        /// <summary>
+        /// Resize the image to the specified width and height.
+        /// </summary>
+        /// <param name="image">The image to resize.</param>
+        /// <param name="boxSize"></param>
+        /// <param name="backColor"></param>
+        /// <returns>The resized image.</returns>
+        public static Bitmap Resize(Image image, Size boxSize, Color backColor)
+        {
+            // Figure out the ratio
+            double ratioX = boxSize.Width / (double)image.Width;
+            double ratioY = boxSize.Height / (double)image.Height;
+            // Use whichever multiplier is smaller
+            double ratio = ratioX < ratioY ? ratioX : ratioY;
+
+            // Now we can get the new height and width
+            int newHeight = Convert.ToInt32(image.Height * ratio);
+            int newWidth = Convert.ToInt32(image.Width * ratio);
+
+            // Now calculate the X,Y position of the upper-left corner 
+            // (one of these will always be zero)
+            int posX = Convert.ToInt32((boxSize.Width - (image.Width * ratio)) / 2);
+            int posY = Convert.ToInt32((boxSize.Height - (image.Height * ratio)) / 2);
+
+            var destRect = new Rectangle(posX, posY, newWidth, newHeight);
+            var destImage = new Bitmap(boxSize.Width, boxSize.Height, PixelFormat.Format24bppRgb);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.Clear(backColor);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+    }
+}

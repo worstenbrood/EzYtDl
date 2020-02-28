@@ -43,7 +43,7 @@ namespace YtEzDL.Utils
                 lock (_lock)
                 {
                     _timer.Stop();
-                    T currentValue = _value;
+                    var currentValue = _value;
                     _timer.Start();
                     return currentValue;
                 }
