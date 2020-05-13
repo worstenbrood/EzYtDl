@@ -147,7 +147,7 @@ namespace YtEzDL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this, ex.Message);
             }
             finally
             {

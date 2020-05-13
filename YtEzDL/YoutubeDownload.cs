@@ -51,6 +51,12 @@ namespace YtEzDL
     {
         private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
+        public YoutubeDownload RemoveCache()
+        {
+            _parameters["--rm-cache-dir"] = string.Empty;
+            return this;
+        }
+
         public YoutubeDownload ExtractAudio()
         {
             _parameters["-x"] = string.Empty;
@@ -264,6 +270,28 @@ namespace YtEzDL
 
             // Error
             return process.ExitCode != 0 ? null : result;
+        }
+
+        public int Run()
+        {
+            var error = new StringBuilder();
+            var parameters = GetParameters();
+            
+            var process = CreateProcess(parameters, null, (o, e) => error.Append(e.Data));
+
+            // Wait for exit
+            process.WaitForExit();
+
+            // Error
+            if (process.ExitCode != 0)
+            {
+                if (error.Length != 0) // This probably means we're force killed
+                {
+                    throw new Exception(error.ToString());
+                }
+            }
+
+            return process.ExitCode;
         }
 
         public string GetVersion()
