@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
 using Newtonsoft.Json.Linq;
+using WebPWrapper;
 using YtEzDL.Utils;
 
 namespace YtEzDL
@@ -44,7 +45,7 @@ namespace YtEzDL
 
         private Image DownloadThumbNail(JObject json, Size size)
         {
-            var thumbnail = json["thumbnail"];
+            var thumbnail = json["thumbnails"][0]["url"];
             if (thumbnail != null)
             {
                 try
@@ -54,12 +55,16 @@ namespace YtEzDL
                     {
                         using (var stream = response.GetResponseStream())
                         {
-                            return ImageUtils.Resize(Image.FromStream(stream), size, tabPageInfo.BackColor);
+                            using (var decoder = new WebP())
+                            {
+                                return ImageUtils.Resize(decoder.Decode(Utilities.ReadFully(stream)), size, tabPageInfo.BackColor);
+                            }
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    MessageBox.Show(ex.ToString());
                     return null;
                 }
             }
