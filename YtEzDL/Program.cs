@@ -20,7 +20,7 @@ namespace YtEzDL
             if (Mutex.TryOpenExisting(mutexName, out var mutex))
             {
                 var currentProcess = Process.GetCurrentProcess();
-                var message = $"{currentProcess.ProcessName} (PID:{currentProcess.Id}) is already running.";
+                var message = $"{currentProcess.ProcessName} is already running.";
                 MessageBox.Show(message, currentProcess.ProcessName);
                 return;
             }

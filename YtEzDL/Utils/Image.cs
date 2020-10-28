@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Net;
+using WebPWrapper;
 
 namespace YtEzDL.Utils
 {
@@ -47,6 +49,28 @@ namespace YtEzDL.Utils
             }
 
             return destImage;
+        }
+
+        public static Image Download(string url)
+        {
+            var request = WebRequest.Create(url);
+            using (var response = request.GetResponse())
+            {
+                using (var stream = response.GetResponseStream())
+                {
+                    switch (response.ContentType.ToLower())
+                    {
+                        case "image/webp":
+                            using (var decoder = new WebP())
+                            {
+                                return decoder.Decode(Utilities.ReadFully(stream));
+                            }
+
+                        default:
+                            return Image.FromStream(stream);
+                    }
+                }
+            }
         }
     }
 }

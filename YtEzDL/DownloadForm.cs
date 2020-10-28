@@ -40,27 +40,16 @@ namespace YtEzDL
 
             metroButtonCancel.Enabled = false;
         }
-
         
-
         private Image DownloadThumbNail(JObject json, Size size)
         {
-            var thumbnail = json["thumbnails"][0]["url"];
+            var thumbnail = json["thumbnails"].Last["url"];
             if (thumbnail != null)
             {
                 try
                 {
-                    var request = WebRequest.Create(thumbnail.Value<string>());
-                    using (var response = request.GetResponse())
-                    {
-                        using (var stream = response.GetResponseStream())
-                        {
-                            using (var decoder = new WebP())
-                            {
-                                return ImageUtils.Resize(decoder.Decode(Utilities.ReadFully(stream)), size, tabPageInfo.BackColor);
-                            }
-                        }
-                    }
+                    return ImageUtils.Resize(ImageUtils.Download(thumbnail.Value<string>()), size, tabPageInfo.BackColor);
+                   
                 }
                 catch (Exception ex)
                 {
