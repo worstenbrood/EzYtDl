@@ -30,6 +30,10 @@ namespace YtEzDL
 
             // Start youtube-dl
             _youtubeDl = new YoutubeDownload();
+
+            // Update
+            _youtubeDl.Update();
+
 #if DEBUG
             Debug.WriteLine(_youtubeDl.GetVersion(), "youtube-dl version");
 #endif

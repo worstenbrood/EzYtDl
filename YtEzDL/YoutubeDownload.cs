@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Management;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 
 namespace YtEzDL
@@ -154,6 +154,7 @@ namespace YtEzDL
                 FileName = YoutubeDlPath,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
+                RedirectStandardInput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true,
                 LoadUserProfile = false,
@@ -385,5 +386,27 @@ namespace YtEzDL
             }
         }
 
+        public void Update()
+        {
+            // Parameters
+            var parameters = new List<string>
+            {
+                "--update"
+            };
+
+            var output = new StringBuilder();
+
+            // Version
+            var process = CreateProcess(parameters, (o, e) => output.Append(e.Data + "\n"));
+
+            process.StandardInput.Write('\n');
+
+            // Wait for exit
+            process.WaitForExit();
+
+#if DEBUG
+            Debug.Write(output.ToString());
+#endif
+        }
     }
 }

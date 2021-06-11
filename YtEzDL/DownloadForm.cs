@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -13,7 +10,6 @@ using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
 using Newtonsoft.Json.Linq;
-using WebPWrapper;
 using YtEzDL.Utils;
 
 namespace YtEzDL
