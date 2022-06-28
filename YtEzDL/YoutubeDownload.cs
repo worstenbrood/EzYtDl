@@ -386,7 +386,7 @@ namespace YtEzDL
             }
         }
 
-        public void Update()
+        public string Update()
         {
             // Parameters
             var parameters = new List<string>
@@ -407,6 +407,8 @@ namespace YtEzDL
 #if DEBUG
             Debug.Write(output.ToString());
 #endif
+
+            return output.ToString();
         }
     }
 }

@@ -104,7 +104,7 @@ namespace YtEzDL
                 textBoxTitle.Text += Environment.NewLine + date.ToString("D");
             }
 
-            Task.Run(() => SetThumbNail());
+            Task.Run(SetThumbNail);
 
             // Base
             base.OnLoad(e);
@@ -160,12 +160,12 @@ namespace YtEzDL
         
         private void MetroButtonDownload_Click(object sender, EventArgs e)
         {
-            Task.Run(() => StartDownload());
+            Task.Run(StartDownload);
         }
 
         private void MetroButtonCancel_Click(object sender, EventArgs e)
         {
-            Task.Run(() => StopDownLoad());
+            Task.Run(StopDownLoad);
         }
 
         private void TextBoxTitle_GotFocus(object sender, EventArgs e)

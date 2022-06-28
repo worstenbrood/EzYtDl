@@ -32,11 +32,7 @@ namespace YtEzDL
             _youtubeDl = new YoutubeDownload();
 
             // Update
-            _youtubeDl.Update();
-
-#if DEBUG
-            Debug.WriteLine(_youtubeDl.GetVersion(), "youtube-dl version");
-#endif
+            _notifyIcon.ShowBalloonTip(2000, "Updating...", _youtubeDl.Update(), ToolTipIcon.Info);
 
             // Start clipboard monitor
             var clipboardMonitor = new ClipboardMonitor();
