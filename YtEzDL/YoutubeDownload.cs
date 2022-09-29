@@ -128,7 +128,7 @@ namespace YtEzDL
         }
         
         private const string DownloadUrl = "https://yt-dl.org/downloads/latest/youtube-dl.exe";
-        private const string YoutubeDlExe = "youtube-dl.exe";
+        private const string YoutubeDlExe = "yt-dlp.exe";
         private string _youtubeDlPath;
 
         private readonly object _lock = new object();
