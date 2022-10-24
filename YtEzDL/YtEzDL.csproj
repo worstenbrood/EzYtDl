@@ -8,9 +8,10 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>YtEzDL</RootNamespace>
     <AssemblyName>YtEzDL</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -127,6 +128,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -161,8 +163,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>if "$(ConfigurationName)" == "Debug" exit
-copy /Y "$(ProjectDir)External\*.*" "$(ProjectDir)$(OutDir)"
+    <PreBuildEvent>copy /Y "$(ProjectDir)External\*.*" "$(ProjectDir)$(OutDir)"
+if "$(ConfigurationName)" == "Debug" exit
 if not exist "$(ProjectDir)$(OutDir)Tools" mkdir "$(ProjectDir)$(OutDir)Tools"
 del /F /Q "$(ProjectDir)$(OutDir)Tools\*.*"
 echo Downloading yt-dlp ...
