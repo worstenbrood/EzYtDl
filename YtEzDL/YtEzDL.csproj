@@ -172,6 +172,7 @@ powershell Invoke-WebRequest -Uri https://github.com/yt-dlp/yt-dlp/releases/late
 echo Downloading FFmpeg ...
 powershell Invoke-WebRequest -Uri https://github.com/BtbN/FFmpeg-Builds/releases/latest/download/ffmpeg-master-latest-win64-gpl-shared.zip -OutFile "$(ProjectDir)$(OutDir)\Tools\ffmpeg-master-latest-win64-gpl-shared.zip"
 mkdir "$(ProjectDir)$(OutDir)Tools\Temp"
+echo Extracting FFmpeg ...
 powershell Expand-Archive -LiteralPath "$(ProjectDir)$(OutDir)Tools\ffmpeg-master-latest-win64-gpl-shared.zip" -DestinationPath "$(ProjectDir)$(OutDir)\Tools\Temp"
 move /Y "$(ProjectDir)$(OutDir)\Tools\Temp\ffmpeg-master-latest-win64-gpl-shared\bin\*.*" "$(ProjectDir)$(OutDir)\Tools"
 rmdir /S /Q "$(ProjectDir)$(OutDir)\Tools\Temp"
