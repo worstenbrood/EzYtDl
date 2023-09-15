@@ -28,7 +28,10 @@ namespace YtEzDL
     {
         Best = 0,
         Medium = 1,
-        Worst = 9
+        Worst = 9,
+        Fixed192 = 192,
+        Fixed256 = 256,
+        Fixed320 = 320
     }
 
     public enum VideoFormat

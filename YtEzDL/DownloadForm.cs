@@ -132,7 +132,7 @@ namespace YtEzDL
                     .AddMetadata()
                     .EmbedThumbnail()
                     .AudioFormat(AudioFormat.Mp3)
-                    .AudioQuality(AudioQuality.Best)
+                    .AudioQuality(AudioQuality.Fixed320)
                     .Download(_json[0]["webpage_url"].Value<string>(), DirectoryName, this);
             }
             catch (Exception ex)
