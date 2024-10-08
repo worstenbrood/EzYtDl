@@ -34,17 +34,17 @@ namespace YtEzDL.Forms
             this.metroButtonDownload = new MetroFramework.Controls.MetroButton();
             this.metroButtonCancel = new MetroFramework.Controls.MetroButton();
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
-            this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
+            this.metroLabelAction = new MetroFramework.Controls.MetroLabel();
+            this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.metroCheckBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
             this.tabPageInfo = new System.Windows.Forms.TabPage();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
-            this.tabPageSettings = new System.Windows.Forms.TabPage();
-            this.metroLabelAction = new MetroFramework.Controls.MetroLabel();
-            this.metroCheckBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
-            this.metroTabControl.SuspendLayout();
+            this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
+            this.tabPageSettings.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            this.tabPageSettings.SuspendLayout();
+            this.metroTabControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroButtonDownload
@@ -81,16 +81,33 @@ namespace YtEzDL.Forms
             this.metroProgressBar.Size = new System.Drawing.Size(596, 17);
             this.metroProgressBar.TabIndex = 2;
             // 
-            // metroTabControl
+            // metroLabelAction
             // 
-            this.metroTabControl.Controls.Add(this.tabPageInfo);
-            this.metroTabControl.Controls.Add(this.tabPageSettings);
-            this.metroTabControl.Location = new System.Drawing.Point(23, 63);
-            this.metroTabControl.Name = "metroTabControl";
-            this.metroTabControl.SelectedIndex = 0;
-            this.metroTabControl.Size = new System.Drawing.Size(604, 164);
-            this.metroTabControl.TabIndex = 0;
-            this.metroTabControl.UseSelectable = true;
+            this.metroLabelAction.AutoSize = true;
+            this.metroLabelAction.Location = new System.Drawing.Point(27, 232);
+            this.metroLabelAction.Name = "metroLabelAction";
+            this.metroLabelAction.Size = new System.Drawing.Size(0, 0);
+            this.metroLabelAction.TabIndex = 11;
+            // 
+            // tabPageSettings
+            // 
+            this.tabPageSettings.BackColor = System.Drawing.Color.White;
+            this.tabPageSettings.Controls.Add(this.metroCheckBoxExtractAudio);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 38);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Size = new System.Drawing.Size(596, 122);
+            this.tabPageSettings.TabIndex = 1;
+            this.tabPageSettings.Text = "Settings";
+            // 
+            // metroCheckBoxExtractAudio
+            // 
+            this.metroCheckBoxExtractAudio.AutoSize = true;
+            this.metroCheckBoxExtractAudio.Location = new System.Drawing.Point(8, 8);
+            this.metroCheckBoxExtractAudio.Name = "metroCheckBoxExtractAudio";
+            this.metroCheckBoxExtractAudio.Size = new System.Drawing.Size(94, 15);
+            this.metroCheckBoxExtractAudio.TabIndex = 13;
+            this.metroCheckBoxExtractAudio.Text = "Extract Audio";
+            this.metroCheckBoxExtractAudio.UseSelectable = true;
             // 
             // tabPageInfo
             // 
@@ -126,40 +143,23 @@ namespace YtEzDL.Forms
             this.textBoxTitle.Text = "Title";
             this.textBoxTitle.GotFocus += new System.EventHandler(this.TextBoxTitle_GotFocus);
             // 
-            // tabPageSettings
+            // metroTabControl
             // 
-            this.tabPageSettings.BackColor = System.Drawing.Color.White;
-            this.tabPageSettings.Controls.Add(this.metroCheckBoxExtractAudio);
-            this.tabPageSettings.Location = new System.Drawing.Point(4, 38);
-            this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.Size = new System.Drawing.Size(596, 122);
-            this.tabPageSettings.TabIndex = 1;
-            this.tabPageSettings.Text = "Settings";
-            // 
-            // metroLabelAction
-            // 
-            this.metroLabelAction.AutoSize = true;
-            this.metroLabelAction.Location = new System.Drawing.Point(27, 232);
-            this.metroLabelAction.Name = "metroLabelAction";
-            this.metroLabelAction.Size = new System.Drawing.Size(0, 0);
-            this.metroLabelAction.TabIndex = 11;
-            // 
-            // metroCheckBoxExtractAudio
-            // 
-            this.metroCheckBoxExtractAudio.AutoSize = true;
-            this.metroCheckBoxExtractAudio.Location = new System.Drawing.Point(8, 8);
-            this.metroCheckBoxExtractAudio.Name = "metroCheckBoxExtractAudio";
-            this.metroCheckBoxExtractAudio.Size = new System.Drawing.Size(93, 15);
-            this.metroCheckBoxExtractAudio.TabIndex = 13;
-            this.metroCheckBoxExtractAudio.Text = "Extract Audio";
-            this.metroCheckBoxExtractAudio.UseSelectable = true;
+            this.metroTabControl.Controls.Add(this.tabPageInfo);
+            this.metroTabControl.Controls.Add(this.tabPageSettings);
+            this.metroTabControl.Location = new System.Drawing.Point(23, 63);
+            this.metroTabControl.Name = "metroTabControl";
+            this.metroTabControl.SelectedIndex = 0;
+            this.metroTabControl.Size = new System.Drawing.Size(604, 164);
+            this.metroTabControl.TabIndex = 0;
+            this.metroTabControl.UseSelectable = true;
             // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(653, 325);
+            this.ClientSize = new System.Drawing.Size(653, 527);
             this.Controls.Add(this.metroLabelAction);
             this.Controls.Add(this.metroTabControl);
             this.Controls.Add(this.metroProgressBar);
@@ -174,12 +174,12 @@ namespace YtEzDL.Forms
             this.Resizable = false;
             this.Text = "DownloadForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadForm_FormClosing);
-            this.metroTabControl.ResumeLayout(false);
+            this.tabPageSettings.ResumeLayout(false);
+            this.tabPageSettings.PerformLayout();
             this.tabPageInfo.ResumeLayout(false);
             this.tabPageInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            this.tabPageSettings.ResumeLayout(false);
-            this.tabPageSettings.PerformLayout();
+            this.metroTabControl.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,12 +190,12 @@ namespace YtEzDL.Forms
         private MetroButton metroButtonDownload;
         private MetroButton metroButtonCancel;
         private MetroProgressBar metroProgressBar;
-        private MetroTabControl metroTabControl;
+        private MetroLabel metroLabelAction;
+        private System.Windows.Forms.TabPage tabPageSettings;
+        private MetroCheckBox metroCheckBoxExtractAudio;
         private System.Windows.Forms.TabPage tabPageInfo;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.TextBox textBoxTitle;
-        private System.Windows.Forms.TabPage tabPageSettings;
-        private MetroLabel metroLabelAction;
-        private MetroCheckBox metroCheckBoxExtractAudio;
+        private MetroTabControl metroTabControl;
     }
 }

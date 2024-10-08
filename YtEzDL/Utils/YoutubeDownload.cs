@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Management;
-using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -153,6 +152,12 @@ namespace YtEzDL
 
         private Process CreateProcess(IEnumerable<string> parameters, DataReceivedEventHandler data = null, DataReceivedEventHandler error = null)
         {
+            var arguments = string.Join(" ", parameters);
+
+#if DEBUG
+            Debug.WriteLine("Arguments: {0}", arguments);
+#endif
+
             var processStartInfo = new ProcessStartInfo
             {
                 FileName = YoutubeDlPath,
@@ -163,7 +168,7 @@ namespace YtEzDL
                 CreateNoWindow = true,
                 LoadUserProfile = false,
                 WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = string.Join(" ", parameters),
+                Arguments = string.Join(" ", arguments),
             };
 
             lock (_lock)
@@ -173,6 +178,7 @@ namespace YtEzDL
                 {
                     _process.OutputDataReceived += data;
                 }
+
                 if (error != null)
                 {
                     _process.ErrorDataReceived += error;
@@ -190,7 +196,7 @@ namespace YtEzDL
         private static readonly Regex PercentRegex = new Regex(@"\[(?<action>\w+)\].[^\d]*(?<pct>\d+.\d+)%", RegexOptions.Compiled);
         private static readonly Regex ActionRegex = new Regex(@"^\[(?<action>\w+)\]", RegexOptions.Compiled);
 
-        private void ParseProgress(string data, IProgress progress)
+        private static void ParseProgress(string data, IProgress progress)
         {
             if (data == null)
                 return;
@@ -230,7 +236,7 @@ namespace YtEzDL
             }
         }
 
-        public void Download(string url, string directory, IProgress progress)
+        public YoutubeDownload Download(string url, string directory, IProgress progress)
         {
             var error = new StringBuilder();
             var parameters = GetParameters();
@@ -249,6 +255,8 @@ namespace YtEzDL
                     throw new Exception(error.ToString());
                 }
             }
+
+            return this;
         }
 
         public List<JObject> GetInfo(string url)

@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -82,6 +83,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Track.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Track.Designer.cs">
+      <DependentUpon>Track.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IProgress.cs" />
     <Compile Include="Utils\ClipboardMonitor.cs">
       <SubType>Form</SubType>
@@ -104,21 +111,13 @@
     <Compile Include="Utils\ApplicationContext.cs" />
     <Compile Include="Utils\Utilities.cs" />
     <Compile Include="Utils\YoutubeDownload.cs" />
-    <Compile Include="YtDlSettings.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="YtDlSettings.Designer.cs">
-      <DependentUpon>YtDlSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="YtDlSettings1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>YtDlSettings.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Forms\DownloadForm.resx">
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>DownloadForm1.Designer.cs</LastGenOutput>
       <DependentUpon>DownloadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Track.resx">
+      <DependentUpon>Track.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -148,11 +147,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="YtDlSettings.resx">
-      <Generator>ResXFileCodeGeneratorEx</Generator>
-      <LastGenOutput>YtDlSettings1.Designer.cs</LastGenOutput>
-      <DependentUpon>YtDlSettings.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="YTIcon.ico" />
   </ItemGroup>
   <ItemGroup />
