@@ -30,7 +30,7 @@ namespace YtEzDL
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ApplicationContext());
+            Application.Run(new Utils.ApplicationContext());
         }
     }
 }

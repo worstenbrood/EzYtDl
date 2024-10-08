@@ -1,4 +1,4 @@
-﻿namespace YtEzDL
+﻿namespace YtEzDL.Interfaces
 {
     public interface IProgress
     {

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
-using YtEzDL.Utils;
 
-namespace YtEzDL
+namespace YtEzDL.Utils
 {
     public class ApplicationContext : System.Windows.Forms.ApplicationContext
     {
@@ -43,7 +41,7 @@ namespace YtEzDL
         private void ShowDownLoadForm(List<JObject> info)
         {
             // Show form
-            var downloadForm = new DownloadForm(info, _notifyIcon);
+            var downloadForm = new Forms.DownloadForm(info, _notifyIcon);
             Application.EnableVisualStyles();
             Application.Run(downloadForm);
         }

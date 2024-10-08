@@ -51,11 +51,14 @@ namespace YtEzDL.Utils
                 {
                     if (OnClipboardDataChanged != null)
                     {
-                        var sequence = GetClipboardSequenceNumber();
-                        if (_prevSequence == sequence)
-                            break;
+                        lock (this)
+                        {
+                            var sequence = GetClipboardSequenceNumber();
+                            if (_prevSequence == sequence)
+                                break;
 
-                        _prevSequence = sequence;
+                            _prevSequence = sequence;
+                        }
 
                         // Get clipboard data
                         var data = Clipboard.GetDataObject();

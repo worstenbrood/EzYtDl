@@ -10,9 +10,10 @@ using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
 using Newtonsoft.Json.Linq;
+using YtEzDL.Interfaces;
 using YtEzDL.Utils;
 
-namespace YtEzDL
+namespace YtEzDL.Forms
 {
     public partial class DownloadForm : MetroForm, IProgress
     {

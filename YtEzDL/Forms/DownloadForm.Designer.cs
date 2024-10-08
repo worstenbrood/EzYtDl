@@ -1,7 +1,6 @@
 ﻿using MetroFramework.Controls;
-using System.Windows.Forms;
 
-namespace YtEzDL
+namespace YtEzDL.Forms
 {
     partial class DownloadForm
     {

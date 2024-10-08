@@ -61,7 +61,7 @@ namespace YtEzDL {
                     global::System.Threading.Monitor.Enter(InternalSyncObject);
                     try {
                         if (object.ReferenceEquals(_resourceManager, null)) {
-                            global::System.Threading.Interlocked.Exchange(ref _resourceManager, new global::System.Resources.ResourceManager("YtEzDL.DownloadForm", typeof(DownloadForm).Assembly));
+                            global::System.Threading.Interlocked.Exchange(ref _resourceManager, new global::System.Resources.ResourceManager("YtEzDL.DownloadForm", typeof(Forms.DownloadForm).Assembly));
                         }
                     }
                     finally {
