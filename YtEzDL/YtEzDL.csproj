@@ -83,10 +83,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\Track.cs">
+    <Compile Include="UserControls\Track.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Track.Designer.cs">
+    <Compile Include="UserControls\Track.Designer.cs">
       <DependentUpon>Track.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IProgress.cs" />
@@ -116,7 +116,7 @@
       <LastGenOutput>DownloadForm1.Designer.cs</LastGenOutput>
       <DependentUpon>DownloadForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Track.resx">
+    <EmbeddedResource Include="UserControls\Track.resx">
       <DependentUpon>Track.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -11,25 +11,30 @@ using System.Reflection;
 using System.Threading;
 using MetroFramework.Controls;
 using YtEzDL.Interfaces;
+using System.Runtime.InteropServices;
 
 namespace YtEzDL.Forms
 {
-    public partial class Track : UserControl, IProgress
+    public partial class Track : MetroUserControl, IProgress
     {
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
         private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
-        private Mutex _mutex = new Mutex(false);
+        private readonly Mutex _mutex = new Mutex(false);
+        private readonly NotifyIcon _notifyIcon;
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool HideCaret(IntPtr hWnd);
 
         public JToken Json { get; }
-        public string Url { get; private set; }
-        public string Filename { get; private set; }
+        public string Url { get; }
+        public string Filename { get; }
 
         public Track()
         {
             InitializeComponent();
         }
 
-        public Track(JToken json)
+        public Track(JToken json, NotifyIcon notifyIcon)
         {
             // Save json
             Json = json ?? throw new ArgumentNullException(nameof(json));
@@ -37,6 +42,8 @@ namespace YtEzDL.Forms
             // Save url
             Url = Json["webpage_url"]?.Value<string>();
             Filename = Json["_filename"]?.Value<string>();
+
+            _notifyIcon = notifyIcon;
 
             InitializeComponent();
         }
@@ -155,7 +162,33 @@ namespace YtEzDL.Forms
                 _mutex.ReleaseMutex();
             }
         }
+
+        private void TextBoxTitle_GotFocus(object sender, EventArgs e)
+        {
+            // Hide editbox caret
+            HideCaret(textBoxTitle.Handle);
+        }
         
+        [DllImport("User32.dll")]
+        public static extern IntPtr PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_MOUSEWHEEL = 0x020A;
+            switch (m.Msg)
+            {
+                case WM_MOUSEWHEEL:
+                    if (m.HWnd == Handle)
+                    {
+                         PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
+                    }
+                    break;
+                default:
+                    base.WndProc(ref m);
+                    break;
+            }
+        }
+
         // IProgress
 
         public void Download(double progress)

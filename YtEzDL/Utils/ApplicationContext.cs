@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json.Linq;
 
 namespace YtEzDL.Utils
 {
     public class ApplicationContext : System.Windows.Forms.ApplicationContext
     {
         private readonly NotifyIcon _notifyIcon;
-        private readonly YoutubeDownload _youtubeDl;
-       
+
         public ApplicationContext()
         {
             IContainer container = new Container();
@@ -27,10 +24,10 @@ namespace YtEzDL.Utils
             };
 
             // Start youtube-dl
-            _youtubeDl = new YoutubeDownload();
+            var youtubeDl = new YoutubeDownload();
 
             // Update
-            _notifyIcon.ShowBalloonTip(2000, "Updating...", _youtubeDl.Update(), ToolTipIcon.Info);
+            _notifyIcon.ShowBalloonTip(2000, "Updating...", youtubeDl.Update(), ToolTipIcon.Info);
 
             // Start clipboard monitor
             var clipboardMonitor = new ClipboardMonitor();
@@ -38,10 +35,10 @@ namespace YtEzDL.Utils
             clipboardMonitor.Monitor();
         }
 
-        private void ShowDownLoadForm(List<JObject> info)
+        private void ShowDownLoadForm(string url)
         {
             // Show form
-            var downloadForm = new Forms.DownloadForm(info, _notifyIcon);
+            var downloadForm = new Forms.DownloadForm(url, _notifyIcon);
             Application.EnableVisualStyles();
             Application.Run(downloadForm);
         }
@@ -63,14 +60,9 @@ namespace YtEzDL.Utils
             {
                 var url = new Uri(text);
 
-                // Get info
-                var info = _youtubeDl.GetInfo(url.OriginalString);
+                _notifyIcon.ShowBalloonTip(2000, "Fetching...", text, ToolTipIcon.Info);
 
-                // Check if url is supported
-                if (info != null && info.Count > 0)
-                {
-                    Task.Run(() => ShowDownLoadForm(info));
-                }
+                Task.Run(() => ShowDownLoadForm(url.ToString()));
             }
             catch (Exception)
             {

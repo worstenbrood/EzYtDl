@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using YtEzDL.Interfaces;
 
-namespace YtEzDL
+namespace YtEzDL.Utils
 {
     public enum AudioFormat
     {
@@ -107,7 +107,7 @@ namespace YtEzDL
             _parameters["--ignore-errors"] = string.Empty;
             return this;
         }
-
+        
         public YoutubeDownload Reset()
         {
             _parameters.Clear();
@@ -155,7 +155,7 @@ namespace YtEzDL
             var arguments = string.Join(" ", parameters);
 
 #if DEBUG
-            Debug.WriteLine("Arguments: {0}", arguments);
+            Debug.WriteLine("Arguments: " + arguments);
 #endif
 
             var processStartInfo = new ProcessStartInfo
@@ -168,7 +168,7 @@ namespace YtEzDL
                 CreateNoWindow = true,
                 LoadUserProfile = false,
                 WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = string.Join(" ", arguments),
+                Arguments = arguments
             };
 
             lock (_lock)
@@ -276,13 +276,14 @@ namespace YtEzDL
                 {
                     result.Add(JObject.Parse(e.Data));
                 }
+
             });
 
             // Wait for exit
             process.WaitForExit();
 
             // Error
-            return process.ExitCode != 0 ? null : result;
+            return result;
         }
 
         public int Run()
