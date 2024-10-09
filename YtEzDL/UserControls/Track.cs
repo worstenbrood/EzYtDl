@@ -23,7 +23,7 @@ namespace YtEzDL.UserControls
         private readonly NotifyIcon _notifyIcon;
 
         [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool HideCaret(IntPtr hWnd);
+        private static extern bool HideCaret(IntPtr hWnd);
 
         public JToken Json { get; }
         public string Url { get; }
@@ -92,7 +92,7 @@ namespace YtEzDL.UserControls
                 Text = Json["title"]?.Value<string>()?.Replace("&", "&&") ?? "Untitled";
 
                 // Set info
-                textBoxTitle.Font = MetroFonts.Title;
+                textBoxTitle.Font = new Font(textBoxTitle.Font.FontFamily, 12);
                 textBoxTitle.Text = Json["title"] + Environment.NewLine + Json["webpage_url"];
 
                 // Add duration
@@ -133,6 +133,7 @@ namespace YtEzDL.UserControls
                     .EmbedThumbnail()
                     .AudioFormat(AudioFormat.Mp3)
                     .AudioQuality(AudioQuality.Fixed320)
+                    .IgnoreErrors()
                     .Download(Url, DirectoryName, this);
             }
             finally
@@ -158,18 +159,17 @@ namespace YtEzDL.UserControls
             }
         }
         
-        [DllImport("User32.dll")]
-        public static extern IntPtr PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        
 
         protected override void WndProc(ref Message m)
         {
-            const int mousewheel = 0x020A;
             switch (m.Msg)
             {
-                case mousewheel:
+                // Redirect scroll to parent
+                case Win32.MouseWheel:
                     if (m.HWnd == Handle)
                     {
-                         PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
+                         Win32.PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
                     }
                     break;
                 default:

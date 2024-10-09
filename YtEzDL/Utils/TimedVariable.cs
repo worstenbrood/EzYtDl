@@ -50,7 +50,9 @@ namespace YtEzDL.Utils
             {
                 lock (_lock)
                 {
+                    _timer.Stop();
                     _value = value;
+                    _timer.Start();
                 }
             }
         }

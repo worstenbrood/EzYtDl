@@ -35,7 +35,7 @@ namespace YtEzDL.UserControls
             this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
             this.tabPageInfo = new MetroFramework.Controls.MetroTabPage();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.textBoxTitle = new System.Windows.Forms.TextBox();
+            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.tabPageSettings = new MetroFramework.Controls.MetroTabPage();
             this.metroCheckBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
@@ -121,7 +121,7 @@ namespace YtEzDL.UserControls
             this.textBoxTitle.Multiline = true;
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(605, 127);
+            this.textBoxTitle.Size = new System.Drawing.Size(626, 127);
             this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.Text = "Title";
             this.textBoxTitle.GotFocus += new System.EventHandler(this.textBoxTitle_GotFocus);
@@ -194,7 +194,7 @@ namespace YtEzDL.UserControls
         private MetroFramework.Controls.MetroTabControl metroTabControl;
         private MetroFramework.Controls.MetroTabPage tabPageInfo;
         private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.TextBox textBoxTitle;
+        private ScrollTextBox textBoxTitle;
         private MetroFramework.Controls.MetroTabPage tabPageSettings;
         private MetroFramework.Controls.MetroCheckBox metroCheckBoxExtractAudio;
         private MetroFramework.Controls.MetroProgressBar metroProgressBar;

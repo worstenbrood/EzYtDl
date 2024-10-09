@@ -83,6 +83,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserControls\ScrollTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UserControls\Track.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -110,6 +113,7 @@
     <Compile Include="Utils\TimedVariable.cs" />
     <Compile Include="Utils\ApplicationContext.cs" />
     <Compile Include="Utils\Utilities.cs" />
+    <Compile Include="Utils\Win32.cs" />
     <Compile Include="Utils\YoutubeDownload.cs" />
     <EmbeddedResource Include="Forms\DownloadForm.resx">
       <Generator>ResXFileCodeGeneratorEx</Generator>

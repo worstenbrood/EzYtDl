@@ -16,9 +16,6 @@ namespace YtEzDL.Forms
         private readonly NotifyIcon _notifyIcon;
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
       
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
-
         public DownloadForm(string url, NotifyIcon notifyIcon)
         {
             _url = url;
@@ -51,13 +48,22 @@ namespace YtEzDL.Forms
             // Base
             base.OnLoad(e);
 
-            // Load data
-            Task.Run(() => _youtubeDl.GetInfo(_url, AddControl));
-
             Text = "Fetching data ...";
 
+            // Load data
+            Task.Run(() =>
+            {
+                _youtubeDl.GetInfo(_url, AddControl);
+                ExecuteAsync(f =>
+                {
+                    Text = "Done";
+                    Invalidate();
+                });
+            });
+            
+
             // Set foreground window
-            SetForegroundWindow(Handle);
+            FocusMe();
             Activate();
         }
 

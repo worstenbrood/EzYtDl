@@ -154,7 +154,7 @@ namespace YtEzDL.Utils
             var arguments = string.Join(" ", parameters);
 
 #if DEBUG
-            Debug.WriteLine("Arguments: " + arguments);
+            Debug.WriteLine("Command: " + YoutubeDlPath + " Arguments: " + arguments);
 #endif
 
             var processStartInfo = new ProcessStartInfo
@@ -263,18 +263,20 @@ namespace YtEzDL.Utils
             // Parameters
             var parameters = new List<string>
             {
+                "-i",
                 "-j",
                 $"\"{url}\""
             };
 
             var process = CreateProcess(parameters, (o, e) =>
             {
-                if (e.Data != null)
+                if (e.Data == null)
                 {
-                    var json = JObject.Parse(e.Data);
-                    action.Invoke(json);
+                    return;
                 }
 
+                var json = JObject.Parse(e.Data);
+                action.Invoke(json);
             });
 
             // Wait for exit
@@ -422,7 +424,7 @@ namespace YtEzDL.Utils
                 };
             });
 
-            process.StandardInput.Write('\n');
+            process.StandardInput.Write(Environment.NewLine);
 
             // Wait for exit
             process.WaitForExit();
