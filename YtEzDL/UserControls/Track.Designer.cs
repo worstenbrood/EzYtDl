@@ -121,7 +121,7 @@ namespace YtEzDL.UserControls
             this.textBoxTitle.Multiline = true;
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(604, 127);
+            this.textBoxTitle.Size = new System.Drawing.Size(625, 127);
             this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.Text = "Title";
             this.textBoxTitle.GotFocus += new System.EventHandler(this.textBoxTitle_GotFocus);
@@ -161,7 +161,7 @@ namespace YtEzDL.UserControls
             this.metroProgressBar.Location = new System.Drawing.Point(8, 245);
             this.metroProgressBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.metroProgressBar.Name = "metroProgressBar";
-            this.metroProgressBar.Size = new System.Drawing.Size(795, 21);
+            this.metroProgressBar.Size = new System.Drawing.Size(794, 21);
             this.metroProgressBar.TabIndex = 15;
             // 
             // Track

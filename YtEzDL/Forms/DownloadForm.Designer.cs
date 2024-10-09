@@ -42,7 +42,7 @@ namespace YtEzDL.Forms
             this.metroButtonDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButtonDownload.Enabled = false;
             this.metroButtonDownload.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonDownload.Location = new System.Drawing.Point(15, 325);
+            this.metroButtonDownload.Location = new System.Drawing.Point(15, 451);
             this.metroButtonDownload.Margin = new System.Windows.Forms.Padding(2);
             this.metroButtonDownload.Name = "metroButtonDownload";
             this.metroButtonDownload.Size = new System.Drawing.Size(248, 34);
@@ -56,7 +56,7 @@ namespace YtEzDL.Forms
             // 
             this.metroButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButtonCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonCancel.Location = new System.Drawing.Point(288, 325);
+            this.metroButtonCancel.Location = new System.Drawing.Point(288, 451);
             this.metroButtonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.metroButtonCancel.Name = "metroButtonCancel";
             this.metroButtonCancel.Size = new System.Drawing.Size(248, 34);
@@ -84,7 +84,7 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.ImeMode = System.Windows.Forms.ImeMode.On;
             this.flowLayoutPanel.Location = new System.Drawing.Point(15, 74);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(958, 225);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(958, 351);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             // 
@@ -93,7 +93,7 @@ namespace YtEzDL.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1000, 374);
+            this.ClientSize = new System.Drawing.Size(1000, 500);
             this.Controls.Add(this.flowLayoutPanel);
             this.Controls.Add(this.metroLabelAction);
             this.Controls.Add(this.metroButtonCancel);

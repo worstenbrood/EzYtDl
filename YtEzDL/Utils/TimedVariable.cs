@@ -22,7 +22,7 @@ namespace YtEzDL.Utils
         {
             _timer = new Timer(_lifetime)
             {
-                AutoReset = false,
+                AutoReset = true
             };
             _timer.Elapsed += Callback;
             _timer.Start();
@@ -42,10 +42,7 @@ namespace YtEzDL.Utils
             {
                 lock (_lock)
                 {
-                    _timer.Stop();
-                    var currentValue = _value;
-                    _timer.Start();
-                    return currentValue;
+                    return _value;
                 }
             }
 
@@ -53,10 +50,7 @@ namespace YtEzDL.Utils
             {
                 lock (_lock)
                 {
-                    _timer.Stop();
-                    _timer.Dispose();
                     _value = value;
-                    InitTimer();
                 }
             }
         }

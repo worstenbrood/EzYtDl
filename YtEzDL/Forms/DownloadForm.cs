@@ -111,7 +111,7 @@ namespace YtEzDL.Forms
         {
             e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning();
         }
-
+        
         private void DownloadForm_Resize(object sender, EventArgs e)
         {
             foreach (var track in Tracks)
