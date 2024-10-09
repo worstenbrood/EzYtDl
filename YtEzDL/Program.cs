@@ -8,6 +8,8 @@ namespace YtEzDL
 {
     public static class Program
     {
+        private static Mutex _mutex;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -17,7 +19,7 @@ namespace YtEzDL
             var mutexName = Assembly.GetExecutingAssembly().FullName;
 
             // Check if mutex already exists
-            if (Mutex.TryOpenExisting(mutexName, out var mutex))
+            if (Mutex.TryOpenExisting(mutexName, out _mutex))
             {
                 var currentProcess = Process.GetCurrentProcess();
                 var message = $"{currentProcess.ProcessName} is already running.";
@@ -25,8 +27,8 @@ namespace YtEzDL
                 return;
             }
 
-            mutex = new Mutex(true, mutexName);
-            mutex.WaitOne();
+            _mutex = new Mutex(true, mutexName);
+            _mutex.WaitOne();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
