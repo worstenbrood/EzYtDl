@@ -115,10 +115,6 @@ namespace YtEzDL.Forms
                     track.StartDownload();
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             finally
             {
                 // Set buttons

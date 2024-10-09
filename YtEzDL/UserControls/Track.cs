@@ -132,11 +132,16 @@ namespace YtEzDL.UserControls
                     .AudioQuality(AudioQuality.Fixed320)
                     .IgnoreErrors()
                     .Download(Url, DirectoryName, this);
+                SetProperty(c => metroLabel.Text = "Done");
+            }
+            catch (Exception ex)
+            {
+                SetProperty(c => metroLabel.Text = $"Error: {ex.Message}");
             }
             finally
             {
                 _mutex.ReleaseMutex();
-                SetProperty(c => metroLabel.Text = "Done");
+                
             }
         }
 
