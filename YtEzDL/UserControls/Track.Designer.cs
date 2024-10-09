@@ -32,9 +32,9 @@
             this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
             this.tabPageInfo = new MetroFramework.Controls.MetroTabPage();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.tabPageSettings = new MetroFramework.Controls.MetroTabPage();
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
+            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.metroTabControl.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -59,19 +59,17 @@
             this.metroTabControl.Controls.Add(this.tabPageSettings);
             this.metroTabControl.Location = new System.Drawing.Point(3, 2);
             this.metroTabControl.Name = "metroTabControl";
-            this.metroTabControl.SelectedIndex = 0;
+            this.metroTabControl.SelectedIndex = 1;
             this.metroTabControl.Size = new System.Drawing.Size(604, 164);
             this.metroTabControl.TabIndex = 14;
             this.metroTabControl.UseSelectable = true;
             // 
             // tabPageInfo
             // 
-            this.tabPageInfo.AutoScroll = true;
             this.tabPageInfo.BackColor = System.Drawing.Color.White;
             this.tabPageInfo.Controls.Add(this.pictureBox);
             this.tabPageInfo.Controls.Add(this.textBoxTitle);
-            this.tabPageInfo.HorizontalScrollbar = true;
-            this.tabPageInfo.HorizontalScrollbarBarColor = true;
+            this.tabPageInfo.HorizontalScrollbarBarColor = false;
             this.tabPageInfo.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageInfo.HorizontalScrollbarSize = 10;
             this.tabPageInfo.Location = new System.Drawing.Point(4, 38);
@@ -79,8 +77,7 @@
             this.tabPageInfo.Size = new System.Drawing.Size(596, 122);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Info";
-            this.tabPageInfo.VerticalScrollbar = true;
-            this.tabPageInfo.VerticalScrollbarBarColor = true;
+            this.tabPageInfo.VerticalScrollbarBarColor = false;
             this.tabPageInfo.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageInfo.VerticalScrollbarSize = 10;
             this.tabPageInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
@@ -93,6 +90,33 @@
             this.pictureBox.TabIndex = 11;
             this.pictureBox.TabStop = false;
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
+            // 
+            // tabPageSettings
+            // 
+            this.tabPageSettings.BackColor = System.Drawing.Color.White;
+            this.tabPageSettings.HorizontalScrollbarBarColor = false;
+            this.tabPageSettings.HorizontalScrollbarHighlightOnWheel = false;
+            this.tabPageSettings.HorizontalScrollbarSize = 10;
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 38);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Size = new System.Drawing.Size(596, 122);
+            this.tabPageSettings.TabIndex = 1;
+            this.tabPageSettings.Text = "Settings";
+            this.tabPageSettings.VerticalScrollbarBarColor = false;
+            this.tabPageSettings.VerticalScrollbarHighlightOnWheel = false;
+            this.tabPageSettings.VerticalScrollbarSize = 10;
+            this.tabPageSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
+            // 
+            // metroProgressBar
+            // 
+            this.metroProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.metroProgressBar.FontSize = MetroFramework.MetroProgressBarSize.Tall;
+            this.metroProgressBar.Location = new System.Drawing.Point(6, 199);
+            this.metroProgressBar.Margin = new System.Windows.Forms.Padding(2);
+            this.metroProgressBar.Name = "metroProgressBar";
+            this.metroProgressBar.Size = new System.Drawing.Size(592, 17);
+            this.metroProgressBar.TabIndex = 15;
+            this.metroProgressBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // textBoxTitle
             // 
@@ -110,33 +134,6 @@
             this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.Text = "Title";
             this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
-            // 
-            // tabPageSettings
-            // 
-            this.tabPageSettings.BackColor = System.Drawing.Color.White;
-            this.tabPageSettings.HorizontalScrollbarBarColor = true;
-            this.tabPageSettings.HorizontalScrollbarHighlightOnWheel = false;
-            this.tabPageSettings.HorizontalScrollbarSize = 10;
-            this.tabPageSettings.Location = new System.Drawing.Point(4, 38);
-            this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.Size = new System.Drawing.Size(596, 122);
-            this.tabPageSettings.TabIndex = 1;
-            this.tabPageSettings.Text = "Settings";
-            this.tabPageSettings.VerticalScrollbarBarColor = true;
-            this.tabPageSettings.VerticalScrollbarHighlightOnWheel = false;
-            this.tabPageSettings.VerticalScrollbarSize = 10;
-            this.tabPageSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
-            // 
-            // metroProgressBar
-            // 
-            this.metroProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroProgressBar.FontSize = MetroFramework.MetroProgressBarSize.Tall;
-            this.metroProgressBar.Location = new System.Drawing.Point(6, 199);
-            this.metroProgressBar.Margin = new System.Windows.Forms.Padding(2);
-            this.metroProgressBar.Name = "metroProgressBar";
-            this.metroProgressBar.Size = new System.Drawing.Size(592, 17);
-            this.metroProgressBar.TabIndex = 15;
-            this.metroProgressBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // Track
             // 

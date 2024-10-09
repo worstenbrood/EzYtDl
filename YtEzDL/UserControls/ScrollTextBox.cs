@@ -15,18 +15,12 @@ namespace YtEzDL.UserControls
             {
                 // Redirect scroll to parent
                 case Win32.MouseWheel:
-                    if (m.HWnd == Handle)
-                    {
-                        Win32.PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
-                    }
+                    Win32.PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
                     break;
 
                 // Hide caret
                 case Win32.SetFocus:
-                    if (m.HWnd == Handle)
-                    {
-                        Win32.HideCaret(m.HWnd);
-                    }
+                    Win32.HideCaret(m.HWnd);
                     break;
 
                 default:

@@ -14,7 +14,7 @@ namespace YtEzDL.Forms
         private readonly string _url;
         private readonly NotifyIcon _notifyIcon;
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-      
+        
         public DownloadForm(string url, NotifyIcon notifyIcon)
         {
             _url = url;
@@ -58,13 +58,13 @@ namespace YtEzDL.Forms
 
         private void AddControl(JObject o)
         {
-            flowLayoutPanel.BeginInvoke(new MethodInvoker(() =>
+            ExecuteAsync(f =>
             {
                 var track = new Track(o, _notifyIcon);
                 track.Enabled = true;
-                flowLayoutPanel.Controls.Add(track);
                 SetTrackWidth(track);
-            }));
+                flowLayoutPanel.Controls.Add(track);
+            });
         }
         private void LoadData()
         {

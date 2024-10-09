@@ -179,11 +179,8 @@ namespace YtEzDL.UserControls
             {
                 // Redirect scroll to parent
                 case Win32.MouseWheel:
-                    if (m.HWnd == Handle)
-                    {
-                        Win32.PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
-                    }
-                    goto default;
+                    Win32.PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
+                    break;
 
                 default:
                     base.WndProc(ref m);
