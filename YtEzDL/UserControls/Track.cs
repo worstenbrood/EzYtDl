@@ -15,11 +15,27 @@ namespace YtEzDL.UserControls
 {
     public partial class Track : MetroUserControl, IProgress
     {
-        private readonly YoutubeDownload YoutubeDl = new YoutubeDownload();
+        private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
         private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         private readonly Mutex _mutex = new Mutex(false);
         private readonly NotifyIcon _notifyIcon;
-        public bool IsDownLoading => !_mutex.WaitOne(1);
+        
+        public bool IsDownLoading
+        {
+            get
+            {
+                var enter = _mutex.WaitOne(1);
+                if (!enter)
+                {
+                    return true;
+                }
+
+                // Release mutex
+                _mutex.ReleaseMutex();
+                
+                return false;
+            }
+        }
 
         public bool Selected => BorderStyle == BorderStyle.FixedSingle;
 
@@ -117,14 +133,14 @@ namespace YtEzDL.UserControls
 
         public void StartDownload()
         {
-            if (!_mutex.WaitOne(1))
+            if (IsDownLoading)
             {
                 throw new Exception("Already downloading");
             }
 
             try
             {
-                YoutubeDl
+                _youtubeDl
                     .Reset()
                     .ExtractAudio()
                     .AddMetadata()
@@ -149,7 +165,7 @@ namespace YtEzDL.UserControls
         {
             try
             {
-                YoutubeDl.Cancel(DirectoryName, Filename);
+                _youtubeDl.Cancel(DirectoryName, Filename);
             }
             catch (Exception ex)
             {

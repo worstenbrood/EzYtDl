@@ -42,6 +42,20 @@ namespace YtEzDL.Forms
             track.Width = flowLayoutPanel.Width - offset;
         }
 
+        private Track[] Tracks =>
+            flowLayoutPanel.Controls
+                .Cast<Track>()
+                .ToArray();
+
+        private void ResizeTracks()
+        {
+            // Resize tracks
+            foreach (var track in Tracks)
+            {
+                SetTrackWidth(track);
+            }
+        }
+
         private void AddControl(JObject o)
         {
             flowLayoutPanel.BeginInvoke(new MethodInvoker(() =>
@@ -100,11 +114,6 @@ namespace YtEzDL.Forms
             FocusMe();
             Activate();
         }
-
-        private Track[] Tracks =>
-            flowLayoutPanel.Controls
-                .Cast<Track>()
-                .ToArray();
 
         private void StartDownload()
         {
@@ -186,14 +195,10 @@ namespace YtEzDL.Forms
         {
             e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning();
         }
-        
+
         private void flowLayoutPanel_Resize(object sender, EventArgs e)
         {
-            // Resize tracks
-            foreach (var track in Tracks)
-            {
-                SetTrackWidth(track);
-            }
+            ResizeTracks();
         }
     }
 }

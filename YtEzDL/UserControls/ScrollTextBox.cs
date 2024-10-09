@@ -21,6 +21,7 @@ namespace YtEzDL.UserControls
                     }
                     break;
 
+                // Hide caret
                 case Win32.SetFocus:
                     if (m.HWnd == Handle)
                     {
