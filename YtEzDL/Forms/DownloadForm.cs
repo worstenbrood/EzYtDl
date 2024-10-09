@@ -113,10 +113,10 @@ namespace YtEzDL.Forms
             Task.Run(LoadData);
             
             // Set foreground window
-            FocusMe();
             Activate();
+            FocusMe();
         }
-
+        
         private void StartDownloadTasks()
         {
             var downloadTasks = Tracks
