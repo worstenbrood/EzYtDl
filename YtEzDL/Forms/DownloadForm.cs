@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework;
 using MetroFramework.Forms;
 using Newtonsoft.Json.Linq;
 using YtEzDL.UserControls;
@@ -106,6 +107,8 @@ namespace YtEzDL.Forms
 
             Text = $"Fetching {_url}";
             Cursor = Cursors.WaitCursor;
+            toolStrip.Font = MetroFonts.Default(12);
+            Font = MetroFonts.Default(11);
             
             // Load data
             Task.Run(LoadData);
@@ -212,6 +215,30 @@ namespace YtEzDL.Forms
         private void flowLayoutPanel_Resize(object sender, EventArgs e)
         {
             ResizeTracks();
+        }
+
+        private void toolStripButtonNone_Click(object sender, EventArgs e)
+        {
+            foreach (var track in Tracks.Where(t => t.Selected))
+            {
+                track.Select(false);
+            }
+        }
+
+        private void toolStripButtonAll_Click(object sender, EventArgs e)
+        {
+            foreach (var track in Tracks.Where(t => !t.Selected))
+            {
+                track.Select(true);
+            }
+        }
+
+        private void toolStripButtonToggle_Click(object sender, EventArgs e)
+        {
+            foreach (var track in Tracks)
+            {
+                track.Toggle();
+            }
         }
     }
 }
