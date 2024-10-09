@@ -92,7 +92,6 @@ namespace YtEzDL.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1000, 500);
             this.Controls.Add(this.flowLayoutPanel);
             this.Controls.Add(this.metroLabelAction);

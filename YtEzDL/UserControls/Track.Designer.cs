@@ -161,7 +161,7 @@ namespace YtEzDL.UserControls
             this.metroProgressBar.Location = new System.Drawing.Point(8, 245);
             this.metroProgressBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.metroProgressBar.Name = "metroProgressBar";
-            this.metroProgressBar.Size = new System.Drawing.Size(794, 21);
+            this.metroProgressBar.Size = new System.Drawing.Size(790, 21);
             this.metroProgressBar.TabIndex = 15;
             // 
             // Track
