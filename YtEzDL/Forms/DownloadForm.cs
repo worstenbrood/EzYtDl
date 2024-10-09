@@ -34,11 +34,12 @@ namespace YtEzDL.Forms
         private void SetTrackWidth(Track track)
         {
             var offset = 10;
+            
             if (flowLayoutPanel.VerticalScroll.Visible)
             {
                 offset += SystemInformation.VerticalScrollBarWidth;
             }
-
+            
             track.Width = flowLayoutPanel.Width - offset;
         }
 
@@ -48,8 +49,9 @@ namespace YtEzDL.Forms
             {
                 var track = new Track(o, _notifyIcon);
                 track.Enabled = true;
-                SetTrackWidth(track);
                 flowLayoutPanel.Controls.Add(track);
+                SetTrackWidth(track);
+                
             }));
         }
         private void LoadData()
@@ -148,7 +150,7 @@ namespace YtEzDL.Forms
             e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning();
         }
         
-        private void DownloadForm_Resize(object sender, EventArgs e)
+        private void flowLayoutPanel_Resize(object sender, EventArgs e)
         {
             // Resize tracks
             foreach (var track in Tracks)

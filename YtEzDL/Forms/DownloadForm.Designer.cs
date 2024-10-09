@@ -87,6 +87,7 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.Size = new System.Drawing.Size(970, 351);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
+            this.flowLayoutPanel.Resize += new System.EventHandler(this.flowLayoutPanel_Resize);
             // 
             // DownloadForm
             // 
@@ -106,10 +107,8 @@ namespace YtEzDL.Forms
             this.Padding = new System.Windows.Forms.Padding(12, 60, 12, 13);
             this.Text = "DownloadForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadForm_FormClosing);
-            this.Resize += new System.EventHandler(this.DownloadForm_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
