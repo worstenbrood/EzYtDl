@@ -27,7 +27,7 @@ namespace YtEzDL.Utils
             var youtubeDl = new YoutubeDownload();
 
             // Update
-            _notifyIcon.ShowBalloonTip(2000, "Updating...", youtubeDl.Update(), ToolTipIcon.Info);
+           youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, "Updating...", t, ToolTipIcon.Info));
 
             // Start clipboard monitor
             var clipboardMonitor = new ClipboardMonitor();

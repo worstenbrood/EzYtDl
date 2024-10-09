@@ -405,7 +405,7 @@ namespace YtEzDL.Utils
             }
         }
 
-        public string Update()
+        public void Update(Action<string> action)
         {
             // Parameters
             var parameters = new List<string>
@@ -413,21 +413,19 @@ namespace YtEzDL.Utils
                 "--update"
             };
 
-            var output = new StringBuilder();
-
             // Version
-            var process = CreateProcess(parameters, (o, e) => output.Append(e.Data + "\n"));
+            var process = CreateProcess(parameters, (o, e) =>
+            {
+                if (!string.IsNullOrWhiteSpace(e.Data))
+                {
+                    action.Invoke(e.Data);
+                };
+            });
 
             process.StandardInput.Write('\n');
 
             // Wait for exit
             process.WaitForExit();
-
-#if DEBUG
-            Debug.Write(output.ToString());
-#endif
-
-            return output.ToString();
         }
     }
 }

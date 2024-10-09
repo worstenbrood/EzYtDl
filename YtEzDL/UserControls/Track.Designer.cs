@@ -35,7 +35,7 @@ namespace YtEzDL.UserControls
             this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
             this.tabPageInfo = new MetroFramework.Controls.MetroTabPage();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.textBoxTitle = new MetroFramework.Controls.MetroTextBox();
+            this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.tabPageSettings = new MetroFramework.Controls.MetroTabPage();
             this.metroCheckBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
@@ -107,41 +107,19 @@ namespace YtEzDL.UserControls
             // 
             // textBoxTitle
             // 
+            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTitle.BackColor = System.Drawing.Color.White;
+            this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
-            // 
-            // 
-            // 
-            this.textBoxTitle.CustomButton.Image = null;
-            this.textBoxTitle.CustomButton.Location = new System.Drawing.Point(457, 1);
-            this.textBoxTitle.CustomButton.Margin = new System.Windows.Forms.Padding(5);
-            this.textBoxTitle.CustomButton.Name = "";
-            this.textBoxTitle.CustomButton.Size = new System.Drawing.Size(125, 125);
-            this.textBoxTitle.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.textBoxTitle.CustomButton.TabIndex = 1;
-            this.textBoxTitle.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.textBoxTitle.CustomButton.UseSelectable = true;
-            this.textBoxTitle.CustomButton.Visible = false;
-            this.textBoxTitle.Lines = new string[] {
-        "Title"};
             this.textBoxTitle.Location = new System.Drawing.Point(185, 10);
             this.textBoxTitle.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxTitle.MaxLength = 32767;
             this.textBoxTitle.Multiline = true;
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.PasswordChar = '\0';
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.textBoxTitle.SelectedText = "";
-            this.textBoxTitle.SelectionLength = 0;
-            this.textBoxTitle.SelectionStart = 0;
-            this.textBoxTitle.ShortcutsEnabled = true;
             this.textBoxTitle.Size = new System.Drawing.Size(583, 127);
             this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.Text = "Title";
-            this.textBoxTitle.UseSelectable = true;
-            this.textBoxTitle.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.textBoxTitle.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.textBoxTitle.Enter += new System.EventHandler(this.TextBoxTitle_GotFocus);
             // 
             // tabPageSettings
@@ -185,16 +163,17 @@ namespace YtEzDL.UserControls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.metroLabel);
             this.Controls.Add(this.metroTabControl);
             this.Controls.Add(this.metroProgressBar);
             this.Controls.Add(this.metroLabelAction);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Track";
-            this.Size = new System.Drawing.Size(811, 288);
-            this.BorderStyle = BorderStyle.FixedSingle;
+            this.Size = new System.Drawing.Size(809, 286);
             this.metroTabControl.ResumeLayout(false);
             this.tabPageInfo.ResumeLayout(false);
+            this.tabPageInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.tabPageSettings.ResumeLayout(false);
             this.tabPageSettings.PerformLayout();
@@ -210,7 +189,7 @@ namespace YtEzDL.UserControls
         private MetroFramework.Controls.MetroTabControl metroTabControl;
         private MetroFramework.Controls.MetroTabPage tabPageInfo;
         private System.Windows.Forms.PictureBox pictureBox;
-        private MetroFramework.Controls.MetroTextBox textBoxTitle;
+        private System.Windows.Forms.TextBox textBoxTitle;
         private MetroFramework.Controls.MetroTabPage tabPageSettings;
         private MetroFramework.Controls.MetroCheckBox metroCheckBoxExtractAudio;
         private MetroFramework.Controls.MetroProgressBar metroProgressBar;
