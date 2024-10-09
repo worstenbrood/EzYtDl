@@ -8,7 +8,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework;
+using MetroFramework.Components;
 using MetroFramework.Controls;
+using MetroFramework.Interfaces;
 using Newtonsoft.Json.Linq;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
@@ -156,8 +158,6 @@ namespace YtEzDL.UserControls
             }
         }
         
-        
-
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
@@ -173,6 +173,23 @@ namespace YtEzDL.UserControls
                     base.WndProc(ref m);
                     break;
             }
+        }
+
+        private void Track_MouseClick(object sender, MouseEventArgs e)
+        {
+            /*if (e.Button.HasFlag(MouseButtons.Left))
+            {
+                UseCustomBackColor = true;
+                BackColor = Color.RoyalBlue;
+                
+                foreach (IMetroControl control in Controls)
+                {
+                    control.UseCustomBackColor = true;
+                    
+                }
+
+                Invalidate(Region, true);
+            }*/
         }
 
         // IProgress
@@ -193,11 +210,6 @@ namespace YtEzDL.UserControls
                 metroLabelAction.Text = "Converting...";
                 metroProgressBar.Value = 100;
             });
-        }
-
-        private void textBoxTitle_GotFocus(object sender, EventArgs e)
-        {
-            
         }
     }
 }

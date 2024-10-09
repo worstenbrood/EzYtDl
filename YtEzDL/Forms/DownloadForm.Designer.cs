@@ -84,7 +84,7 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.ImeMode = System.Windows.Forms.ImeMode.On;
             this.flowLayoutPanel.Location = new System.Drawing.Point(15, 74);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(958, 351);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(970, 351);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             // 

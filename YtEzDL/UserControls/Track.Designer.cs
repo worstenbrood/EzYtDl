@@ -35,10 +35,10 @@ namespace YtEzDL.UserControls
             this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
             this.tabPageInfo = new MetroFramework.Controls.MetroTabPage();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.tabPageSettings = new MetroFramework.Controls.MetroTabPage();
             this.metroCheckBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
-            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.metroTabControl.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -108,6 +108,23 @@ namespace YtEzDL.UserControls
             this.pictureBox.TabIndex = 11;
             this.pictureBox.TabStop = false;
             // 
+            // textBoxTitle
+            // 
+            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTitle.BackColor = System.Drawing.Color.White;
+            this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.textBoxTitle.Location = new System.Drawing.Point(185, 10);
+            this.textBoxTitle.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxTitle.Multiline = true;
+            this.textBoxTitle.Name = "textBoxTitle";
+            this.textBoxTitle.ReadOnly = true;
+            this.textBoxTitle.Size = new System.Drawing.Size(489, 127);
+            this.textBoxTitle.TabIndex = 1;
+            this.textBoxTitle.Text = "Title";
+            // 
             // tabPageSettings
             // 
             this.tabPageSettings.BackColor = System.Drawing.Color.White;
@@ -146,24 +163,6 @@ namespace YtEzDL.UserControls
             this.metroProgressBar.Size = new System.Drawing.Size(790, 21);
             this.metroProgressBar.TabIndex = 15;
             // 
-            // textBoxTitle
-            // 
-            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTitle.BackColor = System.Drawing.Color.White;
-            this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.textBoxTitle.Location = new System.Drawing.Point(185, 10);
-            this.textBoxTitle.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxTitle.Multiline = true;
-            this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(447, 127);
-            this.textBoxTitle.TabIndex = 1;
-            this.textBoxTitle.Text = "Title";
-            this.textBoxTitle.GotFocus += new System.EventHandler(this.textBoxTitle_GotFocus);
-            // 
             // Track
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -176,6 +175,7 @@ namespace YtEzDL.UserControls
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Track";
             this.Size = new System.Drawing.Size(809, 286);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             this.metroTabControl.ResumeLayout(false);
             this.tabPageInfo.ResumeLayout(false);
             this.tabPageInfo.PerformLayout();

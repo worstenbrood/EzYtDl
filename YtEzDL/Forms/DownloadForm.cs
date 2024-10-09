@@ -31,14 +31,25 @@ namespace YtEzDL.Forms
             }));
         }
 
+        private void SetTrackWidth(Track track)
+        {
+            var offset = 10;
+            if (flowLayoutPanel.VerticalScroll.Visible)
+            {
+                offset += SystemInformation.VerticalScrollBarWidth;
+            }
+
+            track.Width = flowLayoutPanel.Width - offset;
+        }
+
         private void AddControl(JObject o)
         {
             flowLayoutPanel.BeginInvoke(new MethodInvoker(() =>
             {
-                var control = new Track(o, _notifyIcon);
-                control.Enabled = true;
-                control.Width = flowLayoutPanel.Width - 25;
-                flowLayoutPanel.Controls.Add(control);
+                var track = new Track(o, _notifyIcon);
+                track.Enabled = true;
+                SetTrackWidth(track);
+                flowLayoutPanel.Controls.Add(track);
             }));
         }
         private void LoadData()
@@ -75,7 +86,7 @@ namespace YtEzDL.Forms
             // Base
             base.OnLoad(e);
 
-            Text = "Fetching data ...";
+            Text = $"Fetching {_url}";
             Cursor = Cursors.WaitCursor;
             
             // Load data
@@ -142,7 +153,7 @@ namespace YtEzDL.Forms
             // Resize tracks
             foreach (var track in Tracks)
             {
-                track.Width = flowLayoutPanel.Width - 25;
+                SetTrackWidth(track);
             }
         }
     }
