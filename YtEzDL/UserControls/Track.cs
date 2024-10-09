@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MetroFramework.Controls;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -6,8 +8,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MetroFramework.Controls;
-using Newtonsoft.Json.Linq;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
 
@@ -19,7 +19,9 @@ namespace YtEzDL.UserControls
         private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         private readonly Mutex _mutex = new Mutex(false);
         private readonly NotifyIcon _notifyIcon;
-        
+
+        public bool Selected => BorderStyle == BorderStyle.FixedSingle;
+
         public JToken Json { get; }
         public string Url { get; }
         public string Filename { get; }
@@ -69,7 +71,7 @@ namespace YtEzDL.UserControls
                 return null;
             }
         }
-        
+
         private void SetThumbNail()
         {
             var thumbnail = DownloadThumbNail();
@@ -108,17 +110,17 @@ namespace YtEzDL.UserControls
 
                 Task.Run(SetThumbNail);
             }
-          
+
             base.OnLoad(e);
         }
-        
+
         public async void StartDownload()
         {
             if (!_mutex.WaitOne(1))
             {
                 throw new Exception("Already downloading");
             }
-           
+
             try
             {
                 YoutubeDl
@@ -153,7 +155,7 @@ namespace YtEzDL.UserControls
                 _mutex.ReleaseMutex();
             }
         }
-        
+
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
@@ -162,9 +164,11 @@ namespace YtEzDL.UserControls
                 case Win32.MouseWheel:
                     if (m.HWnd == Handle)
                     {
-                         Win32.PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
+                        Win32.PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
                     }
-                    break;
+                    goto default;
+
+
                 default:
                     base.WndProc(ref m);
                     break;
@@ -173,19 +177,10 @@ namespace YtEzDL.UserControls
 
         private void Track_MouseClick(object sender, MouseEventArgs e)
         {
-            /*if (e.Button.HasFlag(MouseButtons.Left))
+            if (e.Button.HasFlag(MouseButtons.Left))
             {
-                UseCustomBackColor = true;
-                BackColor = Color.RoyalBlue;
-                
-                foreach (IMetroControl control in Controls)
-                {
-                    control.UseCustomBackColor = true;
-                    
-                }
-
-                Invalidate(Region, true);
-            }*/
+                BorderStyle = Selected ? BorderStyle.None : BorderStyle.FixedSingle;
+            }
         }
 
         // IProgress

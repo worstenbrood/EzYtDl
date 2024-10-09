@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace YtEzDL.UserControls
+﻿namespace YtEzDL.UserControls
 {
     partial class Track
     {
@@ -51,8 +49,9 @@ namespace YtEzDL.UserControls
             this.metroLabelAction.Location = new System.Drawing.Point(5, 208);
             this.metroLabelAction.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabelAction.Name = "metroLabelAction";
-            this.metroLabelAction.Size = new System.Drawing.Size(0, 0);
+            this.metroLabelAction.Size = new System.Drawing.Size(100, 50);
             this.metroLabelAction.TabIndex = 13;
+            this.metroLabelAction.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // metroLabel
             // 
@@ -60,8 +59,9 @@ namespace YtEzDL.UserControls
             this.metroLabel.Location = new System.Drawing.Point(9, 210);
             this.metroLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel.Name = "metroLabel";
-            this.metroLabel.Size = new System.Drawing.Size(0, 0);
+            this.metroLabel.Size = new System.Drawing.Size(100, 50);
             this.metroLabel.TabIndex = 16;
+            this.metroLabel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // metroTabControl
             // 
@@ -98,6 +98,7 @@ namespace YtEzDL.UserControls
             this.tabPageInfo.VerticalScrollbarBarColor = true;
             this.tabPageInfo.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageInfo.VerticalScrollbarSize = 13;
+            this.tabPageInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // pictureBox
             // 
@@ -107,6 +108,7 @@ namespace YtEzDL.UserControls
             this.pictureBox.Size = new System.Drawing.Size(156, 128);
             this.pictureBox.TabIndex = 11;
             this.pictureBox.TabStop = false;
+            this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // textBoxTitle
             // 
@@ -121,9 +123,10 @@ namespace YtEzDL.UserControls
             this.textBoxTitle.Multiline = true;
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(489, 127);
+            this.textBoxTitle.Size = new System.Drawing.Size(531, 127);
             this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.Text = "Title";
+            this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // tabPageSettings
             // 
@@ -141,6 +144,7 @@ namespace YtEzDL.UserControls
             this.tabPageSettings.VerticalScrollbarBarColor = true;
             this.tabPageSettings.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageSettings.VerticalScrollbarSize = 13;
+            this.tabPageSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // metroCheckBoxExtractAudio
             // 
@@ -152,6 +156,7 @@ namespace YtEzDL.UserControls
             this.metroCheckBoxExtractAudio.TabIndex = 13;
             this.metroCheckBoxExtractAudio.Text = "Extract Audio";
             this.metroCheckBoxExtractAudio.UseSelectable = true;
+            this.metroCheckBoxExtractAudio.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // metroProgressBar
             // 
@@ -162,6 +167,7 @@ namespace YtEzDL.UserControls
             this.metroProgressBar.Name = "metroProgressBar";
             this.metroProgressBar.Size = new System.Drawing.Size(790, 21);
             this.metroProgressBar.TabIndex = 15;
+            this.metroProgressBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // Track
             // 
