@@ -61,7 +61,7 @@ namespace YtEzDL.Forms
         {
             ExecuteAsync(f =>
             {
-                var track = new Track(o, _notifyIcon);
+                var track = new Track(o);
                 track.Enabled = true;
                 SetTrackWidth(track);
                 flowLayoutPanel.Controls.Add(track);

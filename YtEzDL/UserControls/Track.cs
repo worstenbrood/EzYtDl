@@ -17,8 +17,7 @@ namespace YtEzDL.UserControls
     {
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
         private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
-        private readonly NotifyIcon _notifyIcon;
-        private volatile bool _isDownloading = false;
+        private volatile bool _isDownloading;
         
         public bool DownLoading => _isDownloading;
 
@@ -33,7 +32,7 @@ namespace YtEzDL.UserControls
             InitializeComponent();
         }
 
-        public Track(JToken json, NotifyIcon notifyIcon)
+        public Track(JToken json)
         {
             // Save json
             Json = json ?? throw new ArgumentNullException(nameof(json));
@@ -42,8 +41,7 @@ namespace YtEzDL.UserControls
             Url = Json["webpage_url"]?.Value<string>();
             Filename = Json["_filename"]?.Value<string>();
 
-            _notifyIcon = notifyIcon;
-
+            // Init
             InitializeComponent();
         }
 
@@ -156,7 +154,6 @@ namespace YtEzDL.UserControls
             try
             {
                 _youtubeDl.Cancel(DirectoryName, Filename);
-                SetStatus($"Cancelled");
             }
             catch (Exception ex)
             {

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Management;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -321,6 +319,9 @@ namespace YtEzDL.Utils
                 {
                     continue;
                 }
+
+                // Cancel output reading
+                process.CancelOutputRead();
                 
                 // Kill process and exit loop
                 if (!process.HasExited)
@@ -412,7 +413,6 @@ namespace YtEzDL.Utils
 
                     // Reset
                     _process = null;
-
                 }
             }
         }
