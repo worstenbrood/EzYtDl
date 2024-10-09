@@ -23,5 +23,31 @@ namespace YtEzDL.Utils
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern uint GetClipboardSequenceNumber();
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool CloseHandle(IntPtr hObject);
+
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr OpenThread(ThreadAccess dwDesiredAccess, bool bInheritHandle, int dwThreadId);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern uint SuspendThread(IntPtr hThread);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern uint ResumeThread(IntPtr hThread);
+    }
+
+    [Flags]
+    public enum ThreadAccess : int
+    {
+        Terminate = (0x0001),
+        SuspendResume = (0x0002),
+        GetContext = (0x0008),
+        SetContext = (0x0010),
+        SetInformation = (0x0020),
+        QueryInformation = (0x0040),
+        SetThreadToken = (0x0080),
+        Impersonate = (0x0100),
+        DirectImpersonation = (0x0200)
     }
 }

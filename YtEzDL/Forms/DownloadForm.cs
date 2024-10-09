@@ -72,6 +72,7 @@ namespace YtEzDL.Forms
             try
             {
                 _youtubeDl.GetInfo(_url, AddControl);
+                    
                 ExecuteAsync(f =>
                 {
                     if (Tracks.Length > 1)
@@ -122,7 +123,7 @@ namespace YtEzDL.Forms
                 .Where(t => t.Selected)
                 .Select(t =>
                 {
-                    var task = new Task(t.StartDownload, _source.Token);
+                    var task = new Task(() => t.StartDownload(Source.Token), Source.Token);
                     task.Start();
                     return task;
                 })
@@ -130,9 +131,9 @@ namespace YtEzDL.Forms
 
             try
             {
-                Task.WaitAll(downloadTasks, _source.Token);
+                Task.WaitAll(downloadTasks, Source.Token);
             }
-            catch (OperationCanceledException e)
+            catch (OperationCanceledException)
             {
                 CancelDownloadTasks();
             }
@@ -141,7 +142,7 @@ namespace YtEzDL.Forms
         private void CancelDownloadTasks()
         {
             var stopTasks = Tracks
-                .Where(t => t.DownLoading)
+                .Where(t => t.Selected && t.DownLoading)
                 .Select(t =>
                 {
                     var task = new Task(t.CancelDownload);
@@ -175,11 +176,29 @@ namespace YtEzDL.Forms
             }
         }
         
-        private readonly CancellationTokenSource _source = new CancellationTokenSource();
+        private CancellationTokenSource _source;
+
+        private CancellationTokenSource Source
+        {
+            get
+            {
+                if (_source == null)
+                {
+                    return _source = new CancellationTokenSource();
+                }
+
+                if (!_source.IsCancellationRequested)
+                {
+                    return _source;
+                }
+                _source.Dispose();
+                return _source = new CancellationTokenSource();
+            }
+        }
         
         private void MetroButtonDownload_Click(object sender, EventArgs e)
         {
-            Task.Run(StartDownload, _source.Token);
+            Task.Run(StartDownload, Source.Token);
         }
 
         private void MetroButtonCancel_Click(object sender, EventArgs e)

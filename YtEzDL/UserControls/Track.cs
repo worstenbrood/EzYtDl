@@ -116,7 +116,7 @@ namespace YtEzDL.UserControls
             base.OnLoad(e);
         }
 
-        public void StartDownload()
+        public void StartDownload(CancellationToken token)
         {
             if (_isDownloading)
             {
@@ -135,12 +135,15 @@ namespace YtEzDL.UserControls
                     .AudioFormat(AudioFormat.Mp3)
                     .AudioQuality(AudioQuality.Fixed320)
                     .IgnoreErrors()
-                    .Download(Url, DirectoryName, this);
-                SetProperty(c => metroLabel.Text = "Done");
+                    .DownloadAsync(Url, DirectoryName, this, token)
+                    .ConfigureAwait(false)
+                    .GetAwaiter()
+                    .GetResult();
+                SetStatus("Done");
             }
             catch (Exception ex)
             {
-                SetProperty(c => metroLabel.Text = $"Error: {ex.Message}");
+                SetStatus($"Error: {ex.Message}");
             }
             finally
             {
@@ -153,10 +156,15 @@ namespace YtEzDL.UserControls
             try
             {
                 _youtubeDl.Cancel(DirectoryName, Filename);
+                SetStatus($"Cancelled");
             }
             catch (Exception ex)
             {
-                SetProperty(c => metroLabel.Text = $"Error: {ex.Message}");
+                SetStatus($"Error: {ex.Message}");
+            }
+            finally
+            {
+                _isDownloading = false;
             }
         }
 
@@ -183,6 +191,11 @@ namespace YtEzDL.UserControls
         public void Toggle()
         {
             Select(!Selected);
+        }
+
+        public void SetStatus(string text)
+        {
+            SetProperty(c => metroLabel.Text = text);
         }
 
         private void Track_MouseClick(object sender, MouseEventArgs e)

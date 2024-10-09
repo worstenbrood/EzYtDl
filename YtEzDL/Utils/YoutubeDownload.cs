@@ -5,8 +5,11 @@ using System.Globalization;
 using System.IO;
 using System.Management;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using YtEzDL.Interfaces;
 
@@ -239,16 +242,32 @@ namespace YtEzDL.Utils
             }
         }
 
-        public YoutubeDownload Download(string url, string directory, IProgress progress)
+        public Task<YoutubeDownload> DownloadAsync(string url, string directory, IProgress progress, CancellationToken cancellationToken = default)
         {
             var error = new StringBuilder();
             var parameters = GetParameters();
             parameters.Add($"\"{url}\"");
 
             var process = CreateProcess(parameters, (o, e) => ParseProgress(e.Data, progress), (o, e) => error.Append(e.Data));
+            var exited = false;
 
-            // Wait for exit
-            process.WaitForExit();
+            do
+            {
+                // Wait for exit
+                exited = process.WaitForExit(500);
+
+                // Cancel
+                if (!cancellationToken.IsCancellationRequested)
+                {
+                    continue;
+                }
+
+                // Disable output reading
+                process.CancelOutputRead();
+                
+                // Exit loop
+                return Task.FromCanceled<YoutubeDownload>(cancellationToken);
+            } while (!exited);
 
             // Error
             if (process.ExitCode != 0)
@@ -259,10 +278,18 @@ namespace YtEzDL.Utils
                 }
             }
 
-            return this;
+            return Task.FromResult(this);
         }
 
-        public void GetInfo(string url, Action<JObject> action)
+        public YoutubeDownload Download(string url, string directory, IProgress progress)
+        {
+            return DownloadAsync(url, directory, progress)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+        }
+
+        public Task GetInfoAsync(string url, Action<JObject> action, CancellationToken cancellationToken = default)
         {
             // Parameters
             var parameters = new List<string>
@@ -283,8 +310,36 @@ namespace YtEzDL.Utils
                 action.Invoke(json);
             });
 
-            // Wait for exit
-            process.WaitForExit();
+            var exited = false;
+            do
+            {
+                // Wait for exit
+                exited = process.WaitForExit(500);
+
+                // Cancel
+                if (!cancellationToken.IsCancellationRequested)
+                {
+                    continue;
+                }
+                
+                // Kill process and exit loop
+                if (!process.HasExited)
+                {
+                    process.Kill();
+                }
+
+                return Task.FromCanceled(cancellationToken);
+            } while (!exited);
+
+            return Task.CompletedTask;
+        }
+
+        public void GetInfo(string url, Action<JObject> action)
+        {
+            GetInfoAsync(url, action)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
         }
 
         public List<JObject> GetInfo(string url)
@@ -318,38 +373,6 @@ namespace YtEzDL.Utils
             return process.ExitCode != 0 ? null : output.ToString();
         }
 
-        private static void KillProcessTree(int parentProcessId)
-        {
-            var searcher = new ManagementObjectSearcher($"SELECT * FROM Win32_Process WHERE ParentProcessId={parentProcessId}");
-            var collection = searcher.Get();
-
-            if (collection.Count <= 0)
-            {
-                return;
-            }
-
-            foreach (var item in collection)
-            {
-                var childProcessId = Convert.ToInt32(item["ProcessId"]);
-                if (childProcessId == Process.GetCurrentProcess().Id)
-                {
-                    continue;
-                }
-
-                KillProcessTree(childProcessId);
-
-                try
-                {
-                    var childProcess = Process.GetProcessById(childProcessId);
-                    childProcess.Kill();
-                }
-                catch (Exception)
-                {
-                    // Ignore
-                }
-            }
-        }
-
         public void Cancel(string directory, string filename)
         {
             lock (_lock)
@@ -366,8 +389,20 @@ namespace YtEzDL.Utils
                         }
                     };
 
+                    // Suspend parent
+                    ProcessTools.SuspendProcess(_process);
+
+                    // Suspend children
+                    ProcessTools.ProcessTree(_process.Id, ProcessTools.SuspendProcess);
+
                     // Kill child process
-                    KillProcessTree(_process.Id);
+                    ProcessTools.ProcessTree(_process.Id, p =>
+                    {
+                        if (!p.HasExited)
+                        {
+                            p.Kill();
+                        }
+                    });
 
                     // Kill process
                     if (!_process.HasExited)
@@ -377,6 +412,7 @@ namespace YtEzDL.Utils
 
                     // Reset
                     _process = null;
+
                 }
             }
         }
