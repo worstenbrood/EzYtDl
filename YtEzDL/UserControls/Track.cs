@@ -181,11 +181,21 @@ namespace YtEzDL.UserControls
             }
         }
 
+        public void Select(bool select)
+        {
+            SetProperty(c => BorderStyle = select ? BorderStyle.FixedSingle : BorderStyle.None);
+        }
+
+        public void Toggle()
+        {
+            Select(!Selected);
+        }
+
         private void Track_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button.HasFlag(MouseButtons.Left))
             {
-                BorderStyle = Selected ? BorderStyle.None : BorderStyle.FixedSingle;
+                Toggle();
             }
         }
 
