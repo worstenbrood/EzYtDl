@@ -114,6 +114,7 @@ namespace YtEzDL.Forms
         
         private void DownloadForm_Resize(object sender, EventArgs e)
         {
+            // Resize tracks
             foreach (var track in Tracks)
             {
                 track.Width = flowLayoutPanel.Width - 25;

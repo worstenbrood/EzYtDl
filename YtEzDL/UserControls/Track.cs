@@ -163,10 +163,10 @@ namespace YtEzDL.UserControls
 
         protected override void WndProc(ref Message m)
         {
-            const int WM_MOUSEWHEEL = 0x020A;
+            const int mousewheel = 0x020A;
             switch (m.Msg)
             {
-                case WM_MOUSEWHEEL:
+                case mousewheel:
                     if (m.HWnd == Handle)
                     {
                          PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
