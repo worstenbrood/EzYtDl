@@ -121,10 +121,10 @@ namespace YtEzDL.UserControls
             this.textBoxTitle.Multiline = true;
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(583, 127);
+            this.textBoxTitle.Size = new System.Drawing.Size(604, 127);
             this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.Text = "Title";
-            this.textBoxTitle.Enter += new System.EventHandler(this.TextBoxTitle_GotFocus);
+            this.textBoxTitle.GotFocus += new System.EventHandler(this.textBoxTitle_GotFocus);
             // 
             // tabPageSettings
             // 

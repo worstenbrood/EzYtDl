@@ -157,12 +157,6 @@ namespace YtEzDL.UserControls
                 _mutex.ReleaseMutex();
             }
         }
-
-        private void TextBoxTitle_GotFocus(object sender, EventArgs e)
-        {
-            // Hide editbox caret
-            HideCaret(textBoxTitle.Handle);
-        }
         
         [DllImport("User32.dll")]
         public static extern IntPtr PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
@@ -202,6 +196,11 @@ namespace YtEzDL.UserControls
                 metroLabelAction.Text = "Converting...";
                 metroProgressBar.Value = 100;
             });
+        }
+
+        private void textBoxTitle_GotFocus(object sender, EventArgs e)
+        {
+            HideCaret(textBoxTitle.Handle);
         }
     }
 }
