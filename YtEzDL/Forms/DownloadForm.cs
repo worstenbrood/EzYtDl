@@ -167,7 +167,6 @@ namespace YtEzDL.Forms
         {
             try
             {
-                SetButtons(false, true);
                 StartDownloadTasks();
             }
             finally
@@ -198,6 +197,7 @@ namespace YtEzDL.Forms
         
         private void MetroButtonDownload_Click(object sender, EventArgs e)
         {
+            SetButtons(false, true);
             Task.Run(StartDownload, Source.Token);
         }
 

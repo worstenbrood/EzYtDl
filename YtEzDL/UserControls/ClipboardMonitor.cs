@@ -59,5 +59,24 @@ namespace YtEzDL.UserControls
                     break;
             }
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // ClipboardMonitor
+            // 
+            this.ClientSize = new System.Drawing.Size(280, 257);
+            this.ControlBox = false;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "ClipboardMonitor";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.ResumeLayout(false);
+
+        }
     }
 }
