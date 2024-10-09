@@ -69,9 +69,11 @@ namespace YtEzDL.Utils
                     
                     break;
                 }
-            }
 
-            base.WndProc(ref m);
+                default:
+                    base.WndProc(ref m);
+                    break;
+            }
         }
     }
 }

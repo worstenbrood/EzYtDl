@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Globalization;
-using System.Threading.Tasks;
-using YtEzDL.Utils;
-using MetroFramework;
-using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Reflection;
-using System.Threading;
-using MetroFramework.Controls;
-using YtEzDL.Interfaces;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using MetroFramework;
+using MetroFramework.Controls;
+using Newtonsoft.Json.Linq;
+using YtEzDL.Interfaces;
+using YtEzDL.Utils;
 
-namespace YtEzDL.Forms
+namespace YtEzDL.UserControls
 {
     public partial class Track : MetroUserControl, IProgress
     {
-        private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
+        public readonly YoutubeDownload YoutubeDl = new YoutubeDownload();
         private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         private readonly Mutex _mutex = new Mutex(false);
         private readonly NotifyIcon _notifyIcon;
@@ -54,11 +54,6 @@ namespace YtEzDL.Forms
             {
                 action.Invoke(this);
             }));
-        }
-
-        private T GetProperty<T>(Func<T> func)
-        {
-            return (T)Invoke(new MethodInvoker(() => func.Invoke()));
         }
 
         private Image DownloadThumbNail()
@@ -131,7 +126,7 @@ namespace YtEzDL.Forms
            
             try
             {
-                _youtubeDl
+                YoutubeDl
                     .Reset()
                     .ExtractAudio()
                     .AddMetadata()
@@ -155,7 +150,7 @@ namespace YtEzDL.Forms
 
             try
             {
-                _youtubeDl.Cancel(DirectoryName, Filename);
+                YoutubeDl.Cancel(DirectoryName, Filename);
             }
             finally
             {

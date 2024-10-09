@@ -39,11 +39,13 @@ namespace YtEzDL.Forms
             // 
             // metroButtonDownload
             // 
+            this.metroButtonDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.metroButtonDownload.Enabled = false;
             this.metroButtonDownload.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonDownload.Location = new System.Drawing.Point(27, 324);
+            this.metroButtonDownload.Location = new System.Drawing.Point(15, 325);
             this.metroButtonDownload.Margin = new System.Windows.Forms.Padding(2);
             this.metroButtonDownload.Name = "metroButtonDownload";
-            this.metroButtonDownload.Size = new System.Drawing.Size(100, 24);
+            this.metroButtonDownload.Size = new System.Drawing.Size(248, 34);
             this.metroButtonDownload.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroButtonDownload.TabIndex = 3;
             this.metroButtonDownload.Text = "Download";
@@ -52,11 +54,12 @@ namespace YtEzDL.Forms
             // 
             // metroButtonCancel
             // 
+            this.metroButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.metroButtonCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonCancel.Location = new System.Drawing.Point(146, 324);
+            this.metroButtonCancel.Location = new System.Drawing.Point(288, 325);
             this.metroButtonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.metroButtonCancel.Name = "metroButtonCancel";
-            this.metroButtonCancel.Size = new System.Drawing.Size(113, 24);
+            this.metroButtonCancel.Size = new System.Drawing.Size(248, 34);
             this.metroButtonCancel.Style = MetroFramework.MetroColorStyle.Blue;
             this.metroButtonCancel.TabIndex = 4;
             this.metroButtonCancel.Text = "Cancel";
@@ -73,21 +76,24 @@ namespace YtEzDL.Forms
             // 
             // flowLayoutPanel
             // 
+            this.flowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel.AutoScroll = true;
             this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(27, 63);
+            this.flowLayoutPanel.Location = new System.Drawing.Point(15, 74);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(620, 225);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(958, 225);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             // 
             // DownloadForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(677, 374);
+            this.ClientSize = new System.Drawing.Size(1000, 374);
             this.Controls.Add(this.flowLayoutPanel);
             this.Controls.Add(this.metroLabelAction);
             this.Controls.Add(this.metroButtonCancel);
@@ -98,11 +104,11 @@ namespace YtEzDL.Forms
             this.MaximizeBox = false;
             this.Name = "DownloadForm";
             this.Padding = new System.Windows.Forms.Padding(12, 60, 12, 13);
-            this.Resizable = false;
             this.Text = "DownloadForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

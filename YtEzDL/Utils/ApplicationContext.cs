@@ -59,9 +59,6 @@ namespace YtEzDL.Utils
             try
             {
                 var url = new Uri(text);
-
-                _notifyIcon.ShowBalloonTip(2000, "Fetching...", text, ToolTipIcon.Info);
-
                 Task.Run(() => ShowDownLoadForm(url.ToString()));
             }
             catch (Exception)

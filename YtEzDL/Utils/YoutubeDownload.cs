@@ -130,7 +130,6 @@ namespace YtEzDL.Utils
             return parameters;
         }
         
-        private const string DownloadUrl = "https://yt-dl.org/downloads/latest/youtube-dl.exe";
         private const string YoutubeDlExe = "yt-dlp.exe";
         private string _youtubeDlPath;
 
@@ -259,10 +258,8 @@ namespace YtEzDL.Utils
             return this;
         }
 
-        public List<JObject> GetInfo(string url)
+        public void GetInfo(string url, Action<JObject> action)
         {
-            var result = new List<JObject>();
-
             // Parameters
             var parameters = new List<string>
             {
@@ -274,13 +271,22 @@ namespace YtEzDL.Utils
             {
                 if (e.Data != null)
                 {
-                    result.Add(JObject.Parse(e.Data));
+                    var json = JObject.Parse(e.Data);
+                    action.Invoke(json);
                 }
 
             });
 
             // Wait for exit
             process.WaitForExit();
+        }
+
+        public List<JObject> GetInfo(string url)
+        {
+            var result = new List<JObject>();
+
+            // Build list
+            GetInfo(url, j => result.Add(j));
 
             // Error
             return result;

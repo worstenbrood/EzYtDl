@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
+using Newtonsoft.Json.Linq;
+using YtEzDL.UserControls;
 using YtEzDL.Utils;
 
 namespace YtEzDL.Forms
@@ -23,8 +25,6 @@ namespace YtEzDL.Forms
             _notifyIcon = notifyIcon;
             
             InitializeComponent();
-            
-            metroButtonCancel.Enabled = false;
         }
 
         private void ExecuteAsync(Action<Form> action)
@@ -35,26 +35,14 @@ namespace YtEzDL.Forms
             }));
         }
 
-        private void LoadData()
+        private void AddControl(JObject o)
         {
-            var info = _youtubeDl.GetInfo(_url);
-            if (info != null && info.Count > 0)
+            flowLayoutPanel.BeginInvoke(new MethodInvoker(() =>
             {
-                flowLayoutPanel.BeginInvoke(new MethodInvoker(() =>
-                {
-                    var controls = info
-                        .Select(o =>
-                        {
-                            var control = new Track(o, _notifyIcon);
-                            control.Enabled = true;
-                            return control;
-                        })
-                        .Cast<Control>()
-                        .ToArray();
-
-                    flowLayoutPanel.Controls.AddRange(controls);
-                }));
-            }
+                var control = new Track(o, _notifyIcon);
+                control.Enabled = true;
+                flowLayoutPanel.Controls.Add(control);
+            }));
         }
 
         protected override void OnLoad(EventArgs e)
@@ -63,20 +51,25 @@ namespace YtEzDL.Forms
             base.OnLoad(e);
 
             // Load data
-            Task.Run(LoadData);
+            Task.Run(() => _youtubeDl.GetInfo(_url, AddControl));
 
-            Text = _url;
+            Text = "Fetching data ...";
 
-            // Set foregroundwindow
+            // Set foreground window
             SetForegroundWindow(Handle);
             Activate();
         }
+
+        private Track[] Tracks =>
+            flowLayoutPanel.Controls
+                .Cast<Track>()
+                .ToArray();
 
         private void StartDownload()
         {
             try
             {
-                ExecuteAsync(form => ((Track)flowLayoutPanel.Controls[0]).StartDownload());
+                Tracks[0].StartDownload();
             }
             catch (Exception ex)
             {
@@ -97,7 +90,10 @@ namespace YtEzDL.Forms
         private void StopDownLoad()
         {
             // Stop youtube-dl
-            
+            foreach (var track in Tracks.Where(t => t.YoutubeDl.IsRunning()))
+            {
+                Task.Run(track.CancelDownload);
+            }
         }
         
         private void MetroButtonDownload_Click(object sender, EventArgs e)
