@@ -50,7 +50,6 @@ namespace YtEzDL.Forms
                 track.Enabled = true;
                 flowLayoutPanel.Controls.Add(track);
                 SetTrackWidth(track);
-                
             }));
         }
         private void LoadData()
