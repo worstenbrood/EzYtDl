@@ -204,7 +204,7 @@ namespace YtEzDL.Forms
 
         private void MetroButtonCancel_Click(object sender, EventArgs e)
         {
-            _source.Cancel();
+            Source.Cancel();
         }
 
         private void DownloadForm_FormClosing(object sender, FormClosingEventArgs e)
