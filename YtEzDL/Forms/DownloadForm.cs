@@ -110,12 +110,6 @@ namespace YtEzDL.Forms
         {
             try
             {
-                ExecuteAsync(f =>
-                {
-                    metroButtonCancel.Enabled = true;
-                    metroButtonDownload.Enabled = false;
-                });
-
                 var tasks = Tracks
                     .Where(t => t.Selected)
                     .Select(t =>
@@ -125,7 +119,13 @@ namespace YtEzDL.Forms
                         return task;
                     })
                     .ToArray();
-                
+
+                ExecuteAsync(f =>
+                {
+                    metroButtonCancel.Enabled = true;
+                    metroButtonDownload.Enabled = false;
+                });
+
                 Task.WaitAll(tasks);
             }
             finally
@@ -143,14 +143,8 @@ namespace YtEzDL.Forms
         {
             try
             {
-                ExecuteAsync(f =>
-                {
-                    metroButtonCancel.Enabled = false;
-                    metroButtonDownload.Enabled = false;
-                });
-
                 var tasks = Tracks
-                .Where(t => t.YoutubeDl.IsRunning())
+                .Where(t => t.IsDownLoading)
                 .Select(t =>
                 {
                     var task = new Task(t.CancelDownload);
@@ -158,6 +152,12 @@ namespace YtEzDL.Forms
                     return task;
                 })
                 .ToArray();
+
+                ExecuteAsync(f =>
+                {
+                    metroButtonCancel.Enabled = false;
+                    metroButtonDownload.Enabled = false;
+                });
 
                 Task.WaitAll(tasks);
             }

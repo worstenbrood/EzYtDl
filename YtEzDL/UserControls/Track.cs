@@ -15,10 +15,11 @@ namespace YtEzDL.UserControls
 {
     public partial class Track : MetroUserControl, IProgress
     {
-        public readonly YoutubeDownload YoutubeDl = new YoutubeDownload();
+        private readonly YoutubeDownload YoutubeDl = new YoutubeDownload();
         private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         private readonly Mutex _mutex = new Mutex(false);
         private readonly NotifyIcon _notifyIcon;
+        public bool IsDownLoading => !_mutex.WaitOne(1);
 
         public bool Selected => BorderStyle == BorderStyle.FixedSingle;
 
@@ -114,7 +115,7 @@ namespace YtEzDL.UserControls
             base.OnLoad(e);
         }
 
-        public async void StartDownload()
+        public void StartDownload()
         {
             if (!_mutex.WaitOne(1))
             {
@@ -141,24 +142,18 @@ namespace YtEzDL.UserControls
             finally
             {
                 _mutex.ReleaseMutex();
-                
             }
         }
 
-        public async void CancelDownload()
+        public void CancelDownload()
         {
-            if (_mutex.WaitOne(1))
-            {
-                throw new Exception("Not downloading");
-            }
-
             try
             {
                 YoutubeDl.Cancel(DirectoryName, Filename);
             }
-            finally
+            catch (Exception ex)
             {
-                _mutex.ReleaseMutex();
+                SetProperty(c => metroLabel.Text = $"Error: {ex.Message}");
             }
         }
 
@@ -173,7 +168,6 @@ namespace YtEzDL.UserControls
                         Win32.PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
                     }
                     goto default;
-
 
                 default:
                     base.WndProc(ref m);
