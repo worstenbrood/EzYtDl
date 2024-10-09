@@ -28,38 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.metroLabelAction = new MetroFramework.Controls.MetroLabel();
             this.metroLabel = new MetroFramework.Controls.MetroLabel();
             this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
             this.tabPageInfo = new MetroFramework.Controls.MetroTabPage();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.tabPageSettings = new MetroFramework.Controls.MetroTabPage();
-            this.metroCheckBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
+            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.metroTabControl.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            this.tabPageSettings.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // metroLabelAction
-            // 
-            this.metroLabelAction.AutoSize = true;
-            this.metroLabelAction.Location = new System.Drawing.Point(5, 208);
-            this.metroLabelAction.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.metroLabelAction.Name = "metroLabelAction";
-            this.metroLabelAction.Size = new System.Drawing.Size(100, 50);
-            this.metroLabelAction.TabIndex = 13;
-            this.metroLabelAction.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // metroLabel
             // 
-            this.metroLabel.AutoSize = true;
+            this.metroLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.metroLabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.metroLabel.Location = new System.Drawing.Point(9, 210);
             this.metroLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel.Name = "metroLabel";
-            this.metroLabel.Size = new System.Drawing.Size(100, 50);
+            this.metroLabel.Size = new System.Drawing.Size(156, 25);
             this.metroLabel.TabIndex = 16;
             this.metroLabel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
@@ -110,28 +98,9 @@
             this.pictureBox.TabStop = false;
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
-            // textBoxTitle
-            // 
-            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTitle.BackColor = System.Drawing.Color.White;
-            this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.textBoxTitle.Location = new System.Drawing.Point(185, 10);
-            this.textBoxTitle.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxTitle.Multiline = true;
-            this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(531, 127);
-            this.textBoxTitle.TabIndex = 1;
-            this.textBoxTitle.Text = "Title";
-            this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
-            // 
             // tabPageSettings
             // 
             this.tabPageSettings.BackColor = System.Drawing.Color.White;
-            this.tabPageSettings.Controls.Add(this.metroCheckBoxExtractAudio);
             this.tabPageSettings.HorizontalScrollbarBarColor = true;
             this.tabPageSettings.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageSettings.HorizontalScrollbarSize = 12;
@@ -146,18 +115,6 @@
             this.tabPageSettings.VerticalScrollbarSize = 13;
             this.tabPageSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
-            // metroCheckBoxExtractAudio
-            // 
-            this.metroCheckBoxExtractAudio.AutoSize = true;
-            this.metroCheckBoxExtractAudio.Location = new System.Drawing.Point(11, 10);
-            this.metroCheckBoxExtractAudio.Margin = new System.Windows.Forms.Padding(4);
-            this.metroCheckBoxExtractAudio.Name = "metroCheckBoxExtractAudio";
-            this.metroCheckBoxExtractAudio.Size = new System.Drawing.Size(101, 17);
-            this.metroCheckBoxExtractAudio.TabIndex = 13;
-            this.metroCheckBoxExtractAudio.Text = "Extract Audio";
-            this.metroCheckBoxExtractAudio.UseSelectable = true;
-            this.metroCheckBoxExtractAudio.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
-            // 
             // metroProgressBar
             // 
             this.metroProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -169,6 +126,24 @@
             this.metroProgressBar.TabIndex = 15;
             this.metroProgressBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
+            // textBoxTitle
+            // 
+            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTitle.BackColor = System.Drawing.Color.White;
+            this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.textBoxTitle.Location = new System.Drawing.Point(289, 15);
+            this.textBoxTitle.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxTitle.Multiline = true;
+            this.textBoxTitle.Name = "textBoxTitle";
+            this.textBoxTitle.ReadOnly = true;
+            this.textBoxTitle.Size = new System.Drawing.Size(863, 199);
+            this.textBoxTitle.TabIndex = 1;
+            this.textBoxTitle.Text = "Title";
+            this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
+            // 
             // Track
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -177,7 +152,6 @@
             this.Controls.Add(this.metroLabel);
             this.Controls.Add(this.metroTabControl);
             this.Controls.Add(this.metroProgressBar);
-            this.Controls.Add(this.metroLabelAction);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Track";
             this.Size = new System.Drawing.Size(809, 286);
@@ -186,23 +160,17 @@
             this.tabPageInfo.ResumeLayout(false);
             this.tabPageInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            this.tabPageSettings.ResumeLayout(false);
-            this.tabPageSettings.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private MetroFramework.Controls.MetroLabel metroLabelAction;
         private MetroFramework.Controls.MetroLabel metroLabel;
         private MetroFramework.Controls.MetroTabControl metroTabControl;
         private MetroFramework.Controls.MetroTabPage tabPageInfo;
         private System.Windows.Forms.PictureBox pictureBox;
         private ScrollTextBox textBoxTitle;
         private MetroFramework.Controls.MetroTabPage tabPageSettings;
-        private MetroFramework.Controls.MetroCheckBox metroCheckBoxExtractAudio;
         private MetroFramework.Controls.MetroProgressBar metroProgressBar;
     }
 }

@@ -47,7 +47,7 @@ namespace YtEzDL.Utils
     public enum DownloadAction
     {
         Download,
-        Ffmpeg
+        ExtractAudio
     }
 
     public class YoutubeDownload
@@ -199,6 +199,10 @@ namespace YtEzDL.Utils
         {
             if (data == null)
                 return;
+
+#if DEBUG
+            Debug.WriteLine("Data: " + data);
+#endif
 
             // [download]  10.0% of 40.17MiB at  3.86MiB/s ETA 00:09.net 
             var match = ActionRegex.Match(data);

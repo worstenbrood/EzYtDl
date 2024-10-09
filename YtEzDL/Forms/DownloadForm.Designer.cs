@@ -33,7 +33,6 @@ namespace YtEzDL.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
             this.metroButtonDownload = new MetroFramework.Controls.MetroButton();
             this.metroButtonCancel = new MetroFramework.Controls.MetroButton();
-            this.metroLabelAction = new MetroFramework.Controls.MetroLabel();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
@@ -66,14 +65,6 @@ namespace YtEzDL.Forms
             this.metroButtonCancel.UseSelectable = true;
             this.metroButtonCancel.Click += new System.EventHandler(this.MetroButtonCancel_Click);
             // 
-            // metroLabelAction
-            // 
-            this.metroLabelAction.AutoSize = true;
-            this.metroLabelAction.Location = new System.Drawing.Point(27, 232);
-            this.metroLabelAction.Name = "metroLabelAction";
-            this.metroLabelAction.Size = new System.Drawing.Size(0, 0);
-            this.metroLabelAction.TabIndex = 11;
-            // 
             // flowLayoutPanel
             // 
             this.flowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -97,7 +88,6 @@ namespace YtEzDL.Forms
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(1000, 500);
             this.Controls.Add(this.flowLayoutPanel);
-            this.Controls.Add(this.metroLabelAction);
             this.Controls.Add(this.metroButtonCancel);
             this.Controls.Add(this.metroButtonDownload);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -108,14 +98,13 @@ namespace YtEzDL.Forms
             this.Text = "DownloadForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadForm_FormClosing);
             this.ResumeLayout(false);
-            this.PerformLayout();
+
         }
 
         #endregion
 
         private MetroButton metroButtonDownload;
         private MetroButton metroButtonCancel;
-        private MetroLabel metroLabelAction;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
     }
 }

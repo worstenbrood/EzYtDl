@@ -34,7 +34,6 @@ namespace YtEzDL.Forms
         private void SetTrackWidth(Track track)
         {
             var offset = 10;
-            
             if (flowLayoutPanel.VerticalScroll.Visible)
             {
                 offset += SystemInformation.VerticalScrollBarWidth;
@@ -79,7 +78,11 @@ namespace YtEzDL.Forms
             }
             finally
             {
-                ExecuteAsync(f => Cursor = Cursors.Arrow);
+                ExecuteAsync(f =>
+                {
+                    Cursor = Cursors.Arrow;
+                    metroButtonDownload.Enabled = true;
+                });
             }
         }
 
@@ -108,7 +111,10 @@ namespace YtEzDL.Forms
         {
             try
             {
-                Tracks[0].StartDownload();
+                foreach (var track in Tracks.Where(t => t.Selected))
+                {
+                    track.StartDownload();
+                }
             }
             catch (Exception ex)
             {
@@ -121,7 +127,6 @@ namespace YtEzDL.Forms
                 {
                     metroButtonCancel.Enabled = false;
                     metroButtonDownload.Enabled = true;
-                    metroLabelAction.Text = "Finished";
                 });
             }
         }

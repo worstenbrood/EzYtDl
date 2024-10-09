@@ -136,6 +136,7 @@ namespace YtEzDL.UserControls
             finally
             {
                 _mutex.ReleaseMutex();
+                SetProperty(c => metroLabel.Text = "Done");
             }
         }
 
@@ -189,7 +190,7 @@ namespace YtEzDL.UserControls
         {
             SetProperty(c =>
             {
-                metroLabelAction.Text = "Downloading...";
+                metroLabel.Text = "Downloading...";
                 metroProgressBar.Value = (int)progress;
             });
         }
@@ -198,7 +199,7 @@ namespace YtEzDL.UserControls
         {
             SetProperty(c =>
             {
-                metroLabelAction.Text = "Converting...";
+                metroLabel.Text = "Converting...";
                 metroProgressBar.Value = 100;
             });
         }
