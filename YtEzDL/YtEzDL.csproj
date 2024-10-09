@@ -93,7 +93,7 @@
       <DependentUpon>Track.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IProgress.cs" />
-    <Compile Include="Utils\ClipboardMonitor.cs">
+    <Compile Include="UserControls\ClipboardMonitor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DownloadForm.cs">

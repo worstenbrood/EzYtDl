@@ -1,29 +1,13 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using YtEzDL.Utils;
 
-namespace YtEzDL.Utils
+namespace YtEzDL.UserControls
 {
     public class ClipboardMonitor : Form
     {
         public static IntPtr HwndMessage = new IntPtr(-3);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool AddClipboardFormatListener(IntPtr hwnd);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.U4)]
-        public static extern uint GetClipboardSequenceNumber();
-
-        public enum Messages
-        {
-            WmClipboardupdate = 0x031D
-        }
-
+        
         // Event
         public delegate void ClipboardDataChanged(IDataObject dataObject);
         public event ClipboardDataChanged OnClipboardDataChanged;
@@ -34,26 +18,26 @@ namespace YtEzDL.Utils
         public void Monitor()
         {
             // Initial sequence
-            _prevSequence = GetClipboardSequenceNumber();
+            _prevSequence = Win32.GetClipboardSequenceNumber();
 
             //Turn the child window into a message-only window (refer to Microsoft docs)
-            SetParent(Handle, HwndMessage);
+            Win32.SetParent(Handle, HwndMessage);
 
             //Place window in the system-maintained clipboard format listener list
-            AddClipboardFormatListener(Handle);
+            Win32.AddClipboardFormatListener(Handle);
         }
 
         protected override void WndProc(ref Message m)
         {
-            switch ((Messages)m.Msg)
+            switch (m.Msg)
             {
-                case Messages.WmClipboardupdate:
+                case Win32.ClipboardUpdate:
                 {
                     if (OnClipboardDataChanged != null)
                     {
                         lock (this)
                         {
-                            var sequence = GetClipboardSequenceNumber();
+                            var sequence = Win32.GetClipboardSequenceNumber();
                             if (_prevSequence == sequence)
                                 break;
 

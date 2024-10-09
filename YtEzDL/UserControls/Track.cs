@@ -21,10 +21,7 @@ namespace YtEzDL.UserControls
         private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         private readonly Mutex _mutex = new Mutex(false);
         private readonly NotifyIcon _notifyIcon;
-
-        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        private static extern bool HideCaret(IntPtr hWnd);
-
+        
         public JToken Json { get; }
         public string Url { get; }
         public string Filename { get; }
@@ -200,7 +197,7 @@ namespace YtEzDL.UserControls
 
         private void textBoxTitle_GotFocus(object sender, EventArgs e)
         {
-            HideCaret(textBoxTitle.Handle);
+            
         }
     }
 }

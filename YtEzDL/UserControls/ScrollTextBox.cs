@@ -20,6 +20,14 @@ namespace YtEzDL.UserControls
                         Win32.PostMessage(Parent.Handle, m.Msg, m.WParam, m.LParam);
                     }
                     break;
+
+                case Win32.SetFocus:
+                    if (m.HWnd == Handle)
+                    {
+                        Win32.HideCaret(m.HWnd);
+                    }
+                    break;
+
                 default:
                     base.WndProc(ref m);
                     break;
