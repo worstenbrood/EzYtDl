@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
@@ -115,45 +116,32 @@ namespace YtEzDL.Forms
             Activate();
         }
 
-        private void StartDownload()
+        private void StartDownloadTasks()
         {
+            var downloadTasks = Tracks
+                .Where(t => t.Selected)
+                .Select(t =>
+                {
+                    var task = new Task(t.StartDownload, _source.Token);
+                    task.Start();
+                    return task;
+                })
+                .ToArray();
+
             try
             {
-                var tasks = Tracks
-                    .Where(t => t.Selected)
-                    .Select(t =>
-                    {
-                        var task = new Task(t.StartDownload);
-                        task.Start();
-                        return task;
-                    })
-                    .ToArray();
-
-                ExecuteAsync(f =>
-                {
-                    metroButtonCancel.Enabled = true;
-                    metroButtonDownload.Enabled = false;
-                });
-
-                Task.WaitAll(tasks);
+                Task.WaitAll(downloadTasks, _source.Token);
             }
-            finally
+            catch (OperationCanceledException e)
             {
-                // Set buttons
-                ExecuteAsync(f =>
-                {
-                    metroButtonCancel.Enabled = false;
-                    metroButtonDownload.Enabled = true;
-                });
+                CancelDownloadTasks();
             }
         }
 
-        private void StopDownLoad()
+        private void CancelDownloadTasks()
         {
-            try
-            {
-                var tasks = Tracks
-                .Where(t => t.IsDownLoading)
+            var stopTasks = Tracks
+                .Where(t => t.DownLoading)
                 .Select(t =>
                 {
                     var task = new Task(t.CancelDownload);
@@ -162,33 +150,41 @@ namespace YtEzDL.Forms
                 })
                 .ToArray();
 
-                ExecuteAsync(f =>
-                {
-                    metroButtonCancel.Enabled = false;
-                    metroButtonDownload.Enabled = false;
-                });
+            Task.WaitAll(stopTasks);
+        }
 
-                Task.WaitAll(tasks);
+        private void SetButtons(bool download, bool cancel)
+        {
+            ExecuteAsync(f =>
+            {
+                metroButtonCancel.Enabled = cancel;
+                metroButtonDownload.Enabled = download;
+            });
+        }
+
+        private void StartDownload()
+        {
+            try
+            {
+                SetButtons(false, true);
+                StartDownloadTasks();
             }
             finally
             {
-                // Set buttons
-                ExecuteAsync(f =>
-                {
-                    metroButtonCancel.Enabled = false;
-                    metroButtonDownload.Enabled = true;
-                });
+                SetButtons(true, false);
             }
         }
         
+        private readonly CancellationTokenSource _source = new CancellationTokenSource();
+        
         private void MetroButtonDownload_Click(object sender, EventArgs e)
         {
-            Task.Run(StartDownload);
+            Task.Run(StartDownload, _source.Token);
         }
 
         private void MetroButtonCancel_Click(object sender, EventArgs e)
         {
-            Task.Run(StopDownLoad);
+            _source.Cancel();
         }
 
         private void DownloadForm_FormClosing(object sender, FormClosingEventArgs e)

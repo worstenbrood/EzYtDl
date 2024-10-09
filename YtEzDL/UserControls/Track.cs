@@ -17,25 +17,10 @@ namespace YtEzDL.UserControls
     {
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
         private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
-        private readonly Mutex _mutex = new Mutex(false);
         private readonly NotifyIcon _notifyIcon;
+        private volatile bool _isDownloading = false;
         
-        public bool IsDownLoading
-        {
-            get
-            {
-                var enter = _mutex.WaitOne(1);
-                if (!enter)
-                {
-                    return true;
-                }
-
-                // Release mutex
-                _mutex.ReleaseMutex();
-                
-                return false;
-            }
-        }
+        public bool DownLoading => _isDownloading;
 
         public bool Selected => BorderStyle == BorderStyle.FixedSingle;
 
@@ -133,10 +118,12 @@ namespace YtEzDL.UserControls
 
         public void StartDownload()
         {
-            if (IsDownLoading)
+            if (_isDownloading)
             {
-                throw new Exception("Already downloading");
+                return;
             }
+
+            _isDownloading = true;
 
             try
             {
@@ -157,7 +144,7 @@ namespace YtEzDL.UserControls
             }
             finally
             {
-                _mutex.ReleaseMutex();
+                _isDownloading = false;
             }
         }
 
