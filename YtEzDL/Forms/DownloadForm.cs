@@ -112,7 +112,7 @@ namespace YtEzDL.Forms
             {
                 foreach (var track in Tracks.Where(t => t.Selected))
                 {
-                    track.StartDownload();
+                    Task.Run(track.StartDownload);
                 }
             }
             finally
