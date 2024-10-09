@@ -92,7 +92,7 @@ namespace YtEzDL.UserControls
                 Text = Json["title"]?.Value<string>()?.Replace("&", "&&") ?? "Untitled";
 
                 // Set info
-                textBoxTitle.Font = MetroFonts.Subtitle;
+                textBoxTitle.Font = MetroFonts.Title;
                 textBoxTitle.Text = Json["title"] + Environment.NewLine + Json["webpage_url"];
 
                 // Add duration
