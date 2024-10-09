@@ -65,6 +65,9 @@ namespace YtEzDL.UserControls
             // 
             // metroTabControl
             // 
+            this.metroTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.metroTabControl.Controls.Add(this.tabPageInfo);
             this.metroTabControl.Controls.Add(this.tabPageSettings);
             this.metroTabControl.Location = new System.Drawing.Point(4, 2);
@@ -107,7 +110,8 @@ namespace YtEzDL.UserControls
             // 
             // textBoxTitle
             // 
-            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTitle.BackColor = System.Drawing.Color.White;
             this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -152,8 +156,9 @@ namespace YtEzDL.UserControls
             // 
             // metroProgressBar
             // 
+            this.metroProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.metroProgressBar.FontSize = MetroFramework.MetroProgressBarSize.Tall;
-            this.metroProgressBar.Location = new System.Drawing.Point(9, 245);
+            this.metroProgressBar.Location = new System.Drawing.Point(8, 245);
             this.metroProgressBar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.metroProgressBar.Name = "metroProgressBar";
             this.metroProgressBar.Size = new System.Drawing.Size(795, 21);

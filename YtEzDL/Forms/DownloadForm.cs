@@ -41,6 +41,7 @@ namespace YtEzDL.Forms
             {
                 var control = new Track(o, _notifyIcon);
                 control.Enabled = true;
+                control.Width = flowLayoutPanel.Width - 25;
                 flowLayoutPanel.Controls.Add(control);
             }));
         }
@@ -109,6 +110,14 @@ namespace YtEzDL.Forms
         private void DownloadForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning();
+        }
+
+        private void DownloadForm_Resize(object sender, EventArgs e)
+        {
+            foreach (var track in Tracks)
+            {
+                track.Width = flowLayoutPanel.Width - 25;
+            }
         }
     }
 }

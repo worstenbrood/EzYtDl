@@ -54,7 +54,7 @@ namespace YtEzDL.Forms
             // 
             // metroButtonCancel
             // 
-            this.metroButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.metroButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButtonCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.metroButtonCancel.Location = new System.Drawing.Point(288, 325);
             this.metroButtonCancel.Margin = new System.Windows.Forms.Padding(2);
@@ -106,6 +106,7 @@ namespace YtEzDL.Forms
             this.Padding = new System.Windows.Forms.Padding(12, 60, 12, 13);
             this.Text = "DownloadForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadForm_FormClosing);
+            this.Resize += new System.EventHandler(this.DownloadForm_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 
