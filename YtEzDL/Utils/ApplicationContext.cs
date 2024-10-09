@@ -36,10 +36,10 @@ namespace YtEzDL.Utils
             clipboardMonitor.Monitor();
         }
 
-        private void ShowDownLoadForm(string url)
+        private static void ShowDownLoadForm(string url)
         {
             // Show form
-            var downloadForm = new Forms.DownloadForm(url, _notifyIcon);
+            var downloadForm = new Forms.DownloadForm(url);
             Application.EnableVisualStyles();
             Application.Run(downloadForm);
         }

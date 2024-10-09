@@ -13,13 +13,11 @@ namespace YtEzDL.Forms
     public partial class DownloadForm : MetroForm
     {
         private readonly string _url;
-        private readonly NotifyIcon _notifyIcon;
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
         
-        public DownloadForm(string url, NotifyIcon notifyIcon)
+        public DownloadForm(string url)
         {
             _url = url;
-            _notifyIcon = notifyIcon;
             
             InitializeComponent();
         }
