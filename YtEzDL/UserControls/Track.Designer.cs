@@ -86,7 +86,7 @@
             // 
             this.pictureBox.Location = new System.Drawing.Point(16, 8);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(117, 104);
+            this.pictureBox.Size = new System.Drawing.Size(239, 131);
             this.pictureBox.TabIndex = 11;
             this.pictureBox.TabStop = false;
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
@@ -126,11 +126,11 @@
             this.textBoxTitle.BackColor = System.Drawing.Color.White;
             this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.textBoxTitle.Location = new System.Drawing.Point(151, 12);
+            this.textBoxTitle.Location = new System.Drawing.Point(261, 8);
             this.textBoxTitle.Multiline = true;
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(474, 114);
+            this.textBoxTitle.Size = new System.Drawing.Size(330, 131);
             this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.Text = "Title";
             this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
