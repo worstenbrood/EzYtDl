@@ -28,7 +28,7 @@ namespace YtEzDL.Utils
             var youtubeDl = new YoutubeDownload();
 
             // Update
-           youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, "Updating...", t, ToolTipIcon.Info));
+           youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp update", t, ToolTipIcon.Info));
 
             // Start clipboard monitor
             var clipboardMonitor = new ClipboardMonitor();
@@ -52,7 +52,7 @@ namespace YtEzDL.Utils
                 return;
 
             var text = (string) dataObject.GetData(DataFormats.StringFormat);
-            if (_prevData.Value.Equals(text))
+            if (_prevData.Value.Equals(text, StringComparison.OrdinalIgnoreCase))
                 return;
 
             _prevData.Value = text;

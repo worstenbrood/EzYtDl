@@ -59,7 +59,7 @@
             this.metroTabControl.Controls.Add(this.tabPageSettings);
             this.metroTabControl.Location = new System.Drawing.Point(3, 2);
             this.metroTabControl.Name = "metroTabControl";
-            this.metroTabControl.SelectedIndex = 1;
+            this.metroTabControl.SelectedIndex = 0;
             this.metroTabControl.Size = new System.Drawing.Size(604, 164);
             this.metroTabControl.TabIndex = 14;
             this.metroTabControl.UseSelectable = true;
