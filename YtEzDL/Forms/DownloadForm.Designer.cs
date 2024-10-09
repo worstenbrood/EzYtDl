@@ -90,8 +90,8 @@ namespace YtEzDL.Forms
             // 
             // toolStrip
             // 
+            this.toolStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.toolStrip.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonNone,
             this.toolStripButtonAll,
@@ -100,6 +100,7 @@ namespace YtEzDL.Forms
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(885, 22);
+            this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 13;
             this.toolStrip.Text = "toolStrip";
             // 
@@ -166,9 +167,9 @@ namespace YtEzDL.Forms
         private MetroButton metroButtonDownload;
         private MetroButton metroButtonCancel;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
-        private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton toolStripButtonNone;
         private System.Windows.Forms.ToolStripButton toolStripButtonAll;
         private System.Windows.Forms.ToolStripButton toolStripButtonToggle;
+        private System.Windows.Forms.ToolStrip toolStrip;
     }
 }
