@@ -110,10 +110,23 @@ namespace YtEzDL.Forms
         {
             try
             {
-                foreach (var track in Tracks.Where(t => t.Selected))
+                ExecuteAsync(f =>
                 {
-                    Task.Run(track.StartDownload);
-                }
+                    metroButtonCancel.Enabled = true;
+                    metroButtonDownload.Enabled = false;
+                });
+
+                var tasks = Tracks
+                    .Where(t => t.Selected)
+                    .Select(t =>
+                    {
+                        var task = new Task(t.StartDownload);
+                        task.Start();
+                        return task;
+                    })
+                    .ToArray();
+                
+                Task.WaitAll(tasks);
             }
             finally
             {
@@ -128,10 +141,34 @@ namespace YtEzDL.Forms
 
         private void StopDownLoad()
         {
-            // Stop youtube-dl
-            foreach (var track in Tracks.Where(t => t.YoutubeDl.IsRunning()))
+            try
             {
-                Task.Run(track.CancelDownload);
+                ExecuteAsync(f =>
+                {
+                    metroButtonCancel.Enabled = false;
+                    metroButtonDownload.Enabled = false;
+                });
+
+                var tasks = Tracks
+                .Where(t => t.YoutubeDl.IsRunning())
+                .Select(t =>
+                {
+                    var task = new Task(t.CancelDownload);
+                    task.Start();
+                    return task;
+                })
+                .ToArray();
+
+                Task.WaitAll(tasks);
+            }
+            finally
+            {
+                // Set buttons
+                ExecuteAsync(f =>
+                {
+                    metroButtonCancel.Enabled = false;
+                    metroButtonDownload.Enabled = true;
+                });
             }
         }
         

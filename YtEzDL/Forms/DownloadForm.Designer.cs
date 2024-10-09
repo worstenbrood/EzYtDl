@@ -54,6 +54,7 @@ namespace YtEzDL.Forms
             // metroButtonCancel
             // 
             this.metroButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.metroButtonCancel.Enabled = false;
             this.metroButtonCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.metroButtonCancel.Location = new System.Drawing.Point(219, 367);
             this.metroButtonCancel.Margin = new System.Windows.Forms.Padding(2);
