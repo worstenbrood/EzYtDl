@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
@@ -42,6 +41,34 @@ namespace YtEzDL.Forms
                 flowLayoutPanel.Controls.Add(control);
             }));
         }
+        private void LoadData()
+        {
+            try
+            {
+                _youtubeDl.GetInfo(_url, AddControl);
+                ExecuteAsync(f =>
+                {
+                    if (Tracks.Length > 1)
+                    {
+                        Text = $"Playlist: {Tracks[0].Json["playlist"]}";
+                    }
+                    else if (Tracks.Length == 1)
+                    {
+                        Text = $"Track: {Tracks[0].Json["title"]}";
+                    }
+
+                    Invalidate();
+                });
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(this, exception.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                ExecuteAsync(f => Cursor = Cursors.Arrow);
+            }
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -49,19 +76,11 @@ namespace YtEzDL.Forms
             base.OnLoad(e);
 
             Text = "Fetching data ...";
-
-            // Load data
-            Task.Run(() =>
-            {
-                _youtubeDl.GetInfo(_url, AddControl);
-                ExecuteAsync(f =>
-                {
-                    Text = "Done";
-                    Invalidate();
-                });
-            });
+            Cursor = Cursors.WaitCursor;
             
-
+            // Load data
+            Task.Run(LoadData);
+            
             // Set foreground window
             FocusMe();
             Activate();
@@ -80,7 +99,7 @@ namespace YtEzDL.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.Message);
+                MessageBox.Show(this, ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

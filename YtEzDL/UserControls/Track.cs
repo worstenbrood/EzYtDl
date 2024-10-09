@@ -67,7 +67,7 @@ namespace YtEzDL.UserControls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(this, ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }
