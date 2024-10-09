@@ -47,7 +47,7 @@ namespace YtEzDL.Forms
             this.metroButtonDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButtonDownload.Enabled = false;
             this.metroButtonDownload.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonDownload.Location = new System.Drawing.Point(11, 468);
+            this.metroButtonDownload.Location = new System.Drawing.Point(11, 347);
             this.metroButtonDownload.Margin = new System.Windows.Forms.Padding(2);
             this.metroButtonDownload.Name = "metroButtonDownload";
             this.metroButtonDownload.Size = new System.Drawing.Size(186, 26);
@@ -62,7 +62,7 @@ namespace YtEzDL.Forms
             this.metroButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButtonCancel.Enabled = false;
             this.metroButtonCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonCancel.Location = new System.Drawing.Point(219, 468);
+            this.metroButtonCancel.Location = new System.Drawing.Point(219, 347);
             this.metroButtonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.metroButtonCancel.Name = "metroButtonCancel";
             this.metroButtonCancel.Size = new System.Drawing.Size(186, 26);
@@ -83,7 +83,7 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.Location = new System.Drawing.Point(9, 87);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(884, 365);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(885, 256);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.Resize += new System.EventHandler(this.flowLayoutPanel_Resize);
@@ -99,7 +99,7 @@ namespace YtEzDL.Forms
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(884, 22);
+            this.toolStrip.Size = new System.Drawing.Size(885, 22);
             this.toolStrip.TabIndex = 13;
             this.toolStrip.Text = "toolStrip";
             // 
@@ -142,7 +142,7 @@ namespace YtEzDL.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(902, 506);
+            this.ClientSize = new System.Drawing.Size(903, 385);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.flowLayoutPanel);
             this.Controls.Add(this.metroButtonCancel);
