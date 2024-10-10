@@ -257,7 +257,10 @@ namespace YtEzDL.Forms
 
         private void flowLayoutPanel_Resize(object sender, EventArgs e)
         {
-            ResizeTracks();
+            if (WindowState != FormWindowState.Minimized)
+            {
+                ResizeTracks();
+            }
         }
 
         private void toolStripTextBoxSearch_TextChanged(object sender, EventArgs e)

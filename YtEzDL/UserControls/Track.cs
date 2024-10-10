@@ -19,16 +19,24 @@ namespace YtEzDL.UserControls
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
         private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         
-        private volatile bool _isDownloading;
-        public bool DownLoading => _isDownloading;
-
-        private volatile bool _selected;
-        public bool Selected => _selected;
-
+        /// <summary>
+        /// Returns the info of the track
+        /// </summary>
         public string Content => textBoxTitle.Text;
 
+        /// <summary>
+        /// Json returned from yt-dlp
+        /// </summary>
         public JToken Json { get; }
+
+        /// <summary>
+        /// Url to the track
+        /// </summary>
         public string Url { get; }
+
+        /// <summary>
+        /// Filename of track
+        /// </summary>
         public string Filename { get; }
 
         public Track()
@@ -120,6 +128,13 @@ namespace YtEzDL.UserControls
             base.OnLoad(e);
         }
 
+        private volatile bool _isDownloading;
+
+        /// <summary>
+        /// Returns true if the track is downloading
+        /// </summary>
+        public bool DownLoading => _isDownloading;
+
         public void StartDownload(CancellationToken token)
         {
             if (_isDownloading)
@@ -186,6 +201,13 @@ namespace YtEzDL.UserControls
             }
         }
 
+        private volatile bool _selected;
+        
+        /// <summary>
+        /// Returns the selected state of the track
+        /// </summary>
+        public bool Selected => _selected;
+
         public void Select(bool select)
         {
             _selected = select;
@@ -199,6 +221,10 @@ namespace YtEzDL.UserControls
             Select(!Selected);
         }
 
+        /// <summary>
+        /// Set content of status label
+        /// </summary>
+        /// <param name="text"></param>
         public void SetStatus(string text)
         {
             SetProperty(c => metroLabel.Text = text);

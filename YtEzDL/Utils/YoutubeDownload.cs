@@ -53,7 +53,7 @@ namespace YtEzDL.Utils
 
     public class YoutubeDownload
     {
-        public const int DefaultProcessWaitTime = 500;
+        public const int DefaultProcessWaitTime = 250;
 
         private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
@@ -256,6 +256,12 @@ namespace YtEzDL.Utils
                 // Wait for exit
                 exited = process.WaitForExit(DefaultProcessWaitTime);
 
+                // Exit loop
+                if (exited)
+                {
+                    continue;
+                }
+
                 // Cancel
                 if (!cancellationToken.IsCancellationRequested)
                 {
@@ -264,7 +270,7 @@ namespace YtEzDL.Utils
 
                 // Disable output reading
                 process.CancelOutputRead();
-                
+
                 // Exit loop
                 return Task.FromCanceled<YoutubeDownload>(cancellationToken);
             } while (!exited);
@@ -316,6 +322,11 @@ namespace YtEzDL.Utils
                 // Wait for exit
                 exited = process.WaitForExit(DefaultProcessWaitTime);
 
+                if (exited)
+                {
+                    continue;
+                }
+
                 // Cancel
                 if (!cancellationToken.IsCancellationRequested)
                 {
@@ -356,62 +367,13 @@ namespace YtEzDL.Utils
             return result;
         }
         
-        public string GetVersion()
-        {
-            // Parameters
-            var parameters = new List<string>
-            {
-                "--version"
-            };
-
-            var output = new StringBuilder();
-
-            // Version
-            var process = CreateProcess(parameters, (o, e) => output.Append(e.Data));
-
-            // Wait for exit
-            process.WaitForExit();
-
-            // Error
-            return process.ExitCode != 0 ? null : output.ToString();
-        }
-
         public void Cancel(string directory, string filename)
         {
             lock (_lock)
             {
                 if (_process != null)
                 {
-                    // Do this when process Exited, otherwise files will be in use
-                    _process.Exited += (sender, args) =>
-                    {
-                        // Cleanup files
-                        foreach (var file in Directory.EnumerateFiles(directory, $"{Path.GetFileNameWithoutExtension(filename)}.*"))
-                        {
-                            File.Delete(file);
-                        }
-                    };
-
-                    // Suspend parent
-                    ProcessTools.SuspendProcess(_process);
-
-                    // Suspend children
-                    ProcessTools.ProcessTree(_process.Id, ProcessTools.SuspendProcess);
-
-                    // Kill child process
-                    ProcessTools.ProcessTree(_process.Id, p =>
-                    {
-                        if (!p.HasExited)
-                        {
-                            p.Kill();
-                        }
-                    });
-
-                    // Kill process
-                    if (!_process.HasExited)
-                    {
-                        _process.Kill();
-                    }
+                    ProcessTools.KillYtDlp(_process, directory, filename);
 
                     // Reset
                     _process = null;
