@@ -52,9 +52,33 @@ namespace YtEzDL.UserControls
             }));
         }
 
+        private string FindThumbNail()
+        {
+            Thumbnail best = null;
+
+            foreach (var thumbnail in TrackData.Thumbnails)
+            {
+                if (thumbnail.Width > 0 && thumbnail.Height > 0)
+                {
+                    if (best == null)
+                    {
+                        best = thumbnail;
+                        continue;
+                    }
+
+                    if (thumbnail.Height <= pictureBox.Height && thumbnail.Width <= pictureBox.Height)
+                    {
+                        best = thumbnail;
+                    }
+                }
+            }
+
+            return best?.Url ?? TrackData.Thumbnail;
+        }
+
         private Image DownloadThumbNail()
         {
-            var thumbnail = TrackData.Thumbnail;
+            var thumbnail = FindThumbNail();
             if (thumbnail == null)
             {
                 return null;
