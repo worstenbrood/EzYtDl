@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -101,6 +100,7 @@ namespace YtEzDL.Forms
             });
             
         }
+
         private void LoadData()
         {
             try
