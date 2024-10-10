@@ -78,6 +78,16 @@ namespace YtEzDL.Forms
             }
         }
 
+        private void FilterTrack(Track track, string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                track.Visible = true;
+            }
+
+            track.Visible = track.Content.IndexOf(toolStripTextBoxSearch.Text, StringComparison.OrdinalIgnoreCase) != -1;
+        }
+        
         private void AddControl(JObject o)
         {
             ExecuteAsync(f =>
@@ -86,6 +96,7 @@ namespace YtEzDL.Forms
                 track.Enabled = true;
                 SetTrackWidth(track);
                 track.Select(true);
+                FilterTrack(track, toolStripTextBoxSearch.Text);
                 flowLayoutPanel.Controls.Add(track);
             });
             
@@ -255,16 +266,7 @@ namespace YtEzDL.Forms
             
             foreach (var track in Tracks)
             {
-                if (string.IsNullOrWhiteSpace(text))
-                {
-                    track.Visible = true;
-                    continue;
-                }
-
-                if (track.Content.IndexOf(toolStripTextBoxSearch.Text, StringComparison.OrdinalIgnoreCase) == -1)
-                {
-                    track.Visible = false;
-                }
+                FilterTrack(track, text);
             }
         }
     }
