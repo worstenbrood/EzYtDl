@@ -210,7 +210,7 @@ namespace YtEzDL.UserControls
             }
         }
 
-        private readonly Pen _pen = new Pen(MetroColors.Blue, 4);
+        private static readonly Pen Pen = new Pen(MetroColors.Blue, 4);
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -219,7 +219,7 @@ namespace YtEzDL.UserControls
             // Draw selection border
             if (_selected)
             {
-                e.Graphics.DrawRectangle(_pen, ClientRectangle);
+                e.Graphics.DrawRectangle(Pen, ClientRectangle);
             }
         }
 
