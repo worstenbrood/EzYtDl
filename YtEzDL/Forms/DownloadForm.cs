@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,11 +41,6 @@ namespace YtEzDL.Forms
             _url = url;
             
             InitializeComponent();
-
-            // Disable horizontal scrollbar
-            flowLayoutPanel.HorizontalScroll.Value = 0;
-            flowLayoutPanel.HorizontalScroll.Visible = false;
-            flowLayoutPanel.HorizontalScroll.Enabled = false;
         }
 
         private void ExecuteAsync(Action<Form> action)
@@ -252,15 +246,6 @@ namespace YtEzDL.Forms
         private void flowLayoutPanel_Resize(object sender, EventArgs e)
         {
             ResizeTracks();
-        }
-
-        private void flowLayoutPanel_Layout(object sender, LayoutEventArgs e)
-        {
-            // Resize once scrollbar is visible
-            if (flowLayoutPanel.VerticalScroll.Visible)
-            {
-                ResizeTracks();
-            }
         }
     }
 }
