@@ -54,8 +54,7 @@ namespace YtEzDL.Utils
     public class YoutubeDownload
     {
         public const int DefaultProcessWaitTime = 250;
-        private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
-
+        
         private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
         public YoutubeDownload RemoveCache()

@@ -1,5 +1,4 @@
 ﻿using MetroFramework.Controls;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -17,7 +16,7 @@ namespace YtEzDL.UserControls
     public partial class Track : MetroUserControl, IProgress
     {
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-        
+        private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
         
         /// <summary>
         /// Returns the info of the track
