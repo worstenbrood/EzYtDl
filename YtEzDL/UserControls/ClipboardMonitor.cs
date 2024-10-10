@@ -66,7 +66,7 @@ namespace YtEzDL.UserControls
             // 
             // ClipboardMonitor
             // 
-            this.ClientSize = new System.Drawing.Size(280, 257);
+            this.ClientSize = new System.Drawing.Size(0, 0);
             this.ControlBox = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

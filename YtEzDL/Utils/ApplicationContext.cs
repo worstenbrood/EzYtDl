@@ -10,6 +10,7 @@ namespace YtEzDL.Utils
     public class ApplicationContext : System.Windows.Forms.ApplicationContext
     {
         private readonly NotifyIcon _notifyIcon;
+        private readonly object _lock = new object();
 
         public ApplicationContext()
         {
@@ -32,7 +33,7 @@ namespace YtEzDL.Utils
 
             // Start clipboard monitor
             var clipboardMonitor = new ClipboardMonitor();
-            clipboardMonitor.OnClipboardDataChanged += data => Task.Run(() => HandleClipboard(data));
+            clipboardMonitor.OnClipboardDataChanged += d => Task.Run(() => HandleClipboard(d));
             clipboardMonitor.Monitor();
         }
 
@@ -52,11 +53,16 @@ namespace YtEzDL.Utils
                 return;
 
             var text = (string) dataObject.GetData(DataFormats.StringFormat);
-            if (_prevData.Value.Equals(text, StringComparison.OrdinalIgnoreCase))
-                return;
 
-            _prevData.Value = text;
-            
+            // Synchronize
+            lock (_lock)
+            {
+                if (_prevData.Value.Equals(text, StringComparison.OrdinalIgnoreCase))
+                    return;
+
+                _prevData.Value = text;
+            }
+
             try
             {
                 var url = new Uri(text);
