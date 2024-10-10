@@ -47,7 +47,7 @@ namespace YtEzDL.Forms
             this.metroButtonDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButtonDownload.Enabled = false;
             this.metroButtonDownload.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonDownload.Location = new System.Drawing.Point(11, 366);
+            this.metroButtonDownload.Location = new System.Drawing.Point(11, 365);
             this.metroButtonDownload.Margin = new System.Windows.Forms.Padding(2);
             this.metroButtonDownload.Name = "metroButtonDownload";
             this.metroButtonDownload.Size = new System.Drawing.Size(186, 26);
@@ -61,7 +61,7 @@ namespace YtEzDL.Forms
             // 
             this.metroButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButtonCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonCancel.Location = new System.Drawing.Point(219, 366);
+            this.metroButtonCancel.Location = new System.Drawing.Point(219, 365);
             this.metroButtonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.metroButtonCancel.Name = "metroButtonCancel";
             this.metroButtonCancel.Size = new System.Drawing.Size(186, 26);
