@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
 
@@ -43,6 +44,8 @@ namespace YtEzDL.UserControls
 
             // Init
             InitializeComponent();
+
+            textBoxTitle.Font = MetroFonts.Default(12);
         }
 
         private void SetProperty(Action<UserControl> action)
