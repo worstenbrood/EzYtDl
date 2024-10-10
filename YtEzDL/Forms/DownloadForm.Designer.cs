@@ -1,5 +1,4 @@
-﻿using MetroFramework;
-using MetroFramework.Controls;
+﻿using MetroFramework.Controls;
 
 namespace YtEzDL.Forms
 {
