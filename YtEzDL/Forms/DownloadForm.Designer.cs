@@ -39,6 +39,8 @@ namespace YtEzDL.Forms
             this.toolStripButtonAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonToggle = new System.Windows.Forms.ToolStripButton();
             this.toolStripTextBoxSearch = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonReset = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,11 +98,13 @@ namespace YtEzDL.Forms
             this.toolStripButtonNone,
             this.toolStripButtonAll,
             this.toolStripButtonToggle,
-            this.toolStripTextBoxSearch});
+            this.toolStripTextBoxSearch,
+            this.toolStripButtonReset,
+            this.toolStripButtonSettings});
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(891, 23);
+            this.toolStrip.Size = new System.Drawing.Size(891, 27);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 13;
             this.toolStrip.Text = "toolStrip";
@@ -135,6 +139,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonToggle.Name = "toolStripButtonToggle";
             this.toolStripButtonToggle.Size = new System.Drawing.Size(46, 19);
             this.toolStripButtonToggle.Text = "Toggle";
+            this.toolStripButtonToggle.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             this.toolStripButtonToggle.ToolTipText = "Toggle selection";
             this.toolStripButtonToggle.Click += new System.EventHandler(this.toolStripButtonToggle_Click);
             // 
@@ -145,6 +150,26 @@ namespace YtEzDL.Forms
             this.toolStripTextBoxSearch.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBoxSearch.ToolTipText = "Filter";
             this.toolStripTextBoxSearch.TextChanged += new System.EventHandler(this.toolStripTextBoxSearch_TextChanged);
+            // 
+            // toolStripButtonSettings
+            // 
+            this.toolStripButtonSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSettings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSettings.Image")));
+            this.toolStripButtonSettings.ImageTransparentColor = System.Drawing.Color.Gainsboro;
+            this.toolStripButtonSettings.Name = "toolStripButtonSettings";
+            this.toolStripButtonSettings.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButtonSettings.ToolTipText = "Settings";
+            this.toolStripButtonSettings.Click += new System.EventHandler(this.toolStripButtonSettings_Click);
+            // 
+            // toolStripButtonReset
+            // 
+            this.toolStripButtonReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonReset.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonReset.Image")));
+            this.toolStripButtonReset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonReset.Name = "toolStripButtonReset";
+            this.toolStripButtonReset.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButtonReset.Text = "Reset filter";
+            this.toolStripButtonReset.Click += new System.EventHandler(this.toolStripButtonReset_Click);
             // 
             // DownloadForm
             // 
@@ -183,5 +208,7 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripButton toolStripButtonToggle;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxSearch;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSettings;
+        private System.Windows.Forms.ToolStripButton toolStripButtonReset;
     }
 }

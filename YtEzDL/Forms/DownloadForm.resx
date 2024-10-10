@@ -166,6 +166,32 @@
         TgDQASA1MVpwzwAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="toolStripButtonReset.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKXSURBVFhHvZc7TxVBGIYXxYYEC2iJQkOIBQU0/AxbOrXW
+        xFJooIXYG7m1JCTGxFuhAX4BP8DCQq6lJl5CB+8zZ1+ds+7O2XPOHt/kydmZ/eabb2e+uZysQkP5b0rY
+        xDSmlMMbYljcDKV2Ucc7bPoSneMoFs7LHN8SRVuEbVmQSbnBffFZ3A6l9g6mxbI4EOfid85ZXrcksLHw
+        WXt63NFTcSXuhlJL8+JQUA/H4q3YzOH5RPg9tnMC1Q7CATwROLkTSln2XFD+JlbEpKgS71YFtrRZF0xH
+        Kq/+qDgCM+J1/vxSjApkZ3wZbcBf6U6wpQ1tP4gRgZJBFAM4yn8fCcSXkHTOlTJhgx8n7EPhIDwSlXIA
+        jwWN4AEVUqrTMjlYxAfgay2UEr4cgHPgUnwRZPupuBCsjgmB/JUpOYgXAp8LoVTR1pWz4pXYE+8EGf5G
+        MIy7Ylyg5HDmss2Y+CE+hlK94BuTR5YVxCjcC6VEELygEXNVhPo6Xx7LHbFBEcCzUPobWJvoZJDD81V8
+        aj2Gvv6b3Bl5xI5p/TOaO2Kx9dhohB7ubfFLuBwCcBQsGV5ihErnqEfVCgAxRyw71OQIdJwCG5AgBDEo
+        VSahh4QlwlLxmd7Eiqi1DG3EJoERmwZqIg/so+NG5Aq2S7ZNtk8U50i3clt8/RTJrdiVHBhEygGCfKD0
+        oq4OI+TE4Oikge8COKpsVCJs3Xnt49hi2HDAkomDoI75TAVStPGF5L2grtZ02ohrlIPYEAO/ksWyM6Lm
+        Yomj74IL55Soki+l2NKmq0tpUTTwfHHFjq/l7GZcVrZyeO77Wl6mOAjEZsKfj33BnxH2deDa1vcfk5Rw
+        5MSK5RwoCts48MaEYyddUdTxrizQgYihjelBWXYNb0eA9oQGMA4AAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="toolStripButtonSettings.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACNSURBVFhH7ZRRCoAwDEMnHkA9r95Z8ALagP1QpoSysp88
+        eAxGlg0GLUJ8MCRJQQcDUN0ITeZizo1EFzp/HzDe62ae5m4ejUQXOlcT+F0PfBOhLg9wun2BQ4WC0N0I
+        ZkhTO9xCCjoYgOpGSHNAcyALuhvBDGlqh1tIQQcDUN0IaQ5oDmRBdyOYoRAvSrkAeemMCDv4Lr4AAAAA
+        SUVORK5CYII=
+</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>42</value>
   </metadata>

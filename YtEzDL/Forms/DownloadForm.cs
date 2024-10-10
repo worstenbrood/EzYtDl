@@ -257,15 +257,30 @@ namespace YtEzDL.Forms
 
         private void flowLayoutPanel_Resize(object sender, EventArgs e)
         {
+            flowLayoutPanel.SuspendLayout();
             ResizeTracks();
+            flowLayoutPanel.ResumeLayout();
         }
 
         private void toolStripTextBoxSearch_TextChanged(object sender, EventArgs e)
         {
+            flowLayoutPanel.SuspendLayout();
             foreach (var track in Tracks)
             {
                 FilterTrack(track, toolStripTextBoxSearch.Text);
             }
+            flowLayoutPanel.ResumeLayout();
+        }
+
+        private void toolStripButtonSettings_Click(object sender, EventArgs e)
+        {
+            var settings = new Settings();
+            settings.ShowDialog(this);
+        }
+
+        private void toolStripButtonReset_Click(object sender, EventArgs e)
+        {
+            toolStripTextBoxSearch.Clear();
         }
     }
 }
