@@ -58,7 +58,7 @@ namespace YtEzDL.UserControls
 
         private Image DownloadThumbNail()
         {
-            var thumbnail = Json["thumbnails"]?.Last["url"];
+            var thumbnail = Json["thumbnail"]?.Value<string>();
             if (thumbnail == null)
             {
                 return null;
@@ -66,7 +66,7 @@ namespace YtEzDL.UserControls
 
             try
             {
-                return ImageUtils.Resize(ImageUtils.Download(thumbnail.Value<string>()), pictureBox.Size, tabPageInfo.BackColor);
+                return ImageUtils.Resize(ImageUtils.Download(thumbnail), pictureBox.Size, tabPageInfo.BackColor);
             }
             catch (Exception ex)
             {
