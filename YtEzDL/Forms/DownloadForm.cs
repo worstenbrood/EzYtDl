@@ -248,5 +248,24 @@ namespace YtEzDL.Forms
         {
             ResizeTracks();
         }
+
+        private void toolStripTextBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            var text = toolStripTextBoxSearch.Text;
+            
+            foreach (var track in Tracks)
+            {
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    track.Visible = true;
+                    continue;
+                }
+
+                if (track.Content.IndexOf(toolStripTextBoxSearch.Text, StringComparison.OrdinalIgnoreCase) == -1)
+                {
+                    track.Visible = false;
+                }
+            }
+        }
     }
 }

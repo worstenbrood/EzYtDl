@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,6 +25,8 @@ namespace YtEzDL.UserControls
 
         private volatile bool _selected;
         public bool Selected => _selected;
+
+        public string Content => textBoxTitle.Text;
 
         public JToken Json { get; }
         public string Url { get; }

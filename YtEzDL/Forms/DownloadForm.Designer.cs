@@ -38,6 +38,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonNone = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonToggle = new System.Windows.Forms.ToolStripButton();
+            this.toolStripTextBoxSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,11 +95,12 @@ namespace YtEzDL.Forms
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonNone,
             this.toolStripButtonAll,
-            this.toolStripButtonToggle});
+            this.toolStripButtonToggle,
+            this.toolStripTextBoxSearch});
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(891, 22);
+            this.toolStrip.Size = new System.Drawing.Size(891, 23);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 13;
             this.toolStrip.Text = "toolStrip";
@@ -136,6 +138,13 @@ namespace YtEzDL.Forms
             this.toolStripButtonToggle.ToolTipText = "Toggle selection";
             this.toolStripButtonToggle.Click += new System.EventHandler(this.toolStripButtonToggle_Click);
             // 
+            // toolStripTextBoxSearch
+            // 
+            this.toolStripTextBoxSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBoxSearch.Name = "toolStripTextBoxSearch";
+            this.toolStripTextBoxSearch.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBoxSearch.TextChanged += new System.EventHandler(this.toolStripTextBoxSearch_TextChanged);
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -172,5 +181,6 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripButton toolStripButtonAll;
         private System.Windows.Forms.ToolStripButton toolStripButtonToggle;
         private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBoxSearch;
     }
 }
