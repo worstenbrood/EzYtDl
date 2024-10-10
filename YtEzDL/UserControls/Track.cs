@@ -17,7 +17,7 @@ namespace YtEzDL.UserControls
     public partial class Track : MetroUserControl, IProgress
     {
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-        private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
+        
         
         /// <summary>
         /// Returns the info of the track
@@ -27,31 +27,17 @@ namespace YtEzDL.UserControls
         /// <summary>
         /// Json returned from yt-dlp
         /// </summary>
-        public JToken Json { get; }
-
-        /// <summary>
-        /// Url to the track
-        /// </summary>
-        public string Url { get; }
-
-        /// <summary>
-        /// Filename of track
-        /// </summary>
-        public string Filename { get; }
-
+        public TrackData TrackData { get; }
+        
         public Track()
         {
             InitializeComponent();
         }
 
-        public Track(JToken json)
+        public Track(TrackData trackData)
         {
             // Save json
-            Json = json ?? throw new ArgumentNullException(nameof(json));
-
-            // Save url
-            Url = Json["webpage_url"]?.Value<string>();
-            Filename = Json["_filename"]?.Value<string>();
+            TrackData = trackData ?? throw new ArgumentNullException(nameof(trackData));
 
             // Init
             InitializeComponent();
@@ -69,7 +55,7 @@ namespace YtEzDL.UserControls
 
         private Image DownloadThumbNail()
         {
-            var thumbnail = Json["thumbnail"]?.Value<string>();
+            var thumbnail = TrackData.Thumbnail;
             if (thumbnail == null)
             {
                 return null;
@@ -97,17 +83,17 @@ namespace YtEzDL.UserControls
 
         protected override void OnLoad(EventArgs e)
         {
-            if (Json != null)
+            if (TrackData != null)
             {
                 // Set title
-                Text = Json["title"]?.Value<string>()?.Replace("&", "&&") ?? "Untitled";
+                Text = TrackData.Title?.Replace("&", "&&") ?? "Untitled";
 
                 // Set info
                 textBoxTitle.Font = new Font(textBoxTitle.Font.FontFamily, 12);
-                textBoxTitle.Text = Json["title"] + Environment.NewLine + Json["webpage_url"];
+                textBoxTitle.Text = TrackData.Title + Environment.NewLine + TrackData.Playlist;
 
                 // Add duration
-                var duration = Json["duration"];
+                var duration = TrackData.Duration;
                 if (duration != null)
                 {
                     var timespan = TimeSpan.FromSeconds(Convert.ToDouble(duration));
@@ -115,10 +101,10 @@ namespace YtEzDL.UserControls
                 }
 
                 // Add upload date
-                var uploadDate = Json["upload_date"];
+                var uploadDate = TrackData.UploadDate;
                 if (uploadDate != null)
                 {
-                    var date = DateTime.ParseExact(uploadDate.Value<string>(), "yyyyMMdd", CultureInfo.DefaultThreadCurrentCulture, DateTimeStyles.None);
+                    var date = DateTime.ParseExact(TrackData.UploadDate, "yyyyMMdd", CultureInfo.DefaultThreadCurrentCulture, DateTimeStyles.None);
                     textBoxTitle.Text += Environment.NewLine + date.ToString("D");
                 }
 
@@ -154,7 +140,7 @@ namespace YtEzDL.UserControls
                     .AudioFormat(AudioFormat.Mp3)
                     .AudioQuality(AudioQuality.Fixed320)
                     .IgnoreErrors()
-                    .DownloadAsync(Url, DirectoryName, this, token)
+                    .DownloadAsync(TrackData.WebpageUrl, DirectoryName, this, token)
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();
@@ -174,7 +160,7 @@ namespace YtEzDL.UserControls
         {
             try
             {
-                _youtubeDl.Cancel(DirectoryName, Filename);
+                _youtubeDl.Cancel(DirectoryName, TrackData.Filename);
             }
             catch (Exception ex)
             {

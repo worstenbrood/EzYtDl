@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
-using Newtonsoft.Json.Linq;
 using YtEzDL.UserControls;
 using YtEzDL.Utils;
 
@@ -87,18 +86,23 @@ namespace YtEzDL.Forms
             track.Visible = track.Content.IndexOf(toolStripTextBoxSearch.Text, StringComparison.OrdinalIgnoreCase) != -1;
         }
         
-        private void AddControl(JObject o)
+        private void AddControl(TrackData trackData)
         {
             ExecuteAsync(f =>
             {
-                var track = new Track(o);
+                var track = new Track(trackData);
                 track.Enabled = true;
-                SetTrackWidth(track);
                 track.Select(true);
+                SetTrackWidth(track);
                 FilterTrack(track, toolStripTextBoxSearch.Text);
                 flowLayoutPanel.Controls.Add(track);
             });
             
+        }
+
+        private static string SafeString(string str)
+        {
+            return str.Replace("&", "&&");
         }
 
         private void LoadData()
@@ -124,11 +128,12 @@ namespace YtEzDL.Forms
                 {
                     if (Tracks.Length > 1)
                     {
-                        Text = $"Playlist: {Tracks[0].Json["playlist"]} ({Tracks[0].Json["webpage_url_domain"]})";
+                        Text = SafeString($"Playlist: {Tracks[0].TrackData.Playlist} ({Tracks[0].TrackData.WebpageUrl})");
                     }
                     else if (Tracks.Length == 1)
                     {
-                        Text = $"Track: {Tracks[0].Json["title"]} ({Tracks[0].Json["webpage_url_domain"]})";
+                        Text = SafeString($"Track: {Tracks[0].TrackData.Title} ({Tracks[0].TrackData.WebpageUrl})");
+                        toolStrip.Enabled = false;
                     }
 
                     Cursor = Cursors.Arrow;
@@ -144,7 +149,7 @@ namespace YtEzDL.Forms
             // Base
             base.OnLoad(e);
 
-            Text = $"Fetching {_url}";
+            Text = SafeString($"Fetching {_url}");
             Cursor = Cursors.WaitCursor;
             toolStrip.Font = MetroFonts.Default(12);
             Font = MetroFonts.Default(11);

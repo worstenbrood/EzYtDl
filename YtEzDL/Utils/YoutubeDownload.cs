@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using YtEzDL.Interfaces;
 
 namespace YtEzDL.Utils
@@ -54,6 +54,7 @@ namespace YtEzDL.Utils
     public class YoutubeDownload
     {
         public const int DefaultProcessWaitTime = 250;
+        private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
 
         private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
@@ -249,7 +250,7 @@ namespace YtEzDL.Utils
             parameters.Add($"\"{url}\"");
 
             var process = CreateProcess(parameters, (o, e) => ParseProgress(e.Data, progress), (o, e) => error.Append(e.Data));
-            var exited = false;
+            bool exited;
 
             do
             {
@@ -280,7 +281,7 @@ namespace YtEzDL.Utils
             {
                 if (error.Length != 0) // This probably means we're force killed
                 {
-                    throw new Exception(error.ToString());
+                    return Task.FromException<YoutubeDownload>(new Exception(error.ToString()));
                 }
             }
 
@@ -294,8 +295,8 @@ namespace YtEzDL.Utils
                 .GetAwaiter()
                 .GetResult();
         }
-
-        public Task GetInfoAsync(string url, Action<JObject> action, CancellationToken cancellationToken = default)
+        
+        public Task GetInfoAsync(string url, Action<TrackData> action, CancellationToken cancellationToken = default)
         {
             // Parameters
             var parameters = new List<string>
@@ -312,11 +313,21 @@ namespace YtEzDL.Utils
                     return;
                 }
 
-                var json = JObject.Parse(e.Data);
-                action.Invoke(json);
+                try
+                {
+                    var trackData = JsonConvert.DeserializeObject<TrackData>(e.Data);
+                    action.Invoke(trackData);
+                }
+                catch (Exception ex)
+                {
+#if DEBUG
+                    Debug.WriteLine($"DeserializeObject: {ex.Message}");
+#endif
+                    // Ignore
+                }
             });
 
-            var exited = false;
+            bool exited;
             do
             {
                 // Wait for exit
@@ -348,7 +359,7 @@ namespace YtEzDL.Utils
             return Task.CompletedTask;
         }
 
-        public void GetInfo(string url, Action<JObject> action)
+        public void GetInfo(string url, Action<TrackData> action)
         {
             GetInfoAsync(url, action)
                 .ConfigureAwait(false)
@@ -356,9 +367,9 @@ namespace YtEzDL.Utils
                 .GetResult();
         }
 
-        public List<JObject> GetInfo(string url)
+        public List<TrackData> GetInfo(string url)
         {
-            var result = new List<JObject>();
+            var result = new List<TrackData>();
 
             // Build list
             GetInfo(url, j => result.Add(j));
@@ -411,5 +422,53 @@ namespace YtEzDL.Utils
             // Wait for exit
             process.WaitForExit();
         }
+    }
+
+    public class Thumbnail
+    {
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
+
+        [JsonProperty(PropertyName = "preference")]
+        public int Preference { get; set; }
+
+        [JsonProperty(PropertyName = "url")]
+        public string Url { get; set; }
+
+        [JsonProperty(PropertyName = "width")]
+        public int Width { get; set; }
+
+        [JsonProperty(PropertyName = "height")]
+        public int Height { get; set; }
+    }
+
+    public class TrackData
+    {
+        [JsonProperty(PropertyName = "webpage_url")]
+        public string WebpageUrl { get; set; }
+
+        [JsonProperty(PropertyName = "webpage_url_domain")]
+        public string WebpageUrlDomain { get; set; }
+
+        [JsonProperty(PropertyName = "title")]
+        public string Title { get; set; }
+
+        [JsonProperty(PropertyName = "playlist")]
+        public string Playlist { get; set; }
+
+        [JsonProperty(PropertyName = "duration")]
+        public string Duration { get; set; }
+
+        [JsonProperty(PropertyName = "upload_date")]
+        public string UploadDate { get; set; }
+
+        [JsonProperty(PropertyName = "filename")]
+        public string Filename { get; set; }
+
+        [JsonProperty(PropertyName = "thumbnail")]
+        public string Thumbnail { get; set; }
+
+        [JsonProperty(PropertyName = "thumbnails")]
+        public Thumbnail[] Thumbnails { get; set; }
     }
 }
