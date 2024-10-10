@@ -53,6 +53,8 @@ namespace YtEzDL.Utils
 
     public class YoutubeDownload
     {
+        public const int DefaultProcessWaitTime = 500;
+
         private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
         public YoutubeDownload RemoveCache()
@@ -252,7 +254,7 @@ namespace YtEzDL.Utils
             do
             {
                 // Wait for exit
-                exited = process.WaitForExit(500);
+                exited = process.WaitForExit(DefaultProcessWaitTime);
 
                 // Cancel
                 if (!cancellationToken.IsCancellationRequested)
@@ -312,7 +314,7 @@ namespace YtEzDL.Utils
             do
             {
                 // Wait for exit
-                exited = process.WaitForExit(500);
+                exited = process.WaitForExit(DefaultProcessWaitTime);
 
                 // Cancel
                 if (!cancellationToken.IsCancellationRequested)

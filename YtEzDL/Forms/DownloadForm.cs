@@ -21,6 +21,11 @@ namespace YtEzDL.Forms
             _url = url;
             
             InitializeComponent();
+
+            // Disable horizontal scrollbar
+            flowLayoutPanel.HorizontalScroll.Value = 0;
+            flowLayoutPanel.HorizontalScroll.Visible = false;
+            flowLayoutPanel.HorizontalScroll.Enabled = false;
         }
 
         private void ExecuteAsync(Action<Form> action)
@@ -34,6 +39,7 @@ namespace YtEzDL.Forms
         private void SetTrackWidth(Track track)
         {
             var offset = 10;
+            
             if (flowLayoutPanel.VerticalScroll.Visible)
             {
                 offset += SystemInformation.VerticalScrollBarWidth;
@@ -217,11 +223,6 @@ namespace YtEzDL.Forms
             e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning() || Tracks.Any(t => t.DownLoading);
         }
 
-        private void flowLayoutPanel_Resize(object sender, EventArgs e)
-        {
-            ResizeTracks();
-        }
-
         private void toolStripButtonNone_Click(object sender, EventArgs e)
         {
             foreach (var track in Tracks.Where(t => t.Selected))
@@ -245,10 +246,19 @@ namespace YtEzDL.Forms
                 track.Toggle();
             }
         }
-        
-        private void DownloadForm_Resize(object sender, EventArgs e)
+
+        private void flowLayoutPanel_Resize(object sender, EventArgs e)
         {
-            flowLayoutPanel.Update();
+            ResizeTracks();
+        }
+
+        private void flowLayoutPanel_Layout(object sender, LayoutEventArgs e)
+        {
+            // Resize once scrollbar is visible
+            if (flowLayoutPanel.VerticalScroll.Visible)
+            {
+                ResizeTracks();
+            }
         }
     }
 }
