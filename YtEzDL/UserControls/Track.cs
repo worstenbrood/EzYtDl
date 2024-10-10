@@ -18,11 +18,12 @@ namespace YtEzDL.UserControls
     {
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
         private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
-        private volatile bool _isDownloading;
         
+        private volatile bool _isDownloading;
         public bool DownLoading => _isDownloading;
 
-        public bool Selected => BorderStyle == BorderStyle.FixedSingle;
+        private volatile bool _selected;
+        public bool Selected => _selected;
 
         public JToken Json { get; }
         public string Url { get; }
@@ -185,7 +186,10 @@ namespace YtEzDL.UserControls
 
         public void Select(bool select)
         {
-            SetProperty(c => BorderStyle = select ? BorderStyle.FixedSingle : BorderStyle.None);
+            _selected = select;
+
+            // Redraw border
+            Invalidate(ClientRectangle, false);
         }
 
         public void Toggle()
@@ -204,6 +208,24 @@ namespace YtEzDL.UserControls
             {
                 Toggle();
             }
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Draw selection border
+            if (_selected)
+            {
+                var pen = new Pen(MetroColors.Blue, 4);
+                e.Graphics.DrawRectangle(pen, ClientRectangle);
+            }
+        }
+
+        private void Track_Resize(object sender, EventArgs e)
+        {
+            // Fix selection border
+            Invalidate(ClientRectangle, false);
         }
 
         // IProgress

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace YtEzDL.Forms
 
         private void SetTrackWidth(Track track)
         {
-            var offset = 10;
+            var offset = 15;
             
             if (flowLayoutPanel.VerticalScroll.Visible)
             {
@@ -69,6 +70,7 @@ namespace YtEzDL.Forms
                 var track = new Track(o);
                 track.Enabled = true;
                 SetTrackWidth(track);
+                track.Select(true);
                 flowLayoutPanel.Controls.Add(track);
             });
             
