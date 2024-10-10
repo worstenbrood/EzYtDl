@@ -60,7 +60,7 @@
             this.metroTabControl.Location = new System.Drawing.Point(3, 2);
             this.metroTabControl.Name = "metroTabControl";
             this.metroTabControl.SelectedIndex = 0;
-            this.metroTabControl.Size = new System.Drawing.Size(604, 164);
+            this.metroTabControl.Size = new System.Drawing.Size(604, 192);
             this.metroTabControl.TabIndex = 14;
             this.metroTabControl.UseSelectable = true;
             // 
@@ -74,7 +74,7 @@
             this.tabPageInfo.HorizontalScrollbarSize = 10;
             this.tabPageInfo.Location = new System.Drawing.Point(4, 38);
             this.tabPageInfo.Name = "tabPageInfo";
-            this.tabPageInfo.Size = new System.Drawing.Size(596, 122);
+            this.tabPageInfo.Size = new System.Drawing.Size(596, 150);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Info";
             this.tabPageInfo.VerticalScrollbarBarColor = false;
@@ -88,7 +88,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox.Location = new System.Drawing.Point(16, 11);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(261, 143);
+            this.pictureBox.Size = new System.Drawing.Size(261, 136);
             this.pictureBox.TabIndex = 11;
             this.pictureBox.TabStop = false;
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
@@ -101,7 +101,7 @@
             this.tabPageSettings.HorizontalScrollbarSize = 10;
             this.tabPageSettings.Location = new System.Drawing.Point(4, 38);
             this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.Size = new System.Drawing.Size(596, 122);
+            this.tabPageSettings.Size = new System.Drawing.Size(596, 150);
             this.tabPageSettings.TabIndex = 1;
             this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.VerticalScrollbarBarColor = false;
@@ -132,7 +132,7 @@
             this.textBoxTitle.Multiline = true;
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(308, 143);
+            this.textBoxTitle.Size = new System.Drawing.Size(308, 139);
             this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.Text = "Title";
             this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
