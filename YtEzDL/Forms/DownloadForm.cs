@@ -71,8 +71,21 @@ namespace YtEzDL.Forms
         {
             try
             {
-                _youtubeDl.GetInfo(_url, AddControl);
-                    
+                _youtubeDl.GetInfoAsync(_url, AddControl, Source.Token)
+                    .ConfigureAwait(false)
+                    .GetAwaiter()
+                    .GetResult();
+            }
+            catch (OperationCanceledException)
+            {
+                // Ignore
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(this, exception.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
                 ExecuteAsync(f =>
                 {
                     if (Tracks.Length > 1)
@@ -84,19 +97,10 @@ namespace YtEzDL.Forms
                         Text = $"Track: {Tracks[0].Json["title"]} ({Tracks[0].Json["webpage_url_domain"]})";
                     }
 
-                    Invalidate();
-                });
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(this, exception.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                ExecuteAsync(f =>
-                {
                     Cursor = Cursors.Arrow;
                     metroButtonDownload.Enabled = true;
+                    metroButtonCancel.Enabled = false;
+                    Invalidate();
                 });
             }
         }
@@ -241,15 +245,10 @@ namespace YtEzDL.Forms
                 track.Toggle();
             }
         }
-
-        private void DownloadForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void DownloadForm_Resize(object sender, EventArgs e)
         {
-            flowLayoutPanel.PerformLayout();
+            flowLayoutPanel.Update();
         }
     }
 }

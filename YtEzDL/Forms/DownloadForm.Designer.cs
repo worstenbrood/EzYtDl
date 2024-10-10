@@ -60,7 +60,6 @@ namespace YtEzDL.Forms
             // metroButtonCancel
             // 
             this.metroButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.metroButtonCancel.Enabled = false;
             this.metroButtonCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
             this.metroButtonCancel.Location = new System.Drawing.Point(219, 349);
             this.metroButtonCancel.Margin = new System.Windows.Forms.Padding(2);
@@ -100,7 +99,7 @@ namespace YtEzDL.Forms
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(885, 24);
+            this.toolStrip.Size = new System.Drawing.Size(885, 22);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 13;
             this.toolStrip.Text = "toolStrip";
@@ -111,7 +110,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonNone.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNone.Image")));
             this.toolStripButtonNone.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNone.Name = "toolStripButtonNone";
-            this.toolStripButtonNone.Size = new System.Drawing.Size(44, 21);
+            this.toolStripButtonNone.Size = new System.Drawing.Size(40, 19);
             this.toolStripButtonNone.Text = "None";
             this.toolStripButtonNone.ToolTipText = "Select none";
             this.toolStripButtonNone.Click += new System.EventHandler(this.toolStripButtonNone_Click);
@@ -122,7 +121,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAll.Image")));
             this.toolStripButtonAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonAll.Name = "toolStripButtonAll";
-            this.toolStripButtonAll.Size = new System.Drawing.Size(29, 21);
+            this.toolStripButtonAll.Size = new System.Drawing.Size(25, 19);
             this.toolStripButtonAll.Text = "All";
             this.toolStripButtonAll.ToolTipText = "Select all";
             this.toolStripButtonAll.Click += new System.EventHandler(this.toolStripButtonAll_Click);
@@ -133,7 +132,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonToggle.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonToggle.Image")));
             this.toolStripButtonToggle.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonToggle.Name = "toolStripButtonToggle";
-            this.toolStripButtonToggle.Size = new System.Drawing.Size(52, 21);
+            this.toolStripButtonToggle.Size = new System.Drawing.Size(46, 19);
             this.toolStripButtonToggle.Text = "Toggle";
             this.toolStripButtonToggle.ToolTipText = "Toggle selection";
             this.toolStripButtonToggle.Click += new System.EventHandler(this.toolStripButtonToggle_Click);
@@ -156,7 +155,6 @@ namespace YtEzDL.Forms
             this.Padding = new System.Windows.Forms.Padding(9, 60, 9, 10);
             this.Text = "DownloadForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DownloadForm_FormClosing);
-            this.Load += new System.EventHandler(this.DownloadForm_Load);
             this.Resize += new System.EventHandler(this.DownloadForm_Resize);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
