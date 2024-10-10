@@ -16,7 +16,27 @@ namespace YtEzDL.Forms
     {
         private readonly string _url;
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-        
+
+        private CancellationTokenSource _source;
+
+        private CancellationTokenSource Source
+        {
+            get
+            {
+                if (_source == null)
+                {
+                    return _source = new CancellationTokenSource();
+                }
+
+                if (!_source.IsCancellationRequested)
+                {
+                    return _source;
+                }
+                _source.Dispose();
+                return _source = new CancellationTokenSource();
+            }
+        }
+
         public DownloadForm(string url)
         {
             _url = url;
@@ -39,7 +59,7 @@ namespace YtEzDL.Forms
 
         private void SetTrackWidth(Track track)
         {
-            var offset = 15;
+            var offset = 10;
             
             if (flowLayoutPanel.VerticalScroll.Visible)
             {
@@ -186,26 +206,6 @@ namespace YtEzDL.Forms
             finally
             {
                 SetButtons(true, false);
-            }
-        }
-        
-        private CancellationTokenSource _source;
-
-        private CancellationTokenSource Source
-        {
-            get
-            {
-                if (_source == null)
-                {
-                    return _source = new CancellationTokenSource();
-                }
-
-                if (!_source.IsCancellationRequested)
-                {
-                    return _source;
-                }
-                _source.Dispose();
-                return _source = new CancellationTokenSource();
             }
         }
         
