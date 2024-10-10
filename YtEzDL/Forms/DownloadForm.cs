@@ -65,6 +65,7 @@ namespace YtEzDL.Forms
                 SetTrackWidth(track);
                 flowLayoutPanel.Controls.Add(track);
             });
+            
         }
         private void LoadData()
         {
@@ -76,11 +77,11 @@ namespace YtEzDL.Forms
                 {
                     if (Tracks.Length > 1)
                     {
-                        Text = $"Playlist: {Tracks[0].Json["playlist"]}";
+                        Text = $"Playlist: {Tracks[0].Json["playlist"]} ({Tracks[0].Json["webpage_url_domain"]})";
                     }
                     else if (Tracks.Length == 1)
                     {
-                        Text = $"Track: {Tracks[0].Json["title"]}";
+                        Text = $"Track: {Tracks[0].Json["title"]} ({Tracks[0].Json["webpage_url_domain"]})";
                     }
 
                     Invalidate();
@@ -239,6 +240,16 @@ namespace YtEzDL.Forms
             {
                 track.Toggle();
             }
+        }
+
+        private void DownloadForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DownloadForm_Resize(object sender, EventArgs e)
+        {
+            flowLayoutPanel.PerformLayout();
         }
     }
 }
