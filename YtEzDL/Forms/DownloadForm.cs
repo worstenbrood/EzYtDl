@@ -257,17 +257,18 @@ namespace YtEzDL.Forms
 
         private void flowLayoutPanel_Resize(object sender, EventArgs e)
         {
-            ResizeTracks();
+            ExecuteAsync(c => { ResizeTracks(); });
         }
 
         private void toolStripTextBoxSearch_TextChanged(object sender, EventArgs e)
         {
-            var text = toolStripTextBoxSearch.Text;
-            
-            foreach (var track in Tracks)
+            ExecuteAsync(c =>
             {
-                FilterTrack(track, text);
-            }
+                foreach (var track in Tracks)
+                {
+                    FilterTrack(track, toolStripTextBoxSearch.Text);
+                }
+            });
         }
     }
 }
