@@ -19,7 +19,7 @@ namespace YtEzDL.Utils
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern bool AddClipboardFormatListener(IntPtr hwnd);
+        public static extern bool AddClipboardFormatListener(IntPtr hWnd);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern uint GetClipboardSequenceNumber();

@@ -29,7 +29,7 @@ namespace YtEzDL.Utils
             var youtubeDl = new YoutubeDownload();
 
             // Update
-           youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp update", t, ToolTipIcon.Info));
+            youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp update", t, ToolTipIcon.Info));
 
             // Start clipboard monitor
             var clipboardMonitor = new ClipboardMonitor();
