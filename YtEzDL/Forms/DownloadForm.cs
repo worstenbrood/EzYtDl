@@ -233,7 +233,7 @@ namespace YtEzDL.Forms
 
         private void toolStripButtonNone_Click(object sender, EventArgs e)
         {
-            foreach (var track in Tracks.Where(t => t.Selected))
+            foreach (var track in Tracks.Where(t => t.Visible).Where(t => t.Selected))
             {
                 track.Select(false);
             }
@@ -241,7 +241,7 @@ namespace YtEzDL.Forms
 
         private void toolStripButtonAll_Click(object sender, EventArgs e)
         {
-            foreach (var track in Tracks.Where(t => !t.Selected))
+            foreach (var track in Tracks.Where(t => t.Visible).Where(t => !t.Selected))
             {
                 track.Select(true);
             }
@@ -249,7 +249,7 @@ namespace YtEzDL.Forms
 
         private void toolStripButtonToggle_Click(object sender, EventArgs e)
         {
-            foreach (var track in Tracks)
+            foreach (var track in Tracks.Where(t => t.Visible))
             {
                 track.Toggle();
             }
@@ -257,18 +257,15 @@ namespace YtEzDL.Forms
 
         private void flowLayoutPanel_Resize(object sender, EventArgs e)
         {
-            ExecuteAsync(c => { ResizeTracks(); });
+            ResizeTracks();
         }
 
         private void toolStripTextBoxSearch_TextChanged(object sender, EventArgs e)
         {
-            ExecuteAsync(c =>
+            foreach (var track in Tracks)
             {
-                foreach (var track in Tracks)
-                {
-                    FilterTrack(track, toolStripTextBoxSearch.Text);
-                }
-            });
+                FilterTrack(track, toolStripTextBoxSearch.Text);
+            }
         }
     }
 }
