@@ -143,6 +143,7 @@ namespace YtEzDL.Forms
             this.toolStripTextBoxSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBoxSearch.Name = "toolStripTextBoxSearch";
             this.toolStripTextBoxSearch.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBoxSearch.ToolTipText = "Filter";
             this.toolStripTextBoxSearch.TextChanged += new System.EventHandler(this.toolStripTextBoxSearch_TextChanged);
             // 
             // DownloadForm
