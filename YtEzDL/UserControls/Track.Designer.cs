@@ -59,7 +59,7 @@
             this.metroTabControl.Controls.Add(this.tabPageInfo);
             this.metroTabControl.Controls.Add(this.tabPageSettings);
             this.metroTabControl.Location = new System.Drawing.Point(4, 2);
-            this.metroTabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroTabControl.Margin = new System.Windows.Forms.Padding(4);
             this.metroTabControl.Name = "metroTabControl";
             this.metroTabControl.SelectedIndex = 0;
             this.metroTabControl.Size = new System.Drawing.Size(805, 204);
@@ -75,7 +75,7 @@
             this.tabPageInfo.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageInfo.HorizontalScrollbarSize = 12;
             this.tabPageInfo.Location = new System.Drawing.Point(4, 38);
-            this.tabPageInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageInfo.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.Size = new System.Drawing.Size(797, 162);
             this.tabPageInfo.TabIndex = 0;
@@ -90,9 +90,9 @@
             this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox.Location = new System.Drawing.Point(21, 14);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(378, 144);
+            this.pictureBox.Size = new System.Drawing.Size(378, 152);
             this.pictureBox.TabIndex = 11;
             this.pictureBox.TabStop = false;
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
@@ -104,7 +104,7 @@
             this.tabPageSettings.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageSettings.HorizontalScrollbarSize = 12;
             this.tabPageSettings.Location = new System.Drawing.Point(4, 38);
-            this.tabPageSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageSettings.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageSettings.Name = "tabPageSettings";
             this.tabPageSettings.Size = new System.Drawing.Size(797, 162);
             this.tabPageSettings.TabIndex = 1;
@@ -138,7 +138,7 @@
             this.textBoxTitle.Multiline = true;
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(381, 132);
+            this.textBoxTitle.Size = new System.Drawing.Size(381, 140);
             this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.Text = "Title";
             this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
@@ -151,7 +151,7 @@
             this.Controls.Add(this.metroLabel);
             this.Controls.Add(this.metroTabControl);
             this.Controls.Add(this.metroProgressBar);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Track";
             this.Size = new System.Drawing.Size(809, 286);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
