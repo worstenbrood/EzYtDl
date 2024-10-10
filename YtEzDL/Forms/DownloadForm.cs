@@ -128,7 +128,7 @@ namespace YtEzDL.Forms
                     Cursor = Cursors.Arrow;
                     metroButtonDownload.Enabled = true;
                     metroButtonCancel.Enabled = false;
-                    Invalidate();
+                    Invalidate(ClientRectangle, false);
                 });
             }
         }
