@@ -46,8 +46,7 @@ namespace YtEzDL.Utils
 
         public static void ProcessTree(int parentProcessId, Action<Process> action)
         {
-            var handle = Win32.CreateToolhelp32Snapshot(Win32.SnapshotFlags.Process | Win32.SnapshotFlags.NoHeaps,
-                parentProcessId);
+            var handle = Win32.CreateToolhelp32Snapshot(Win32.SnapshotFlags.Process | Win32.SnapshotFlags.NoHeaps, parentProcessId);
             if (handle == IntPtr.Zero)
             {
                 throw new Win32Exception();
