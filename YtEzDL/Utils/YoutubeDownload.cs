@@ -309,12 +309,7 @@ namespace YtEzDL.Utils
 
             var process = CreateProcess(parameters, (o, e) =>
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    return;
-                }
-
-                if (e.Data == null)
+                if (cancellationToken.IsCancellationRequested || e.Data == null)
                 {
                     return;
                 }
