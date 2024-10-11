@@ -108,7 +108,7 @@ namespace YtEzDL.UserControls
 
                 // Set info
                 textBoxTitle.Font = new Font(textBoxTitle.Font.FontFamily, 12);
-                textBoxTitle.Text = TrackData.Title + Environment.NewLine + TrackData.Playlist;
+                textBoxTitle.Text = TrackData.Title + Environment.NewLine + TrackData.WebpageUrl;
 
                 // Add duration
                 var duration = TrackData.Duration;

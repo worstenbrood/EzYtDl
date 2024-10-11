@@ -126,11 +126,11 @@ namespace YtEzDL.Forms
                 {
                     if (Tracks.Length > 1)
                     {
-                        Text = SafeString($"Playlist: {Tracks[0].TrackData.Playlist} ({Tracks[0].TrackData.WebpageUrl})");
+                        Text = SafeString($"Playlist: {Tracks[0].TrackData.Playlist} ({Tracks[0].TrackData.WebpageUrlDomain})");
                     }
                     else if (Tracks.Length == 1)
                     {
-                        Text = SafeString($"Track: {Tracks[0].TrackData.Title} ({Tracks[0].TrackData.WebpageUrl})");
+                        Text = SafeString($"Track: {Tracks[0].TrackData.Title} ({Tracks[0].TrackData.WebpageUrlDomain})");
                         toolStrip.Enabled = false;
                     }
 
