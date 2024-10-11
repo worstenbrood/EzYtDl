@@ -6,7 +6,7 @@ namespace YtEzDL.Utils
     {
         public static byte[] ReadFully(Stream input)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
                 input.CopyTo(ms);
                 return ms.ToArray();

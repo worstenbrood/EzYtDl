@@ -7,7 +7,7 @@ using WebPWrapper;
 
 namespace YtEzDL.Utils
 {
-    public class ImageUtils
+    public class ImageTools
     {
         /// <summary>
         /// Resize the image to the specified width and height.
