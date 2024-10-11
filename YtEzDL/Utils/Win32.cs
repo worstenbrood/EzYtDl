@@ -8,6 +8,9 @@ namespace YtEzDL.Utils
         public const int MouseWheel = 0x020A;
         public const int SetFocus = 0x0007;
         public const int ClipboardUpdate = 0x031D;
+        public const int WmSyscommand = 0x0112;
+        public const int ScMaximize = 0xF030;
+        public const int ScRestore = 0xF120;
 
         [DllImport("User32.dll")]
         public static extern IntPtr PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);

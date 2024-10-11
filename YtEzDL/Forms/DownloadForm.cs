@@ -69,6 +69,9 @@ namespace YtEzDL.Forms
 
         private void ResizeTracks()
         {
+            // Redraw flow panel
+            flowLayoutPanel.Invalidate(flowLayoutPanel.ClientRectangle, false);
+
             // Resize tracks
             foreach (var track in Tracks)
             {
@@ -257,14 +260,7 @@ namespace YtEzDL.Forms
                 track.Toggle();
             }
         }
-
-        private void flowLayoutPanel_Resize(object sender, EventArgs e)
-        {
-            flowLayoutPanel.SuspendLayout();
-            ResizeTracks();
-            flowLayoutPanel.ResumeLayout();
-        }
-
+        
         private void toolStripTextBoxSearch_TextChanged(object sender, EventArgs e)
         {
             flowLayoutPanel.SuspendLayout();
@@ -284,6 +280,28 @@ namespace YtEzDL.Forms
         private void toolStripButtonReset_Click(object sender, EventArgs e)
         {
             toolStripTextBoxSearch.Clear();
+        }
+
+        private void DownloadForm_ResizeEnd(object sender, EventArgs e)
+        {
+            ResizeTracks();
+        }
+
+        private FormWindowState _previousWindowState = FormWindowState.Normal;
+
+        private void DownloadForm_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Maximized)
+            {
+                ResizeTracks();
+            }
+
+            if (WindowState == FormWindowState.Normal && _previousWindowState == FormWindowState.Maximized)
+            {
+                ResizeTracks();
+            }
+
+            _previousWindowState = WindowState;
         }
     }
 }

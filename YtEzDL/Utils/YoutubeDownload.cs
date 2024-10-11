@@ -187,7 +187,6 @@ namespace YtEzDL.Utils
                 }
 
                 _process.Start();
-
                 _process.BeginErrorReadLine();
                 _process.BeginOutputReadLine();
 

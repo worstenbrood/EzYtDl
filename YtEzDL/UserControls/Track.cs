@@ -81,7 +81,10 @@ namespace YtEzDL.UserControls
 
             try
             {
-                return ImageUtils.Resize(ImageUtils.Download(thumbnail), pictureBox.Size, tabPageInfo.BackColor);
+                using (var image = ImageUtils.Download(thumbnail))
+                {
+                    return ImageUtils.Resize(image, pictureBox.Size, tabPageInfo.BackColor);
+                }
             }
             catch (Exception ex)
             {
