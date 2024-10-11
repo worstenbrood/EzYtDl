@@ -147,7 +147,11 @@ namespace YtEzDL.Forms
                     else if (Tracks.Length == 1)
                     {
                         Text = SafeString($"Track: {Tracks[0].TrackData.Title} ({Tracks[0].TrackData.WebpageUrlDomain})");
-                        toolStrip.Enabled = false;
+                        toolStripButtonAll.Enabled = false;
+                        toolStripButtonNone.Enabled = false;
+                        toolStripButtonToggle.Enabled = false;
+                        toolStripTextBoxSearch.Enabled = false;
+                        toolStripButtonReset.Enabled = false;
                     }
 
                     Cursor = Cursors.Arrow;
