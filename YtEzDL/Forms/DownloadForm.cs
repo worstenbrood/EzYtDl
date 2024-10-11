@@ -71,12 +71,15 @@ namespace YtEzDL.Forms
         {
             // Redraw flow panel
             flowLayoutPanel.Invalidate(flowLayoutPanel.ClientRectangle, false);
+            flowLayoutPanel.SuspendLayout();
 
             // Resize tracks
             foreach (var track in Tracks)
             {
                 SetTrackWidth(track);
             }
+
+            flowLayoutPanel.ResumeLayout();
         }
 
         private void FilterTrack(Track track, string text)
@@ -87,6 +90,16 @@ namespace YtEzDL.Forms
             }
 
             track.Visible = track.Content.IndexOf(toolStripTextBoxSearch.Text, StringComparison.OrdinalIgnoreCase) != -1;
+        }
+
+        private void FilterTracks()
+        {
+            flowLayoutPanel.SuspendLayout();
+            foreach (var track in Tracks)
+            {
+                FilterTrack(track, toolStripTextBoxSearch.Text);
+            }
+            flowLayoutPanel.ResumeLayout();
         }
         
         private void AddControl(TrackData trackData)
@@ -263,12 +276,7 @@ namespace YtEzDL.Forms
         
         private void toolStripTextBoxSearch_TextChanged(object sender, EventArgs e)
         {
-            flowLayoutPanel.SuspendLayout();
-            foreach (var track in Tracks)
-            {
-                FilterTrack(track, toolStripTextBoxSearch.Text);
-            }
-            flowLayoutPanel.ResumeLayout();
+            FilterTracks();
         }
 
         private void toolStripButtonSettings_Click(object sender, EventArgs e)
@@ -282,6 +290,11 @@ namespace YtEzDL.Forms
             toolStripTextBoxSearch.Clear();
         }
 
+        /// <summary>
+        /// Resize tracks when manual resizing ends
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DownloadForm_ResizeEnd(object sender, EventArgs e)
         {
             ResizeTracks();
@@ -289,6 +302,11 @@ namespace YtEzDL.Forms
 
         private FormWindowState _previousWindowState = FormWindowState.Normal;
 
+        /// <summary>
+        /// Resize tracks if form gets maximized or restored
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DownloadForm_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Maximized)
@@ -302,6 +320,22 @@ namespace YtEzDL.Forms
             }
 
             _previousWindowState = WindowState;
+        }
+
+        private bool _scrollAdded;
+        
+        /// <summary>
+        /// Resize tracks once, once the scrollbar is visible
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void flowLayoutPanel_Layout(object sender, LayoutEventArgs e)
+        {
+            if (!_scrollAdded && flowLayoutPanel.VerticalScroll.Visible)
+            {
+                _scrollAdded = true;
+                ResizeTracks();
+            }
         }
     }
 }

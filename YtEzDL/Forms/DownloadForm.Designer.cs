@@ -87,6 +87,7 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.Size = new System.Drawing.Size(891, 271);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
+            this.flowLayoutPanel.Layout += new System.Windows.Forms.LayoutEventHandler(this.flowLayoutPanel_Layout);
             // 
             // toolStrip
             // 
