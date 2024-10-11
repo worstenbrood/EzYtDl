@@ -248,7 +248,13 @@ namespace YtEzDL.Utils
             var parameters = GetParameters();
             parameters.Add($"\"{url}\"");
 
-            var process = CreateProcess(parameters, (o, e) => ParseProgress(e.Data, progress), (o, e) => error.Append(e.Data));
+            var process = CreateProcess(parameters, (o, e) =>
+            {
+                if (!cancellationToken.IsCancellationRequested)
+                {
+                    ParseProgress(e.Data, progress);
+                }
+            }, (o, e) => error.Append(e.Data));
             bool exited;
 
             do
@@ -309,6 +315,11 @@ namespace YtEzDL.Utils
 
             var process = CreateProcess(parameters, (o, e) =>
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
+
                 if (e.Data == null)
                 {
                     return;
