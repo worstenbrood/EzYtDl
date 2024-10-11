@@ -258,28 +258,23 @@ namespace YtEzDL.Utils
 
             do
             {
+                // Canceled
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    if (!process.HasExited)
+                    {
+                        // Disable output reading
+                        process.CancelOutputRead();
+                    }
+
+                    // Do not kill since we need Cleanup
+
+                    // Exit loop
+                    return Task.FromCanceled<YoutubeDownload>(cancellationToken);
+                }
+
                 // Wait for exit
                 exited = process.WaitForExit(DefaultProcessWaitTime);
-
-                // Exit loop
-                if (exited)
-                {
-                    continue;
-                }
-
-                // Cancel
-                if (!cancellationToken.IsCancellationRequested)
-                {
-                    continue;
-                }
-
-                // Disable output reading
-                process.CancelOutputRead();
-
-                // Do not kill since we need Cleanup
-
-                // Exit loop
-                return Task.FromCanceled<YoutubeDownload>(cancellationToken);
             } while (!exited);
 
             // Error
@@ -341,28 +336,24 @@ namespace YtEzDL.Utils
             bool exited;
             do
             {
+                // Canceled
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    if (!process.HasExited)
+                    {
+                        // Cancel output reading
+                        process.CancelOutputRead();
+                    }
+
+                    // Kill process tree
+                    ProcessTools.KillProcessTree(process);
+
+                    // Canceled
+                    return Task.FromCanceled(cancellationToken);
+                }
+
                 // Wait for exit
                 exited = process.WaitForExit(DefaultProcessWaitTime);
-
-                if (exited)
-                {
-                    continue;
-                }
-
-                // Cancel
-                if (!cancellationToken.IsCancellationRequested)
-                {
-                    continue;
-                }
-
-                // Cancel output reading
-                process.CancelOutputRead();
-
-                // Kill process tree
-                ProcessTools.KillProcessTree(process);
-
-                // Canceled
-                return Task.FromCanceled(cancellationToken);
             } while (!exited);
 
             return Task.CompletedTask;

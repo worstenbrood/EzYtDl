@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace YtEzDL.Utils
 {
@@ -64,6 +65,9 @@ namespace YtEzDL.Utils
 
                 do
                 {
+                    // Process children of this process
+                    ProcessTree(entry.th32ProcessID, action);
+
                     // Next
                     if (entry.th32ParentProcessID != parentProcessId)
                     {
@@ -79,6 +83,7 @@ namespace YtEzDL.Utils
                     {
                         // Ignore
                     }
+
                 } while (Win32.Process32Next(handle, ref entry));
             }
             finally
@@ -105,13 +110,15 @@ namespace YtEzDL.Utils
                 if (!p.HasExited)
                 {
                     p.Kill();
+                    p.WaitForExit();
                 }
             });
-
+            
             // Kill process
             if (!process.HasExited)
             {
                 process.Kill();
+                process.WaitForExit();
             }
         }
 
