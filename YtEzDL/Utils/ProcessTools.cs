@@ -65,14 +65,14 @@ namespace YtEzDL.Utils
 
                 do
                 {
-                    // Process children of this process
-                    ProcessTree(entry.th32ProcessID, action);
-
                     // Next
                     if (entry.th32ParentProcessID != parentProcessId)
                     {
                         continue;
                     }
+
+                    // Process children of this process
+                    ProcessTree(entry.th32ProcessID, action);
 
                     try
                     {
