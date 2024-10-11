@@ -12,31 +12,31 @@ namespace YtEzDL.Utils
         public const int ScMaximize = 0xF030;
         public const int ScRestore = 0xF120;
 
-        [DllImport("User32.dll")]
+        [DllImport("user32")]
         public static extern IntPtr PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("User32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool HideCaret(IntPtr hWnd);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32", SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32", SetLastError = true)]
         public static extern bool AddClipboardFormatListener(IntPtr hWnd);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32", SetLastError = true)]
         public static extern uint GetClipboardSequenceNumber();
 
-        [DllImport("kernel32.dll", SetLastError = true)]
+        [DllImport("kernel32", SetLastError = true)]
         public static extern bool CloseHandle(IntPtr hObject);
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32")]
         public static extern IntPtr OpenThread(ThreadAccess dwDesiredAccess, bool bInheritHandle, int dwThreadId);
 
-        [DllImport("kernel32.dll", SetLastError = true)]
+        [DllImport("kernel32", SetLastError = true)]
         public static extern uint SuspendThread(IntPtr hThread);
 
-        [DllImport("kernel32.dll", SetLastError = true)]
+        [DllImport("kernel32", SetLastError = true)]
         public static extern uint ResumeThread(IntPtr hThread);
         
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Auto)]
@@ -75,7 +75,6 @@ namespace YtEzDL.Utils
             NoHeaps = 0x40000000
         }
 
-        //inner struct used only internally
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         public struct ProcessEntry32
         {
