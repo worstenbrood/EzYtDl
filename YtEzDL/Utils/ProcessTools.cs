@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Management;
+using System.Runtime.InteropServices;
 
 namespace YtEzDL.Utils
 {
@@ -46,33 +46,44 @@ namespace YtEzDL.Utils
 
         public static void ProcessTree(int parentProcessId, Action<Process> action)
         {
-            var searcher = new ManagementObjectSearcher($"SELECT * FROM Win32_Process WHERE ParentProcessId={parentProcessId}");
-            var collection = searcher.Get();
-
-            if (collection.Count <= 0)
+            var handle = Win32.CreateToolhelp32Snapshot(SnapshotFlags.Process|SnapshotFlags.NoHeaps, parentProcessId);
+            if (handle == IntPtr.Zero)
             {
-                return;
+                throw new Win32Exception();
             }
 
-            foreach (var item in collection)
+            try
             {
-                var childProcessId = Convert.ToInt32(item["ProcessId"]);
-                if (childProcessId == Process.GetCurrentProcess().Id)
-                {
-                    continue;
-                }
+                var entry = new ProcessEntry32();
+                entry.dwSize = Marshal.SizeOf(entry);
 
-                ProcessTree(childProcessId, action);
-
-                try
+                if (!Win32.Process32First(handle, ref entry))
                 {
-                    var childProcess = Process.GetProcessById(childProcessId);
-                    action.Invoke(childProcess);
+                    throw new Win32Exception();
                 }
-                catch (Exception)
+                
+                do
                 {
-                    // Ignore
-                }
+                    // Next
+                    if (entry.th32ParentProcessID != parentProcessId)
+                    {
+                        continue;
+                    }
+                        
+                    try
+                    {
+                        var childProcess = Process.GetProcessById(entry.th32ProcessID);
+                        action.Invoke(childProcess);
+                    }
+                    catch (Exception)
+                    {
+                        // Ignore
+                    }
+                } while (Win32.Process32Next(handle, ref entry));
+            }
+            finally
+            {
+                Win32.CloseHandle(handle);
             }
         }
 

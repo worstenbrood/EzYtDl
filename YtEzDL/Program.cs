@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using YtEzDL.Utils;
 
 namespace YtEzDL
 {
@@ -14,6 +15,9 @@ namespace YtEzDL
         [STAThread]
         public static void Main()
         {
+            ProcessTools.ProcessTree(Process.GetCurrentProcess().Id, process => Debug.WriteLine(process.ProcessName));
+
+
             var mutexName = Assembly.GetExecutingAssembly().FullName;
 
             // Check if mutex already exists
