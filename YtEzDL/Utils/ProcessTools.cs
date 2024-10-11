@@ -32,7 +32,7 @@ namespace YtEzDL.Utils
                     }
                 }
 #if DEBUG
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Debug.WriteLine("SuspendThread: " + ex.Message);
                 }
@@ -46,7 +46,8 @@ namespace YtEzDL.Utils
 
         public static void ProcessTree(int parentProcessId, Action<Process> action)
         {
-            var handle = Win32.CreateToolhelp32Snapshot(Win32.SnapshotFlags.Process|Win32.SnapshotFlags.NoHeaps, parentProcessId);
+            var handle = Win32.CreateToolhelp32Snapshot(Win32.SnapshotFlags.Process | Win32.SnapshotFlags.NoHeaps,
+                parentProcessId);
             if (handle == IntPtr.Zero)
             {
                 throw new Win32Exception();
@@ -61,7 +62,7 @@ namespace YtEzDL.Utils
                 {
                     throw new Win32Exception();
                 }
-                
+
                 do
                 {
                     // Next
@@ -69,7 +70,7 @@ namespace YtEzDL.Utils
                     {
                         continue;
                     }
-                        
+
                     try
                     {
                         var childProcess = Process.GetProcessById(entry.th32ProcessID);
@@ -85,21 +86,6 @@ namespace YtEzDL.Utils
             {
                 Win32.CloseHandle(handle);
             }
-        }
-
-        public static void KillYtDlp(Process process, string directory, string filename)
-        {
-            // Do this when process Exited, otherwise files will be in use
-            process.Exited += (sender, args) =>
-            {
-                // Cleanup files
-                foreach (var file in Directory.EnumerateFiles(directory, $"{Path.GetFileNameWithoutExtension(filename)}.*"))
-                {
-                    File.Delete(file);
-                }
-            };
-
-            KillProcessTree(process);
         }
 
         /// <summary>
@@ -128,6 +114,21 @@ namespace YtEzDL.Utils
             {
                 process.Kill();
             }
+        }
+
+        public static void KillYtDlp(Process process, string directory, string filename)
+        {
+            // Do this when process Exited, otherwise files will be in use
+            process.Exited += (sender, args) =>
+            {
+                // Cleanup files
+                foreach (var file in Directory.EnumerateFiles(directory, $"{Path.GetFileNameWithoutExtension(filename)}.*"))
+                {
+                    File.Delete(file);
+                }
+            };
+
+            KillProcessTree(process);
         }
     }
 }
