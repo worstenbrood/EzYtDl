@@ -18,7 +18,7 @@ namespace YtEzDL.Utils
 
             foreach (ProcessThread thread in process.Threads)
             {
-                var handle = Win32.OpenThread(ThreadAccess.SuspendResume, false, thread.Id);
+                var handle = Win32.OpenThread(Win32.ThreadAccess.SuspendResume, false, thread.Id);
                 if (handle == IntPtr.Zero)
                 {
                     continue;
@@ -46,7 +46,7 @@ namespace YtEzDL.Utils
 
         public static void ProcessTree(int parentProcessId, Action<Process> action)
         {
-            var handle = Win32.CreateToolhelp32Snapshot(SnapshotFlags.Process|SnapshotFlags.NoHeaps, parentProcessId);
+            var handle = Win32.CreateToolhelp32Snapshot(Win32.SnapshotFlags.Process|Win32.SnapshotFlags.NoHeaps, parentProcessId);
             if (handle == IntPtr.Zero)
             {
                 throw new Win32Exception();
@@ -54,7 +54,7 @@ namespace YtEzDL.Utils
 
             try
             {
-                var entry = new ProcessEntry32();
+                var entry = new Win32.ProcessEntry32();
                 entry.dwSize = Marshal.SizeOf(entry);
 
                 if (!Win32.Process32First(handle, ref entry))
