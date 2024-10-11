@@ -91,13 +91,11 @@ namespace YtEzDL.Forms
             ExecuteAsync(f =>
             {
                 var track = new Track(trackData);
-                track.Enabled = true;
-                track.Select(true);
                 SetTrackWidth(track);
                 FilterTrack(track, toolStripTextBoxSearch.Text);
+                track.Select(true);
                 flowLayoutPanel.Controls.Add(track);
             });
-            
         }
 
         private static string SafeString(string str)

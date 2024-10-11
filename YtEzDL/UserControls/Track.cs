@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,25 +55,19 @@ namespace YtEzDL.UserControls
 
         private string FindThumbNail()
         {
-            Thumbnail best = null;
-
-            foreach (var thumbnail in TrackData.Thumbnails)
+            if (TrackData.Thumbnails == null)
             {
-                if (thumbnail.Width > 0 && thumbnail.Height > 0)
-                {
-                    if (best == null)
-                    {
-                        best = thumbnail;
-                        continue;
-                    }
-
-                    if (thumbnail.Height <= pictureBox.Height && thumbnail.Width <= pictureBox.Height)
-                    {
-                        best = thumbnail;
-                    }
-                }
+                return TrackData.Thumbnail;
             }
 
+            var best = 
+                TrackData.Thumbnails
+                     .OrderBy(t => t.Height)
+                     .LastOrDefault(t => t.Height <= pictureBox.Height) ??
+                TrackData.Thumbnails
+                    .OrderBy(t => t.Height)
+                    .FirstOrDefault(t => t.Height > pictureBox.Height);
+            
             return best?.Url ?? TrackData.Thumbnail;
         }
 
@@ -90,7 +85,7 @@ namespace YtEzDL.UserControls
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Invoke(new MethodInvoker(() => MessageBox.Show(this, ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)));
                 return null;
             }
         }

@@ -271,6 +271,8 @@ namespace YtEzDL.Utils
                 // Disable output reading
                 process.CancelOutputRead();
 
+                // Do not kill since we need Cleanup
+
                 // Exit loop
                 return Task.FromCanceled<YoutubeDownload>(cancellationToken);
             } while (!exited);
@@ -345,13 +347,11 @@ namespace YtEzDL.Utils
 
                 // Cancel output reading
                 process.CancelOutputRead();
-                
-                // Kill process and exit loop
-                if (!process.HasExited)
-                {
-                    process.Kill();
-                }
 
+                // Kill process tree
+                ProcessTools.KillProcessTree(process);
+
+                // Canceled
                 return Task.FromCanceled(cancellationToken);
             } while (!exited);
 

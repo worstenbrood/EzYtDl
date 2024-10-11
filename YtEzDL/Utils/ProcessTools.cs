@@ -10,6 +10,12 @@ namespace YtEzDL.Utils
     {
         public static void SuspendProcess(Process process)
         {
+            // Do nothing
+            if (process.HasExited)
+            {
+                return;
+            }
+
             foreach (ProcessThread thread in process.Threads)
             {
                 var handle = Win32.OpenThread(ThreadAccess.SuspendResume, false, thread.Id);
@@ -82,6 +88,15 @@ namespace YtEzDL.Utils
                 }
             };
 
+            KillProcessTree(process);
+        }
+
+        /// <summary>
+        /// Kill the whole process tree
+        /// </summary>
+        /// <param name="process"></param>
+        public static void KillProcessTree(Process process)
+        {
             // Suspend parent
             SuspendProcess(process);
 
