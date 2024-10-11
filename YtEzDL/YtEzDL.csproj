@@ -114,7 +114,7 @@
     <Compile Include="Utils\ProcessTools.cs" />
     <Compile Include="Utils\TimedVariable.cs" />
     <Compile Include="Utils\ApplicationContext.cs" />
-    <Compile Include="Utils\Utilities.cs" />
+    <Compile Include="Utils\Tools.cs" />
     <Compile Include="Utils\Win32.cs" />
     <Compile Include="Utils\YoutubeDownload.cs" />
     <EmbeddedResource Include="Forms\DownloadForm.resx">

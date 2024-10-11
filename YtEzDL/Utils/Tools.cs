@@ -2,9 +2,9 @@
 
 namespace YtEzDL.Utils
 {
-    public class Utilities
+    public static class Tools
     {
-        public static byte[] ReadFully(Stream input)
+        public static byte[] ReadFully(this Stream input)
         {
             using (var ms = new MemoryStream())
             {

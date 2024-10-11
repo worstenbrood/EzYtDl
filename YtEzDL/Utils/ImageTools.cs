@@ -63,7 +63,7 @@ namespace YtEzDL.Utils
                         case "image/webp":
                             using (var decoder = new WebP())
                             {
-                                return decoder.Decode(Utilities.ReadFully(stream));
+                                return decoder.Decode(stream.ReadFully());
                             }
 
                         default:
