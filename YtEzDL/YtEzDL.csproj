@@ -74,7 +74,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="External\WebPWrapper.cs" />
+    <Compile Include="Utils\WebPWrapper.cs" />
     <Compile Include="Forms\Settings.cs">
       <SubType>Form</SubType>
     </Compile>

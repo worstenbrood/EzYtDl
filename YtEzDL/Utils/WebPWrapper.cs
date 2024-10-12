@@ -29,6 +29,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows.Forms;
 
+// ReSharper disable once CheckNamespace
 namespace WebPWrapper
 {
     public sealed class WebP : IDisposable
