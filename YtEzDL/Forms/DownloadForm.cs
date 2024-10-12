@@ -185,9 +185,6 @@ namespace YtEzDL.Forms
 
         private void StartDownloadTasks()
         {
-            
-            
-
             var downloadTasks = Tracks
                 .Where(t => t.Selected)
                 .Select(t =>
