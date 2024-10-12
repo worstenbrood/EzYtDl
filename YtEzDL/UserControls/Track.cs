@@ -234,7 +234,12 @@ namespace YtEzDL.UserControls
         /// <param name="text"></param>
         public void SetStatus(string text)
         {
-            SetProperty(c => metroLabel.Text = text);
+            SetProperty(c =>
+            {
+                metroLabel.Text = text;
+                metroLabel.Refresh();
+            });
+           
         }
 
         private void Track_MouseClick(object sender, MouseEventArgs e)
