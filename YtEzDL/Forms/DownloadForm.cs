@@ -134,7 +134,7 @@ namespace YtEzDL.Forms
             }
             catch (Exception exception)
             {
-                MessageBox.Show(this, exception.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Invoke(new MethodInvoker(() => MessageBox.Show(this, exception.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)));
             }
             finally
             {
