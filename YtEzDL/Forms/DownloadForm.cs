@@ -267,11 +267,6 @@ namespace YtEzDL.Forms
             Source.Cancel();
         }
 
-        private void MetroButtonCancel_Click(object sender, EventArgs e)
-        {
-            Source.Cancel();
-        }
-
         private void DownloadForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning() || Tracks.Any(t => t.DownLoading);
