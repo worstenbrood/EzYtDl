@@ -155,8 +155,8 @@ namespace YtEzDL.Forms
                     }
 
                     Cursor = Cursors.Arrow;
-                    metroButtonDownload.Enabled = true;
-                    metroButtonCancel.Enabled = false;
+                    toolStripButtonDownload.Enabled = true;
+                    toolStripButtonCancel.Enabled = false;
                     Invalidate(ClientRectangle, false);
                 });
             }
@@ -177,6 +177,7 @@ namespace YtEzDL.Forms
             
             // Set foreground window
             Activate();
+            Show();
             FocusMe();
         }
         
@@ -221,8 +222,8 @@ namespace YtEzDL.Forms
         {
             ExecuteAsync(f =>
             {
-                metroButtonCancel.Enabled = cancel;
-                metroButtonDownload.Enabled = download;
+                toolStripButtonCancel.Enabled = cancel;
+                toolStripButtonDownload.Enabled = download;
             });
         }
 
@@ -242,6 +243,18 @@ namespace YtEzDL.Forms
         {
             SetButtons(false, true);
             Task.Run(StartDownload, Source.Token);
+        }
+
+
+        private void toolStripButtonDownload_Click(object sender, EventArgs e)
+        {
+            SetButtons(false, true);
+            Task.Run(StartDownload, Source.Token);
+        }
+
+        private void toolStripButtonCancel_Click(object sender, EventArgs e)
+        {
+            Source.Cancel();
         }
 
         private void MetroButtonCancel_Click(object sender, EventArgs e)

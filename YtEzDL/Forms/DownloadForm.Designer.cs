@@ -31,8 +31,6 @@ namespace YtEzDL.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
-            this.metroButtonDownload = new MetroFramework.Controls.MetroButton();
-            this.metroButtonCancel = new MetroFramework.Controls.MetroButton();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNone = new System.Windows.Forms.ToolStripButton();
@@ -41,37 +39,10 @@ namespace YtEzDL.Forms
             this.toolStripTextBoxSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButtonReset = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonDownload = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // metroButtonDownload
-            // 
-            this.metroButtonDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.metroButtonDownload.Enabled = false;
-            this.metroButtonDownload.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonDownload.Location = new System.Drawing.Point(11, 365);
-            this.metroButtonDownload.Margin = new System.Windows.Forms.Padding(2);
-            this.metroButtonDownload.Name = "metroButtonDownload";
-            this.metroButtonDownload.Size = new System.Drawing.Size(186, 26);
-            this.metroButtonDownload.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroButtonDownload.TabIndex = 3;
-            this.metroButtonDownload.Text = "Download";
-            this.metroButtonDownload.UseSelectable = true;
-            this.metroButtonDownload.Click += new System.EventHandler(this.MetroButtonDownload_Click);
-            // 
-            // metroButtonCancel
-            // 
-            this.metroButtonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.metroButtonCancel.FontSize = MetroFramework.MetroButtonSize.Medium;
-            this.metroButtonCancel.Location = new System.Drawing.Point(219, 365);
-            this.metroButtonCancel.Margin = new System.Windows.Forms.Padding(2);
-            this.metroButtonCancel.Name = "metroButtonCancel";
-            this.metroButtonCancel.Size = new System.Drawing.Size(186, 26);
-            this.metroButtonCancel.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroButtonCancel.TabIndex = 4;
-            this.metroButtonCancel.Text = "Cancel";
-            this.metroButtonCancel.UseSelectable = true;
-            this.metroButtonCancel.Click += new System.EventHandler(this.MetroButtonCancel_Click);
             // 
             // flowLayoutPanel
             // 
@@ -84,7 +55,7 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.Location = new System.Drawing.Point(9, 87);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(891, 271);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(891, 303);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.Layout += new System.Windows.Forms.LayoutEventHandler(this.flowLayoutPanel_Layout);
@@ -100,7 +71,9 @@ namespace YtEzDL.Forms
             this.toolStripButtonToggle,
             this.toolStripTextBoxSearch,
             this.toolStripButtonReset,
-            this.toolStripButtonSettings});
+            this.toolStripButtonSettings,
+            this.toolStripButtonDownload,
+            this.toolStripButtonCancel});
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
             this.toolStrip.Name = "toolStrip";
@@ -171,6 +144,26 @@ namespace YtEzDL.Forms
             this.toolStripButtonSettings.ToolTipText = "Settings";
             this.toolStripButtonSettings.Click += new System.EventHandler(this.toolStripButtonSettings_Click);
             // 
+            // toolStripButtonDownload
+            // 
+            this.toolStripButtonDownload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonDownload.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDownload.Image")));
+            this.toolStripButtonDownload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonDownload.Name = "toolStripButtonDownload";
+            this.toolStripButtonDownload.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButtonDownload.ToolTipText = "Download";
+            this.toolStripButtonDownload.Click += new System.EventHandler(this.toolStripButtonDownload_Click);
+            // 
+            // toolStripButtonCancel
+            // 
+            this.toolStripButtonCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonCancel.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCancel.Image")));
+            this.toolStripButtonCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonCancel.Name = "toolStripButtonCancel";
+            this.toolStripButtonCancel.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButtonCancel.ToolTipText = "Cancel";
+            this.toolStripButtonCancel.Click += new System.EventHandler(this.toolStripButtonCancel_Click);
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -180,8 +173,6 @@ namespace YtEzDL.Forms
             this.ClientSize = new System.Drawing.Size(909, 400);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.flowLayoutPanel);
-            this.Controls.Add(this.metroButtonCancel);
-            this.Controls.Add(this.metroButtonDownload);
             this.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(1);
@@ -200,9 +191,6 @@ namespace YtEzDL.Forms
         }
 
         #endregion
-
-        private MetroButton metroButtonDownload;
-        private MetroButton metroButtonCancel;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.ToolStripButton toolStripButtonNone;
         private System.Windows.Forms.ToolStripButton toolStripButtonAll;
@@ -211,5 +199,7 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxSearch;
         private System.Windows.Forms.ToolStripButton toolStripButtonSettings;
         private System.Windows.Forms.ToolStripButton toolStripButtonReset;
+        private System.Windows.Forms.ToolStripButton toolStripButtonDownload;
+        private System.Windows.Forms.ToolStripButton toolStripButtonCancel;
     }
 }
