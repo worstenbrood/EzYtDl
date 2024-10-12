@@ -371,6 +371,10 @@ namespace YtEzDL.Forms
                     .RemoveCache()
                     .Run();
             }
+            catch (Exception exception)
+            {
+                Invoke(new MethodInvoker(() => MessageBox.Show(this, exception.ToString(), "Error removing cache", MessageBoxButtons.OK, MessageBoxIcon.Error)));
+            }
             finally
             {
                 ExecuteAsync(f =>
