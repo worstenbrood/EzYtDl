@@ -42,6 +42,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonDownload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClearCache = new System.Windows.Forms.ToolStripButton();
+            this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -176,6 +177,15 @@ namespace YtEzDL.Forms
             this.toolStripButtonClearCache.ToolTipText = "Clear yt-dlp cache";
             this.toolStripButtonClearCache.Click += new System.EventHandler(this.toolStripButtonClearCache_Click);
             // 
+            // metroProgressSpinner
+            // 
+            this.metroProgressSpinner.Location = new System.Drawing.Point(9, 29);
+            this.metroProgressSpinner.Maximum = 100;
+            this.metroProgressSpinner.Name = "metroProgressSpinner";
+            this.metroProgressSpinner.Size = new System.Drawing.Size(16, 16);
+            this.metroProgressSpinner.TabIndex = 14;
+            this.metroProgressSpinner.UseSelectable = true;
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -183,6 +193,7 @@ namespace YtEzDL.Forms
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(909, 400);
+            this.Controls.Add(this.metroProgressSpinner);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.flowLayoutPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -214,5 +225,6 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripButton toolStripButtonDownload;
         private System.Windows.Forms.ToolStripButton toolStripButtonCancel;
         private System.Windows.Forms.ToolStripButton toolStripButtonClearCache;
+        private MetroProgressSpinner metroProgressSpinner;
     }
 }

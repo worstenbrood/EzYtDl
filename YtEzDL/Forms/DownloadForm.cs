@@ -162,9 +162,10 @@ namespace YtEzDL.Forms
                         toolStripButtonReset.Enabled = false;
                     }
 
-                    Cursor = Cursors.Arrow;
                     toolStripButtonDownload.Enabled = true;
                     toolStripButtonCancel.Enabled = false;
+                    metroProgressSpinner.Spinning = false;
+                    metroProgressSpinner.Visible = false;
                     Invalidate(ClientRectangle, false);
                 });
             }
@@ -176,7 +177,6 @@ namespace YtEzDL.Forms
             base.OnLoad(e);
 
             Text = SafeString($"Fetching {_url}");
-            Cursor = Cursors.WaitCursor;
             toolStrip.Font = MetroFonts.Default(12);
             Font = MetroFonts.Default(11);
             
@@ -249,13 +249,6 @@ namespace YtEzDL.Forms
             }
         }
         
-        private void MetroButtonDownload_Click(object sender, EventArgs e)
-        {
-            SetButtons(false, true);
-            Task.Run(StartDownload, Source.Token);
-        }
-
-
         private void toolStripButtonDownload_Click(object sender, EventArgs e)
         {
             SetButtons(false, true);
