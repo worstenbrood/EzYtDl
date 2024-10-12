@@ -106,19 +106,23 @@ namespace YtEzDL.Utils
             // Kill child process
             ProcessTree(process.Id, p =>
             {
-                if (!p.HasExited)
+                if (p.HasExited)
                 {
-                    p.Kill();
-                    p.WaitForExit();
+                    return;
                 }
+
+                p.Kill();
+                p.WaitForExit();
             });
             
             // Kill process
-            if (!process.HasExited)
+            if (process.HasExited)
             {
-                process.Kill();
-                process.WaitForExit();
+                return;
             }
+
+            process.Kill();
+            process.WaitForExit();
         }
 
         public static void KillYtDlp(Process process, string directory, string filename)
