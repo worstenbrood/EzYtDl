@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using YtEzDL.Utils;
 
 namespace YtEzDL
 {
