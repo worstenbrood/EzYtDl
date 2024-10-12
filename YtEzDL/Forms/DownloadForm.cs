@@ -50,6 +50,14 @@ namespace YtEzDL.Forms
             }));
         }
 
+        private void Execute(Action<Form> action)
+        {
+            Invoke(new MethodInvoker(() =>
+            {
+                action.Invoke(this);
+            }));
+        }
+
         private void SetTrackWidth(Track track)
         {
             var offset = 10;
@@ -134,7 +142,7 @@ namespace YtEzDL.Forms
             }
             catch (Exception exception)
             {
-                Invoke(new MethodInvoker(() => MessageBox.Show(this, exception.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)));
+                Execute(f => MessageBox.Show(this, exception.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             finally
             {
@@ -370,17 +378,17 @@ namespace YtEzDL.Forms
                 new YoutubeDownload()
                     .RemoveCache()
                     .Run();
+                Execute(f => MessageBox.Show(this, "Cache cleared", "yt-dlp", MessageBoxButtons.OK, MessageBoxIcon.Information));
             }
             catch (Exception exception)
             {
-                Invoke(new MethodInvoker(() => MessageBox.Show(this, exception.ToString(), "Error removing cache", MessageBoxButtons.OK, MessageBoxIcon.Error)));
+                Execute(f => MessageBox.Show(this, exception.ToString(), "Error removing cache", MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             finally
             {
                 ExecuteAsync(f =>
                 {
                     toolStripButtonClearCache.Enabled = true;
-                    UseWaitCursor = false;
                 });
             }
         }
@@ -388,7 +396,6 @@ namespace YtEzDL.Forms
         private void toolStripButtonClearCache_Click(object sender, EventArgs e)
         {
             toolStripButtonClearCache.Enabled = false;
-            UseWaitCursor = true;
             Task.Run(ClearCache);
         }
     }
