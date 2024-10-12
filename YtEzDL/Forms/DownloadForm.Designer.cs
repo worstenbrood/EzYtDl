@@ -179,7 +179,8 @@ namespace YtEzDL.Forms
             // 
             // metroProgressSpinner
             // 
-            this.metroProgressSpinner.Location = new System.Drawing.Point(9, 29);
+            this.metroProgressSpinner.Location = new System.Drawing.Point(5, 30);
+            this.metroProgressSpinner.Margin = new System.Windows.Forms.Padding(0);
             this.metroProgressSpinner.Maximum = 100;
             this.metroProgressSpinner.Name = "metroProgressSpinner";
             this.metroProgressSpinner.Size = new System.Drawing.Size(16, 16);

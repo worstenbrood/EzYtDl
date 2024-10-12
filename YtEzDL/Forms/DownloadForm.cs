@@ -176,10 +176,12 @@ namespace YtEzDL.Forms
             // Base
             base.OnLoad(e);
 
+            // Layout
             Text = SafeString($"Fetching {_url}");
             toolStrip.Font = MetroFonts.Default(12);
             Font = MetroFonts.Default(11);
-            
+            metroProgressSpinner.Value = 20;
+
             // Load data
             Task.Run(LoadData);
             
