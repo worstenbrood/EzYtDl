@@ -110,6 +110,12 @@ namespace YtEzDL.Utils
             _parameters["--ignore-errors"] = string.Empty;
             return this;
         }
+
+        public YoutubeDownload SetPath(string path)
+        {
+            _parameters["-P"] = path;
+            return this;
+        }
         
         public YoutubeDownload Reset()
         {
