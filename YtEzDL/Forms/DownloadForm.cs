@@ -362,5 +362,30 @@ namespace YtEzDL.Forms
                     break;
             }
         }
+
+        private void ClearCache()
+        {
+            try
+            {
+                new YoutubeDownload()
+                    .RemoveCache()
+                    .Run();
+            }
+            finally
+            {
+                ExecuteAsync(f =>
+                {
+                    toolStripButtonClearCache.Enabled = true;
+                    UseWaitCursor = false;
+                });
+            }
+        }
+
+        private void toolStripButtonClearCache_Click(object sender, EventArgs e)
+        {
+            toolStripButtonClearCache.Enabled = false;
+            UseWaitCursor = true;
+            Task.Run(ClearCache);
+        }
     }
 }

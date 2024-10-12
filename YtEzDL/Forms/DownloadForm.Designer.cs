@@ -41,6 +41,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDownload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonClearCache = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +74,8 @@ namespace YtEzDL.Forms
             this.toolStripButtonReset,
             this.toolStripButtonSettings,
             this.toolStripButtonDownload,
-            this.toolStripButtonCancel});
+            this.toolStripButtonCancel,
+            this.toolStripButtonClearCache});
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
             this.toolStrip.Name = "toolStrip";
@@ -164,6 +166,16 @@ namespace YtEzDL.Forms
             this.toolStripButtonCancel.ToolTipText = "Cancel";
             this.toolStripButtonCancel.Click += new System.EventHandler(this.toolStripButtonCancel_Click);
             // 
+            // toolStripButtonClearCache
+            // 
+            this.toolStripButtonClearCache.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonClearCache.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonClearCache.Image")));
+            this.toolStripButtonClearCache.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonClearCache.Name = "toolStripButtonClearCache";
+            this.toolStripButtonClearCache.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButtonClearCache.ToolTipText = "Clear yt-dlp cache";
+            this.toolStripButtonClearCache.Click += new System.EventHandler(this.toolStripButtonClearCache_Click);
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -201,5 +213,6 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripButton toolStripButtonReset;
         private System.Windows.Forms.ToolStripButton toolStripButtonDownload;
         private System.Windows.Forms.ToolStripButton toolStripButtonCancel;
+        private System.Windows.Forms.ToolStripButton toolStripButtonClearCache;
     }
 }
