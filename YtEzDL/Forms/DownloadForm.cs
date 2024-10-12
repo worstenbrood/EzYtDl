@@ -326,7 +326,7 @@ namespace YtEzDL.Forms
             _previousWindowState = WindowState;
         }
 
-        private bool _scrollAdded;
+        private bool _scrollVisible;
         
         /// <summary>
         /// Resize tracks once, once the scrollbar is visible
@@ -335,10 +335,16 @@ namespace YtEzDL.Forms
         /// <param name="e"></param>
         private void flowLayoutPanel_Layout(object sender, LayoutEventArgs e)
         {
-            if (!_scrollAdded && flowLayoutPanel.VerticalScroll.Visible)
+            switch (_scrollVisible)
             {
-                _scrollAdded = true;
-                ResizeTracks();
+                case false when flowLayoutPanel.VerticalScroll.Visible:
+                    _scrollVisible = true;
+                    ResizeTracks();
+                    break;
+                case true when !flowLayoutPanel.VerticalScroll.Visible:
+                    _scrollVisible = false;
+                    ResizeTracks();
+                    break;
             }
         }
     }
