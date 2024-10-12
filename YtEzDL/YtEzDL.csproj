@@ -72,12 +72,9 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="WebPWrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>External\WebPWrapper.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="External\WebPWrapper.cs" />
     <Compile Include="Forms\Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,11 +159,10 @@
   <ItemGroup>
     <Content Include="External\libwebp_x64.dll" />
     <Content Include="External\libwebp_x86.dll" />
-    <Content Include="External\WebPWrapper.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy /Y "$(ProjectDir)External\*.*" "$(ProjectDir)$(OutDir)"
+    <PreBuildEvent>copy /Y "$(ProjectDir)External\*.dll" "$(ProjectDir)$(OutDir)"
 if "$(ConfigurationName)" == "Debug" exit
 if not exist "$(ProjectDir)$(OutDir)Tools" mkdir "$(ProjectDir)$(OutDir)Tools"
 del /F /Q "$(ProjectDir)$(OutDir)Tools\*.*"
