@@ -110,7 +110,7 @@ namespace YtEzDL.UserControls
                 Text = TrackData.Title?.Replace("&", "&&") ?? "Untitled";
 
                 // Set info
-                textBoxTitle.Font = new Font(textBoxTitle.Font.FontFamily, 12);
+                textBoxTitle.Font = MetroFonts.Default(16);
                 textBoxTitle.Text = TrackData.Title + Environment.NewLine + TrackData.WebpageUrl;
 
                 // Add duration
@@ -118,7 +118,7 @@ namespace YtEzDL.UserControls
                 if (duration != null)
                 {
                     var timespan = TimeSpan.FromSeconds(Convert.ToDouble(duration));
-                    textBoxTitle.Text += Environment.NewLine + timespan.ToString(@"hh\:mm\:ss");
+                    textBoxTitle.Text += Environment.NewLine + timespan.ToString(@"h\:mm\:ss");
                 }
 
                 // Add upload date
