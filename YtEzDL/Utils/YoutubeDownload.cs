@@ -209,7 +209,7 @@ namespace YtEzDL.Utils
                 return;
 
 #if DEBUG
-            Debug.WriteLine("Data: " + data);
+            //Debug.WriteLine("Data: " + data);
 #endif
 
             // [download]  10.0% of 40.17MiB at  3.86MiB/s ETA 00:09.net 
@@ -232,7 +232,7 @@ namespace YtEzDL.Utils
                         var pct = double.Parse(m.Groups["pct"].Value, CultureInfo.InvariantCulture);
 
 #if DEBUG
-                        Debug.WriteLine("Pct: {0}", pct);
+                       // Debug.WriteLine("Pct: {0}", pct);
 #endif
 
                         progress.Download(pct);

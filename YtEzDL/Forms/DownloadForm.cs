@@ -180,15 +180,20 @@ namespace YtEzDL.Forms
             Show();
             FocusMe();
         }
-        
+
+        private readonly LimitedConcurrencyLevelTaskScheduler _scheduler = new LimitedConcurrencyLevelTaskScheduler(2);
+
         private void StartDownloadTasks()
         {
+            
+            
+
             var downloadTasks = Tracks
                 .Where(t => t.Selected)
                 .Select(t =>
                 {
                     var task = new Task(() => t.StartDownload(Source.Token), Source.Token);
-                    task.Start();
+                    task.Start(_scheduler);
                     return task;
                 })
                 .ToArray();
