@@ -325,12 +325,17 @@ namespace YtEzDL.Utils
                     var trackData = JsonConvert.DeserializeObject<TrackData>(e.Data);
                     action.Invoke(trackData);
                 }
+#if DEBUG
                 catch (Exception ex)
+#else
+                catch (Exception)
+#endif
                 {
 #if DEBUG
                     Debug.WriteLine($"DeserializeObject: {ex.Message}");
-#endif
+#else
                     // Ignore
+#endif
                 }
             });
 
