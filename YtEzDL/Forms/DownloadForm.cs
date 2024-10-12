@@ -70,7 +70,7 @@ namespace YtEzDL.Forms
         private void ResizeTracks()
         {
             // Redraw flow panel
-            flowLayoutPanel.Invalidate(flowLayoutPanel.ClientRectangle, false);
+            flowLayoutPanel.Invalidate(flowLayoutPanel.ClientRectangle, true);
             flowLayoutPanel.SuspendLayout();
 
             // Resize tracks
