@@ -54,13 +54,14 @@ namespace YtEzDL.Utils
 
         private static readonly WebP WebP = new WebP();
 
+#if DEBUG
         static ImageTools()
         {
-#if DEBUG
+
             Debug.WriteLine("libWebP version: " + WebP.GetVersion());
-#endif
         }
-        
+#endif
+
         public static Image Download(string url)
         {
             var request = WebRequest.Create(url);

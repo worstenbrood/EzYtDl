@@ -457,6 +457,27 @@ namespace YtEzDL.Utils
             // Wait for exit
             process.WaitForExit();
         }
+
+        public string GetVersion()
+        {
+            // Parameters
+            var parameters = new List<string>
+            {
+                "--version"
+            };
+
+            var output = new StringBuilder();
+
+            // Version
+            var process = CreateProcess(parameters, (o, e) => output.Append(e.Data));
+
+            // Wait for exit
+            process.WaitForExit();
+
+            // Error
+            return process.ExitCode != 0 ? null : output.ToString();
+        }
+
     }
 
     public class Thumbnail
