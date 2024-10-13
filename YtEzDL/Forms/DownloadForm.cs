@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -380,10 +381,11 @@ namespace YtEzDL.Forms
         {
             try
             {
+                var output = new StringBuilder();
                 new YoutubeDownload()
                     .RemoveCache()
-                    .Run();
-                Execute(f => MessageBox.Show(this, "Cache cleared", "yt-dlp", MessageBoxButtons.OK, MessageBoxIcon.Information));
+                    .Run(t => output.AppendLine(t));
+                Execute(f => MessageBox.Show(this, output.ToString(), "yt-dlp", MessageBoxButtons.OK, MessageBoxIcon.Information));
             }
             catch (Exception exception)
             {

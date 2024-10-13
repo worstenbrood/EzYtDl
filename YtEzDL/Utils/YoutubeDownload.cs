@@ -406,12 +406,18 @@ namespace YtEzDL.Utils
             }
         }
 
-        public int Run()
+        public int Run(Action<string> output = null)
         {
             var error = new StringBuilder();
             var parameters = GetParameters();
-
-            var process = CreateProcess(parameters, null, (o, e) => error.Append(e.Data));
+            var receiver = output == null ? null : new DataReceivedEventHandler((sender, args) =>
+            {
+                if (args.Data != null)
+                {
+                    output.Invoke(args.Data);
+                }
+            });
+            var process = CreateProcess(parameters, receiver, (o, e) => error.Append(e.Data));
 
             // Wait for exit
             process.WaitForExit();
