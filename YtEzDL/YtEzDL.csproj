@@ -158,6 +158,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="External\libsharpyuv_x64.dll" />
+    <Content Include="External\libsharpyuv_x86.dll" />
     <Content Include="External\libwebp_x64.dll" />
     <Content Include="External\libwebp_x86.dll" />
   </ItemGroup>

@@ -187,7 +187,7 @@ namespace YtEzDL.Forms
             toolStrip.Font = MetroFonts.Default(12);
             Font = MetroFonts.Default(11);
             statusStrip.Font = MetroFonts.Default(14);
-            metroProgressSpinner.Value = 20;
+            metroProgressSpinner.Value = 25;
 
             // Load data
             Task.Run(LoadData);
