@@ -58,6 +58,11 @@ namespace YtEzDL.Forms
             }));
         }
 
+        private void SetStatusLabel()
+        {
+            toolStripStatusLabel.Text = $"Total: {Tracks.Length} / Selected: {Tracks.Count(t => t.Selected)}";
+        }
+
         private void track_OnToggle(object o, Track.ToggleEventArgs e)
         {
             Execute(f => SetStatusLabel());
@@ -397,13 +402,6 @@ namespace YtEzDL.Forms
         {
             toolStripButtonClearCache.Enabled = false;
             Task.Run(ClearCache);
-        }
-
-        private void SetStatusLabel()
-        {
-            var tracks = Tracks;
-
-            toolStripStatusLabel.Text = $"Total: {tracks.Length} / Selected: {tracks.Count(t => t.Selected)}";
         }
     }
 }
