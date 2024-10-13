@@ -53,8 +53,6 @@ namespace YtEzDL.Utils
 
     public class YoutubeDownload
     {
-        public const int DefaultProcessWaitTime = 250;
-        
         private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
         public YoutubeDownload RemoveCache()
@@ -210,7 +208,6 @@ namespace YtEzDL.Utils
 
         public async Task<YoutubeDownload> DownloadAsync(string url, string directory, string filename, IProgress progress, CancellationToken cancellationToken = default)
         {
-            var error = new StringBuilder();
             var parameters = GetParameters();
             parameters.Add($"\"{url}\"");
 
@@ -225,8 +222,7 @@ namespace YtEzDL.Utils
                             File.Delete(file);
                         }
                     };
-                },
-                true);
+                });
            
             return this;
         }
