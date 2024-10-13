@@ -264,6 +264,9 @@ namespace YtEzDL.Utils
 
             do
             {
+                // Wait for exit
+                exited = process.WaitForExit(DefaultProcessWaitTime);
+
                 // Canceled
                 if (cancellationToken.IsCancellationRequested)
                 {
@@ -278,9 +281,6 @@ namespace YtEzDL.Utils
                     // Exit loop
                     return Task.FromCanceled<YoutubeDownload>(cancellationToken);
                 }
-
-                // Wait for exit
-                exited = process.WaitForExit(DefaultProcessWaitTime);
             } while (!exited);
 
             // Error
@@ -342,6 +342,10 @@ namespace YtEzDL.Utils
             bool exited;
             do
             {
+
+                // Wait for exit
+                exited = process.WaitForExit(DefaultProcessWaitTime);
+
                 // Canceled
                 if (cancellationToken.IsCancellationRequested)
                 {
@@ -357,9 +361,6 @@ namespace YtEzDL.Utils
                     // Canceled
                     return Task.FromCanceled(cancellationToken);
                 }
-
-                // Wait for exit
-                exited = process.WaitForExit(DefaultProcessWaitTime);
             } while (!exited);
 
             return Task.CompletedTask;

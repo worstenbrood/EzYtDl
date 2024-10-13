@@ -69,19 +69,19 @@ namespace YtEzDL.Utils
                     {
                         continue;
                     }
-
-                    // Process children of this process
-                    ProcessTree(entry.th32ProcessID, action);
-
+                    
                     try
                     {
                         var childProcess = Process.GetProcessById(entry.th32ProcessID);
                         action.Invoke(childProcess);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         // Ignore
                     }
+
+                    // Process children of this process
+                    ProcessTree(entry.th32ProcessID, action);
 
                 } while (Win32.Process32Next(handle, ref entry));
             }
