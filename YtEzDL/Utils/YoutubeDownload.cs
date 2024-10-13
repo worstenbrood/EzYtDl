@@ -512,7 +512,7 @@ namespace YtEzDL.Utils
         public string Playlist { get; set; }
 
         [JsonProperty(PropertyName = "duration")]
-        public string Duration { get; set; }
+        public double Duration { get; set; }
 
         [JsonProperty(PropertyName = "upload_date")]
         public string UploadDate { get; set; }

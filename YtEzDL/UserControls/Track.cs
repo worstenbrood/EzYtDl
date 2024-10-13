@@ -115,13 +115,9 @@ namespace YtEzDL.UserControls
                 textBoxTitle.Text = TrackData.Title + Environment.NewLine + TrackData.WebpageUrl;
 
                 // Add duration
-                var duration = TrackData.Duration;
-                if (duration != null)
-                {
-                    var timespan = TimeSpan.FromSeconds(Convert.ToDouble(duration));
-                    textBoxTitle.Text += Environment.NewLine + timespan.ToString(@"h\:mm\:ss");
-                }
-
+                var timespan = TimeSpan.FromSeconds(TrackData.Duration);
+                textBoxTitle.Text += Environment.NewLine + timespan.ToString(@"h\:mm\:ss");
+                
                 // Add upload date
                 var uploadDate = TrackData.UploadDate;
                 if (uploadDate != null)
