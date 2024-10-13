@@ -296,7 +296,7 @@ namespace YtEzDL.Forms
         {
             foreach (var track in Tracks.Where(t => t.Visible))
             {
-                track.ToggleTrack();
+                track.ToggleTrack(false);
             }
             SetStatusLabel();
         }
