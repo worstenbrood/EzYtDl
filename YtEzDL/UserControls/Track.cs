@@ -1,4 +1,4 @@
-﻿using MetroFramework.Controls;
+﻿
 using System;
 using System.Drawing;
 using System.Globalization;
@@ -9,9 +9,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework;
+using MetroFramework.Controls;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
-using static YtEzDL.UserControls.Track;
 
 namespace YtEzDL.UserControls
 {
