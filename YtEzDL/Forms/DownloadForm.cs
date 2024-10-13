@@ -262,7 +262,7 @@ namespace YtEzDL.Forms
 
         private void DownloadForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || /*_youtubeDl.IsRunning() ||*/ Tracks.Any(t => t.DownLoading);
+            e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning || Tracks.Any(t => t.DownLoading);
         }
 
         private void toolStripButtonNone_Click(object sender, EventArgs e)

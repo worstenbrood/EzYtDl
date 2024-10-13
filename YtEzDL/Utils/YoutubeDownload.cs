@@ -154,6 +154,8 @@ namespace YtEzDL.Utils
 
         private readonly ConsoleProcess _consoleProcess;
 
+        public bool IsRunning => _consoleProcess.IsRunning;
+
         public YoutubeDownload()
         {
             _consoleProcess = new ConsoleProcess(YoutubeDlPath);

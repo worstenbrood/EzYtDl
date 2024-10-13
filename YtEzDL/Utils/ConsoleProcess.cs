@@ -11,6 +11,9 @@ namespace YtEzDL.Utils
     {
         public const int DefaultProcessWaitTime = 250;
         private readonly string _fileName;
+        private volatile int _processCount;
+
+        public bool IsRunning => _processCount > 0;
 
         public ConsoleProcess(string filename)
         {
@@ -69,40 +72,49 @@ namespace YtEzDL.Utils
 
         public Task<int> RunAsync(List<string> parameters, Action<string> outputAction, CancellationToken cancellationToken = default, Action<Process> cancelAction = null, bool handleError = true)
         {
-            var error = new StringBuilder();
-            var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s));
-            bool exited;
-            do
+            Interlocked.Increment(ref _processCount);
+
+            try
             {
-                // Wait for exit
-                exited = process.WaitForExit(DefaultProcessWaitTime);
-
-                // Canceled
-                if (cancellationToken.IsCancellationRequested)
+                var error = new StringBuilder();
+                var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s));
+                bool exited;
+                do
                 {
-                    if (!process.HasExited)
-                    {
-                        // Cancel output reading
-                        process.CancelOutputRead();
-
-                        // Invoke cancel action
-                        cancelAction?.Invoke(process);
-                    }
-                    
-                    // Kill process tree
-                    process.KillProcessTree();
+                    // Wait for exit
+                    exited = process.WaitForExit(DefaultProcessWaitTime);
 
                     // Canceled
-                    return Task.FromCanceled<int>(cancellationToken);
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        if (!process.HasExited)
+                        {
+                            // Cancel output reading
+                            process.CancelOutputRead();
+
+                            // Invoke cancel action
+                            cancelAction?.Invoke(process);
+                        }
+
+                        // Kill process tree
+                        process.KillProcessTree();
+
+                        // Canceled
+                        return Task.FromCanceled<int>(cancellationToken);
+                    }
+                } while (!exited);
+
+                if (handleError && process.ExitCode != 0 && error.Length > 0)
+                {
+                    Task.FromException<int>(new Exception(error.ToString()));
                 }
-            } while (!exited);
 
-            if (handleError && process.ExitCode != 0 && error.Length > 0)
-            { 
-                Task.FromException<int>(new Exception(error.ToString()));
+                return Task.FromResult(process.ExitCode);
             }
-
-            return Task.FromResult(process.ExitCode);
+            finally
+            {
+                Interlocked.Decrement(ref _processCount);
+            }
         }
     }
 }
