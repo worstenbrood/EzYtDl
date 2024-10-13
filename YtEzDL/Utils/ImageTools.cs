@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -51,6 +52,15 @@ namespace YtEzDL.Utils
             return destImage;
         }
 
+        private static readonly WebP WebP = new WebP();
+
+        static ImageTools()
+        {
+#if DEBUG
+            Debug.WriteLine("libWebP version: " + WebP.GetVersion());
+#endif
+        }
+        
         public static Image Download(string url)
         {
             var request = WebRequest.Create(url);
@@ -61,11 +71,8 @@ namespace YtEzDL.Utils
                     switch (response.ContentType.ToLower())
                     {
                         case "image/webp":
-                            using (var decoder = new WebP())
-                            {
-                                return decoder.Decode(stream.ReadFully());
-                            }
-
+                            return WebP.Decode(stream.ReadFully());
+                            
                         default:
                             return Image.FromStream(stream);
                     }
