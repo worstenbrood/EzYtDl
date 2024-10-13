@@ -106,7 +106,7 @@ namespace YtEzDL.Utils
 
                 if (handleError && process.ExitCode != 0 && error.Length > 0)
                 {
-                    Task.FromException<int>(new Exception(error.ToString()));
+                    return Task.FromException<int>(new Exception(error.ToString()));
                 }
 
                 return Task.FromResult(process.ExitCode);
