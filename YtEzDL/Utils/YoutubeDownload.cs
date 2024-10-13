@@ -407,7 +407,7 @@ namespace YtEzDL.Utils
             }
         }
 
-        public int Run(Action<string> output = null)
+        public Task<int> RunAsync(Action<string> output = null, CancellationToken cancellationToken = default)
         {
             var error = new StringBuilder();
             var parameters = GetParameters();
@@ -418,21 +418,50 @@ namespace YtEzDL.Utils
                     output.Invoke(args.Data);
                 }
             });
-            var process = CreateProcess(parameters, receiver, (o, e) => error.Append(e.Data));
 
-            // Wait for exit
-            process.WaitForExit();
+            var process = CreateProcess(parameters, receiver, (o, e) => error.Append(e.Data));
+            bool exited;
+            do
+            {
+
+                // Wait for exit
+                exited = process.WaitForExit(DefaultProcessWaitTime);
+
+                // Canceled
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    if (!process.HasExited)
+                    {
+                        // Cancel output reading
+                        process.CancelOutputRead();
+                    }
+
+                    // Kill process tree
+                    process.KillProcessTree();
+
+                    // Canceled
+                    return Task.FromCanceled<int>(cancellationToken);
+                }
+            } while (!exited);
 
             // Error
             if (process.ExitCode != 0)
             {
                 if (error.Length != 0) // This probably means we're force killed
                 {
-                    throw new Exception(error.ToString());
+                    Task.FromException<int>(new Exception(error.ToString()));
                 }
             }
 
-            return process.ExitCode;
+            return Task.FromResult(process.ExitCode);
+        }
+
+        public int Run(Action<string> output = null)
+        {
+            return RunAsync(output)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
         }
         
         public void Update(Action<string> action)
