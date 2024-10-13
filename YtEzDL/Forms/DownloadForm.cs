@@ -405,10 +405,5 @@ namespace YtEzDL.Forms
 
             toolStripStatusLabel.Text = $"Total: {tracks.Length} / Selected: {tracks.Count(t => t.Selected)}";
         }
-
-        private void flowLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
-        {
-            SetStatusLabel();
-        }
     }
 }
