@@ -506,7 +506,6 @@ namespace YtEzDL.Utils
             // Error
             return process.ExitCode != 0 ? null : output.ToString();
         }
-
     }
 
     public class Thumbnail
