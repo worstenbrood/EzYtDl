@@ -43,7 +43,10 @@ namespace YtEzDL.Forms
             this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClearCache = new System.Windows.Forms.ToolStripButton();
             this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel
@@ -57,9 +60,10 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.Location = new System.Drawing.Point(9, 87);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(891, 303);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(891, 268);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
+            this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.flowLayoutPanel_ControlAdded);
             this.flowLayoutPanel.Layout += new System.Windows.Forms.LayoutEventHandler(this.flowLayoutPanel_Layout);
             // 
             // toolStrip
@@ -187,6 +191,24 @@ namespace YtEzDL.Forms
             this.metroProgressSpinner.TabIndex = 14;
             this.metroProgressSpinner.UseSelectable = true;
             // 
+            // statusStrip
+            // 
+            this.statusStrip.BackColor = System.Drawing.Color.White;
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel});
+            this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.statusStrip.Location = new System.Drawing.Point(9, 371);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(891, 19);
+            this.statusStrip.SizingGrip = false;
+            this.statusStrip.TabIndex = 15;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 0);
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -194,6 +216,7 @@ namespace YtEzDL.Forms
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(909, 400);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.metroProgressSpinner);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.flowLayoutPanel);
@@ -209,6 +232,8 @@ namespace YtEzDL.Forms
             this.Resize += new System.EventHandler(this.DownloadForm_Resize);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,5 +252,7 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripButton toolStripButtonCancel;
         private System.Windows.Forms.ToolStripButton toolStripButtonClearCache;
         private MetroProgressSpinner metroProgressSpinner;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
     }
 }

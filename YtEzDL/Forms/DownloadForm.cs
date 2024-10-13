@@ -58,6 +58,11 @@ namespace YtEzDL.Forms
             }));
         }
 
+        private void track_OnToggle(object o, Track.ToggleEventArgs e)
+        {
+            Execute(f => SetStatusLabel());
+        }
+
         private void SetTrackWidth(Track track)
         {
             var offset = 10;
@@ -115,9 +120,10 @@ namespace YtEzDL.Forms
             ExecuteAsync(f =>
             {
                 var track = new Track(trackData);
+                track.OnToggle += track_OnToggle;
                 SetTrackWidth(track);
                 FilterTrack(track, toolStripTextBoxSearch.Text);
-                track.Select(true);
+                track.SelectTrack(true);
                 flowLayoutPanel.Controls.Add(track);
             });
         }
@@ -180,6 +186,7 @@ namespace YtEzDL.Forms
             Text = SafeString($"Fetching {_url}");
             toolStrip.Font = MetroFonts.Default(12);
             Font = MetroFonts.Default(11);
+            statusStrip.Font = MetroFonts.Default(14);
             metroProgressSpinner.Value = 20;
 
             // Load data
@@ -271,24 +278,27 @@ namespace YtEzDL.Forms
         {
             foreach (var track in Tracks.Where(t => t.Visible).Where(t => t.Selected))
             {
-                track.Select(false);
+                track.SelectTrack(false, false);
             }
+            SetStatusLabel();
         }
 
         private void toolStripButtonAll_Click(object sender, EventArgs e)
         {
             foreach (var track in Tracks.Where(t => t.Visible).Where(t => !t.Selected))
             {
-                track.Select(true);
+                track.SelectTrack(true, false);
             }
+            SetStatusLabel();
         }
 
         private void toolStripButtonToggle_Click(object sender, EventArgs e)
         {
             foreach (var track in Tracks.Where(t => t.Visible))
             {
-                track.Toggle();
+                track.ToggleTrack();
             }
+            SetStatusLabel();
         }
         
         private void toolStripTextBoxSearch_TextChanged(object sender, EventArgs e)
@@ -387,6 +397,18 @@ namespace YtEzDL.Forms
         {
             toolStripButtonClearCache.Enabled = false;
             Task.Run(ClearCache);
+        }
+
+        private void SetStatusLabel()
+        {
+            var tracks = Tracks;
+
+            toolStripStatusLabel.Text = $"Total: {tracks.Length} / Selected: {tracks.Count(t => t.Selected)}";
+        }
+
+        private void flowLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
+        {
+            SetStatusLabel();
         }
     }
 }

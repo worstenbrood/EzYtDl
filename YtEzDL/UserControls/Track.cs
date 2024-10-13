@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using MetroFramework;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
+using static YtEzDL.UserControls.Track;
 
 namespace YtEzDL.UserControls
 {
@@ -215,17 +216,37 @@ namespace YtEzDL.UserControls
         /// </summary>
         public bool Selected => _selected;
 
-        public void Select(bool select)
+        public class ToggleEventArgs : EventArgs
+        {
+            public bool Selected { get; }
+
+            public ToggleEventArgs(bool selected)
+            {
+                Selected = selected;
+            }
+        }
+
+        public delegate void OnToggleEventHandler(object o, ToggleEventArgs e);
+
+        public event OnToggleEventHandler OnToggle;
+        
+        public void SelectTrack(bool select, bool triggerEvent = true)
         {
             _selected = select;
 
             // Redraw border
             Invalidate(ClientRectangle, false);
+
+            // Trigger event
+            if (triggerEvent)
+            {
+                OnToggle?.Invoke(this, new ToggleEventArgs(_selected));
+            }
         }
 
-        public void Toggle()
+        public void ToggleTrack(bool triggerEvent = true)
         {
-            Select(!Selected);
+            SelectTrack(!Selected, triggerEvent);
         }
 
         /// <summary>
@@ -246,7 +267,7 @@ namespace YtEzDL.UserControls
         {
             if (e.Button.HasFlag(MouseButtons.Left))
             {
-                Toggle();
+                ToggleTrack();
             }
         }
 
