@@ -123,8 +123,8 @@ namespace YtEzDL.Forms
                 track.OnToggle += track_OnToggle;
                 SetTrackWidth(track);
                 FilterTrack(track, toolStripTextBoxSearch.Text);
-                track.SelectTrack(true);
                 flowLayoutPanel.Controls.Add(track);
+                track.SelectTrack(true);
             });
         }
 
