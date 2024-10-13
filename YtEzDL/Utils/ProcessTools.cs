@@ -43,7 +43,7 @@ namespace YtEzDL.Utils
             }
         }
 
-        public static void ProcessTree(int parentProcessId, Action<Process> action)
+        private static void ProcessTree(int parentProcessId, Action<Process> action)
         {
             var handle = Win32.CreateToolhelp32Snapshot(Win32.SnapshotFlags.Process | Win32.SnapshotFlags.NoHeaps, parentProcessId);
             if (handle == IntPtr.Zero)
@@ -74,7 +74,7 @@ namespace YtEzDL.Utils
                         var childProcess = Process.GetProcessById(entry.th32ProcessID);
                         action.Invoke(childProcess);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // Ignore
                     }
