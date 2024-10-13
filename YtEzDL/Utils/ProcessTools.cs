@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
 
 namespace YtEzDL.Utils
@@ -123,21 +122,6 @@ namespace YtEzDL.Utils
 
             process.Kill();
             process.WaitForExit();
-        }
-
-        public static void KillYtDlp(this Process process, string directory, string filename)
-        {
-            // Do this when process Exited, otherwise files will be in use
-            process.Exited += (sender, args) =>
-            {
-                // Cleanup files
-                foreach (var file in Directory.EnumerateFiles(directory, $"{Path.GetFileNameWithoutExtension(filename)}.*"))
-                {
-                    File.Delete(file);
-                }
-            };
-
-            process.KillProcessTree();
         }
     }
 }

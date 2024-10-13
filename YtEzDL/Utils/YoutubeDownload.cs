@@ -138,13 +138,9 @@ namespace YtEzDL.Utils
 
             return parameters;
         }
-        
+   
         private const string YoutubeDlExe = "yt-dlp.exe";
         private string _youtubeDlPath;
-
-        private readonly object _lock = new object();
-        private Process _process;
-
         private string YoutubeDlPath
         {
             get
@@ -158,46 +154,11 @@ namespace YtEzDL.Utils
             }
         }
 
-        private Process CreateProcess(IEnumerable<string> parameters, DataReceivedEventHandler data = null, DataReceivedEventHandler error = null)
+        private readonly ConsoleProcess _consoleProcess;
+
+        public YoutubeDownload()
         {
-            var arguments = string.Join(" ", parameters);
-
-#if DEBUG
-            Debug.WriteLine("Command: " + YoutubeDlPath + " Arguments: " + arguments);
-#endif
-
-            var processStartInfo = new ProcessStartInfo
-            {
-                FileName = YoutubeDlPath,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardInput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true,
-                LoadUserProfile = false,
-                WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = arguments
-            };
-
-            lock (_lock)
-            {
-                _process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
-                if (data != null)
-                {
-                    _process.OutputDataReceived += data;
-                }
-
-                if (error != null)
-                {
-                    _process.ErrorDataReceived += error;
-                }
-
-                _process.Start();
-                _process.BeginErrorReadLine();
-                _process.BeginOutputReadLine();
-
-                return _process;
-            }
+            _consoleProcess = new ConsoleProcess(YoutubeDlPath);
         }
 
         private static readonly Regex PercentRegex = new Regex(@"\[(?<action>\w+)\].[^\d]*(?<pct>\d+.\d+)%", RegexOptions.Compiled);
@@ -247,63 +208,38 @@ namespace YtEzDL.Utils
             }
         }
 
-        public Task<YoutubeDownload> DownloadAsync(string url, string directory, IProgress progress, CancellationToken cancellationToken = default)
+        public async Task<YoutubeDownload> DownloadAsync(string url, string directory, string filename, IProgress progress, CancellationToken cancellationToken = default)
         {
             var error = new StringBuilder();
             var parameters = GetParameters();
             parameters.Add($"\"{url}\"");
 
-            var process = CreateProcess(parameters, (o, e) =>
-            {
-                if (!cancellationToken.IsCancellationRequested)
+            await _consoleProcess.RunAsync(parameters, s => ParseProgress(s, progress), cancellationToken, p =>
                 {
-                    ParseProgress(e.Data, progress);
-                }
-            }, (o, e) => error.Append(e.Data));
-            bool exited;
-
-            do
-            {
-                // Wait for exit
-                exited = process.WaitForExit(DefaultProcessWaitTime);
-
-                // Canceled
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    if (!process.HasExited)
+                    // Do this when process Exited, otherwise files will be in use
+                    p.Exited += (sender, args) =>
                     {
-                        // Disable output reading
-                        process.CancelOutputRead();
-                    }
-
-                    // Do not kill since we need Cleanup
-
-                    // Exit loop
-                    return Task.FromCanceled<YoutubeDownload>(cancellationToken);
-                }
-            } while (!exited);
-
-            // Error
-            if (process.ExitCode != 0)
-            {
-                if (error.Length != 0) // This probably means we're force killed
-                {
-                    return Task.FromException<YoutubeDownload>(new Exception(error.ToString()));
-                }
-            }
-
-            return Task.FromResult(this);
+                        // Cleanup files
+                        foreach (var file in Directory.EnumerateFiles(directory, $"{Path.GetFileNameWithoutExtension(filename)}.*"))
+                        {
+                            File.Delete(file);
+                        }
+                    };
+                },
+                true);
+           
+            return this;
         }
 
-        public YoutubeDownload Download(string url, string directory, IProgress progress)
+        public YoutubeDownload Download(string url, string directory, string filename, IProgress progress)
         {
-            return DownloadAsync(url, directory, progress)
+            return DownloadAsync(url, directory, filename, progress)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
         }
         
-        public Task GetInfoAsync(string url, Action<TrackData> action, CancellationToken cancellationToken = default)
+        public async Task GetInfoAsync(string url, Action<TrackData> action, CancellationToken cancellationToken = default)
         {
             // Parameters
             var parameters = new List<string>
@@ -312,58 +248,27 @@ namespace YtEzDL.Utils
                 "-j",
                 $"\"{url}\""
             };
-
-            var process = CreateProcess(parameters, (o, e) =>
-            {
-                if (cancellationToken.IsCancellationRequested || e.Data == null)
+            
+            await _consoleProcess.RunAsync(parameters, s =>
                 {
-                    return;
-                }
-
-                try
-                {
-                    var trackData = JsonConvert.DeserializeObject<TrackData>(e.Data);
-                    action.Invoke(trackData);
-                }
+                    try
+                    {
+                        var trackData = JsonConvert.DeserializeObject<TrackData>(s);
+                        action.Invoke(trackData);
+                    }
 #if DEBUG
-                catch (Exception ex)
+                    catch (Exception ex)
 #else
-                catch (Exception)
+                    catch (Exception)
 #endif
-                {
+                    {
 #if DEBUG
-                    Debug.WriteLine($"DeserializeObject: {ex.Message}");
+                        Debug.WriteLine($"DeserializeObject: {ex.Message}");
 #else
                     // Ignore
 #endif
-                }
-            });
-
-            bool exited;
-            do
-            {
-
-                // Wait for exit
-                exited = process.WaitForExit(DefaultProcessWaitTime);
-
-                // Canceled
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    if (!process.HasExited)
-                    {
-                        // Cancel output reading
-                        process.CancelOutputRead();
                     }
-
-                    // Kill process tree
-                    process.KillProcessTree();
-
-                    // Canceled
-                    return Task.FromCanceled(cancellationToken);
-                }
-            } while (!exited);
-
-            return Task.CompletedTask;
+                }, cancellationToken, null, false);
         }
 
         public void GetInfo(string url, Action<TrackData> action)
@@ -384,76 +289,11 @@ namespace YtEzDL.Utils
             // Error
             return result;
         }
-        
-        public void Cancel(string directory, string filename)
+      
+        public async Task<int> RunAsync(Action<string> output = null, CancellationToken cancellationToken = default)
         {
-            lock (_lock)
-            {
-                if (_process != null)
-                {
-                    _process.KillYtDlp(directory, filename);
-
-                    // Reset
-                    _process = null;
-                }
-            }
-        }
-
-        public bool IsRunning()
-        {
-            lock (_lock)
-            {
-                return _process != null && !_process.HasExited;
-            }
-        }
-
-        public Task<int> RunAsync(Action<string> output = null, CancellationToken cancellationToken = default)
-        {
-            var error = new StringBuilder();
             var parameters = GetParameters();
-            var receiver = output == null ? null : new DataReceivedEventHandler((sender, args) =>
-            {
-                if (!string.IsNullOrWhiteSpace(args.Data))
-                {
-                    output.Invoke(args.Data);
-                }
-            });
-
-            var process = CreateProcess(parameters, receiver, (o, e) => error.Append(e.Data));
-            bool exited;
-            do
-            {
-
-                // Wait for exit
-                exited = process.WaitForExit(DefaultProcessWaitTime);
-
-                // Canceled
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    if (!process.HasExited)
-                    {
-                        // Cancel output reading
-                        process.CancelOutputRead();
-                    }
-
-                    // Kill process tree
-                    process.KillProcessTree();
-
-                    // Canceled
-                    return Task.FromCanceled<int>(cancellationToken);
-                }
-            } while (!exited);
-
-            // Error
-            if (process.ExitCode != 0)
-            {
-                if (error.Length != 0) // This probably means we're force killed
-                {
-                    Task.FromException<int>(new Exception(error.ToString()));
-                }
-            }
-
-            return Task.FromResult(process.ExitCode);
+            return await _consoleProcess.RunAsync(parameters, output, cancellationToken);
         }
 
         public int Run(Action<string> output = null)
@@ -471,20 +311,11 @@ namespace YtEzDL.Utils
             {
                 "--update"
             };
-
-            // Version
-            var process = CreateProcess(parameters, (o, e) =>
-            {
-                if (!string.IsNullOrWhiteSpace(e.Data))
-                {
-                    action.Invoke(e.Data);
-                };
-            });
-
-            process.StandardInput.Write(Environment.NewLine);
-
-            // Wait for exit
-            process.WaitForExit();
+            
+            _consoleProcess.RunAsync(parameters, action, default, null, false)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
         }
 
         public string GetVersion()
@@ -497,14 +328,12 @@ namespace YtEzDL.Utils
 
             var output = new StringBuilder();
 
-            // Version
-            var process = CreateProcess(parameters, (o, e) => output.Append(e.Data));
+            _consoleProcess.RunAsync(parameters, s => output.AppendLine(s), default, null, false)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
 
-            // Wait for exit
-            process.WaitForExit();
-
-            // Error
-            return process.ExitCode != 0 ? null : output.ToString();
+            return output.ToString();
         }
     }
 

@@ -158,27 +158,11 @@ namespace YtEzDL.UserControls
                     .AudioFormat(AudioFormat.Mp3)
                     .AudioQuality(AudioQuality.Fixed320)
                     .IgnoreErrors()
-                    .DownloadAsync(TrackData.WebpageUrl, DirectoryName, this, token)
+                    .DownloadAsync(TrackData.WebpageUrl, DirectoryName, TrackData.Filename, this, token)
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();
                 SetStatus("Done");
-            }
-            catch (Exception ex)
-            {
-                SetStatus($"Error: {ex.Message}");
-            }
-            finally
-            {
-                _isDownloading = false;
-            }
-        }
-
-        public void CancelDownload()
-        {
-            try
-            {
-                _youtubeDl.Cancel(DirectoryName, TrackData.Filename);
             }
             catch (Exception ex)
             {

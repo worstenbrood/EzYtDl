@@ -224,23 +224,8 @@ namespace YtEzDL.Forms
             }
             catch (OperationCanceledException)
             {
-                CancelDownloadTasks();
+                // Ignore
             }
-        }
-
-        private void CancelDownloadTasks()
-        {
-            var stopTasks = Tracks
-                .Where(t => t.Selected && t.DownLoading)
-                .Select(t =>
-                {
-                    var task = new Task(t.CancelDownload);
-                    task.Start();
-                    return task;
-                })
-                .ToArray();
-
-            Task.WaitAll(stopTasks);
         }
 
         private void SetButtons(bool download, bool cancel)
@@ -277,7 +262,7 @@ namespace YtEzDL.Forms
 
         private void DownloadForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning() || Tracks.Any(t => t.DownLoading);
+            e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || /*_youtubeDl.IsRunning() ||*/ Tracks.Any(t => t.DownLoading);
         }
 
         private void toolStripButtonNone_Click(object sender, EventArgs e)

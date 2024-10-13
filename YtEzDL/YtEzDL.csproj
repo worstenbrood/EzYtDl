@@ -74,6 +74,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Utils\WebPWrapper.cs" />
     <Compile Include="Forms\Settings.cs">
