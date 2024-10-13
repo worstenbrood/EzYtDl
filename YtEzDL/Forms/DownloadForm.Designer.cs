@@ -153,6 +153,7 @@ namespace YtEzDL.Forms
             // toolStripButtonDownload
             // 
             this.toolStripButtonDownload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonDownload.Enabled = false;
             this.toolStripButtonDownload.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDownload.Image")));
             this.toolStripButtonDownload.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonDownload.Name = "toolStripButtonDownload";
@@ -196,9 +197,9 @@ namespace YtEzDL.Forms
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.statusStrip.Location = new System.Drawing.Point(9, 371);
+            this.statusStrip.Location = new System.Drawing.Point(9, 385);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(891, 19);
+            this.statusStrip.Size = new System.Drawing.Size(891, 5);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 15;
             this.statusStrip.Text = "statusStrip1";
