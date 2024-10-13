@@ -8,7 +8,7 @@ namespace YtEzDL.Utils
 {
     public static class ProcessTools
     {
-        public static void SuspendProcess(Process process)
+        public static void SuspendProcess(this Process process)
         {
             // Do nothing
             if (process.HasExited)
@@ -95,10 +95,10 @@ namespace YtEzDL.Utils
         /// Kill the whole process tree
         /// </summary>
         /// <param name="process"></param>
-        public static void KillProcessTree(Process process)
+        public static void KillProcessTree(this Process process)
         {
             // Suspend parent
-            SuspendProcess(process);
+            process.SuspendProcess();
 
             // Suspend children
             ProcessTree(process.Id, SuspendProcess);
@@ -125,7 +125,7 @@ namespace YtEzDL.Utils
             process.WaitForExit();
         }
 
-        public static void KillYtDlp(Process process, string directory, string filename)
+        public static void KillYtDlp(this Process process, string directory, string filename)
         {
             // Do this when process Exited, otherwise files will be in use
             process.Exited += (sender, args) =>
@@ -137,7 +137,7 @@ namespace YtEzDL.Utils
                 }
             };
 
-            KillProcessTree(process);
+            process.KillProcessTree();
         }
     }
 }

@@ -352,7 +352,7 @@ namespace YtEzDL.Utils
                     }
 
                     // Kill process tree
-                    ProcessTools.KillProcessTree(process);
+                    process.KillProcessTree();
 
                     // Canceled
                     return Task.FromCanceled(cancellationToken);
@@ -390,7 +390,7 @@ namespace YtEzDL.Utils
             {
                 if (_process != null)
                 {
-                    ProcessTools.KillYtDlp(_process, directory, filename);
+                    _process.KillYtDlp(directory, filename);
 
                     // Reset
                     _process = null;
@@ -412,7 +412,7 @@ namespace YtEzDL.Utils
             var parameters = GetParameters();
             var receiver = output == null ? null : new DataReceivedEventHandler((sender, args) =>
             {
-                if (args.Data != null)
+                if (!string.IsNullOrWhiteSpace(args.Data))
                 {
                     output.Invoke(args.Data);
                 }
@@ -433,8 +433,7 @@ namespace YtEzDL.Utils
 
             return process.ExitCode;
         }
-
-
+        
         public void Update(Action<string> action)
         {
             // Parameters
