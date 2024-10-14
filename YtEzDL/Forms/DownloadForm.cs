@@ -208,11 +208,6 @@ namespace YtEzDL.Forms
 
             // Load data
             Task.Run(LoadData);
-            
-            // Set foreground window
-            Activate();
-            Show();
-            FocusMe();
         }
 
         private readonly LimitedConcurrencyLevelTaskScheduler _scheduler = new LimitedConcurrencyLevelTaskScheduler(2);
@@ -379,6 +374,17 @@ namespace YtEzDL.Forms
         {
             toolStripButtonClearCache.Enabled = false;
             Task.Run(ClearCache);
+        }
+
+        private void flowLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
+        {
+            if (flowLayoutPanel.Controls.Count == 1)
+            {
+                // Set foreground window
+                Activate();
+                Show();
+                FocusMe();
+            }
         }
     }
 }
