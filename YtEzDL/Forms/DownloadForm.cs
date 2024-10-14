@@ -353,15 +353,14 @@ namespace YtEzDL.Forms
             try
             {
                 var output = new StringBuilder();
-                var parameters = new DownLoadParameters()
-                    .RemoveCache();
+                var parameters = new DownLoadParameters().RemoveCache();
 
                 _youtubeDl.Run(parameters, t => output.AppendLine(t));
                 Execute(f => MessageBox.Show(this, output.ToString(), "yt-dlp", MessageBoxButtons.OK, MessageBoxIcon.Information));
             }
             catch (Exception exception)
             {
-                Execute(f => MessageBox.Show(this, exception.ToString(), "Error removing cache", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                Execute(f => MessageBox.Show(this, exception.Message, "Error removing cache", MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             finally
             {
