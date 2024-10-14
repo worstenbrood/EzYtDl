@@ -154,11 +154,11 @@ namespace YtEzDL.UserControls
                     .AddMetadata()
                     .EmbedThumbnail()
                     .AudioFormat(AudioFormat.Mp3)
-                    .AudioQuality(AudioQuality.Fixed320)
+                    .AudioQuality(AudioQuality.Cbr320)
                     .IgnoreErrors();
 
                 _youtubeDl
-                    .DownloadAsync(parameters,TrackData.WebpageUrl, DirectoryName, TrackData.Filename, this, token)
+                    .DownloadAsync(parameters, TrackData.WebpageUrl, DirectoryName, TrackData.Filename, this, token)
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();
