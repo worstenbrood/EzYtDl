@@ -11,39 +11,70 @@ namespace YtEzDL.Utils
     {
         private readonly NotifyIcon _notifyIcon;
         private readonly object _lock = new object();
-
-        public ApplicationContext()
+        // Start youtube-dl
+        private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
+        
+        private void Update()
         {
-            IContainer container = new Container();
-
-            // Setup notifyicon
-            _notifyIcon = new NotifyIcon(container)
-            {
-                ContextMenuStrip = new ContextMenuStrip(),
-                Icon = new Icon(typeof(Program), "YTIcon.ico"),
-                Text = "youtube-dl",
-                Visible = true,
-            };
-
-            // Start youtube-dl
-            var youtubeDl = new YoutubeDownload();
-
             try
             {
                 // Update
-                youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp update", t, ToolTipIcon.Info));
+                _youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp update", t, ToolTipIcon.Info));
+            }
+            catch (ConsoleProcessException ex)
+            {
+                // Error
+                _notifyIcon.ShowBalloonTip(2000, "yt-dlp update error", ex.Message, ToolTipIcon.Error);
+            }
+        }
+
+        private void ClearCache()
+        {
+            try
+            {
+                _youtubeDl.Run(DownLoadParameters.Create.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info));
             }
             catch (ConsoleProcessException ex)
             {
                 // Update
-                _notifyIcon.ShowBalloonTip(2000, "yt-dlp update error", ex.Message, ToolTipIcon.Error);
+                _notifyIcon.ShowBalloonTip(2000, "yt-dlp error", ex.Message, ToolTipIcon.Error);
             }
+        }
+
+        public ApplicationContext()
+        {
+            IContainer container = new Container();
+            var contextMenu = new ContextMenu();
+            contextMenu.MenuItems.Add("&Settings", (sender, args) => Task.Run(ShowSettingsForm));
+            contextMenu.MenuItems.Add("&Clear cache", (sender, args) => ClearCache());
+            contextMenu.MenuItems.Add("&Update", (sender, args) => Update());
+            contextMenu.MenuItems.Add("&Exit",(sender, args) => ExitThread());
             
+            // Setup notifyicon
+            _notifyIcon = new NotifyIcon(container)
+            {
+                ContextMenu = contextMenu,
+                Icon = new Icon(typeof(Program), "YTIcon.ico"),
+                Text = "youtube-dl",
+                Visible = true,
+            };
+            
+            Update();
 
             // Start clipboard monitor
             var clipboardMonitor = new ClipboardMonitor();
             clipboardMonitor.OnClipboardDataChanged += d => Task.Run(() => HandleClipboard(d));
             clipboardMonitor.Monitor();
+        }
+
+        private static void ShowSettingsForm()
+        {
+            // Show form
+            using (var settings = new Forms.Settings())
+            {
+                Application.EnableVisualStyles();
+                Application.Run(settings);
+            }
         }
 
         private static void ShowDownLoadForm(string url)
