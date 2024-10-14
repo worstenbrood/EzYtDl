@@ -51,57 +51,6 @@ namespace YtEzDL.Utils
         ExtractAudio
     }
     
-    public class Thumbnail
-    {
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
-
-        [JsonProperty(PropertyName = "preference")]
-        public int Preference { get; set; }
-
-        [JsonProperty(PropertyName = "url")]
-        public string Url { get; set; }
-
-        [JsonProperty(PropertyName = "width")]
-        public int Width { get; set; }
-
-        [JsonProperty(PropertyName = "height")]
-        public int Height { get; set; }
-    }
-
-    public class TrackData
-    {
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
-
-        [JsonProperty(PropertyName = "webpage_url")]
-        public string WebpageUrl { get; set; }
-
-        [JsonProperty(PropertyName = "webpage_url_domain")]
-        public string WebpageUrlDomain { get; set; }
-
-        [JsonProperty(PropertyName = "title")]
-        public string Title { get; set; }
-
-        [JsonProperty(PropertyName = "playlist")]
-        public string Playlist { get; set; }
-
-        [JsonProperty(PropertyName = "duration")]
-        public double Duration { get; set; }
-
-        [JsonProperty(PropertyName = "upload_date")]
-        public string UploadDate { get; set; }
-
-        [JsonProperty(PropertyName = "filename")]
-        public string Filename { get; set; }
-
-        [JsonProperty(PropertyName = "thumbnail")]
-        public string Thumbnail { get; set; }
-
-        [JsonProperty(PropertyName = "thumbnails")]
-        public Thumbnail[] Thumbnails { get; set; }
-    }
-
     public class DownLoadParameters : Dictionary<string, string>
     {
         public DownLoadParameters RemoveCache()
@@ -160,7 +109,7 @@ namespace YtEzDL.Utils
 
         public DownLoadParameters SetPath(string path)
         {
-            this["-P"] = path;
+            this["-P"] = $"\"{path}\"";
             return this;
         }
 
@@ -185,6 +134,57 @@ namespace YtEzDL.Utils
 
             return parameters;
         }
+    }
+
+    public class Thumbnail
+    {
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
+
+        [JsonProperty(PropertyName = "preference")]
+        public int Preference { get; set; }
+
+        [JsonProperty(PropertyName = "url")]
+        public string Url { get; set; }
+
+        [JsonProperty(PropertyName = "width")]
+        public int Width { get; set; }
+
+        [JsonProperty(PropertyName = "height")]
+        public int Height { get; set; }
+    }
+
+    public class TrackData
+    {
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
+
+        [JsonProperty(PropertyName = "webpage_url")]
+        public string WebpageUrl { get; set; }
+
+        [JsonProperty(PropertyName = "webpage_url_domain")]
+        public string WebpageUrlDomain { get; set; }
+
+        [JsonProperty(PropertyName = "title")]
+        public string Title { get; set; }
+
+        [JsonProperty(PropertyName = "playlist")]
+        public string Playlist { get; set; }
+
+        [JsonProperty(PropertyName = "duration")]
+        public double Duration { get; set; }
+
+        [JsonProperty(PropertyName = "upload_date")]
+        public string UploadDate { get; set; }
+
+        [JsonProperty(PropertyName = "filename")]
+        public string Filename { get; set; }
+
+        [JsonProperty(PropertyName = "thumbnail")]
+        public string Thumbnail { get; set; }
+
+        [JsonProperty(PropertyName = "thumbnails")]
+        public Thumbnail[] Thumbnails { get; set; }
     }
 
     public class YoutubeDownload
