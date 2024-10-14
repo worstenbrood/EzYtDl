@@ -66,6 +66,7 @@ namespace YtEzDL.Forms
             // 
             // toolStrip
             // 
+            this.toolStrip.BackColor = System.Drawing.Color.White;
             this.toolStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.toolStrip.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -82,7 +83,7 @@ namespace YtEzDL.Forms
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(891, 27);
+            this.toolStrip.Size = new System.Drawing.Size(891, 26);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 13;
             this.toolStrip.Text = "toolStrip";
@@ -92,8 +93,10 @@ namespace YtEzDL.Forms
             this.toolStripButtonNone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButtonNone.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNone.Image")));
             this.toolStripButtonNone.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNone.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonNone.Name = "toolStripButtonNone";
-            this.toolStripButtonNone.Size = new System.Drawing.Size(40, 19);
+            this.toolStripButtonNone.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.toolStripButtonNone.Size = new System.Drawing.Size(40, 24);
             this.toolStripButtonNone.Text = "None";
             this.toolStripButtonNone.ToolTipText = "Select none";
             this.toolStripButtonNone.Click += new System.EventHandler(this.toolStripButtonNone_Click);
@@ -103,8 +106,10 @@ namespace YtEzDL.Forms
             this.toolStripButtonAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButtonAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAll.Image")));
             this.toolStripButtonAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAll.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonAll.Name = "toolStripButtonAll";
-            this.toolStripButtonAll.Size = new System.Drawing.Size(25, 19);
+            this.toolStripButtonAll.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.toolStripButtonAll.Size = new System.Drawing.Size(25, 24);
             this.toolStripButtonAll.Text = "All";
             this.toolStripButtonAll.ToolTipText = "Select all";
             this.toolStripButtonAll.Click += new System.EventHandler(this.toolStripButtonAll_Click);
@@ -114,8 +119,10 @@ namespace YtEzDL.Forms
             this.toolStripButtonToggle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButtonToggle.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonToggle.Image")));
             this.toolStripButtonToggle.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonToggle.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonToggle.Name = "toolStripButtonToggle";
-            this.toolStripButtonToggle.Size = new System.Drawing.Size(46, 19);
+            this.toolStripButtonToggle.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.toolStripButtonToggle.Size = new System.Drawing.Size(46, 24);
             this.toolStripButtonToggle.Text = "Toggle";
             this.toolStripButtonToggle.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             this.toolStripButtonToggle.ToolTipText = "Toggle selection";
@@ -123,8 +130,11 @@ namespace YtEzDL.Forms
             // 
             // toolStripTextBoxSearch
             // 
+            this.toolStripTextBoxSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.toolStripTextBoxSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBoxSearch.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripTextBoxSearch.Name = "toolStripTextBoxSearch";
+            this.toolStripTextBoxSearch.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.toolStripTextBoxSearch.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBoxSearch.ToolTipText = "Filter";
             this.toolStripTextBoxSearch.TextChanged += new System.EventHandler(this.toolStripTextBoxSearch_TextChanged);
@@ -134,6 +144,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonReset.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonReset.Image")));
             this.toolStripButtonReset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonReset.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonReset.Name = "toolStripButtonReset";
             this.toolStripButtonReset.Size = new System.Drawing.Size(24, 24);
             this.toolStripButtonReset.Text = "Reset filter";
@@ -144,6 +155,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonSettings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSettings.Image")));
             this.toolStripButtonSettings.ImageTransparentColor = System.Drawing.Color.Gainsboro;
+            this.toolStripButtonSettings.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonSettings.Name = "toolStripButtonSettings";
             this.toolStripButtonSettings.Size = new System.Drawing.Size(24, 24);
             this.toolStripButtonSettings.ToolTipText = "Settings";
@@ -155,6 +167,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonDownload.Enabled = false;
             this.toolStripButtonDownload.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDownload.Image")));
             this.toolStripButtonDownload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonDownload.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonDownload.Name = "toolStripButtonDownload";
             this.toolStripButtonDownload.Size = new System.Drawing.Size(24, 24);
             this.toolStripButtonDownload.ToolTipText = "Download";
@@ -165,6 +178,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonCancel.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCancel.Image")));
             this.toolStripButtonCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonCancel.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonCancel.Name = "toolStripButtonCancel";
             this.toolStripButtonCancel.Size = new System.Drawing.Size(24, 24);
             this.toolStripButtonCancel.ToolTipText = "Cancel";
@@ -175,6 +189,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonClearCache.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonClearCache.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonClearCache.Image")));
             this.toolStripButtonClearCache.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonClearCache.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonClearCache.Name = "toolStripButtonClearCache";
             this.toolStripButtonClearCache.Size = new System.Drawing.Size(24, 24);
             this.toolStripButtonClearCache.ToolTipText = "Clear yt-dlp cache";
