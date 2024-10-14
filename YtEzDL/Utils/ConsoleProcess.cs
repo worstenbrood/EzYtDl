@@ -88,40 +88,42 @@ namespace YtEzDL.Utils
             try
             {
                 var error = new StringBuilder();
-                var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s), cancellationToken);
-                bool exited;
-                do
+                using (var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s), cancellationToken))
                 {
-                    // Wait for exit
-                    exited = process.WaitForExit(DefaultProcessWaitTime);
-
-                    // Canceled
-                    if (cancellationToken.IsCancellationRequested)
+                    bool exited;
+                    do
                     {
-                        if (!process.HasExited)
-                        {
-                            // Cancel output reading
-                            process.CancelOutputRead();
-
-                            // Invoke cancel action
-                            cancelAction?.Invoke(process);
-                        }
-
-                        // Kill process tree
-                        process.KillProcessTree();
+                        // Wait for exit
+                        exited = process.WaitForExit(DefaultProcessWaitTime);
 
                         // Canceled
-                        return Task.FromCanceled<int>(cancellationToken);
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            if (!process.HasExited)
+                            {
+                                // Cancel output reading
+                                process.CancelOutputRead();
+
+                                // Invoke cancel action
+                                cancelAction?.Invoke(process);
+                            }
+
+                            // Kill process tree
+                            process.KillProcessTree();
+
+                            // Canceled
+                            return Task.FromCanceled<int>(cancellationToken);
+                        }
+                    } while (!exited);
+
+                    if (handleError && process.ExitCode != 0)
+                    {
+                        var message = error.Length > 0 ? error.ToString() : $"ExitCode({process.ExitCode})";
+                        return Task.FromException<int>(new ConsoleProcessException(message));
                     }
-                } while (!exited);
 
-                if (handleError && process.ExitCode != 0)
-                {
-                    var message = error.Length > 0 ? error.ToString() : $"ExitCode({process.ExitCode})"; 
-                    return Task.FromException<int>(new ConsoleProcessException(message));
+                    return Task.FromResult(process.ExitCode);
                 }
-
-                return Task.FromResult(process.ExitCode);
             }
             catch (Exception ex)
             {
