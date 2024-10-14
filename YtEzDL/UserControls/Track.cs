@@ -239,7 +239,6 @@ namespace YtEzDL.UserControls
                 metroLabel.Text = text;
                 metroLabel.Refresh();
             });
-           
         }
 
         private void Track_MouseClick(object sender, MouseEventArgs e)
