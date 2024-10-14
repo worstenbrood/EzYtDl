@@ -7,6 +7,17 @@ using System.Threading.Tasks;
 
 namespace YtEzDL.Utils
 {
+    public class ConsoleProcessException : Exception
+    {
+        public ConsoleProcessException(string msg) : base(msg)
+        {
+        }
+
+        public ConsoleProcessException(string format, params object[] arg) : base(string.Format(format, arg))
+        {
+        }
+    }
+
     public class ConsoleProcess
     {
         public const int DefaultProcessWaitTime = 250;
@@ -104,9 +115,10 @@ namespace YtEzDL.Utils
                     }
                 } while (!exited);
 
-                if (handleError && process.ExitCode != 0 && error.Length > 0)
+                if (handleError && process.ExitCode != 0)
                 {
-                    return Task.FromException<int>(new Exception(error.ToString()));
+                    var message = error.Length > 0 ? error.ToString() : $"ExitCode({process.ExitCode})"; 
+                    return Task.FromException<int>(new ConsoleProcessException(message));
                 }
 
                 return Task.FromResult(process.ExitCode);
