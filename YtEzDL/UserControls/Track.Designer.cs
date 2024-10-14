@@ -145,6 +145,7 @@
             this.Controls.Add(this.metroLabel);
             this.Controls.Add(this.metroTabControl);
             this.Controls.Add(this.metroProgressBar);
+            this.DoubleBuffered = true;
             this.Name = "Track";
             this.Size = new System.Drawing.Size(614, 254);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);

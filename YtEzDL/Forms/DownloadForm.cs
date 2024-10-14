@@ -74,8 +74,7 @@ namespace YtEzDL.Forms
 
         private void SetTrackWidth(Track track)
         {
-            var offset = 10 + SystemInformation.VerticalScrollBarWidth;
-            track.Width = flowLayoutPanel.Width - offset;
+            track.Width = flowLayoutPanel.Width - flowLayoutPanel.Left - flowLayoutPanel.Margin.Right - SystemInformation.VerticalScrollBarWidth;
         }
 
         private Track[] Tracks =>
@@ -128,8 +127,9 @@ namespace YtEzDL.Forms
                 }
                
                 var track = new Track(trackData);
+                SetTrackWidth(track);
                 track.Toggle += track_OnToggle;
-                FilterTrack(track, toolStripTextBoxSearch.Text);
+               FilterTrack(track, toolStripTextBoxSearch.Text);
                 flowLayoutPanel.Controls.Add(track);
                 track.SelectTrack(true);
                 _ids.Add(trackData.Id);
