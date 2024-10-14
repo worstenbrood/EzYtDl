@@ -83,7 +83,7 @@ namespace YtEzDL.Forms
 
         private Track[] Tracks =>
             flowLayoutPanel.Controls
-                .Cast<Track>()
+                .OfType<Track>()
                 .ToArray();
 
         private void ResizeTracks()
