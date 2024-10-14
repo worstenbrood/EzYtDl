@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,6 +16,7 @@ namespace YtEzDL.Forms
     {
         private readonly string _url;
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
+        private HashSet<string> _ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         private CancellationTokenSource _source;
 
@@ -118,12 +120,19 @@ namespace YtEzDL.Forms
         {
             ExecuteAsync(f =>
             {
+                // Check if already added
+                if (_ids.Contains(trackData.Id))
+                {
+                    return;
+                }
+               
                 var track = new Track(trackData);
                 track.OnToggle += track_OnToggle;
                 SetTrackWidth(track);
                 FilterTrack(track, toolStripTextBoxSearch.Text);
                 flowLayoutPanel.Controls.Add(track);
                 track.SelectTrack(true);
+                _ids.Add(trackData.Id);
             });
         }
 

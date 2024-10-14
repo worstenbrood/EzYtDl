@@ -71,6 +71,9 @@ namespace YtEzDL.Utils
 
     public class TrackData
     {
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
+
         [JsonProperty(PropertyName = "webpage_url")]
         public string WebpageUrl { get; set; }
 
