@@ -213,7 +213,9 @@ namespace YtEzDL.Utils
             var parameters = GetParameters();
             parameters.Add($"\"{url}\"");
 
-            await _consoleProcess.RunAsync(parameters, s => ParseProgress(s, progress), cancellationToken, p =>
+            await _consoleProcess.RunAsync(parameters, 
+                s => ParseProgress(s, progress), cancellationToken, 
+                p =>
                 {
                     // Do this when process Exited, otherwise files will be in use
                     p.Exited += (sender, args) =>
