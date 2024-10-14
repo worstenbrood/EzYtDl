@@ -71,13 +71,7 @@ namespace YtEzDL.Forms
 
         private void SetTrackWidth(Track track)
         {
-            var offset = 10;
-            
-            if (flowLayoutPanel.VerticalScroll.Visible)
-            {
-                offset += SystemInformation.VerticalScrollBarWidth;
-            }
-            
+            var offset = 10 + SystemInformation.VerticalScrollBarWidth;
             track.Width = flowLayoutPanel.Width - offset;
         }
 
@@ -193,6 +187,12 @@ namespace YtEzDL.Forms
             Font = MetroFonts.Default(11);
             statusStrip.Font = MetroFonts.Default(14);
             metroProgressSpinner.Value = 25;
+            flowLayoutPanel.AutoScroll = false;
+            flowLayoutPanel.HorizontalScroll.Minimum = int.MaxValue;
+            flowLayoutPanel.HorizontalScroll.Maximum = int.MaxValue;
+            flowLayoutPanel.HorizontalScroll.Visible = false;
+            flowLayoutPanel.HorizontalScroll.Enabled = false;
+            flowLayoutPanel.AutoScroll = true;
 
             // Load data
             Task.Run(LoadData);
@@ -338,36 +338,7 @@ namespace YtEzDL.Forms
 
             _previousWindowState = WindowState;
         }
-
-        private bool _scrollVisible;
         
-        /// <summary>
-        /// Resize tracks once, once the scrollbar is visible
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void flowLayoutPanel_Layout(object sender, LayoutEventArgs e)
-        {
-            if (flowLayoutPanel.HorizontalScroll.Visible)
-            {
-                flowLayoutPanel.AutoScroll = false;
-                flowLayoutPanel.HorizontalScroll.Visible = false;
-                flowLayoutPanel.AutoScroll = true;
-            }
-
-            switch (_scrollVisible)
-            {
-                case false when flowLayoutPanel.VerticalScroll.Visible:
-                    _scrollVisible = true;
-                    ResizeTracks();
-                    break;
-                case true when !flowLayoutPanel.VerticalScroll.Visible:
-                    _scrollVisible = false;
-                    ResizeTracks();
-                    break;
-            }
-        }
-
         private void ClearCache()
         {
             try
