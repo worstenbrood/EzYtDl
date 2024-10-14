@@ -156,7 +156,7 @@ namespace YtEzDL.Forms
             }
             catch (Exception exception)
             {
-                Execute(f => MessageBox.Show(this, exception.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                Execute(f => MessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             finally
             {

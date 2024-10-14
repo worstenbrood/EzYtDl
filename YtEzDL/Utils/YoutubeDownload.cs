@@ -319,7 +319,7 @@ namespace YtEzDL.Utils
                     // Ignore
 #endif
                     }
-                }, cancellationToken, null, false);
+                }, cancellationToken, null, true);
         }
 
         public void GetInfo(string url, Action<TrackData> action)
