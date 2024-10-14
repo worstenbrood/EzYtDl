@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -127,8 +128,7 @@ namespace YtEzDL.Forms
                 }
                
                 var track = new Track(trackData);
-                track.OnToggle += track_OnToggle;
-                SetTrackWidth(track);
+                track.Toggle += track_OnToggle;
                 FilterTrack(track, toolStripTextBoxSearch.Text);
                 flowLayoutPanel.Controls.Add(track);
                 track.SelectTrack(true);

@@ -205,9 +205,9 @@ namespace YtEzDL.UserControls
             }
         }
 
-        public delegate void OnToggleEventHandler(object o, ToggleEventArgs e);
+        public delegate void ToggleEventHandler(object o, ToggleEventArgs e);
 
-        public event OnToggleEventHandler OnToggle;
+        public event ToggleEventHandler Toggle;
         
         public void SelectTrack(bool select, bool triggerEvent = true)
         {
@@ -219,7 +219,7 @@ namespace YtEzDL.UserControls
             // Trigger event
             if (triggerEvent)
             {
-                OnToggle?.Invoke(this, new ToggleEventArgs(_selected));
+                Toggle?.Invoke(this, new ToggleEventArgs(_selected));
             }
         }
 
