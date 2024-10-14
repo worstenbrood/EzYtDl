@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -102,80 +103,78 @@ namespace YtEzDL.Utils
         public Thumbnail[] Thumbnails { get; set; }
     }
 
-    public class YoutubeDownload
+    public class DownLoadParameters : Dictionary<string, string>
     {
-        private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
-
-        public YoutubeDownload RemoveCache()
+        public DownLoadParameters RemoveCache()
         {
-            _parameters["--rm-cache-dir"] = string.Empty;
+            this["--rm-cache-dir"] = string.Empty;
             return this;
         }
 
-        public YoutubeDownload ExtractAudio()
+        public DownLoadParameters ExtractAudio()
         {
-            _parameters["-x"] = string.Empty;
+            this["-x"] = string.Empty;
             return this;
         }
 
-        public YoutubeDownload AddMetadata()
+        public DownLoadParameters AddMetadata()
         {
-            _parameters["--add-metadata"] = string.Empty;
+            this["--add-metadata"] = string.Empty;
             return this;
         }
 
-        public YoutubeDownload EmbedThumbnail()
+        public DownLoadParameters EmbedThumbnail()
         {
-            _parameters["--embed-thumbnail"] = string.Empty;
+            this["--embed-thumbnail"] = string.Empty;
             return this;
         }
 
-        public YoutubeDownload AudioFormat(AudioFormat format)
+        public DownLoadParameters AudioFormat(AudioFormat format)
         {
-            _parameters["--audio-format"] = format.ToString("G").ToLowerInvariant();
+            this["--audio-format"] = format.ToString("G").ToLowerInvariant();
             return this;
         }
 
-        public YoutubeDownload AudioQuality(AudioQuality quality)
+        public DownLoadParameters AudioQuality(AudioQuality quality)
         {
-            _parameters["--audio-quality"] = quality.ToString("D");
+            this["--audio-quality"] = quality.ToString("D");
             return this;
         }
 
-        public YoutubeDownload MetadataFromTitle(string format)
+        public DownLoadParameters MetadataFromTitle(string format)
         {
-            _parameters["--metadata-from-title"] = format;
+            this["--metadata-from-title"] = format;
             return this;
         }
 
-        public YoutubeDownload VideoFormat(VideoFormat format)
+        public DownLoadParameters VideoFormat(VideoFormat format)
         {
-            _parameters["--recode-video"] = format.ToString("G").ToLowerInvariant();
+            this["--recode-video"] = format.ToString("G").ToLowerInvariant();
             return this;
         }
 
-        public YoutubeDownload IgnoreErrors()
+        public DownLoadParameters IgnoreErrors()
         {
-            _parameters["--ignore-errors"] = string.Empty;
+            this["--ignore-errors"] = string.Empty;
             return this;
         }
 
-        public YoutubeDownload SetPath(string path)
+        public DownLoadParameters SetPath(string path)
         {
-            _parameters["-P"] = path;
-            return this;
-        }
-        
-        public YoutubeDownload Reset()
-        {
-            _parameters.Clear();
+            this["-P"] = path;
             return this;
         }
 
-        private List<string> GetParameters()
+        public DownLoadParameters Reset()
+        {
+            Clear();
+            return this;
+        }
+
+        public List<string> GetParameters()
         {
             var parameters = new List<string>();
-            foreach (var parameter in _parameters)
+            foreach (var parameter in this)
             {
                 parameters.Add(parameter.Key);
 
@@ -187,7 +186,10 @@ namespace YtEzDL.Utils
 
             return parameters;
         }
-   
+    }
+
+    public class YoutubeDownload
+    {
         private const string YoutubeDlExe = "yt-dlp.exe";
         private string _youtubeDlPath;
         private string YoutubeDlPath
@@ -259,9 +261,9 @@ namespace YtEzDL.Utils
             }
         }
 
-        public async Task<YoutubeDownload> DownloadAsync(string url, string directory, string filename, IProgress progress, CancellationToken cancellationToken = default)
+        public async Task<YoutubeDownload> DownloadAsync(DownLoadParameters downLoadParameters, string url, string directory, string filename, IProgress progress, CancellationToken cancellationToken = default)
         {
-            var parameters = GetParameters();
+            var parameters = downLoadParameters.GetParameters();
             parameters.Add($"\"{url}\"");
 
             await _consoleProcess.RunAsync(parameters, 
@@ -282,9 +284,9 @@ namespace YtEzDL.Utils
             return this;
         }
 
-        public YoutubeDownload Download(string url, string directory, string filename, IProgress progress)
+        public YoutubeDownload Download(DownLoadParameters downLoadParameters, string url, string directory, string filename, IProgress progress)
         {
-            return DownloadAsync(url, directory, filename, progress)
+            return DownloadAsync(downLoadParameters, url, directory, filename, progress)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
@@ -341,15 +343,15 @@ namespace YtEzDL.Utils
             return result;
         }
       
-        public async Task<int> RunAsync(Action<string> output = null, CancellationToken cancellationToken = default)
+        public async Task<int> RunAsync(DownLoadParameters downLoadParameters, Action<string> output = null, CancellationToken cancellationToken = default)
         {
-            var parameters = GetParameters();
+            var parameters = downLoadParameters.GetParameters();
             return await _consoleProcess.RunAsync(parameters, output, cancellationToken);
         }
 
-        public int Run(Action<string> output = null)
+        public int Run(DownLoadParameters downLoadParameters, Action<string> output = null)
         {
-            return RunAsync(output)
+            return RunAsync(downLoadParameters, output)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();

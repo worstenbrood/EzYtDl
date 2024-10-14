@@ -149,15 +149,16 @@ namespace YtEzDL.UserControls
 
             try
             {
-                _youtubeDl
-                    .Reset()
+                var parameters = new DownLoadParameters()
                     .ExtractAudio()
                     .AddMetadata()
                     .EmbedThumbnail()
                     .AudioFormat(AudioFormat.Mp3)
                     .AudioQuality(AudioQuality.Fixed320)
-                    .IgnoreErrors()
-                    .DownloadAsync(TrackData.WebpageUrl, DirectoryName, TrackData.Filename, this, token)
+                    .IgnoreErrors();
+
+                _youtubeDl
+                    .DownloadAsync(parameters,TrackData.WebpageUrl, DirectoryName, TrackData.Filename, this, token)
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();
