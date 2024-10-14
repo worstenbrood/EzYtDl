@@ -3,13 +3,23 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Net;
 using WebPWrapper;
 
 namespace YtEzDL.Utils
 {
-    public class ImageTools
+    public static class ImageTools
     {
+        public static byte[] ReadFully(this Stream input)
+        {
+            using (var ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
+            }
+        }
+
         /// <summary>
         /// Resize the image to the specified width and height.
         /// </summary>

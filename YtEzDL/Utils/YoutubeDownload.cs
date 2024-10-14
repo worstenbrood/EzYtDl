@@ -384,6 +384,4 @@ namespace YtEzDL.Utils
             return output.ToString();
         }
     }
-
-    
 }
