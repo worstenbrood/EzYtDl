@@ -40,7 +40,17 @@ namespace YtEzDL.Utils
                 _notifyIcon.ShowBalloonTip(2000, "yt-dlp error", ex.Message, ToolTipIcon.Error);
             }
         }
-
+        
+        private static void ShowSettingsForm()
+        {
+            // Show form
+            using (var settings = new Forms.Settings())
+            {
+                Application.EnableVisualStyles();
+                Application.Run(settings);
+            }
+        }
+        
         public ApplicationContext()
         {
             IContainer container = new Container();
@@ -65,16 +75,6 @@ namespace YtEzDL.Utils
             var clipboardMonitor = new ClipboardMonitor();
             clipboardMonitor.OnClipboardDataChanged += d => Task.Run(() => HandleClipboard(d));
             clipboardMonitor.Monitor();
-        }
-
-        private static void ShowSettingsForm()
-        {
-            // Show form
-            using (var settings = new Forms.Settings())
-            {
-                Application.EnableVisualStyles();
-                Application.Run(settings);
-            }
         }
 
         private static void ShowDownLoadForm(string url)
