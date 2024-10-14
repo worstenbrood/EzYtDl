@@ -238,9 +238,6 @@ namespace YtEzDL.Utils
 
         private static void ParseProgress(string data, IProgress progress)
         {
-            if (data == null)
-                return;
-
 #if DEBUG
             //Debug.WriteLine("Data: " + data);
 #endif
