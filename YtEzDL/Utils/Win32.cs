@@ -8,10 +8,7 @@ namespace YtEzDL.Utils
         public const int MouseWheel = 0x020A;
         public const int SetFocus = 0x0007;
         public const int ClipboardUpdate = 0x031D;
-        public const int WmSysCommand = 0x0112;
-        public const int ScMaximize = 0xF030;
-        public const int ScRestore = 0xF120;
-
+       
         [DllImport("user32")]
         public static extern IntPtr PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
@@ -35,9 +32,6 @@ namespace YtEzDL.Utils
 
         [DllImport("kernel32", SetLastError = true)]
         public static extern uint SuspendThread(IntPtr hThread);
-
-        [DllImport("kernel32", SetLastError = true)]
-        public static extern uint ResumeThread(IntPtr hThread);
         
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern IntPtr CreateToolhelp32Snapshot([In] SnapshotFlags dwFlags, int th32ProcessId);

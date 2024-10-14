@@ -97,7 +97,6 @@ namespace YtEzDL.Forms
             {
                 SetTrackWidth(track);
             }
-            
             flowLayoutPanel.ResumeLayout();
         }
 
