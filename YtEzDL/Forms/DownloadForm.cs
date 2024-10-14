@@ -128,8 +128,8 @@ namespace YtEzDL.Forms
                
                 var track = new Track(trackData);
                 SetTrackWidth(track);
-                track.Toggle += track_OnToggle;
-               FilterTrack(track, toolStripTextBoxSearch.Text);
+                track.Toggle += track_OnToggle; 
+                FilterTrack(track, toolStripTextBoxSearch.Text);
                 flowLayoutPanel.Controls.Add(track);
                 track.SelectTrack(true);
                 _ids.Add(trackData.Id);
