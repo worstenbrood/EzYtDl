@@ -111,6 +111,10 @@ namespace YtEzDL.Utils
 
                 return Task.FromResult(process.ExitCode);
             }
+            catch (Exception ex)
+            {
+                return Task.FromException<int>(ex);
+            }
             finally
             {
                 Interlocked.Decrement(ref _processCount);
