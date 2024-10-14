@@ -348,6 +348,13 @@ namespace YtEzDL.Forms
         /// <param name="e"></param>
         private void flowLayoutPanel_Layout(object sender, LayoutEventArgs e)
         {
+            if (flowLayoutPanel.HorizontalScroll.Visible)
+            {
+                flowLayoutPanel.AutoScroll = false;
+                flowLayoutPanel.HorizontalScroll.Visible = false;
+                flowLayoutPanel.AutoScroll = true;
+            }
+
             switch (_scrollVisible)
             {
                 case false when flowLayoutPanel.VerticalScroll.Visible:
