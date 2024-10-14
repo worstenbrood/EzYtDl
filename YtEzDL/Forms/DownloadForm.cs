@@ -307,8 +307,10 @@ namespace YtEzDL.Forms
 
         private void toolStripButtonSettings_Click(object sender, EventArgs e)
         {
-            var settings = new Settings();
-            settings.ShowDialog(this);
+            using (var settings = new Settings())
+            {
+                settings.ShowDialog(this);
+            }
         }
 
         private void toolStripButtonReset_Click(object sender, EventArgs e)

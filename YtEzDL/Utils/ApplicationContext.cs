@@ -40,9 +40,11 @@ namespace YtEzDL.Utils
         private static void ShowDownLoadForm(string url)
         {
             // Show form
-            var downloadForm = new Forms.DownloadForm(url);
-            Application.EnableVisualStyles();
-            Application.Run(downloadForm);
+            using (var downloadForm = new Forms.DownloadForm(url))
+            {
+                Application.EnableVisualStyles();
+                Application.Run(downloadForm);
+            }
         }
 
         private readonly TimedVariable<string> _prevData = new TimedVariable<string>(string.Empty, 5000, string.Empty);
