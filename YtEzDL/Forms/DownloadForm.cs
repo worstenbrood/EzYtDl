@@ -144,7 +144,7 @@ namespace YtEzDL.Forms
         {
             try
             {
-                _youtubeDl.GetInfoAsync(_url, AddControl, Source.Token)
+                _youtubeDl.GetJsonAsync(_url, AddControl, Source.Token)
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();

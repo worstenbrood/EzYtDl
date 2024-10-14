@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -292,7 +291,7 @@ namespace YtEzDL.Utils
                 .GetResult();
         }
         
-        public async Task GetInfoAsync(string url, Action<TrackData> action, CancellationToken cancellationToken = default)
+        public async Task GetJsonAsync(string url, Action<TrackData> action, CancellationToken cancellationToken = default)
         {
             // Parameters
             var parameters = new List<string>
@@ -324,20 +323,20 @@ namespace YtEzDL.Utils
                 }, cancellationToken);
         }
 
-        public void GetInfo(string url, Action<TrackData> action)
+        public void GetJson(string url, Action<TrackData> action)
         {
-            GetInfoAsync(url, action)
+            GetJsonAsync(url, action)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
         }
 
-        public List<TrackData> GetInfo(string url)
+        public List<TrackData> GetJson(string url)
         {
             var result = new List<TrackData>();
 
             // Build list
-            GetInfo(url, j => result.Add(j));
+            GetJson(url, j => result.Add(j));
 
             // Error
             return result;
