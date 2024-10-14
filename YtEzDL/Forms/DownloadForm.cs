@@ -357,10 +357,13 @@ namespace YtEzDL.Forms
             try
             {
                 var output = new StringBuilder();
-                var parameters = DownLoadParameters.Create.RemoveCache();
-
-                _youtubeDl.Run(parameters, t => output.AppendLine(t));
+                _youtubeDl.Run(DownLoadParameters.Create.RemoveCache(), t => output.AppendLine(t));
+                
                 Execute(f => MessageBox.Show(this, output.ToString(), "yt-dlp", MessageBoxButtons.OK, MessageBoxIcon.Information));
+            }
+            catch (ConsoleProcessException exception)
+            {
+                Execute(f => MessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             catch (Exception exception)
             {
@@ -368,10 +371,7 @@ namespace YtEzDL.Forms
             }
             finally
             {
-                ExecuteAsync(f =>
-                {
-                    toolStripButtonClearCache.Enabled = true;
-                });
+                ExecuteAsync(f => toolStripButtonClearCache.Enabled = true);
             }
         }
 

@@ -115,6 +115,24 @@ namespace YtEzDL.Utils
             return this;
         }
 
+        public DownLoadParameters GetJson()
+        {
+            this["-j"] = string.Empty;
+            return this;
+        }
+
+        public DownLoadParameters Update()
+        {
+            this["--update"] = string.Empty;
+            return this;
+        }
+
+        public DownLoadParameters Version()
+        {
+            this["--version"] = string.Empty;
+            return this;
+        }
+
         public DownLoadParameters Reset()
         {
             Clear();
@@ -296,12 +314,11 @@ namespace YtEzDL.Utils
         public async Task GetJsonAsync(string url, Action<TrackData> action, CancellationToken cancellationToken = default)
         {
             // Parameters
-            var parameters = new List<string>
-            {
-                "-i",
-                "-j",
-                $"\"{url}\""
-            };
+            var parameters = DownLoadParameters.Create
+                .IgnoreErrors()
+                .GetJson()
+                .GetParameters();
+            parameters.Add($"\"{url}\"");
             
             await _consoleProcess.RunAsync(parameters, s =>
                 {
@@ -361,10 +378,9 @@ namespace YtEzDL.Utils
         public void Update(Action<string> action)
         {
             // Parameters
-            var parameters = new List<string>
-            {
-                "--update"
-            };
+            var parameters = DownLoadParameters.Create
+                .Update()
+                .GetParameters();
             
             _consoleProcess.RunAsync(parameters, action, default, null, false)
                 .ConfigureAwait(false)
@@ -374,15 +390,14 @@ namespace YtEzDL.Utils
 
         public string GetVersion()
         {
-            // Parameters
-            var parameters = new List<string>
-            {
-                "--version"
-            };
-
             var output = new StringBuilder();
-
-            _consoleProcess.RunAsync(parameters, s => output.AppendLine(s), default, null, false)
+            
+            // Parameters
+            var parameters = DownLoadParameters.Create
+                .Version()
+                .GetParameters();
+            
+            _consoleProcess.RunAsync(parameters, s => output.AppendLine(s))
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
