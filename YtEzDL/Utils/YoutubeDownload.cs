@@ -53,6 +53,8 @@ namespace YtEzDL.Utils
     
     public class DownLoadParameters : Dictionary<string, string>
     {
+        public static DownLoadParameters Create => new DownLoadParameters();
+
         public DownLoadParameters RemoveCache()
         {
             this["--rm-cache-dir"] = string.Empty;

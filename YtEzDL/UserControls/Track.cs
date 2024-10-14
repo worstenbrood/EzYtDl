@@ -149,7 +149,7 @@ namespace YtEzDL.UserControls
 
             try
             {
-                var parameters = new DownLoadParameters()
+                var parameters = DownLoadParameters.Create
                     .ExtractAudio()
                     .AddMetadata()
                     .EmbedThumbnail()
