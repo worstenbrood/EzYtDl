@@ -77,7 +77,7 @@ namespace YtEzDL.Utils
             try
             {
                 var error = new StringBuilder();
-                var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s));
+                var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s), cancellationToken);
                 bool exited;
                 do
                 {
