@@ -62,7 +62,7 @@ namespace YtEzDL.Utils
             return destImage;
         }
 
-        private static readonly WebP WebP = new WebP();
+        public static readonly WebP WebP = new WebP();
 
 #if DEBUG
         static ImageTools()
