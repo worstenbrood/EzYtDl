@@ -16,7 +16,7 @@ namespace YtEzDL.Forms
     {
         private readonly string _url;
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-        private HashSet<string> _ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        private readonly HashSet<string> _ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         private CancellationTokenSource _source;
 
@@ -344,7 +344,6 @@ namespace YtEzDL.Forms
             {
                 ResizeTracks();
             }
-
             _previousWindowState = WindowState;
         }
         
