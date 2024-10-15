@@ -34,8 +34,14 @@ namespace YtEzDL.Utils
             set => _downloadThreads = value;
         }
 
+        [JsonProperty(PropertyName = "fetch_thumbnail")]
+        public bool FetchThumbnail { get; set; } = true;
+
         [JsonProperty(PropertyName = "fetch_best_thumbnail")]
         public bool FetchBestThumbnail { get; set; } = true;
+
+        [JsonProperty(PropertyName = "autoselect")]
+        public bool AutoSelect { get; set; } = true;
     }
 
     public class Configuration : ConfigurationFile

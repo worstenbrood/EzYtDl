@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -70,7 +68,7 @@ namespace YtEzDL.UserControls
             return best?.Url ?? TrackData.Thumbnail;
         }
 
-        private Image DownloadThumbNail()
+        private Image FetchThumbNail()
         {
             var thumbnail = FindThumbNail();
             if (thumbnail == null)
@@ -94,7 +92,7 @@ namespace YtEzDL.UserControls
 
         private void SetThumbNail()
         {
-            var thumbnail = DownloadThumbNail();
+            var thumbnail = FetchThumbNail();
             if (thumbnail != null)
             {
                 SetProperty(c => pictureBox.Image = thumbnail);
@@ -124,7 +122,10 @@ namespace YtEzDL.UserControls
                     textBoxTitle.Text += Environment.NewLine + date.ToString("D");
                 }
 
-                Task.Run(SetThumbNail);
+                if (Configuration.Default.DownloadSettings.FetchThumbnail)
+                {
+                    Task.Run(SetThumbNail);
+                }
             }
 
             base.OnLoad(e);

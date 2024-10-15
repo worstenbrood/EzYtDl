@@ -133,7 +133,7 @@ namespace YtEzDL.Forms
                 track.Toggle += track_OnToggle; 
                 FilterTrack(track, toolStripTextBoxSearch.Text);
                 flowLayoutPanel.Controls.Add(track);
-                track.SelectTrack(true);
+                track.SelectTrack(Configuration.Default.DownloadSettings.AutoSelect);
                 _ids.Add(trackData.Id);
             });
         }
