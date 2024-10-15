@@ -63,6 +63,8 @@ namespace YtEzDL.Forms
 
             // Reload default
             Configuration.Default.Load();
+
+            // Close form
             Close();
         }
 
