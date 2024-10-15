@@ -66,7 +66,7 @@
             this.textBoxPath.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.textBoxPath.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
             this.textBoxPath.Lines = new string[0];
-            this.textBoxPath.Location = new System.Drawing.Point(86, 66);
+            this.textBoxPath.Location = new System.Drawing.Point(86, 65);
             this.textBoxPath.MaxLength = 32767;
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.PasswordChar = '\0';
