@@ -55,7 +55,7 @@ namespace YtEzDL.UserControls
 
         private string FindThumbNail()
         {
-            if (TrackData.Thumbnails == null)
+            if (TrackData.Thumbnails == null || !Configuration.Default.DownloadSettings.FetchBestThumbnail)
             {
                 return TrackData.Thumbnail;
             }
