@@ -183,7 +183,8 @@ namespace YtEzDL.Utils
 
     public class ConfigurationFile
     {
-        private readonly string _filename;
+        [JsonIgnore]
+        public readonly string Filename;
         private readonly object _lock = new object();
         
         private static readonly JsonSerializer JsonSerializer = new JsonSerializer
@@ -197,7 +198,7 @@ namespace YtEzDL.Utils
         {
             JsonSerializer.Converters.Add(new StringEnumConverter());
 
-            _filename = Path.GetDirectoryName(filename) == string.Empty ? 
+            Filename = Path.GetDirectoryName(filename) == string.Empty ? 
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), filename) : 
                 filename;
 
@@ -223,7 +224,7 @@ namespace YtEzDL.Utils
             {
                 try
                 {
-                    using (var textReader = new StreamReader(_filename, Encoding.UTF8))
+                    using (var textReader = new StreamReader(Filename, Encoding.UTF8))
                     {
                         JsonSerializer.Populate(textReader, configuration);
                     }
@@ -239,7 +240,7 @@ namespace YtEzDL.Utils
         {
             lock (_lock)
             {
-                using (var textWriter = new JsonTextWriter(new StreamWriter(File.OpenWrite(_filename), Encoding.UTF8)))
+                using (var textWriter = new JsonTextWriter(new StreamWriter(File.Open(Filename, FileMode.Create), Encoding.UTF8)))
                 {
                     JsonSerializer.Serialize(textWriter, configuration);
                 }

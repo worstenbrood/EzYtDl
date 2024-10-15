@@ -300,7 +300,6 @@
             this.Name = "Settings";
             this.Resizable = false;
             this.Text = "Settings";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
