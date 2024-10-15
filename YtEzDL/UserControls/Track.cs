@@ -155,6 +155,7 @@ namespace YtEzDL.UserControls
                     .EmbedThumbnail()
                     .AudioFormat(AudioFormat.Mp3)
                     .AudioQuality(AudioQuality.Cbr320)
+                    .SetPath(Configuration.Default.FileSettings.Path)
                     .IgnoreErrors();
 
                 _youtubeDl

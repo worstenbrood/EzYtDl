@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -7,18 +8,31 @@ namespace YtEzDL.Utils
 {
     public class FileSettings
     {
+        private string _path;
 
         [JsonProperty(PropertyName = "path")]
-        public string Path { get; set; }
-        
+        public string Path
+        {
+            // If not set use executable path
+            get => _path ?? (_path = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName);
+            set => _path = value;
+        }
+
         [JsonProperty(PropertyName = "create_playlist_folder")]
         public bool CreatePlaylistFolder { get; set; }
     }
 
     public class DownloadSettings
     {
+        private int _downloadThreads;
+
         [JsonProperty(PropertyName = "download_threads")]
-        public int DownloadThreads { get; set; } = 2;
+        public int DownloadThreads
+        {
+            // Minimum 1 thread
+            get => _downloadThreads <= 0 ? _downloadThreads = 1 : _downloadThreads;
+            set => _downloadThreads = value;
+        }
 
         [JsonProperty(PropertyName = "fetch_best_thumbnail")]
         public bool FetchBestThumbnail { get; set; } = true;
