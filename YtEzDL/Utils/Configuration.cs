@@ -227,7 +227,7 @@ namespace YtEzDL.Utils
         {
             if (filename == null)
             {
-                throw new ArgumentNullException(nameof(_filename));
+                throw new ArgumentNullException(nameof(filename));
             }
             
             try
