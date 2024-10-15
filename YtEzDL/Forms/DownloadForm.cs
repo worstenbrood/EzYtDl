@@ -215,7 +215,7 @@ namespace YtEzDL.Forms
             flowLayoutPanel.HorizontalScroll.Visible = false;
             flowLayoutPanel.HorizontalScroll.Enabled = false;
             flowLayoutPanel.AutoScroll = true;
-
+            
             // Load data
             Task.Run(LoadData);
         }
