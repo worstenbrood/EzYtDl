@@ -158,7 +158,7 @@ namespace YtEzDL.Utils
             {
                 try
                 {
-                    using (var textReader = new StringReader(File.ReadAllText(_filename, Encoding.UTF8)))
+                    using (var textReader = new StreamReader(_filename, Encoding.UTF8))
                     {
                         JsonSerializer.Populate(textReader, configuration);
                     }
