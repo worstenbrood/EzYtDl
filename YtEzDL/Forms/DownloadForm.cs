@@ -155,7 +155,7 @@ namespace YtEzDL.Forms
             }
             catch (ConsoleProcessException exception)
             {
-                Execute(f => MessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                //Execute(f => MessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             catch (Exception exception)
             {
@@ -169,16 +169,21 @@ namespace YtEzDL.Forms
                     {
                         Text = SafeString($"Playlist: {Tracks[0].TrackData.Playlist} ({Tracks[0].TrackData.WebpageUrlDomain})");
                     }
-                    else if (Tracks.Length == 1)
+                    else switch (Tracks.Length)
                     {
-                        Text = SafeString($"Track: {Tracks[0].TrackData.Title} ({Tracks[0].TrackData.WebpageUrlDomain})");
-                        toolStripButtonAll.Enabled = false;
-                        toolStripButtonNone.Enabled = false;
-                        toolStripButtonToggle.Enabled = false;
-                        toolStripTextBoxSearch.Enabled = false;
-                        toolStripButtonReset.Enabled = false;
+                        case 1:
+                            Text = SafeString($"Track: {Tracks[0].TrackData.Title} ({Tracks[0].TrackData.WebpageUrlDomain})");
+                            toolStripButtonAll.Enabled = false;
+                            toolStripButtonNone.Enabled = false;
+                            toolStripButtonToggle.Enabled = false;
+                            toolStripTextBoxSearch.Enabled = false;
+                            toolStripButtonReset.Enabled = false;
+                            break;
+                        case 0:
+                            Close();
+                            break;
                     }
-
+                    
                     toolStripButtonDownload.Enabled = true;
                     toolStripButtonCancel.Enabled = false;
                     metroProgressSpinner.Spinning = false;
@@ -378,7 +383,7 @@ namespace YtEzDL.Forms
 
         private void flowLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
         {
-            if (flowLayoutPanel.Controls.Count == 1)
+            if (Tracks.Length == 1)
             {
                 // Set foreground window
                 Activate();
