@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using MetroFramework;
 using Newtonsoft.Json;
 
 namespace YtEzDL.Utils
@@ -39,9 +41,18 @@ namespace YtEzDL.Utils
 
         [JsonProperty(PropertyName = "fetch_best_thumbnail")]
         public bool FetchBestThumbnail { get; set; } = true;
+    }
 
+    public class LayoutSettings
+    {
         [JsonProperty(PropertyName = "autoselect")]
         public bool AutoSelect { get; set; } = true;
+
+        [JsonProperty(PropertyName = "selectionColor")]
+        public Color SelectionColor{ get; set; } = MetroColors.Blue;
+
+        [JsonProperty(PropertyName = "selectionWidth")]
+        public float SelectionWidth { get; set; } = 4;
     }
 
     public class Configuration : ConfigurationFile
@@ -53,6 +64,9 @@ namespace YtEzDL.Utils
 
         [JsonProperty(PropertyName = "downloadSettings")]
         public DownloadSettings DownloadSettings { get; set; } = new DownloadSettings();
+
+        [JsonProperty(PropertyName = "layoutSettings")]
+        public LayoutSettings LayoutSettings { get; set; } = new LayoutSettings();
 
         // Logic
 
