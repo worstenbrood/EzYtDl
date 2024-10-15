@@ -149,12 +149,26 @@ namespace YtEzDL.UserControls
 
             try
             {
-                var parameters = DownLoadParameters.Create
-                    .ExtractAudio()
-                    .AddMetadata()
-                    .EmbedThumbnail()
-                    .AudioFormat(AudioFormat.Mp3)
-                    .AudioQuality(AudioQuality.Cbr320)
+                var parameters = DownLoadParameters.Create;
+                if (Configuration.Default.DownloadSettings.ExtractAudio)
+                {
+                    parameters
+                        .ExtractAudio()
+                        .AudioFormat(Configuration.Default.DownloadSettings.AudioFormat)
+                        .AudioQuality(Configuration.Default.DownloadSettings.AudioQuality);
+                }
+
+                if (Configuration.Default.DownloadSettings.AddMetadata)
+                {
+                    parameters.AddMetadata();
+                }
+
+                if (Configuration.Default.DownloadSettings.EmbedThumbnail)
+                {
+                    parameters.EmbedThumbnail();
+                }
+
+                parameters
                     .SetPath(path)
                     .IgnoreErrors();
 

@@ -41,6 +41,21 @@ namespace YtEzDL.Utils
 
         [JsonProperty(PropertyName = "fetch_best_thumbnail")]
         public volatile bool FetchBestThumbnail = true;
+
+        [JsonProperty(PropertyName = "extract_audio")]
+        public volatile bool ExtractAudio = true;
+
+        [JsonProperty(PropertyName = "add_metadata")]
+        public volatile bool AddMetadata = true;
+
+        [JsonProperty(PropertyName = "embed_thumbnail")]
+        public volatile bool EmbedThumbnail = true;
+
+        [JsonProperty(PropertyName = "audio_format")]
+        public volatile AudioFormat AudioFormat = AudioFormat.Mp3;
+
+        [JsonProperty(PropertyName = "audio_quality")]
+        public volatile AudioQuality AudioQuality = AudioQuality.Cbr320;
     }
 
     public class LayoutSettings
