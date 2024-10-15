@@ -119,6 +119,7 @@ namespace YtEzDL.Utils
         protected override void ExitThreadCore()
         {
             _notifyIcon.Visible = false; // should remove lingering tray icon
+            Configuration.Default.Save();
             base.ExitThreadCore();
         }
     }
