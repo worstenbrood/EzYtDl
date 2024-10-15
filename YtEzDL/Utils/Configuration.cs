@@ -30,7 +30,7 @@ namespace YtEzDL.Utils
         public int DownloadThreads
         {
             // Minimum 1 thread
-            get => _downloadThreads <= 0 ? _downloadThreads = 1 : _downloadThreads;
+            get => _downloadThreads <= 0 ? _downloadThreads = 2 : _downloadThreads;
             set => _downloadThreads = value;
         }
 

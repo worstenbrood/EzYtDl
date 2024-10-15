@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -80,6 +81,8 @@ namespace YtEzDL.Forms
         private IEnumerable<Track> Tracks =>
             flowLayoutPanel.Controls
                 .OfType<Track>();
+
+        private bool IsPlaylist => Tracks.Count() > 1;
 
         private void ResizeTracks()
         {
@@ -224,12 +227,40 @@ namespace YtEzDL.Forms
         private string GetPath()
         {
             var path = Configuration.Default.FileSettings.Path;
-            if (Tracks.Count() > 1 && Configuration.Default.FileSettings.CreatePlaylistFolder)
+            if (IsPlaylist && Configuration.Default.FileSettings.CreatePlaylistFolder)
             {
                 Directory.CreateDirectory(Tracks.First().TrackData.Playlist);
                 return Path.Combine(path, Tracks.First().TrackData.Playlist);
             }
             return path;
+        }
+
+        private void CleanupPath()
+        {
+            if (IsPlaylist && Configuration.Default.FileSettings.CreatePlaylistFolder)
+            {
+                var path = Path.Combine(Configuration.Default.FileSettings.Path, Tracks.First().TrackData.Playlist);
+                if (!Directory.EnumerateFileSystemEntries(path).Any())
+                {
+                    try
+                    {
+                        Directory.Delete(path);
+                    }
+#if DEBUG
+                    catch (Exception ex)
+                    {
+
+                        Debug.WriteLine("DeleteDirectory: " + ex.Message);
+                    }
+#else
+                    catch (Exception)
+                    {
+
+                        // Ignore
+                    }
+#endif
+                }
+            }
         }
 
         private void StartDownloadTasks()
@@ -252,7 +283,7 @@ namespace YtEzDL.Forms
             }
             catch (OperationCanceledException)
             {
-                // Ignore
+                CleanupPath();
             }
         }
 

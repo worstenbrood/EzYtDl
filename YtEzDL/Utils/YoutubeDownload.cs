@@ -326,16 +326,15 @@ namespace YtEzDL.Utils
                     }
 #if DEBUG
                     catch (Exception ex)
-#else
-                    catch (Exception)
-#endif
                     {
-#if DEBUG
                         Debug.WriteLine($"DeserializeObject: {ex.Message}");
-#else
-                    // Ignore
-#endif
                     }
+#else
+                    catch (Exception ex)
+                    {
+                        // Ignore
+                    }
+#endif
                 }, cancellationToken);
         }
 
