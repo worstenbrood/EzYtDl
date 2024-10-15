@@ -10,7 +10,7 @@ namespace YtEzDL.Utils
 {
     public class FileSettings
     {
-        private string _path;
+        private volatile string _path;
 
         [JsonProperty(PropertyName = "path")]
         public string Path
@@ -21,12 +21,12 @@ namespace YtEzDL.Utils
         }
 
         [JsonProperty(PropertyName = "create_playlist_folder")]
-        public bool CreatePlaylistFolder { get; set; }
+        public volatile bool CreatePlaylistFolder;
     }
 
     public class DownloadSettings
     {
-        private int _downloadThreads;
+        private volatile int _downloadThreads;
 
         [JsonProperty(PropertyName = "download_threads")]
         public int DownloadThreads
@@ -37,22 +37,28 @@ namespace YtEzDL.Utils
         }
 
         [JsonProperty(PropertyName = "fetch_thumbnail")]
-        public bool FetchThumbnail { get; set; } = true;
+        public volatile bool FetchThumbnail = true;
 
         [JsonProperty(PropertyName = "fetch_best_thumbnail")]
-        public bool FetchBestThumbnail { get; set; } = true;
+        public volatile bool FetchBestThumbnail = true;
     }
 
     public class LayoutSettings
     {
         [JsonProperty(PropertyName = "autoselect")]
-        public bool AutoSelect { get; set; } = true;
+        public volatile bool AutoSelect = true;
+
+        private readonly LockedProperty<Color> _selectionColor = new LockedProperty<Color>(MetroColors.Blue);
 
         [JsonProperty(PropertyName = "selectionColor")]
-        public Color SelectionColor{ get; set; } = MetroColors.Blue;
+        public Color SelectionColor 
+        {
+            get => _selectionColor.Get(); 
+            set => _selectionColor.Set(value);
+        }
 
         [JsonProperty(PropertyName = "selectionWidth")]
-        public float SelectionWidth { get; set; } = 4;
+        public volatile float SelectionWidth = 4;
     }
 
     public class Configuration : ConfigurationFile
@@ -145,6 +151,33 @@ namespace YtEzDL.Utils
             lock (_lock)
             {
                 File.WriteAllText(_filename, JsonConvert.SerializeObject(configuration, _serializerSettings), Encoding.UTF8);
+            }
+        }
+    }
+
+    public class LockedProperty<T>
+    {
+        private readonly object _lock = new object();
+        private T _value;
+
+        public LockedProperty(T @default)
+        {
+            _value = @default;
+        }
+
+        public void Set(T value)
+        {
+            lock (_lock)
+            {
+                _value = value;
+            }
+        }
+
+        public T Get()
+        {
+            lock (_lock)
+            {
+                return _value;
             }
         }
     }
