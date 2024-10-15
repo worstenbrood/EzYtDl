@@ -91,7 +91,8 @@ namespace YtEzDL.Utils
             // Show form
             using (var downloadForm = new Forms.DownloadForm(url))
             {
-                downloadForm.ShowDialog();
+                Application.EnableVisualStyles();
+                Application.Run(downloadForm);
             }
         }
 
