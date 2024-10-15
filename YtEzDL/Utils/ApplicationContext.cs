@@ -26,6 +26,11 @@ namespace YtEzDL.Utils
                 // Error
                 _notifyIcon.ShowBalloonTip(2000, "yt-dlp update error", ex.Message, ToolTipIcon.Error);
             }
+            catch (Exception ex)
+            {
+                // Error
+                _notifyIcon.ShowBalloonTip(2000, "System error", ex.Message, ToolTipIcon.Error);
+            }
         }
 
         private void ClearCache()
@@ -38,6 +43,11 @@ namespace YtEzDL.Utils
             {
                 // Update
                 _notifyIcon.ShowBalloonTip(2000, "yt-dlp error", ex.Message, ToolTipIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                // Error
+                _notifyIcon.ShowBalloonTip(2000, "System error", ex.Message, ToolTipIcon.Error);
             }
         }
         
