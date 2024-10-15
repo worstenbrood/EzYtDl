@@ -8,7 +8,6 @@ namespace YtEzDL.Config
 {
     public class ConfigurationFile
     {
-        [JsonIgnore]
         private readonly string _filename;
         private readonly object _lock = new object();
         

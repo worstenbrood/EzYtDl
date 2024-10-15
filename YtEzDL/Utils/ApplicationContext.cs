@@ -14,18 +14,17 @@ namespace YtEzDL.Utils
         private readonly object _lock = new object();
         // Start youtube-dl
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-        
-        private void Update()
+
+        private void RunYtDlp(Action a)
         {
             try
             {
-                // Update
-                _youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp update", t, ToolTipIcon.Info));
+                a.Invoke();
             }
             catch (ConsoleProcessException ex)
             {
                 // Error
-                _notifyIcon.ShowBalloonTip(2000, "yt-dlp update error", ex.Message, ToolTipIcon.Error);
+                _notifyIcon.ShowBalloonTip(2000, "yt-dlp error", ex.Message, ToolTipIcon.Error);
             }
             catch (Exception ex)
             {
@@ -34,22 +33,15 @@ namespace YtEzDL.Utils
             }
         }
 
+        private void Update()
+        {
+           // Update
+           RunYtDlp(() => _youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp update", t, ToolTipIcon.Info)));
+        }
+
         private void ClearCache()
         {
-            try
-            {
-                _youtubeDl.Run(DownLoadParameters.Create.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info));
-            }
-            catch (ConsoleProcessException ex)
-            {
-                // Update
-                _notifyIcon.ShowBalloonTip(2000, "yt-dlp error", ex.Message, ToolTipIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                // Error
-                _notifyIcon.ShowBalloonTip(2000, "System error", ex.Message, ToolTipIcon.Error);
-            }
+           RunYtDlp(() => _youtubeDl.Run(DownLoadParameters.Create.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info)));
         }
 
         private static void ShowSettingsForm()

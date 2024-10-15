@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using YtEzDL.DownLoad;
-using YtEzDL.Utils;
 
 namespace YtEzDL.Config
 {
