@@ -78,7 +78,7 @@
     <Compile Include="Utils\Configuration.cs" />
     <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
-    <Compile Include="Utils\Tools.cs" />
+    <Compile Include="Utils\FormTools.cs" />
     <Compile Include="Utils\WebPWrapper.cs" />
     <Compile Include="Forms\Settings.cs">
       <SubType>Form</SubType>

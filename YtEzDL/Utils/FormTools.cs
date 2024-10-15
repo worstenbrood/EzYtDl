@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace YtEzDL.Utils
 {
-    internal static class Tools
+    internal static class FormTools
     {
         public static string GetMemberName<TDelegate>(Expression<TDelegate> p)
             where TDelegate : class, Delegate
