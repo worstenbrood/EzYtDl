@@ -17,7 +17,7 @@ namespace YtEzDL.Utils
         public string Path
         {
             // If not set use executable path
-            get => _path ?? (_path = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName);
+            get => _path ?? (_path = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic));
             set => _path = value;
         }
 
