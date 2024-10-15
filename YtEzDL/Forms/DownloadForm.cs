@@ -147,10 +147,7 @@ namespace YtEzDL.Forms
         {
             try
             {
-                _youtubeDl.GetJsonAsync(_url, AddControl, Source.Token)
-                    .ConfigureAwait(false)
-                    .GetAwaiter()
-                    .GetResult();
+                _youtubeDl.GetJson(_url, AddControl, Source.Token);
             }
             catch (OperationCanceledException)
             {

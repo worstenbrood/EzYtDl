@@ -176,11 +176,9 @@ namespace YtEzDL.UserControls
                     .SetPath(path)
                     .IgnoreErrors();
 
-                _youtubeDl
-                    .DownloadAsync(parameters, TrackData.WebpageUrl, path, TrackData.Filename, this, token)
-                    .ConfigureAwait(false)
-                    .GetAwaiter()
-                    .GetResult();
+                // Download
+                _youtubeDl.DownloadAsync(parameters, TrackData.WebpageUrl, path, TrackData.Filename, this, token);
+                    
                 SetStatus("Done");
             }
             catch (Exception ex)

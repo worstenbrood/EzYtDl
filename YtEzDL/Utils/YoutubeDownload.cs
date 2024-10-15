@@ -300,9 +300,9 @@ namespace YtEzDL.Utils
             return this;
         }
 
-        public YoutubeDownload Download(DownLoadParameters downLoadParameters, string url, string directory, string filename, IProgress progress)
+        public YoutubeDownload Download(DownLoadParameters downLoadParameters, string url, string directory, string filename, IProgress progress, CancellationToken cancellationToken = default)
         {
-            return DownloadAsync(downLoadParameters, url, directory, filename, progress)
+            return DownloadAsync(downLoadParameters, url, directory, filename, progress, cancellationToken)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
@@ -338,9 +338,9 @@ namespace YtEzDL.Utils
                 }, cancellationToken);
         }
 
-        public void GetJson(string url, Action<TrackData> action)
+        public void GetJson(string url, Action<TrackData> action, CancellationToken cancellationToken = default)
         {
-            GetJsonAsync(url, action)
+            GetJsonAsync(url, action, cancellationToken)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
