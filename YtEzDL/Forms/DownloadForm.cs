@@ -357,7 +357,7 @@ namespace YtEzDL.Forms
         {
             using (var settings = new Settings())
             {
-                settings.ShowDialog(this);
+                settings.ShowDialog();
             }
         }
 

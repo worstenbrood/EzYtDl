@@ -38,7 +38,6 @@ namespace YtEzDL.Forms
             this.toolStripButtonToggle = new System.Windows.Forms.ToolStripButton();
             this.toolStripTextBoxSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButtonReset = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDownload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClearCache = new System.Windows.Forms.ToolStripButton();
@@ -78,7 +77,6 @@ namespace YtEzDL.Forms
             this.toolStripButtonToggle,
             this.toolStripTextBoxSearch,
             this.toolStripButtonReset,
-            this.toolStripButtonSettings,
             this.toolStripButtonDownload,
             this.toolStripButtonCancel,
             this.toolStripButtonClearCache});
@@ -152,17 +150,6 @@ namespace YtEzDL.Forms
             this.toolStripButtonReset.Text = "Reset filter";
             this.toolStripButtonReset.Click += new System.EventHandler(this.toolStripButtonReset_Click);
             // 
-            // toolStripButtonSettings
-            // 
-            this.toolStripButtonSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSettings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSettings.Image")));
-            this.toolStripButtonSettings.ImageTransparentColor = System.Drawing.Color.Gainsboro;
-            this.toolStripButtonSettings.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.toolStripButtonSettings.Name = "toolStripButtonSettings";
-            this.toolStripButtonSettings.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonSettings.ToolTipText = "Settings";
-            this.toolStripButtonSettings.Click += new System.EventHandler(this.toolStripButtonSettings_Click);
-            // 
             // toolStripButtonDownload
             // 
             this.toolStripButtonDownload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -213,9 +200,9 @@ namespace YtEzDL.Forms
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.statusStrip.Location = new System.Drawing.Point(9, 398);
+            this.statusStrip.Location = new System.Drawing.Point(9, 412);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(894, 19);
+            this.statusStrip.Size = new System.Drawing.Size(894, 5);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 15;
             this.statusStrip.Text = "statusStrip1";
@@ -262,7 +249,6 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripButton toolStripButtonToggle;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxSearch;
-        private System.Windows.Forms.ToolStripButton toolStripButtonSettings;
         private System.Windows.Forms.ToolStripButton toolStripButtonReset;
         private System.Windows.Forms.ToolStripButton toolStripButtonDownload;
         private System.Windows.Forms.ToolStripButton toolStripButtonCancel;

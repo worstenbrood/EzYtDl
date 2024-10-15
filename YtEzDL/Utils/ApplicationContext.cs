@@ -50,14 +50,13 @@ namespace YtEzDL.Utils
                 _notifyIcon.ShowBalloonTip(2000, "System error", ex.Message, ToolTipIcon.Error);
             }
         }
-        
+
         private static void ShowSettingsForm()
         {
             // Show form
             using (var settings = new Forms.Settings())
             {
-                Application.EnableVisualStyles();
-                Application.Run(settings);
+                settings.ShowDialog();
             }
         }
         
@@ -65,7 +64,7 @@ namespace YtEzDL.Utils
         {
             IContainer container = new Container();
             var contextMenu = new ContextMenu();
-            contextMenu.MenuItems.Add("&Settings", (sender, args) => Task.Run(ShowSettingsForm));
+            contextMenu.MenuItems.Add("&Settings", (sender, args) => ShowSettingsForm());
             contextMenu.MenuItems.Add("&Clear cache", (sender, args) => ClearCache());
             contextMenu.MenuItems.Add("&Update", (sender, args) => Update());
             contextMenu.MenuItems.Add("&Exit",(sender, args) => ExitThread());
@@ -92,8 +91,7 @@ namespace YtEzDL.Utils
             // Show form
             using (var downloadForm = new Forms.DownloadForm(url))
             {
-                Application.EnableVisualStyles();
-                Application.Run(downloadForm);
+                downloadForm.ShowDialog();
             }
         }
 
