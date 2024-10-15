@@ -75,7 +75,12 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Utils\Configuration.cs" />
+    <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Config\ConfigurationFile.cs" />
+    <Compile Include="Config\DownloadSettings.cs" />
+    <Compile Include="Config\FileSettings.cs" />
+    <Compile Include="Config\LayoutSettings.cs" />
+    <Compile Include="Config\LockedProperty.cs" />
     <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Utils\FormTools.cs" />

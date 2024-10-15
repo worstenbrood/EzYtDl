@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using MetroFramework.Forms;
+using YtEzDL.Config;
 using YtEzDL.Utils;
 
 namespace YtEzDL.Forms
