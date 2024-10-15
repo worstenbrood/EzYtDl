@@ -103,6 +103,7 @@
             this.checkBoxExtractAudio.TabIndex = 2;
             this.checkBoxExtractAudio.Text = "Extract audio";
             this.checkBoxExtractAudio.UseSelectable = true;
+            this.checkBoxExtractAudio.CheckedChanged += new System.EventHandler(this.checkBoxExtractAudio_CheckedChanged);
             // 
             // checkBoxCreatePlaylistFolder
             // 
@@ -208,6 +209,7 @@
             this.checkBoxFetchThumbnail.TabIndex = 12;
             this.checkBoxFetchThumbnail.Text = "Fetch thumbnail";
             this.checkBoxFetchThumbnail.UseSelectable = true;
+            this.checkBoxFetchThumbnail.CheckedChanged += new System.EventHandler(this.checkBoxFetchThumbnail_CheckedChanged);
             // 
             // checkBoxFetchBestThumbnail
             // 

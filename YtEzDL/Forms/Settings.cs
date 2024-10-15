@@ -64,5 +64,17 @@ namespace YtEzDL.Forms
             Configuration.Default.Load();
             Close();
         }
+
+        private void checkBoxExtractAudio_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxAudioFormat.Enabled = checkBoxExtractAudio.Checked;
+            comboBoxAudioQuality.Enabled = checkBoxExtractAudio.Checked;
+            comboBoxVideoFormat.Enabled = !checkBoxExtractAudio.Checked;
+        }
+
+        private void checkBoxFetchThumbnail_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxFetchBestThumbnail.Enabled = checkBoxFetchThumbnail.Checked;
+        }
     }
 }
