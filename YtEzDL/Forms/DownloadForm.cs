@@ -226,8 +226,8 @@ namespace YtEzDL.Forms
             var path = Configuration.Default.FileSettings.Path;
             if (IsPlaylist && Configuration.Default.FileSettings.CreatePlaylistFolder)
             {
-                Directory.CreateDirectory(Tracks.First().TrackData.Playlist);
-                return Path.Combine(path, Tracks.First().TrackData.Playlist);
+                path = Path.Combine(path, Tracks.First().TrackData.Playlist);
+                Directory.CreateDirectory(path);
             }
             return path;
         }
