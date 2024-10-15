@@ -19,6 +19,7 @@ namespace YtEzDL.Forms
         {
             base.OnLoad(e);
 
+            // Load current config
             Configuration.Default.Load(_configuration);
 
             // Set data bindings

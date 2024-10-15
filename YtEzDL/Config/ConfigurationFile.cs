@@ -40,7 +40,7 @@ namespace YtEzDL.Config
         {
             lock (_lock)
             {
-                Load(_filename, this);
+                Load(_filename, configuration);
             }
         }
 
@@ -73,7 +73,7 @@ namespace YtEzDL.Config
         {
             lock (_lock)
             {
-                Save(this, _filename);
+                Save(configuration, _filename);
             }
         }
 
