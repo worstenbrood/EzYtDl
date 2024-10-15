@@ -177,7 +177,7 @@ namespace YtEzDL.UserControls
                     .IgnoreErrors();
 
                 // Download
-                _youtubeDl.DownloadAsync(parameters, TrackData.WebpageUrl, path, TrackData.Filename, this, token);
+                _youtubeDl.Download(parameters, TrackData.WebpageUrl, path, TrackData.Filename, this, token);
                     
                 SetStatus("Done");
             }
