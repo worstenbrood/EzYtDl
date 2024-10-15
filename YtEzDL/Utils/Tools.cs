@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Forms;
@@ -7,7 +8,8 @@ namespace YtEzDL.Utils
 {
     internal static class Tools
     {
-        private static string GetMemberName<T>(Expression<T> p)
+        public static string GetMemberName<TDelegate>(Expression<TDelegate> p)
+            where TDelegate : class, Delegate
         {
             switch (p.Body)
             {
@@ -37,6 +39,12 @@ namespace YtEzDL.Utils
         public static void AddTextBinding<T>(this Control c, T data, Expression<Func<T, string>> property)
         {
             c.DataBindings.Add(nameof(CheckBox.Text), data, GetMemberName(property));
+        }
+
+        public static void AddRangeBinding<T>(this ComboBox c, T data, Expression<Func<T, int>> property, int start, int count)
+        {
+            c.DataSource = Enumerable.Range(1, Environment.ProcessorCount).ToArray();
+            c.DataBindings.Add(nameof(ComboBox.SelectedItem), data, GetMemberName(property));
         }
     }
 }

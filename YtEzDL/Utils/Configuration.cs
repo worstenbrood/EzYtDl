@@ -232,7 +232,7 @@ namespace YtEzDL.Utils
             {
                 try
                 {
-                    using (var textReader = new StreamReader(Filename, Encoding.UTF8))
+                    using (var textReader = new StreamReader(File.Open(Filename, FileMode.Open, FileAccess.Read, FileShare.Read), Encoding.UTF8))
                     {
                         JsonSerializer.Populate(textReader, configuration);
                     }
@@ -253,7 +253,7 @@ namespace YtEzDL.Utils
 
             lock (_lock)
             {
-                using (var textWriter = new JsonTextWriter(new StreamWriter(File.Open(Filename, FileMode.Create), Encoding.UTF8)))
+                using (var textWriter = new JsonTextWriter(new StreamWriter(File.Open(Filename, FileMode.Create, FileAccess.Write, FileShare.Read), Encoding.UTF8)))
                 {
                     JsonSerializer.Serialize(textWriter, configuration);
                 }

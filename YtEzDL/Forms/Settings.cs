@@ -33,9 +33,8 @@ namespace YtEzDL.Forms
             checkBoxFetchThumbnail.AddCheckedBinding(_configuration.DownloadSettings, p => p.FetchThumbnail);
             checkBoxFetchBestThumbnail.AddCheckedBinding(_configuration.DownloadSettings, p => p.FetchBestThumbnail);
             checkBoxAutoSelect.AddCheckedBinding(_configuration.LayoutSettings, p => p.AutoSelect);
-            comboBoxThreads.DataSource = Enumerable.Range(1, Environment.ProcessorCount).ToArray();
-            comboBoxThreads.DataBindings.Add(nameof(ComboBox.SelectedItem), _configuration.DownloadSettings, nameof(DownloadSettings.DownloadThreads));
-
+            comboBoxThreads.AddRangeBinding(_configuration.DownloadSettings, p => p.DownloadThreads, 1, Environment.ProcessorCount);
+           
             // Path selector
             textBoxPath.CustomButton.Click += (sender, args) =>
             {
