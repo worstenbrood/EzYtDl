@@ -113,7 +113,7 @@ namespace YtEzDL.Utils
                 {
                     JsonConvert.PopulateObject(File.ReadAllText(_filename, Encoding.UTF8), configuration, _serializerSettings);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     // Ignore
                 }

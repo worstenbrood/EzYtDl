@@ -17,8 +17,7 @@ namespace YtEzDL.UserControls
     public partial class Track : MetroUserControl, IProgress
     {
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-        private static readonly string DirectoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
-        
+       
         /// <summary>
         /// Returns the info of the track
         /// </summary>
@@ -159,7 +158,7 @@ namespace YtEzDL.UserControls
                     .IgnoreErrors();
 
                 _youtubeDl
-                    .DownloadAsync(parameters, TrackData.WebpageUrl, DirectoryName, TrackData.Filename, this, token)
+                    .DownloadAsync(parameters, TrackData.WebpageUrl, Configuration.Default.FileSettings.Path, TrackData.Filename, this, token)
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();
