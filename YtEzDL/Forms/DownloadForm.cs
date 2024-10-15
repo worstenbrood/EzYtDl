@@ -63,7 +63,7 @@ namespace YtEzDL.Forms
 
         private void SetStatusLabel()
         {
-            toolStripStatusLabel.Text = $"Total: {Tracks.Length} / Selected: {Tracks.Count(t => t.Selected)}";
+            toolStripStatusLabel.Text = $"Total: {Tracks.Count()} / Selected: {Tracks.Count(t => t.Selected)}";
         }
 
         private void track_OnToggle(object o, Track.ToggleEventArgs e)
@@ -76,10 +76,9 @@ namespace YtEzDL.Forms
             track.Width = flowLayoutPanel.Width - flowLayoutPanel.Left - flowLayoutPanel.Margin.Right - SystemInformation.VerticalScrollBarWidth;
         }
 
-        private Track[] Tracks =>
+        private IEnumerable<Track> Tracks =>
             flowLayoutPanel.Controls
-                .OfType<Track>()
-                .ToArray();
+                .OfType<Track>();
 
         private void ResizeTracks()
         {
@@ -155,7 +154,11 @@ namespace YtEzDL.Forms
             }
             catch (ConsoleProcessException exception)
             {
-                //Execute(f => MessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                if (Tracks.Count() > 1)
+                {
+                    Execute(f => MessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error));
+                }
             }
             catch (Exception exception)
             {
@@ -165,14 +168,16 @@ namespace YtEzDL.Forms
             {
                 ExecuteAsync(f =>
                 {
-                    if (Tracks.Length > 1)
+                    var count = Tracks.Count();
+
+                    if (count > 1)
                     {
-                        Text = SafeString($"Playlist: {Tracks[0].TrackData.Playlist} ({Tracks[0].TrackData.WebpageUrlDomain})");
+                        Text = SafeString($"Playlist: {Tracks.First().TrackData.Playlist} ({Tracks.First().TrackData.WebpageUrlDomain})");
                     }
-                    else switch (Tracks.Length)
+                    else switch (count)
                     {
                         case 1:
-                            Text = SafeString($"Track: {Tracks[0].TrackData.Title} ({Tracks[0].TrackData.WebpageUrlDomain})");
+                            Text = SafeString($"Track: {Tracks.First().TrackData.Title} ({Tracks.First().TrackData.WebpageUrlDomain})");
                             toolStripButtonAll.Enabled = false;
                             toolStripButtonNone.Enabled = false;
                             toolStripButtonToggle.Enabled = false;
@@ -181,7 +186,7 @@ namespace YtEzDL.Forms
                             break;
                         case 0:
                             Close();
-                            break;
+                            return;
                     }
                     
                     toolStripButtonDownload.Enabled = true;
@@ -383,7 +388,7 @@ namespace YtEzDL.Forms
 
         private void flowLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
         {
-            if (Tracks.Length == 1)
+            if (Tracks.Count() == 1)
             {
                 // Set foreground window
                 Activate();
