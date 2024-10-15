@@ -379,7 +379,7 @@ namespace YtEzDL.Utils
                 .Update()
                 .GetParameters();
             
-            _consoleProcess.RunAsync(parameters, action, default)
+            _consoleProcess.RunAsync(parameters, action)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
