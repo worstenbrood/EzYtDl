@@ -60,7 +60,11 @@ namespace YtEzDL.Forms
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            // Save to file
             _configuration.Save();
+
+            // Reload default
+            Configuration.Default.Load();
             Close();
         }
     }
