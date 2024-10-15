@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.textBoxPath = new MetroFramework.Controls.MetroTextBox();
             this.labelPath = new MetroFramework.Controls.MetroLabel();
             this.checkBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
@@ -45,6 +46,8 @@
             this.checkBoxAutoSelect = new MetroFramework.Controls.MetroCheckBox();
             this.buttonCancel = new MetroFramework.Controls.MetroButton();
             this.buttonSave = new MetroFramework.Controls.MetroButton();
+            this.labelThreads = new MetroFramework.Controls.MetroLabel();
+            this.comboBoxThreads = new MetroFramework.Controls.MetroComboBox();
             this.SuspendLayout();
             // 
             // textBoxPath
@@ -250,11 +253,32 @@
             this.buttonSave.UseSelectable = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // labelThreads
+            // 
+            this.labelThreads.AutoSize = true;
+            this.labelThreads.Location = new System.Drawing.Point(277, 205);
+            this.labelThreads.Name = "labelThreads";
+            this.labelThreads.Size = new System.Drawing.Size(58, 19);
+            this.labelThreads.TabIndex = 18;
+            this.labelThreads.Text = "Threads:";
+            // 
+            // comboBoxThreads
+            // 
+            this.comboBoxThreads.FormattingEnabled = true;
+            this.comboBoxThreads.ItemHeight = 23;
+            this.comboBoxThreads.Location = new System.Drawing.Point(373, 200);
+            this.comboBoxThreads.Name = "comboBoxThreads";
+            this.comboBoxThreads.Size = new System.Drawing.Size(121, 29);
+            this.comboBoxThreads.TabIndex = 17;
+            this.comboBoxThreads.UseSelectable = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 320);
+            this.Controls.Add(this.labelThreads);
+            this.Controls.Add(this.comboBoxThreads);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.checkBoxAutoSelect);
@@ -272,8 +296,11 @@
             this.Controls.Add(this.checkBoxExtractAudio);
             this.Controls.Add(this.labelPath);
             this.Controls.Add(this.textBoxPath);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Settings";
+            this.Resizable = false;
             this.Text = "Settings";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -298,5 +325,7 @@
         private MetroFramework.Controls.MetroCheckBox checkBoxAutoSelect;
         private MetroFramework.Controls.MetroButton buttonCancel;
         private MetroFramework.Controls.MetroButton buttonSave;
+        private MetroFramework.Controls.MetroLabel labelThreads;
+        private MetroFramework.Controls.MetroComboBox comboBoxThreads;
     }
 }

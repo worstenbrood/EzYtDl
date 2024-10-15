@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using YtEzDL.Utils;
@@ -32,6 +33,8 @@ namespace YtEzDL.Forms
             checkBoxFetchThumbnail.DataBindings.Add("Checked", Configuration.Default.DownloadSettings, "FetchThumbnail");
             checkBoxFetchBestThumbnail.DataBindings.Add("Checked", Configuration.Default.DownloadSettings, "FetchBestThumbnail");
             checkBoxAutoSelect.DataBindings.Add("Checked", Configuration.Default.LayoutSettings, "AutoSelect");
+            comboBoxThreads.DataSource = Enumerable.Range(1, Environment.ProcessorCount).ToArray();
+            comboBoxThreads.DataBindings.Add("SelectedItem", Configuration.Default.DownloadSettings, "DownloadThreads");
 
             // Path selector
             textBoxPath.CustomButton.Click += (sender, args) =>
@@ -47,9 +50,10 @@ namespace YtEzDL.Forms
                 }
             };
         }
-
+        
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            Configuration.Default.Load();
             Close();
         }
 
@@ -57,6 +61,11 @@ namespace YtEzDL.Forms
         {
             Configuration.Default.Save();
             Close();
+        }
+
+        private void Settings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Configuration.Default.Load();
         }
     }
 }
