@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Controls;
 using YtEzDL.Config;
+using YtEzDL.DownLoad;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
 

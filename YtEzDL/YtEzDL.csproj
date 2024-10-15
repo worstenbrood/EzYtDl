@@ -81,6 +81,9 @@
     <Compile Include="Config\FileSettings.cs" />
     <Compile Include="Config\LayoutSettings.cs" />
     <Compile Include="Config\LockedProperty.cs" />
+    <Compile Include="DownLoad\DownLoadParameters.cs" />
+    <Compile Include="DownLoad\Thumbnail.cs" />
+    <Compile Include="DownLoad\TrackData.cs" />
     <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Utils\FormTools.cs" />
@@ -122,7 +125,7 @@
     <Compile Include="Utils\TimedVariable.cs" />
     <Compile Include="Utils\ApplicationContext.cs" />
     <Compile Include="Utils\Win32.cs" />
-    <Compile Include="Utils\YoutubeDownload.cs" />
+    <Compile Include="DownLoad\YoutubeDownload.cs" />
     <EmbeddedResource Include="Forms\DownloadForm.resx">
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>DownloadForm1.Designer.cs</LastGenOutput>

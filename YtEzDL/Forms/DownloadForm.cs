@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
 using YtEzDL.Config;
+using YtEzDL.DownLoad;
 using YtEzDL.UserControls;
 using YtEzDL.Utils;
 

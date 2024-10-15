@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YtEzDL.DownLoad;
 using YtEzDL.UserControls;
 
 namespace YtEzDL.Utils
