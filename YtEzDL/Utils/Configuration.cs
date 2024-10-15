@@ -57,6 +57,9 @@ namespace YtEzDL.Utils
 
         [JsonProperty(PropertyName = "audio_quality")]
         public volatile AudioQuality AudioQuality = AudioQuality.Cbr320;
+        
+        [JsonProperty(PropertyName = "video_format")]
+        public volatile VideoFormat VideoFormat = VideoFormat.Mkv;
     }
 
     public class LayoutSettings
