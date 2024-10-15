@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -220,15 +221,26 @@ namespace YtEzDL.Forms
             Task.Run(LoadData);
         }
 
+        private string GetPath()
+        {
+            var path = Configuration.Default.FileSettings.Path;
+            if (Tracks.Count() > 1 && Configuration.Default.FileSettings.CreatePlaylistFolder)
+            {
+                Directory.CreateDirectory(Tracks.First().TrackData.Playlist);
+                return Path.Combine(path, Tracks.First().TrackData.Playlist);
+            }
+            return path;
+        }
+
         private void StartDownloadTasks()
         {
+            var path = GetPath();
             var scheduler = new LimitedConcurrencyLevelTaskScheduler(Configuration.Default.DownloadSettings.DownloadThreads);
-
             var downloadTasks = Tracks
                 .Where(t => t.Selected)
                 .Select(t =>
                 {
-                    var task = new Task(() => t.StartDownload(Source.Token), Source.Token);
+                    var task = new Task(() => t.StartDownload(path, Source.Token), Source.Token);
                     task.Start(scheduler);
                     return task;
                 })

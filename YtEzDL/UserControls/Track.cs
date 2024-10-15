@@ -137,7 +137,7 @@ namespace YtEzDL.UserControls
         /// </summary>
         public bool DownLoading => _isDownloading;
 
-        public void StartDownload(CancellationToken token)
+        public void StartDownload(string path, CancellationToken token)
         {
             if (_isDownloading)
             {
@@ -154,11 +154,11 @@ namespace YtEzDL.UserControls
                     .EmbedThumbnail()
                     .AudioFormat(AudioFormat.Mp3)
                     .AudioQuality(AudioQuality.Cbr320)
-                    .SetPath(Configuration.Default.FileSettings.Path)
+                    .SetPath(path)
                     .IgnoreErrors();
 
                 _youtubeDl
-                    .DownloadAsync(parameters, TrackData.WebpageUrl, Configuration.Default.FileSettings.Path, TrackData.Filename, this, token)
+                    .DownloadAsync(parameters, TrackData.WebpageUrl, path, TrackData.Filename, this, token)
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();
