@@ -220,16 +220,16 @@ namespace YtEzDL.Forms
             Task.Run(LoadData);
         }
 
-        private readonly LimitedConcurrencyLevelTaskScheduler _scheduler = new LimitedConcurrencyLevelTaskScheduler(2);
-
         private void StartDownloadTasks()
         {
+            var scheduler = new LimitedConcurrencyLevelTaskScheduler(Configuration.Default.DownloadSettings.DownloadThreads);
+
             var downloadTasks = Tracks
                 .Where(t => t.Selected)
                 .Select(t =>
                 {
                     var task = new Task(() => t.StartDownload(Source.Token), Source.Token);
-                    task.Start(_scheduler);
+                    task.Start(scheduler);
                     return task;
                 })
                 .ToArray();

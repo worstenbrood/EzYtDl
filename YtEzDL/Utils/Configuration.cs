@@ -7,16 +7,32 @@ namespace YtEzDL.Utils
 {
     public class FileSettings
     {
+
         [JsonProperty(PropertyName = "path")]
         public string Path { get; set; }
+        
+        [JsonProperty(PropertyName = "create_playlist_folder")]
+        public bool CreatePlaylistFolder { get; set; }
     }
 
-    public class Configuration : ConfigurationWorker<Configuration>
+    public class DownloadSettings
+    {
+        [JsonProperty(PropertyName = "download_threads")]
+        public int DownloadThreads { get; set; } = 2;
+
+        [JsonProperty(PropertyName = "fetch_best_thumbnail")]
+        public bool FetchBestThumbnail { get; set; } = true;
+    }
+
+    public class Configuration : ConfigurationFile
     {
         // Config
 
         [JsonProperty(PropertyName = "fileSettings")]
         public FileSettings FileSettings { get; set; } = new FileSettings();
+
+        [JsonProperty(PropertyName = "downloadSettings")]
+        public DownloadSettings DownloadSettings { get; set; } = new DownloadSettings();
 
         // Logic
 
@@ -41,34 +57,7 @@ namespace YtEzDL.Utils
         }
     }
 
-    public class ConfigurationWorker<T>
-        where T : class
-    {
-        private readonly ConfigurationFile<T> _configurationFile;
-
-        public ConfigurationWorker(string filename, bool load = true)
-        {
-            _configurationFile = new ConfigurationFile<T>(filename);
-
-            if (load)
-            {
-                Load();
-            }
-        }
-
-        public void Load()
-        {
-            _configurationFile.Load(this);
-        }
-
-        public void Save()
-        {
-            _configurationFile.Save(this);
-        }
-    }
-    
-    public class ConfigurationFile<T>
-        where T: class
+    public class ConfigurationFile
     {
         private readonly string _filename;
         private readonly object _lock = new object();
@@ -80,26 +69,26 @@ namespace YtEzDL.Utils
             Formatting = Formatting.Indented
         };
 
-        public ConfigurationFile(string filename)
+        public ConfigurationFile(string filename, bool load = true)
         {
             _filename = Path.GetDirectoryName(filename) == string.Empty ? 
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), filename) : 
                 filename;
+
+            if (load)
+            {
+                Load();
+            }
+        }
+        
+        public void Load()
+        {
+            Load(this);
         }
 
-        public T Load()
+        public void Save()
         {
-            lock (_lock)
-            {
-                try
-                {
-                    return JsonConvert.DeserializeObject<T>(File.ReadAllText(_filename, Encoding.UTF8), _serializerSettings);
-                }
-                catch (Exception e)
-                {
-                    return null;
-                }
-            }
+            Save(this);
         }
 
         public void Load(object configuration)
