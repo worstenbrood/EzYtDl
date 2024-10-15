@@ -53,11 +53,9 @@ namespace YtEzDL.Utils
         public volatile bool EmbedThumbnail = true;
 
         [JsonProperty(PropertyName = "audio_format")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public volatile AudioFormat AudioFormat = AudioFormat.Mp3;
 
         [JsonProperty(PropertyName = "audio_quality")]
-        [JsonConverter(typeof(StringEnumConverter))]
         public volatile AudioQuality AudioQuality = AudioQuality.Cbr320;
     }
 
@@ -119,8 +117,8 @@ namespace YtEzDL.Utils
     {
         private readonly string _filename;
         private readonly object _lock = new object();
-
-        private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
+        
+        private static readonly JsonSerializer JsonSerializer = new JsonSerializer
         {
             NullValueHandling = NullValueHandling.Ignore,
             MissingMemberHandling = MissingMemberHandling.Ignore,
@@ -129,6 +127,8 @@ namespace YtEzDL.Utils
 
         public ConfigurationFile(string filename, bool load = true)
         {
+            JsonSerializer.Converters.Add(new StringEnumConverter());
+
             _filename = Path.GetDirectoryName(filename) == string.Empty ? 
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), filename) : 
                 filename;
@@ -155,7 +155,10 @@ namespace YtEzDL.Utils
             {
                 try
                 {
-                    JsonConvert.PopulateObject(File.ReadAllText(_filename, Encoding.UTF8), configuration, _serializerSettings);
+                    using (var textReader = new StringReader(File.ReadAllText(_filename, Encoding.UTF8)))
+                    {
+                        JsonSerializer.Populate(textReader, configuration);
+                    }
                 }
                 catch (Exception)
                 {
@@ -168,7 +171,10 @@ namespace YtEzDL.Utils
         {
             lock (_lock)
             {
-                File.WriteAllText(_filename, JsonConvert.SerializeObject(configuration, _serializerSettings), Encoding.UTF8);
+                using (var textWriter = new JsonTextWriter(new StreamWriter(File.OpenWrite(_filename), Encoding.UTF8)))
+                {
+                    JsonSerializer.Serialize(textWriter, configuration);
+                }
             }
         }
     }
