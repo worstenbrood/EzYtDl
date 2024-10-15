@@ -354,14 +354,6 @@ namespace YtEzDL.Forms
             FilterTracks();
         }
 
-        private void toolStripButtonSettings_Click(object sender, EventArgs e)
-        {
-            using (var settings = new Settings())
-            {
-                settings.ShowDialog();
-            }
-        }
-
         private void toolStripButtonReset_Click(object sender, EventArgs e)
         {
             toolStripTextBoxSearch.Clear();

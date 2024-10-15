@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using YtEzDL.Utils;
