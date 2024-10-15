@@ -157,6 +157,10 @@ namespace YtEzDL.UserControls
                         .AudioFormat(Configuration.Default.DownloadSettings.AudioFormat)
                         .AudioQuality(Configuration.Default.DownloadSettings.AudioQuality);
                 }
+                else
+                {
+                    parameters.VideoFormat(Configuration.Default.DownloadSettings.VideoFormat);
+                }
 
                 if (Configuration.Default.DownloadSettings.AddMetadata)
                 {
