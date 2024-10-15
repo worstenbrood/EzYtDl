@@ -18,12 +18,14 @@ namespace YtEzDL.Forms
 
             // Set data bindings
             metroTextBoxPath.DataBindings.Add("Text", Configuration.Default.FileSettings, "Path");
+            metroCheckBoxExtractAudio.DataBindings.Add("Checked", Configuration.Default.DownloadSettings, "ExtractAudio");
 
             // Path selector
             metroTextBoxPath.CustomButton.Click += (sender, args) =>
             {
                 using (var fbd = new FolderBrowserDialog())
                 {
+                    fbd.SelectedPath = Configuration.Default.FileSettings.Path;
                     var dialog = fbd.ShowDialog(this);
                     if (dialog == DialogResult.OK)
                     {

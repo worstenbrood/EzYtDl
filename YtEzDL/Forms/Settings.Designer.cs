@@ -30,6 +30,7 @@
         {
             this.metroTextBoxPath = new MetroFramework.Controls.MetroTextBox();
             this.metroLabelPath = new MetroFramework.Controls.MetroLabel();
+            this.metroCheckBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
             this.SuspendLayout();
             // 
             // metroTextBoxPath
@@ -72,11 +73,24 @@
             this.metroLabelPath.TabIndex = 1;
             this.metroLabelPath.Text = "Path:";
             // 
+            // metroCheckBoxExtractAudio
+            // 
+            this.metroCheckBoxExtractAudio.AutoSize = true;
+            this.metroCheckBoxExtractAudio.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.metroCheckBoxExtractAudio.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.metroCheckBoxExtractAudio.Location = new System.Drawing.Point(47, 95);
+            this.metroCheckBoxExtractAudio.Name = "metroCheckBoxExtractAudio";
+            this.metroCheckBoxExtractAudio.Size = new System.Drawing.Size(101, 19);
+            this.metroCheckBoxExtractAudio.TabIndex = 2;
+            this.metroCheckBoxExtractAudio.Text = "Extract audio";
+            this.metroCheckBoxExtractAudio.UseSelectable = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.metroCheckBoxExtractAudio);
             this.Controls.Add(this.metroLabelPath);
             this.Controls.Add(this.metroTextBoxPath);
             this.Name = "Settings";
@@ -90,5 +104,6 @@
 
         private MetroFramework.Controls.MetroTextBox metroTextBoxPath;
         private MetroFramework.Controls.MetroLabel metroLabelPath;
+        private MetroFramework.Controls.MetroCheckBox metroCheckBoxExtractAudio;
     }
 }

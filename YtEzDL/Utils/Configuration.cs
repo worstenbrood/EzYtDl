@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using MetroFramework;
 using Newtonsoft.Json;
@@ -21,8 +20,14 @@ namespace YtEzDL.Utils
             set => _path = value;
         }
 
+        private volatile bool _createPlaylistFolder;
+
         [JsonProperty(PropertyName = "create_playlist_folder")]
-        public volatile bool CreatePlaylistFolder;
+        public bool CreatePlaylistFolder
+        {
+            get => _createPlaylistFolder;
+            set => _createPlaylistFolder = value;
+        }
     }
 
     public class DownloadSettings
@@ -37,35 +42,89 @@ namespace YtEzDL.Utils
             set => _downloadThreads = value;
         }
 
+        private volatile bool _fetchThumbnail = true;
+
         [JsonProperty(PropertyName = "fetch_thumbnail")]
-        public volatile bool FetchThumbnail = true;
+        public bool FetchThumbnail
+        {
+            get => _fetchThumbnail;
+            set => _fetchThumbnail = value;
+        }
+
+        private volatile bool _fetchBestThumbnail = true;
 
         [JsonProperty(PropertyName = "fetch_best_thumbnail")]
-        public volatile bool FetchBestThumbnail = true;
+        public bool FetchBestThumbnail
+        {
+            get => _fetchBestThumbnail;
+            set => _fetchBestThumbnail = value;
+        }
+
+        private volatile bool _extractAudio = true;
 
         [JsonProperty(PropertyName = "extract_audio")]
-        public volatile bool ExtractAudio = true;
+        public bool ExtractAudio
+        {
+            get => _extractAudio;
+            set => _extractAudio = value;
+        }
+
+        private volatile bool _addMetadata = true;
 
         [JsonProperty(PropertyName = "add_metadata")]
-        public volatile bool AddMetadata = true;
+        public bool AddMetadata 
+        {
+            get => _addMetadata;
+            set => _addMetadata = value;
+        }
+
+        private volatile bool _embedThumbnail = true;
 
         [JsonProperty(PropertyName = "embed_thumbnail")]
-        public volatile bool EmbedThumbnail = true;
+        public bool EmbedThumbnail
+        {
+            get => _embedThumbnail;
+            set => _embedThumbnail = value;
+        }
+
+        private volatile AudioFormat _audioFormat = AudioFormat.Mp3;
 
         [JsonProperty(PropertyName = "audio_format")]
-        public volatile AudioFormat AudioFormat = AudioFormat.Mp3;
-
-        [JsonProperty(PropertyName = "audio_quality")]
-        public volatile AudioQuality AudioQuality = AudioQuality.Cbr320;
+        public AudioFormat AudioFormat
+        {
+            get => _audioFormat;
+            set => _audioFormat = value;
+        }
         
+        private volatile AudioQuality _audioQuality = AudioQuality.Cbr320;
+        
+        [JsonProperty(PropertyName = "audio_quality")]
+        public AudioQuality AudioQuality
+        {
+            get => _audioQuality;
+            set => _audioQuality = value;
+        }
+
+        private volatile VideoFormat _videoFormat = VideoFormat.Mkv;
+
         [JsonProperty(PropertyName = "video_format")]
-        public volatile VideoFormat VideoFormat = VideoFormat.Mkv;
+        public VideoFormat VideoFormat
+        {
+            get => _videoFormat;
+            set => _videoFormat = value;
+        }
     }
 
     public class LayoutSettings
     {
+        private volatile bool _autoSelect = true;
+
         [JsonProperty(PropertyName = "autoselect")]
-        public volatile bool AutoSelect = true;
+        public bool AutoSelect
+        {
+            get => _autoSelect;
+            set => _autoSelect = value;
+        }
 
         private readonly LockedProperty<Color> _selectionColor = new LockedProperty<Color>(MetroColors.Blue);
 
@@ -76,8 +135,14 @@ namespace YtEzDL.Utils
             set => _selectionColor.Set(value);
         }
 
+        private volatile float _selectionWidth = 4;
+
         [JsonProperty(PropertyName = "selectionWidth")]
-        public volatile float SelectionWidth = 4;
+        public float SelectionWidth
+        {
+            get => _selectionWidth;
+            set => _selectionWidth = value;
+        }
     }
 
     public class Configuration : ConfigurationFile
