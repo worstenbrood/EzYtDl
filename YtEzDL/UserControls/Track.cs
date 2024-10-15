@@ -17,7 +17,7 @@ namespace YtEzDL.UserControls
     public partial class Track : MetroUserControl, IProgress
     {
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-       
+        
         /// <summary>
         /// Returns the info of the track
         /// </summary>
@@ -130,6 +130,10 @@ namespace YtEzDL.UserControls
                 }
             }
 
+            checkBoxExtractAudio.AddCheckedBinding(Configuration.Default.DownloadSettings, p => p.ExtractAudio, DataSourceUpdateMode.Never);
+            comboBoxAudioFormat.AddEnumBinding(Configuration.Default.DownloadSettings, p => p.AudioFormat, DataSourceUpdateMode.Never);
+            comboBoxAudioQuality.AddEnumBinding(Configuration.Default.DownloadSettings, p => p.AudioQuality, DataSourceUpdateMode.Never);
+            comboBoxVideoFormat.AddEnumBinding(Configuration.Default.DownloadSettings, p => p.VideoFormat, DataSourceUpdateMode.Never);
             base.OnLoad(e);
         }
 
@@ -287,6 +291,13 @@ namespace YtEzDL.UserControls
         {
             // Fix selection border
             Invalidate(ClientRectangle, false);
+        }
+        
+        private void checkBoxExtractAudio_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxAudioFormat.Enabled = checkBoxExtractAudio.Checked;
+            comboBoxAudioQuality.Enabled = checkBoxExtractAudio.Checked;
+            comboBoxVideoFormat.Enabled = !checkBoxExtractAudio.Checked;
         }
 
         // IProgress
