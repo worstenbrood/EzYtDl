@@ -57,10 +57,10 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.AutoScroll = true;
             this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(9, 87);
+            this.flowLayoutPanel.Location = new System.Drawing.Point(9, 100);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(891, 268);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 282);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.flowLayoutPanel_ControlAdded);
@@ -84,7 +84,7 @@ namespace YtEzDL.Forms
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(891, 26);
+            this.toolStrip.Size = new System.Drawing.Size(894, 26);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 13;
             this.toolStrip.Text = "toolStrip";
@@ -136,7 +136,7 @@ namespace YtEzDL.Forms
             this.toolStripTextBoxSearch.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripTextBoxSearch.Name = "toolStripTextBoxSearch";
             this.toolStripTextBoxSearch.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.toolStripTextBoxSearch.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBoxSearch.Size = new System.Drawing.Size(100, 24);
             this.toolStripTextBoxSearch.ToolTipText = "Filter";
             this.toolStripTextBoxSearch.TextChanged += new System.EventHandler(this.toolStripTextBoxSearch_TextChanged);
             // 
@@ -212,9 +212,9 @@ namespace YtEzDL.Forms
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.statusStrip.Location = new System.Drawing.Point(9, 385);
+            this.statusStrip.Location = new System.Drawing.Point(9, 412);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(891, 5);
+            this.statusStrip.Size = new System.Drawing.Size(894, 5);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 15;
             this.statusStrip.Text = "statusStrip1";
@@ -230,7 +230,7 @@ namespace YtEzDL.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(909, 400);
+            this.ClientSize = new System.Drawing.Size(912, 427);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.metroProgressSpinner);
             this.Controls.Add(this.toolStrip);
