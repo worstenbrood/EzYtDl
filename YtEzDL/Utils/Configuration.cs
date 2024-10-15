@@ -175,6 +175,9 @@ namespace YtEzDL.Utils
             }
         }
 
+        public Configuration() : base(null, false)
+        {
+        }
 
         public Configuration(string filename, bool load = true) : base(filename, load)
         {
@@ -220,6 +223,11 @@ namespace YtEzDL.Utils
 
         public void Load(object configuration)
         {
+            if (Filename == null)
+            {
+                throw new ArgumentNullException(nameof(Filename));
+            }
+
             lock (_lock)
             {
                 try
@@ -238,6 +246,11 @@ namespace YtEzDL.Utils
 
         public void Save(object configuration)
         {
+            if (Filename == null)
+            {
+                throw new ArgumentNullException(nameof(Filename));
+            }
+
             lock (_lock)
             {
                 using (var textWriter = new JsonTextWriter(new StreamWriter(File.Open(Filename, FileMode.Create), Encoding.UTF8)))

@@ -8,7 +8,7 @@ namespace YtEzDL.Forms
 {
     public partial class Settings : MetroForm
     {
-        private readonly Configuration _configuration = new Configuration(Configuration.Default.Filename);
+        private readonly Configuration _configuration = new Configuration();
 
         public Settings()
         {
@@ -19,24 +19,22 @@ namespace YtEzDL.Forms
         {
             base.OnLoad(e);
 
+            Configuration.Default.Load(_configuration);
+
             // Set data bindings
-            textBoxPath.DataBindings.Add("Text", _configuration.FileSettings, "Path");
-            checkBoxCreatePlaylistFolder.DataBindings.Add("Checked", _configuration.FileSettings,
-                "CreatePlaylistFolder");
-            checkBoxExtractAudio.DataBindings.Add("Checked", _configuration.DownloadSettings, "ExtractAudio");
-            checkBoxAddMetadata.DataBindings.Add("Checked", _configuration.DownloadSettings, "AddMetadata");
-            checkBoxEmbedThumbnail.DataBindings.Add("Checked", _configuration.DownloadSettings, "EmbedThumbnail");
-            comboBoxAudioFormat.DataSource = Enum.GetValues(typeof(AudioFormat));
-            comboBoxAudioFormat.DataBindings.Add("SelectedItem", _configuration.DownloadSettings, "AudioFormat");
-            comboBoxAudioQuality.DataSource = Enum.GetValues(typeof(AudioQuality));
-            comboBoxAudioQuality.DataBindings.Add("SelectedItem", _configuration.DownloadSettings, "AudioQuality");
-            comboBoxVideoFormat.DataSource = Enum.GetValues(typeof(VideoFormat));
-            comboBoxVideoFormat.DataBindings.Add("SelectedItem", _configuration.DownloadSettings, "VideoFormat");
-            checkBoxFetchThumbnail.DataBindings.Add("Checked", _configuration.DownloadSettings, "FetchThumbnail");
-            checkBoxFetchBestThumbnail.DataBindings.Add("Checked", _configuration.DownloadSettings, "FetchBestThumbnail");
-            checkBoxAutoSelect.DataBindings.Add("Checked", _configuration.LayoutSettings, "AutoSelect");
+            textBoxPath.AddTextBinding(_configuration.FileSettings,p => p.Path);
+            checkBoxCreatePlaylistFolder.AddCheckedBinding(_configuration.FileSettings, p => p.CreatePlaylistFolder);
+            checkBoxExtractAudio.AddCheckedBinding(_configuration.DownloadSettings, p => p.ExtractAudio);
+            checkBoxAddMetadata.AddCheckedBinding(_configuration.DownloadSettings, p => p.AddMetadata);
+            checkBoxEmbedThumbnail.AddCheckedBinding(_configuration.DownloadSettings, p => p.EmbedThumbnail);
+            comboBoxAudioFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioFormat);
+            comboBoxAudioQuality.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioQuality);
+            comboBoxVideoFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.VideoFormat);
+            checkBoxFetchThumbnail.AddCheckedBinding(_configuration.DownloadSettings, p => p.FetchThumbnail);
+            checkBoxFetchBestThumbnail.AddCheckedBinding(_configuration.DownloadSettings, p => p.FetchBestThumbnail);
+            checkBoxAutoSelect.AddCheckedBinding(_configuration.LayoutSettings, p => p.AutoSelect);
             comboBoxThreads.DataSource = Enumerable.Range(1, Environment.ProcessorCount).ToArray();
-            comboBoxThreads.DataBindings.Add("SelectedItem", _configuration.DownloadSettings, "DownloadThreads");
+            comboBoxThreads.DataBindings.Add(nameof(ComboBox.SelectedItem), _configuration.DownloadSettings, nameof(DownloadSettings.DownloadThreads));
 
             // Path selector
             textBoxPath.CustomButton.Click += (sender, args) =>
@@ -61,7 +59,7 @@ namespace YtEzDL.Forms
         private void buttonSave_Click(object sender, EventArgs e)
         {
             // Save to file
-            _configuration.Save();
+            Configuration.Default.Save(_configuration);
 
             // Reload default
             Configuration.Default.Load();
