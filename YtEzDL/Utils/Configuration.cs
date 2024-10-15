@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using MetroFramework;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace YtEzDL.Utils
 {
@@ -52,9 +53,11 @@ namespace YtEzDL.Utils
         public volatile bool EmbedThumbnail = true;
 
         [JsonProperty(PropertyName = "audio_format")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public volatile AudioFormat AudioFormat = AudioFormat.Mp3;
 
         [JsonProperty(PropertyName = "audio_quality")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public volatile AudioQuality AudioQuality = AudioQuality.Cbr320;
     }
 
@@ -121,7 +124,7 @@ namespace YtEzDL.Utils
         {
             NullValueHandling = NullValueHandling.Ignore,
             MissingMemberHandling = MissingMemberHandling.Ignore,
-            Formatting = Formatting.Indented
+            Formatting = Formatting.Indented,
         };
 
         public ConfigurationFile(string filename, bool load = true)
