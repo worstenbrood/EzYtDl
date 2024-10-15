@@ -133,6 +133,12 @@ namespace YtEzDL.Utils
             return this;
         }
 
+        internal DownLoadParameters Url(string url)
+        {
+            this[$"\"{url}\""] = string.Empty;
+            return this;
+        }
+        
         public DownLoadParameters Reset()
         {
             Clear();
@@ -279,9 +285,10 @@ namespace YtEzDL.Utils
 
         public async Task<YoutubeDownload> DownloadAsync(DownLoadParameters downLoadParameters, string url, string directory, string filename, IProgress progress, CancellationToken cancellationToken = default)
         {
-            var parameters = downLoadParameters.GetParameters();
-            parameters.Add($"\"{url}\"");
-
+            var parameters = downLoadParameters
+                .Url(url)
+                .GetParameters();
+            
             await _consoleProcess.RunAsync(parameters, 
                 s => ParseProgress(s, progress), cancellationToken, 
                 p =>
@@ -314,9 +321,9 @@ namespace YtEzDL.Utils
             var parameters = DownLoadParameters.Create
                 .IgnoreErrors()
                 .GetJson()
+                .Url(url)
                 .GetParameters();
-            parameters.Add($"\"{url}\"");
-            
+           
             await _consoleProcess.RunAsync(parameters, s =>
                 {
                     try
@@ -363,9 +370,9 @@ namespace YtEzDL.Utils
             return await _consoleProcess.RunAsync(parameters, output, cancellationToken);
         }
 
-        public int Run(DownLoadParameters downLoadParameters, Action<string> output = null)
+        public int Run(DownLoadParameters downLoadParameters, Action<string> output = null, CancellationToken cancellationToken = default)
         {
-            return RunAsync(downLoadParameters, output)
+            return RunAsync(downLoadParameters, output, cancellationToken)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
