@@ -224,11 +224,12 @@ namespace YtEzDL.Forms
         private string GetPath()
         {
             var path = Configuration.Default.FileSettings.Path;
-            if (IsPlaylist && Configuration.Default.FileSettings.CreatePlaylistFolder)
+            if (!IsPlaylist || !Configuration.Default.FileSettings.CreatePlaylistFolder)
             {
-                path = Path.Combine(path, Tracks.First().TrackData.Playlist);
-                Directory.CreateDirectory(path);
+                return path;
             }
+            path = Path.Combine(path, Tracks.First().TrackData.Playlist);
+            Directory.CreateDirectory(path);
             return path;
         }
 
