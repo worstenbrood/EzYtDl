@@ -132,7 +132,7 @@
             this.checkBoxAddMetadata.AutoSize = true;
             this.checkBoxAddMetadata.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
             this.checkBoxAddMetadata.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
-            this.checkBoxAddMetadata.Location = new System.Drawing.Point(7, 40);
+            this.checkBoxAddMetadata.Location = new System.Drawing.Point(7, 44);
             this.checkBoxAddMetadata.Name = "checkBoxAddMetadata";
             this.checkBoxAddMetadata.Size = new System.Drawing.Size(135, 25);
             this.checkBoxAddMetadata.TabIndex = 4;
@@ -144,7 +144,7 @@
             this.checkBoxEmbedThumbnail.AutoSize = true;
             this.checkBoxEmbedThumbnail.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
             this.checkBoxEmbedThumbnail.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
-            this.checkBoxEmbedThumbnail.Location = new System.Drawing.Point(7, 68);
+            this.checkBoxEmbedThumbnail.Location = new System.Drawing.Point(7, 75);
             this.checkBoxEmbedThumbnail.Name = "checkBoxEmbedThumbnail";
             this.checkBoxEmbedThumbnail.Size = new System.Drawing.Size(163, 25);
             this.checkBoxEmbedThumbnail.TabIndex = 5;
@@ -316,7 +316,7 @@
             this.tabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.tabControl.Location = new System.Drawing.Point(23, 63);
             this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
+            this.tabControl.SelectedIndex = 1;
             this.tabControl.Size = new System.Drawing.Size(651, 260);
             this.tabControl.TabIndex = 20;
             this.tabControl.UseSelectable = true;
