@@ -71,8 +71,10 @@
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Configuration.cs" />
@@ -84,6 +86,12 @@
     <Compile Include="DownLoad\DownLoadParameters.cs" />
     <Compile Include="DownLoad\Thumbnail.cs" />
     <Compile Include="DownLoad\TrackData.cs" />
+    <Compile Include="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Utils\FormTools.cs" />
@@ -126,6 +134,9 @@
     <Compile Include="Utils\ApplicationContext.cs" />
     <Compile Include="Utils\Win32.cs" />
     <Compile Include="DownLoad\YoutubeDownload.cs" />
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DownloadForm.resx">
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>DownloadForm1.Designer.cs</LastGenOutput>

@@ -52,11 +52,21 @@ namespace YtEzDL.Utils
                 settings.ShowDialog();
             }
         }
-        
+
+        private static void ShowAboutForm()
+        {
+            // Show form
+            using (var about = new Forms.About())
+            {
+                about.ShowDialog();
+            }
+        }
+
         public ApplicationContext()
         {
             IContainer container = new Container();
             var contextMenu = new ContextMenu();
+            contextMenu.MenuItems.Add("&About", (sender, args) => ShowAboutForm());
             contextMenu.MenuItems.Add("&Settings", (sender, args) => ShowSettingsForm());
             contextMenu.MenuItems.Add("&Clear cache", (sender, args) => ClearCache());
             contextMenu.MenuItems.Add("&Update", (sender, args) => Update());
