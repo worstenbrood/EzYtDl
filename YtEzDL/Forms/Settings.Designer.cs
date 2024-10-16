@@ -166,7 +166,7 @@
             // 
             this.labelAudioFormat.AutoSize = true;
             this.labelAudioFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelAudioFormat.Location = new System.Drawing.Point(196, 13);
+            this.labelAudioFormat.Location = new System.Drawing.Point(196, 17);
             this.labelAudioFormat.Name = "labelAudioFormat";
             this.labelAudioFormat.Size = new System.Drawing.Size(116, 25);
             this.labelAudioFormat.TabIndex = 7;
@@ -176,7 +176,7 @@
             // 
             this.labelAudioQuality.AutoSize = true;
             this.labelAudioQuality.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelAudioQuality.Location = new System.Drawing.Point(196, 46);
+            this.labelAudioQuality.Location = new System.Drawing.Point(196, 51);
             this.labelAudioQuality.Name = "labelAudioQuality";
             this.labelAudioQuality.Size = new System.Drawing.Size(116, 25);
             this.labelAudioQuality.TabIndex = 9;
@@ -197,7 +197,7 @@
             // 
             this.labelVideoFormat.AutoSize = true;
             this.labelVideoFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelVideoFormat.Location = new System.Drawing.Point(196, 79);
+            this.labelVideoFormat.Location = new System.Drawing.Point(196, 85);
             this.labelVideoFormat.Name = "labelVideoFormat";
             this.labelVideoFormat.Size = new System.Drawing.Size(115, 25);
             this.labelVideoFormat.TabIndex = 11;
@@ -279,7 +279,7 @@
             // 
             this.labelThreads.AutoSize = true;
             this.labelThreads.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelThreads.Location = new System.Drawing.Point(196, 112);
+            this.labelThreads.Location = new System.Drawing.Point(196, 119);
             this.labelThreads.Name = "labelThreads";
             this.labelThreads.Size = new System.Drawing.Size(76, 25);
             this.labelThreads.TabIndex = 18;
@@ -316,7 +316,7 @@
             this.tabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.tabControl.Location = new System.Drawing.Point(23, 63);
             this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 1;
+            this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(651, 260);
             this.tabControl.TabIndex = 20;
             this.tabControl.UseSelectable = true;
