@@ -32,7 +32,7 @@ namespace YtEzDL.Forms
                     textBoxAbout.Text += $"yt-dlp version: {version}" + Environment.NewLine;
                     textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp" + Environment.NewLine;
                     textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg" + Environment.NewLine;
-                    Height = textBoxAbout.Height + 100;
+                    Height = textBoxAbout.Height + 75;
                 }));
             });
 

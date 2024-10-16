@@ -33,15 +33,15 @@
             this.tabPageInfo = new MetroFramework.Controls.MetroTabPage();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.tabPageSettings = new MetroFramework.Controls.MetroTabPage();
-            this.checkBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
-            this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
-            this.comboBoxAudioFormat = new MetroFramework.Controls.MetroComboBox();
-            this.labelAudioFormat = new MetroFramework.Controls.MetroLabel();
-            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
-            this.labelAudioQuality = new MetroFramework.Controls.MetroLabel();
-            this.comboBoxAudioQuality = new MetroFramework.Controls.MetroComboBox();
             this.labelVideoFormat = new MetroFramework.Controls.MetroLabel();
             this.comboBoxVideoFormat = new MetroFramework.Controls.MetroComboBox();
+            this.labelAudioQuality = new MetroFramework.Controls.MetroLabel();
+            this.comboBoxAudioQuality = new MetroFramework.Controls.MetroComboBox();
+            this.labelAudioFormat = new MetroFramework.Controls.MetroLabel();
+            this.comboBoxAudioFormat = new MetroFramework.Controls.MetroComboBox();
+            this.checkBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
+            this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
+            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.metroTabControl.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -65,6 +65,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroTabControl.Controls.Add(this.tabPageInfo);
             this.metroTabControl.Controls.Add(this.tabPageSettings);
+            this.metroTabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.metroTabControl.Location = new System.Drawing.Point(3, 3);
             this.metroTabControl.Name = "metroTabControl";
             this.metroTabControl.SelectedIndex = 0;
@@ -124,6 +125,63 @@
             this.tabPageSettings.VerticalScrollbarSize = 10;
             this.tabPageSettings.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
+            // labelVideoFormat
+            // 
+            this.labelVideoFormat.AutoSize = true;
+            this.labelVideoFormat.Location = new System.Drawing.Point(3, 115);
+            this.labelVideoFormat.Name = "labelVideoFormat";
+            this.labelVideoFormat.Size = new System.Drawing.Size(90, 19);
+            this.labelVideoFormat.TabIndex = 8;
+            this.labelVideoFormat.Text = "Video format:";
+            // 
+            // comboBoxVideoFormat
+            // 
+            this.comboBoxVideoFormat.FormattingEnabled = true;
+            this.comboBoxVideoFormat.ItemHeight = 23;
+            this.comboBoxVideoFormat.Location = new System.Drawing.Point(98, 110);
+            this.comboBoxVideoFormat.Name = "comboBoxVideoFormat";
+            this.comboBoxVideoFormat.Size = new System.Drawing.Size(121, 29);
+            this.comboBoxVideoFormat.TabIndex = 7;
+            this.comboBoxVideoFormat.UseSelectable = true;
+            // 
+            // labelAudioQuality
+            // 
+            this.labelAudioQuality.AutoSize = true;
+            this.labelAudioQuality.Location = new System.Drawing.Point(3, 80);
+            this.labelAudioQuality.Name = "labelAudioQuality";
+            this.labelAudioQuality.Size = new System.Drawing.Size(89, 19);
+            this.labelAudioQuality.TabIndex = 6;
+            this.labelAudioQuality.Text = "Audio quality:";
+            // 
+            // comboBoxAudioQuality
+            // 
+            this.comboBoxAudioQuality.FormattingEnabled = true;
+            this.comboBoxAudioQuality.ItemHeight = 23;
+            this.comboBoxAudioQuality.Location = new System.Drawing.Point(98, 75);
+            this.comboBoxAudioQuality.Name = "comboBoxAudioQuality";
+            this.comboBoxAudioQuality.Size = new System.Drawing.Size(121, 29);
+            this.comboBoxAudioQuality.TabIndex = 5;
+            this.comboBoxAudioQuality.UseSelectable = true;
+            // 
+            // labelAudioFormat
+            // 
+            this.labelAudioFormat.AutoSize = true;
+            this.labelAudioFormat.Location = new System.Drawing.Point(3, 44);
+            this.labelAudioFormat.Name = "labelAudioFormat";
+            this.labelAudioFormat.Size = new System.Drawing.Size(91, 19);
+            this.labelAudioFormat.TabIndex = 4;
+            this.labelAudioFormat.Text = "Audio format:";
+            // 
+            // comboBoxAudioFormat
+            // 
+            this.comboBoxAudioFormat.FormattingEnabled = true;
+            this.comboBoxAudioFormat.ItemHeight = 23;
+            this.comboBoxAudioFormat.Location = new System.Drawing.Point(98, 39);
+            this.comboBoxAudioFormat.Name = "comboBoxAudioFormat";
+            this.comboBoxAudioFormat.Size = new System.Drawing.Size(121, 29);
+            this.comboBoxAudioFormat.TabIndex = 3;
+            this.comboBoxAudioFormat.UseSelectable = true;
+            // 
             // checkBoxExtractAudio
             // 
             this.checkBoxExtractAudio.AutoSize = true;
@@ -148,25 +206,6 @@
             this.metroProgressBar.TabIndex = 15;
             this.metroProgressBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
-            // comboBoxAudioFormat
-            // 
-            this.comboBoxAudioFormat.FormattingEnabled = true;
-            this.comboBoxAudioFormat.ItemHeight = 23;
-            this.comboBoxAudioFormat.Location = new System.Drawing.Point(98, 39);
-            this.comboBoxAudioFormat.Name = "comboBoxAudioFormat";
-            this.comboBoxAudioFormat.Size = new System.Drawing.Size(121, 29);
-            this.comboBoxAudioFormat.TabIndex = 3;
-            this.comboBoxAudioFormat.UseSelectable = true;
-            // 
-            // labelAudioFormat
-            // 
-            this.labelAudioFormat.AutoSize = true;
-            this.labelAudioFormat.Location = new System.Drawing.Point(3, 44);
-            this.labelAudioFormat.Name = "labelAudioFormat";
-            this.labelAudioFormat.Size = new System.Drawing.Size(91, 19);
-            this.labelAudioFormat.TabIndex = 4;
-            this.labelAudioFormat.Text = "Audio format:";
-            // 
             // textBoxTitle
             // 
             this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -183,44 +222,6 @@
             this.textBoxTitle.TabIndex = 1;
             this.textBoxTitle.Text = "Title";
             this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
-            // 
-            // labelAudioQuality
-            // 
-            this.labelAudioQuality.AutoSize = true;
-            this.labelAudioQuality.Location = new System.Drawing.Point(3, 80);
-            this.labelAudioQuality.Name = "labelAudioQuality";
-            this.labelAudioQuality.Size = new System.Drawing.Size(89, 19);
-            this.labelAudioQuality.TabIndex = 6;
-            this.labelAudioQuality.Text = "Audio quality:";
-            // 
-            // comboBoxAudioQuality
-            // 
-            this.comboBoxAudioQuality.FormattingEnabled = true;
-            this.comboBoxAudioQuality.ItemHeight = 23;
-            this.comboBoxAudioQuality.Location = new System.Drawing.Point(98, 75);
-            this.comboBoxAudioQuality.Name = "comboBoxAudioQuality";
-            this.comboBoxAudioQuality.Size = new System.Drawing.Size(121, 29);
-            this.comboBoxAudioQuality.TabIndex = 5;
-            this.comboBoxAudioQuality.UseSelectable = true;
-            // 
-            // labelVideoFormat
-            // 
-            this.labelVideoFormat.AutoSize = true;
-            this.labelVideoFormat.Location = new System.Drawing.Point(3, 115);
-            this.labelVideoFormat.Name = "labelVideoFormat";
-            this.labelVideoFormat.Size = new System.Drawing.Size(90, 19);
-            this.labelVideoFormat.TabIndex = 8;
-            this.labelVideoFormat.Text = "Video format:";
-            // 
-            // comboBoxVideoFormat
-            // 
-            this.comboBoxVideoFormat.FormattingEnabled = true;
-            this.comboBoxVideoFormat.ItemHeight = 23;
-            this.comboBoxVideoFormat.Location = new System.Drawing.Point(98, 110);
-            this.comboBoxVideoFormat.Name = "comboBoxVideoFormat";
-            this.comboBoxVideoFormat.Size = new System.Drawing.Size(121, 29);
-            this.comboBoxVideoFormat.TabIndex = 7;
-            this.comboBoxVideoFormat.UseSelectable = true;
             // 
             // Track
             // 
