@@ -206,7 +206,7 @@ namespace YtEzDL.DownLoad
                 .GetAwaiter()
                 .GetResult();
 
-            return output.ToString();
+            return output.ToString().TrimEnd('\r', '\n');
         }
     }
 }
