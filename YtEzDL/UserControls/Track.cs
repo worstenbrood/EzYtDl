@@ -156,16 +156,16 @@ namespace YtEzDL.UserControls
             try
             {
                 var parameters = DownLoadParameters.Create;
-                if (Configuration.Default.DownloadSettings.ExtractAudio)
+                if (checkBoxExtractAudio.Checked)
                 {
                     parameters
                         .ExtractAudio()
-                        .AudioFormat(Configuration.Default.DownloadSettings.AudioFormat)
-                        .AudioQuality(Configuration.Default.DownloadSettings.AudioQuality);
+                        .AudioFormat((AudioFormat)comboBoxAudioFormat.SelectedItem)
+                        .AudioQuality((AudioQuality)comboBoxAudioQuality.SelectedItem);
                 }
                 else
                 {
-                    parameters.VideoFormat(Configuration.Default.DownloadSettings.VideoFormat);
+                    parameters.VideoFormat((VideoFormat)comboBoxVideoFormat.SelectedItem);
                 }
 
                 if (Configuration.Default.DownloadSettings.AddMetadata)
