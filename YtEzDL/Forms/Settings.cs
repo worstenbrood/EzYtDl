@@ -13,6 +13,9 @@ namespace YtEzDL.Forms
         public Settings()
         {
             InitializeComponent();
+
+            // Select first page
+            tabControl.SelectedIndex = 0;
         }
 
         protected override void OnLoad(EventArgs e)
