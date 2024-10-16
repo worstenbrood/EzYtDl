@@ -41,10 +41,10 @@ namespace YtEzDL.Forms
             this.toolStripButtonDownload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClearCache = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonAbout = new System.Windows.Forms.ToolStripButton();
             this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripButtonAbout = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -93,6 +93,7 @@ namespace YtEzDL.Forms
             // toolStripButtonNone
             // 
             this.toolStripButtonNone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonNone.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonNone.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNone.Image")));
             this.toolStripButtonNone.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNone.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
@@ -106,6 +107,7 @@ namespace YtEzDL.Forms
             // toolStripButtonAll
             // 
             this.toolStripButtonAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonAll.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAll.Image")));
             this.toolStripButtonAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonAll.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
@@ -119,6 +121,7 @@ namespace YtEzDL.Forms
             // toolStripButtonToggle
             // 
             this.toolStripButtonToggle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonToggle.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonToggle.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonToggle.Image")));
             this.toolStripButtonToggle.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonToggle.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
@@ -132,8 +135,10 @@ namespace YtEzDL.Forms
             // 
             // toolStripTextBoxSearch
             // 
+            this.toolStripTextBoxSearch.BackColor = System.Drawing.Color.White;
             this.toolStripTextBoxSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.toolStripTextBoxSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBoxSearch.ForeColor = System.Drawing.Color.Black;
             this.toolStripTextBoxSearch.Margin = new System.Windows.Forms.Padding(0, 1, 1, 1);
             this.toolStripTextBoxSearch.Name = "toolStripTextBoxSearch";
             this.toolStripTextBoxSearch.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
@@ -186,6 +191,16 @@ namespace YtEzDL.Forms
             this.toolStripButtonClearCache.ToolTipText = "Clear yt-dlp cache";
             this.toolStripButtonClearCache.Click += new System.EventHandler(this.toolStripButtonClearCache_Click);
             // 
+            // toolStripButtonAbout
+            // 
+            this.toolStripButtonAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonAbout.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAbout.Image")));
+            this.toolStripButtonAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAbout.Name = "toolStripButtonAbout";
+            this.toolStripButtonAbout.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButtonAbout.ToolTipText = "About";
+            this.toolStripButtonAbout.Click += new System.EventHandler(this.toolStripButtonAbout_Click);
+            // 
             // metroProgressSpinner
             // 
             this.metroProgressSpinner.Location = new System.Drawing.Point(5, 30);
@@ -199,6 +214,7 @@ namespace YtEzDL.Forms
             // statusStrip
             // 
             this.statusStrip.BackColor = System.Drawing.Color.White;
+            this.statusStrip.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
@@ -213,16 +229,6 @@ namespace YtEzDL.Forms
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 0);
-            // 
-            // toolStripButtonAbout
-            // 
-            this.toolStripButtonAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonAbout.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAbout.Image")));
-            this.toolStripButtonAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonAbout.Name = "toolStripButtonAbout";
-            this.toolStripButtonAbout.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonAbout.ToolTipText = "About";
-            this.toolStripButtonAbout.Click += new System.EventHandler(this.toolStripButtonAbout_Click);
             // 
             // DownloadForm
             // 

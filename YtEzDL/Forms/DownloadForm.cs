@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -208,9 +209,6 @@ namespace YtEzDL.Forms
 
             // Layout
             Text = SafeString($"Fetching {_url}");
-            toolStrip.Font = MetroFonts.Default(12);
-            Font = MetroFonts.Default(11);
-            statusStrip.Font = MetroFonts.Default(14);
             metroProgressSpinner.Value = 25;
             flowLayoutPanel.AutoScroll = false;
             flowLayoutPanel.HorizontalScroll.Minimum = int.MaxValue;

@@ -61,6 +61,7 @@
             // 
             // textBoxPath
             // 
+            this.textBoxPath.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
@@ -74,6 +75,7 @@
             this.textBoxPath.CustomButton.UseSelectable = true;
             this.textBoxPath.FontSize = MetroFramework.MetroTextBoxSize.Tall;
             this.textBoxPath.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
+            this.textBoxPath.ForeColor = System.Drawing.Color.Black;
             this.textBoxPath.Lines = new string[0];
             this.textBoxPath.Location = new System.Drawing.Point(58, 15);
             this.textBoxPath.MaxLength = 32767;
@@ -95,7 +97,9 @@
             // labelPath
             // 
             this.labelPath.AutoSize = true;
+            this.labelPath.BackColor = System.Drawing.Color.White;
             this.labelPath.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelPath.ForeColor = System.Drawing.Color.Black;
             this.labelPath.Location = new System.Drawing.Point(3, 16);
             this.labelPath.Name = "labelPath";
             this.labelPath.Size = new System.Drawing.Size(49, 25);
@@ -107,6 +111,7 @@
             this.checkBoxExtractAudio.AutoSize = true;
             this.checkBoxExtractAudio.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
             this.checkBoxExtractAudio.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxExtractAudio.ForeColor = System.Drawing.Color.Black;
             this.checkBoxExtractAudio.Location = new System.Drawing.Point(7, 13);
             this.checkBoxExtractAudio.Name = "checkBoxExtractAudio";
             this.checkBoxExtractAudio.Size = new System.Drawing.Size(126, 25);
@@ -118,8 +123,10 @@
             // checkBoxCreatePlaylistFolder
             // 
             this.checkBoxCreatePlaylistFolder.AutoSize = true;
+            this.checkBoxCreatePlaylistFolder.BackColor = System.Drawing.Color.White;
             this.checkBoxCreatePlaylistFolder.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
             this.checkBoxCreatePlaylistFolder.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxCreatePlaylistFolder.ForeColor = System.Drawing.Color.Black;
             this.checkBoxCreatePlaylistFolder.Location = new System.Drawing.Point(8, 58);
             this.checkBoxCreatePlaylistFolder.Name = "checkBoxCreatePlaylistFolder";
             this.checkBoxCreatePlaylistFolder.Size = new System.Drawing.Size(182, 25);
@@ -153,7 +160,9 @@
             // 
             // comboBoxAudioFormat
             // 
+            this.comboBoxAudioFormat.BackColor = System.Drawing.Color.White;
             this.comboBoxAudioFormat.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxAudioFormat.ForeColor = System.Drawing.Color.Black;
             this.comboBoxAudioFormat.FormattingEnabled = true;
             this.comboBoxAudioFormat.ItemHeight = 29;
             this.comboBoxAudioFormat.Location = new System.Drawing.Point(344, 13);
@@ -184,7 +193,9 @@
             // 
             // comboBoxAudioQuality
             // 
+            this.comboBoxAudioQuality.BackColor = System.Drawing.Color.White;
             this.comboBoxAudioQuality.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxAudioQuality.ForeColor = System.Drawing.Color.White;
             this.comboBoxAudioQuality.FormattingEnabled = true;
             this.comboBoxAudioQuality.ItemHeight = 29;
             this.comboBoxAudioQuality.Location = new System.Drawing.Point(344, 46);
@@ -205,7 +216,9 @@
             // 
             // comboBoxVideoFormat
             // 
+            this.comboBoxVideoFormat.BackColor = System.Drawing.Color.White;
             this.comboBoxVideoFormat.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxVideoFormat.ForeColor = System.Drawing.Color.Black;
             this.comboBoxVideoFormat.FormattingEnabled = true;
             this.comboBoxVideoFormat.ItemHeight = 29;
             this.comboBoxVideoFormat.Location = new System.Drawing.Point(344, 79);
@@ -287,7 +300,9 @@
             // 
             // comboBoxThreads
             // 
+            this.comboBoxThreads.BackColor = System.Drawing.Color.White;
             this.comboBoxThreads.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxThreads.ForeColor = System.Drawing.Color.Black;
             this.comboBoxThreads.FormattingEnabled = true;
             this.comboBoxThreads.ItemHeight = 29;
             this.comboBoxThreads.Location = new System.Drawing.Point(344, 112);
@@ -316,17 +331,18 @@
             this.tabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.tabControl.Location = new System.Drawing.Point(23, 63);
             this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
+            this.tabControl.SelectedIndex = 2;
             this.tabControl.Size = new System.Drawing.Size(651, 260);
             this.tabControl.TabIndex = 20;
             this.tabControl.UseSelectable = true;
             // 
             // tabPageFileSettings
             // 
-            this.tabPageFileSettings.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageFileSettings.BackColor = System.Drawing.Color.White;
             this.tabPageFileSettings.Controls.Add(this.labelPath);
             this.tabPageFileSettings.Controls.Add(this.textBoxPath);
             this.tabPageFileSettings.Controls.Add(this.checkBoxCreatePlaylistFolder);
+            this.tabPageFileSettings.ForeColor = System.Drawing.Color.Black;
             this.tabPageFileSettings.HorizontalScrollbarBarColor = true;
             this.tabPageFileSettings.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageFileSettings.HorizontalScrollbarSize = 10;
@@ -341,6 +357,7 @@
             // 
             // tabPageDownloadSettings
             // 
+            this.tabPageDownloadSettings.BackColor = System.Drawing.Color.White;
             this.tabPageDownloadSettings.Controls.Add(this.labelThreads);
             this.tabPageDownloadSettings.Controls.Add(this.checkBoxExtractAudio);
             this.tabPageDownloadSettings.Controls.Add(this.comboBoxThreads);
@@ -352,6 +369,7 @@
             this.tabPageDownloadSettings.Controls.Add(this.labelAudioQuality);
             this.tabPageDownloadSettings.Controls.Add(this.labelVideoFormat);
             this.tabPageDownloadSettings.Controls.Add(this.comboBoxVideoFormat);
+            this.tabPageDownloadSettings.ForeColor = System.Drawing.Color.Black;
             this.tabPageDownloadSettings.HorizontalScrollbarBarColor = true;
             this.tabPageDownloadSettings.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageDownloadSettings.HorizontalScrollbarSize = 10;
@@ -366,10 +384,12 @@
             // 
             // tabPageLayoutSettings
             // 
+            this.tabPageLayoutSettings.BackColor = System.Drawing.Color.White;
             this.tabPageLayoutSettings.Controls.Add(this.checkBoxPerTrackSettings);
             this.tabPageLayoutSettings.Controls.Add(this.checkBoxFetchThumbnail);
             this.tabPageLayoutSettings.Controls.Add(this.checkBoxFetchBestThumbnail);
             this.tabPageLayoutSettings.Controls.Add(this.checkBoxAutoSelect);
+            this.tabPageLayoutSettings.ForeColor = System.Drawing.Color.Black;
             this.tabPageLayoutSettings.HorizontalScrollbarBarColor = true;
             this.tabPageLayoutSettings.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageLayoutSettings.HorizontalScrollbarSize = 10;

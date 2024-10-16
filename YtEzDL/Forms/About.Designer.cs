@@ -39,7 +39,9 @@ namespace YtEzDL.Forms
             this.textBoxAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAbout.BackColor = System.Drawing.Color.White;
             this.textBoxAbout.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.textBoxAbout.ForeColor = System.Drawing.Color.Black;
             this.textBoxAbout.Location = new System.Drawing.Point(10, 63);
             this.textBoxAbout.Name = "textBoxAbout";
             this.textBoxAbout.Size = new System.Drawing.Size(457, 237);

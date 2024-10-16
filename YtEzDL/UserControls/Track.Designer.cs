@@ -32,6 +32,7 @@
             this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
             this.tabPageInfo = new MetroFramework.Controls.MetroTabPage();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.tabPageSettings = new MetroFramework.Controls.MetroTabPage();
             this.labelVideoFormat = new MetroFramework.Controls.MetroLabel();
             this.comboBoxVideoFormat = new MetroFramework.Controls.MetroComboBox();
@@ -41,7 +42,6 @@
             this.comboBoxAudioFormat = new MetroFramework.Controls.MetroComboBox();
             this.checkBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
-            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.metroTabControl.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -68,7 +68,7 @@
             this.metroTabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.metroTabControl.Location = new System.Drawing.Point(3, 3);
             this.metroTabControl.Name = "metroTabControl";
-            this.metroTabControl.SelectedIndex = 0;
+            this.metroTabControl.SelectedIndex = 1;
             this.metroTabControl.Size = new System.Drawing.Size(608, 197);
             this.metroTabControl.TabIndex = 14;
             this.metroTabControl.UseSelectable = true;
@@ -81,9 +81,9 @@
             this.tabPageInfo.HorizontalScrollbarBarColor = false;
             this.tabPageInfo.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageInfo.HorizontalScrollbarSize = 10;
-            this.tabPageInfo.Location = new System.Drawing.Point(4, 38);
+            this.tabPageInfo.Location = new System.Drawing.Point(4, 44);
             this.tabPageInfo.Name = "tabPageInfo";
-            this.tabPageInfo.Size = new System.Drawing.Size(600, 155);
+            this.tabPageInfo.Size = new System.Drawing.Size(600, 149);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Info";
             this.tabPageInfo.VerticalScrollbarBarColor = false;
@@ -97,10 +97,28 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox.Location = new System.Drawing.Point(16, 11);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(284, 148);
+            this.pictureBox.Size = new System.Drawing.Size(284, 135);
             this.pictureBox.TabIndex = 11;
             this.pictureBox.TabStop = false;
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
+            // 
+            // textBoxTitle
+            // 
+            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTitle.BackColor = System.Drawing.Color.White;
+            this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.textBoxTitle.ForeColor = System.Drawing.Color.Black;
+            this.textBoxTitle.Location = new System.Drawing.Point(305, 21);
+            this.textBoxTitle.Multiline = true;
+            this.textBoxTitle.Name = "textBoxTitle";
+            this.textBoxTitle.ReadOnly = true;
+            this.textBoxTitle.Size = new System.Drawing.Size(290, 125);
+            this.textBoxTitle.TabIndex = 1;
+            this.textBoxTitle.Text = "Title";
+            this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // tabPageSettings
             // 
@@ -115,9 +133,9 @@
             this.tabPageSettings.HorizontalScrollbarBarColor = false;
             this.tabPageSettings.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageSettings.HorizontalScrollbarSize = 10;
-            this.tabPageSettings.Location = new System.Drawing.Point(4, 38);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 44);
             this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.Size = new System.Drawing.Size(600, 155);
+            this.tabPageSettings.Size = new System.Drawing.Size(600, 149);
             this.tabPageSettings.TabIndex = 1;
             this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.VerticalScrollbarBarColor = false;
@@ -129,6 +147,7 @@
             // 
             this.labelVideoFormat.AutoSize = true;
             this.labelVideoFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelVideoFormat.ForeColor = System.Drawing.Color.Black;
             this.labelVideoFormat.Location = new System.Drawing.Point(4, 111);
             this.labelVideoFormat.Name = "labelVideoFormat";
             this.labelVideoFormat.Size = new System.Drawing.Size(115, 25);
@@ -137,7 +156,9 @@
             // 
             // comboBoxVideoFormat
             // 
+            this.comboBoxVideoFormat.BackColor = System.Drawing.Color.White;
             this.comboBoxVideoFormat.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxVideoFormat.ForeColor = System.Drawing.Color.Black;
             this.comboBoxVideoFormat.FormattingEnabled = true;
             this.comboBoxVideoFormat.ItemHeight = 29;
             this.comboBoxVideoFormat.Location = new System.Drawing.Point(125, 110);
@@ -150,6 +171,7 @@
             // 
             this.labelAudioQuality.AutoSize = true;
             this.labelAudioQuality.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelAudioQuality.ForeColor = System.Drawing.Color.Black;
             this.labelAudioQuality.Location = new System.Drawing.Point(4, 76);
             this.labelAudioQuality.Name = "labelAudioQuality";
             this.labelAudioQuality.Size = new System.Drawing.Size(116, 25);
@@ -158,7 +180,9 @@
             // 
             // comboBoxAudioQuality
             // 
+            this.comboBoxAudioQuality.BackColor = System.Drawing.Color.White;
             this.comboBoxAudioQuality.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxAudioQuality.ForeColor = System.Drawing.Color.Black;
             this.comboBoxAudioQuality.FormattingEnabled = true;
             this.comboBoxAudioQuality.ItemHeight = 29;
             this.comboBoxAudioQuality.Location = new System.Drawing.Point(125, 76);
@@ -171,6 +195,7 @@
             // 
             this.labelAudioFormat.AutoSize = true;
             this.labelAudioFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelAudioFormat.ForeColor = System.Drawing.Color.Black;
             this.labelAudioFormat.Location = new System.Drawing.Point(4, 42);
             this.labelAudioFormat.Name = "labelAudioFormat";
             this.labelAudioFormat.Size = new System.Drawing.Size(116, 25);
@@ -179,7 +204,9 @@
             // 
             // comboBoxAudioFormat
             // 
+            this.comboBoxAudioFormat.BackColor = System.Drawing.Color.White;
             this.comboBoxAudioFormat.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxAudioFormat.ForeColor = System.Drawing.Color.Black;
             this.comboBoxAudioFormat.FormattingEnabled = true;
             this.comboBoxAudioFormat.ItemHeight = 29;
             this.comboBoxAudioFormat.Location = new System.Drawing.Point(125, 42);
@@ -193,6 +220,7 @@
             this.checkBoxExtractAudio.AutoSize = true;
             this.checkBoxExtractAudio.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
             this.checkBoxExtractAudio.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxExtractAudio.ForeColor = System.Drawing.Color.Black;
             this.checkBoxExtractAudio.Location = new System.Drawing.Point(3, 14);
             this.checkBoxExtractAudio.Name = "checkBoxExtractAudio";
             this.checkBoxExtractAudio.Size = new System.Drawing.Size(126, 25);
@@ -212,23 +240,6 @@
             this.metroProgressBar.TabIndex = 15;
             this.metroProgressBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
-            // textBoxTitle
-            // 
-            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTitle.BackColor = System.Drawing.Color.White;
-            this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.textBoxTitle.Location = new System.Drawing.Point(305, 21);
-            this.textBoxTitle.Multiline = true;
-            this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(290, 138);
-            this.textBoxTitle.TabIndex = 1;
-            this.textBoxTitle.Text = "Title";
-            this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
-            // 
             // Track
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -238,6 +249,7 @@
             this.Controls.Add(this.metroTabControl);
             this.Controls.Add(this.metroProgressBar);
             this.DoubleBuffered = true;
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Name = "Track";
             this.Size = new System.Drawing.Size(614, 254);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);

@@ -126,7 +126,6 @@ namespace YtEzDL.UserControls
                 Text = TrackData.Title?.Replace("&", "&&") ?? "Untitled";
 
                 // Set info
-                textBoxTitle.Font = MetroFonts.Default(16);
                 textBoxTitle.Text = TrackData.Title + Environment.NewLine + TrackData.WebpageUrl;
 
                 // Add duration
