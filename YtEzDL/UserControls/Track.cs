@@ -122,6 +122,8 @@ namespace YtEzDL.UserControls
         {
             if (TrackData != null)
             {
+                textBoxTitle.Font = MetroFonts.Default(14);
+
                 // Set title
                 Text = TrackData.Title?.Replace("&", "&&") ?? "Untitled";
 
