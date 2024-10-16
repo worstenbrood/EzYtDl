@@ -33,13 +33,9 @@ namespace YtEzDL.Forms
                 
                 Invoke(new MethodInvoker(() =>
                 {
-                    var height = textBoxAbout.Height;
                     textBoxAbout.Text += $"yt-dlp version: {version}" + Environment.NewLine;
                     textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp" + Environment.NewLine;
                     textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg" + Environment.NewLine;
-                    textBoxAbout.Refresh();
-
-                    Height += (textBoxAbout.Height - height) + (textBoxAbout.Location.Y / 2);
                 }));
 
                 _loading = false;
@@ -54,6 +50,11 @@ namespace YtEzDL.Forms
             {
                 e.Cancel = true;
             }
+        }
+
+        private void textBoxAbout_SizeChanged(object sender, EventArgs e)
+        {
+            Height = textBoxAbout.Height + textBoxAbout.Location.Y;
         }
     }
 }

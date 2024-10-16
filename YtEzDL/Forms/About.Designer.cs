@@ -48,6 +48,7 @@ namespace YtEzDL.Forms
             this.textBoxAbout.Size = new System.Drawing.Size(0, 0);
             this.textBoxAbout.TabIndex = 0;
             this.textBoxAbout.UseSelectable = true;
+            this.textBoxAbout.SizeChanged += new System.EventHandler(this.textBoxAbout_SizeChanged);
             // 
             // About
             // 
