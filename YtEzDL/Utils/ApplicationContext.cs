@@ -70,6 +70,7 @@ namespace YtEzDL.Utils
             contextMenu.MenuItems.Add("&Settings", (sender, args) => ShowSettingsForm());
             contextMenu.MenuItems.Add("&Clear cache", (sender, args) => ClearCache());
             contextMenu.MenuItems.Add("&Update", (sender, args) => Update());
+            contextMenu.MenuItems.Add("-");
             contextMenu.MenuItems.Add("&Exit",(sender, args) => ExitThread());
             
             // Setup notifyicon
