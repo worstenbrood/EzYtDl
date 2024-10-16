@@ -104,7 +104,7 @@ namespace YtEzDL.UserControls
             }
             catch (Exception ex)
             {
-                Invoke(new MethodInvoker(() => MessageBox.Show(this, ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)));
+                Invoke(new MethodInvoker(() => MetroMessageBox.Show(this, ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)));
                 return null;
             }
         }

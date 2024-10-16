@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroFramework;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
@@ -21,7 +22,7 @@ namespace YtEzDL
             {
                 var currentProcess = Process.GetCurrentProcess();
                 var message = $"{currentProcess.ProcessName} is already running.";
-                MessageBox.Show(message, currentProcess.ProcessName);
+                MetroMessageBox.Show(message, currentProcess.ProcessName);
                 return;
             }
 

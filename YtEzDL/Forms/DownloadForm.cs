@@ -159,13 +159,13 @@ namespace YtEzDL.Forms
             {
                 if (Tracks.Count() > 1)
                 {
-                    Execute(f => MessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK,
+                    Execute(f => MetroMessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK,
                         MessageBoxIcon.Error));
                 }
             }
             catch (Exception exception)
             {
-                Execute(f => MessageBox.Show(this, exception.Message, "System exception", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                Execute(f => MetroMessageBox.Show(this, exception.Message, "System exception", MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             finally
             {
@@ -399,15 +399,15 @@ namespace YtEzDL.Forms
                 var output = new StringBuilder();
                 _youtubeDl.Run(DownLoadParameters.Create.RemoveCache(), t => output.AppendLine(t));
                 
-                Execute(f => MessageBox.Show(this, output.ToString(), "yt-dlp", MessageBoxButtons.OK, MessageBoxIcon.Information));
+                Execute(f => MetroMessageBox.Show(this, output.ToString(), "yt-dlp", MessageBoxButtons.OK, MessageBoxIcon.Information));
             }
             catch (ConsoleProcessException exception)
             {
-                Execute(f => MessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                Execute(f => MetroMessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             catch (Exception exception)
             {
-                Execute(f => MessageBox.Show(this, exception.Message, "Error removing cache", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                Execute(f => MetroMessageBox.Show(this, exception.Message, "Error removing cache", MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             finally
             {
