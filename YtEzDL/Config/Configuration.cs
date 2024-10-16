@@ -18,13 +18,14 @@ namespace YtEzDL.Config
         // Logic
 
         private const string DefaultFilename = "ezytdl.json";
+        private static readonly object Lock = new object();
         private static Configuration _configuration;
 
         public static Configuration Default
         {
             get
             {
-                lock (_configuration)
+                lock (Lock)
                 {
                     return _configuration ?? (_configuration = new Configuration(DefaultFilename));
                 }
