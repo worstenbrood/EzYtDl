@@ -39,12 +39,13 @@ namespace YtEzDL.Forms
             this.textBoxAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAbout.AutoSize = true;
             this.textBoxAbout.BackColor = System.Drawing.Color.White;
             this.textBoxAbout.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.textBoxAbout.ForeColor = System.Drawing.Color.Black;
             this.textBoxAbout.Location = new System.Drawing.Point(10, 63);
             this.textBoxAbout.Name = "textBoxAbout";
-            this.textBoxAbout.Size = new System.Drawing.Size(457, 237);
+            this.textBoxAbout.Size = new System.Drawing.Size(0, 0);
             this.textBoxAbout.TabIndex = 0;
             this.textBoxAbout.UseSelectable = true;
             // 
@@ -52,8 +53,9 @@ namespace YtEzDL.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
-            this.ClientSize = new System.Drawing.Size(477, 308);
+            this.ClientSize = new System.Drawing.Size(452, 205);
             this.Controls.Add(this.textBoxAbout);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -63,6 +65,7 @@ namespace YtEzDL.Forms
             this.Text = "About";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.About_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
