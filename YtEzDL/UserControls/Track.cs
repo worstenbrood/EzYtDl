@@ -17,7 +17,18 @@ namespace YtEzDL.UserControls
     public partial class Track : MetroUserControl, IProgress
     {
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-        
+
+        private readonly Configuration _configuration = new Configuration
+        {
+            DownloadSettings =
+            {
+                ExtractAudio = Configuration.Default.DownloadSettings.ExtractAudio,
+                AudioFormat = Configuration.Default.DownloadSettings.AudioFormat,
+                AudioQuality = Configuration.Default.DownloadSettings.AudioQuality,
+                VideoFormat = Configuration.Default.DownloadSettings.VideoFormat
+            }
+        };
+
         /// <summary>
         /// Returns the info of the track
         /// </summary>
@@ -40,8 +51,6 @@ namespace YtEzDL.UserControls
 
             // Init
             InitializeComponent();
-
-            textBoxTitle.Font = MetroFonts.Default(12);
         }
 
         private void SetProperty(Action<UserControl> action)
@@ -130,10 +139,10 @@ namespace YtEzDL.UserControls
                 }
             }
 
-            checkBoxExtractAudio.AddCheckedBinding(Configuration.Default.DownloadSettings, p => p.ExtractAudio, DataSourceUpdateMode.Never);
-            comboBoxAudioFormat.AddEnumBinding(Configuration.Default.DownloadSettings, p => p.AudioFormat, DataSourceUpdateMode.Never);
-            comboBoxAudioQuality.AddEnumBinding(Configuration.Default.DownloadSettings, p => p.AudioQuality, DataSourceUpdateMode.Never);
-            comboBoxVideoFormat.AddEnumBinding(Configuration.Default.DownloadSettings, p => p.VideoFormat, DataSourceUpdateMode.Never);
+            checkBoxExtractAudio.AddCheckedBinding(_configuration.DownloadSettings, p => p.ExtractAudio);
+            comboBoxAudioFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioFormat);
+            comboBoxAudioQuality.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioQuality);
+            comboBoxVideoFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.VideoFormat);
             base.OnLoad(e);
         }
 
@@ -156,16 +165,16 @@ namespace YtEzDL.UserControls
             try
             {
                 var parameters = DownLoadParameters.Create;
-                if (checkBoxExtractAudio.Checked)
+                if (_configuration.DownloadSettings.ExtractAudio)
                 {
                     parameters
                         .ExtractAudio()
-                        .AudioFormat((AudioFormat)comboBoxAudioFormat.SelectedItem)
-                        .AudioQuality((AudioQuality)comboBoxAudioQuality.SelectedItem);
+                        .AudioFormat(_configuration.DownloadSettings.AudioFormat)
+                        .AudioQuality(_configuration.DownloadSettings.AudioQuality);
                 }
                 else
                 {
-                    parameters.VideoFormat((VideoFormat)comboBoxVideoFormat.SelectedItem);
+                    parameters.VideoFormat(_configuration.DownloadSettings.VideoFormat);
                 }
 
                 if (Configuration.Default.DownloadSettings.AddMetadata)
