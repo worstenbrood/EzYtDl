@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroFramework.Controls;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -65,18 +66,18 @@ namespace YtEzDL.Utils
         public ApplicationContext()
         {
             IContainer container = new Container();
-            var contextMenu = new ContextMenu();
-            contextMenu.MenuItems.Add("&About", (sender, args) => ShowAboutForm());
-            contextMenu.MenuItems.Add("&Settings", (sender, args) => ShowSettingsForm());
-            contextMenu.MenuItems.Add("&Clear cache", (sender, args) => ClearCache());
-            contextMenu.MenuItems.Add("&Update", (sender, args) => Update());
-            contextMenu.MenuItems.Add("-");
-            contextMenu.MenuItems.Add("&Exit",(sender, args) => ExitThread());
+            var contextMenu = new MetroContextMenu(container);
+            contextMenu.Items.Add("&About", null, (sender, args) => ShowAboutForm());
+            contextMenu.Items.Add("&Settings", null, (sender, args) => ShowSettingsForm());
+            contextMenu.Items.Add("&Clear cache", null, (sender, args) => ClearCache());
+            contextMenu.Items.Add("&Update", null, (sender, args) => Update());
+            contextMenu.Items.Add("-");
+            contextMenu.Items.Add("&Exit", null,    (sender, args) => ExitThread());
             
             // Setup notifyicon
             _notifyIcon = new NotifyIcon(container)
             {
-                ContextMenu = contextMenu,
+                ContextMenuStrip = contextMenu,
                 Icon = new Icon(typeof(Program), "YTIcon.ico"),
                 Text = "youtube-dl",
                 Visible = true,
