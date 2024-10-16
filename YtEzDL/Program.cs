@@ -22,7 +22,7 @@ namespace YtEzDL
             {
                 var currentProcess = Process.GetCurrentProcess();
                 var message = $"{currentProcess.ProcessName} is already running.";
-                MetroMessageBox.Show(message, currentProcess.ProcessName);
+                MessageBox.Show(message, currentProcess.ProcessName);
                 return;
             }
 
