@@ -138,7 +138,7 @@ namespace YtEzDL.DownLoad
                         Debug.WriteLine($"DeserializeObject: {ex.Message}");
                     }
 #else
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // Ignore
                     }
