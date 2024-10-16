@@ -431,5 +431,13 @@ namespace YtEzDL.Forms
                 FocusMe();
             }
         }
+
+        private void toolStripButtonAbout_Click(object sender, EventArgs e)
+        {
+            using (var about = new About())
+            {
+                about.ShowDialog(this); 
+            }
+        }
     }
 }
