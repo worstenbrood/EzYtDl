@@ -14,6 +14,8 @@ namespace YtEzDL.Forms
             InitializeComponent();
         }
 
+        private volatile bool _loading;
+
         protected override void OnLoad(EventArgs e)
         {
             textBoxAbout.Text += "written by worstenbrood (worstenbrood@gmail.com)" + Environment.NewLine;
@@ -25,18 +27,30 @@ namespace YtEzDL.Forms
 
             Task.Run(() =>
             {
-                var version = new YoutubeDownload().GetVersion();
+                _loading = true;
 
-                BeginInvoke(new MethodInvoker(() =>
+                var version = new YoutubeDownload().GetVersion();
+                
+                Invoke(new MethodInvoker(() =>
                 {
                     textBoxAbout.Text += $"yt-dlp version: {version}" + Environment.NewLine;
                     textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp" + Environment.NewLine;
                     textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg" + Environment.NewLine;
                     Height = textBoxAbout.Height + 75;
                 }));
+
+                _loading = false;
             });
 
             base.OnLoad(e);
+        }
+
+        private void About_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_loading)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

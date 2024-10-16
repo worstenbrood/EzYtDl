@@ -58,6 +58,7 @@ namespace YtEzDL.Forms
             this.Resizable = false;
             this.ShowInTaskbar = false;
             this.Text = "About";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.About_FormClosing);
             this.ResumeLayout(false);
 
         }

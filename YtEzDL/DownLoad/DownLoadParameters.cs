@@ -44,7 +44,7 @@ namespace YtEzDL.DownLoad
     {
         public static DownLoadParameters Create => new DownLoadParameters();
 
-        private DownLoadParameters Add(string key, string value = null)
+        private DownLoadParameters AddParameter(string key, string value = null)
         {
             this[key] = value;
             return this;
@@ -52,97 +52,97 @@ namespace YtEzDL.DownLoad
 
         public DownLoadParameters RemoveCache()
         {
-            return Add("--rm-cache-dir");
+            return AddParameter("--rm-cache-dir");
         }
 
         public DownLoadParameters ExtractAudio()
         {
-            return Add("-x");
+            return AddParameter("-x");
         }
 
         public DownLoadParameters AddMetadata()
         {
-            return Add("--add-metadata");
+            return AddParameter("--add-metadata");
         }
 
         public DownLoadParameters EmbedThumbnail()
         {
-            return Add("--embed-thumbnail");
+            return AddParameter("--embed-thumbnail");
         }
 
         public DownLoadParameters AudioFormat(AudioFormat format)
         {
-            return Add("--audio-format", format.ToString("G").ToLowerInvariant());
+            return AddParameter("--audio-format", format.ToString("G").ToLowerInvariant());
         }
 
         public DownLoadParameters AudioQuality(AudioQuality quality)
         {
-            return Add("--audio-quality", quality.ToString("D"));
+            return AddParameter("--audio-quality", quality.ToString("D"));
         }
 
         public DownLoadParameters MetadataFromTitle(string format)
         {
-            return Add("--metadata-from-title", format);
+            return AddParameter("--metadata-from-title", format);
         }
 
         public DownLoadParameters VideoFormat(VideoFormat format)
         {
-            return Add("--recode-video", format.ToString("G").ToLowerInvariant());
+            return AddParameter("--recode-video", format.ToString("G").ToLowerInvariant());
         }
 
         public DownLoadParameters IgnoreErrors()
         {
-            return Add("--ignore-errors");
+            return AddParameter("--ignore-errors");
         }
 
         public DownLoadParameters SetPath(string path)
         {
-            return Add("-P", $"\"{path}\"");
+            return AddParameter("-P", $"\"{path}\"");
         }
 
         public DownLoadParameters GetJson()
         {
-            return Add("-j");
+            return AddParameter("-j");
         }
 
         public DownLoadParameters Update()
         {
-            return Add("--update");
+            return AddParameter("--update");
         }
 
         public DownLoadParameters Version()
         {
-            return Add("--version");
+            return AddParameter("--version");
         }
 
         internal DownLoadParameters Url(string url)
         {
-            return Add($"\"{url}\"");
+            return AddParameter($"\"{url}\"");
         }
 
         public DownLoadParameters FlatPlaylist()
         {
-            return Add("--flat-playlist");
+            return AddParameter("--flat-playlist");
         }
 
         public DownLoadParameters LazyPlayList()
         {
-            return Add("--lazy-playlist");
+            return AddParameter("--lazy-playlist");
         }
 
         public DownLoadParameters NoCleanInfoJson()
         {
-            return Add("--no-clean-info-json");
+            return AddParameter("--no-clean-info-json");
         }
 
         public DownLoadParameters ParseMetadata(string expression)
         {
-            return Add("--parse-metadata", expression);
+            return AddParameter("--parse-metadata", expression);
         }
 
         public DownLoadParameters ReplaceMetadata(string expression)
         {
-            return Add("--replace-in-metadata", expression);
+            return AddParameter("--replace-in-metadata", expression);
         }
 
         public DownLoadParameters Reset()
