@@ -51,6 +51,14 @@ namespace YtEzDL.UserControls
 
             // Init
             InitializeComponent();
+
+            if (!Configuration.Default.LayoutSettings.PerTrackSettings)
+            {
+                tabPageSettings.Enabled =
+                    tabPageSettings.Visible = Configuration.Default.LayoutSettings.PerTrackSettings;
+                metroTabControl.Controls.Remove(tabPageSettings);
+                tabPageSettings.Dispose();
+            }
         }
 
         private void SetProperty(Action<UserControl> action)
@@ -138,11 +146,15 @@ namespace YtEzDL.UserControls
                     Task.Run(SetThumbNail);
                 }
             }
+            
+            if (Configuration.Default.LayoutSettings.PerTrackSettings)
+            {
+                checkBoxExtractAudio.AddCheckedBinding(_configuration.DownloadSettings, p => p.ExtractAudio);
+                comboBoxAudioFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioFormat);
+                comboBoxAudioQuality.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioQuality);
+                comboBoxVideoFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.VideoFormat);
+            }
 
-            checkBoxExtractAudio.AddCheckedBinding(_configuration.DownloadSettings, p => p.ExtractAudio);
-            comboBoxAudioFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioFormat);
-            comboBoxAudioQuality.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioQuality);
-            comboBoxVideoFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.VideoFormat);
             base.OnLoad(e);
         }
 

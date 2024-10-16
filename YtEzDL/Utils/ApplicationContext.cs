@@ -70,8 +70,10 @@ namespace YtEzDL.Utils
                 Text = "youtube-dl",
                 Visible = true,
             };
-            
+
+#if !DEBUG
             Update();
+#endif
 
             // Start clipboard monitor
             var clipboardMonitor = new ClipboardMonitor();

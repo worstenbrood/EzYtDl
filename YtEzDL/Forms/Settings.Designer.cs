@@ -48,6 +48,7 @@
             this.buttonSave = new MetroFramework.Controls.MetroButton();
             this.labelThreads = new MetroFramework.Controls.MetroLabel();
             this.comboBoxThreads = new MetroFramework.Controls.MetroComboBox();
+            this.checkBoxPerTrackSettings = new MetroFramework.Controls.MetroCheckBox();
             this.SuspendLayout();
             // 
             // textBoxPath
@@ -56,7 +57,7 @@
             // 
             // 
             this.textBoxPath.CustomButton.Image = null;
-            this.textBoxPath.CustomButton.Location = new System.Drawing.Point(661, 1);
+            this.textBoxPath.CustomButton.Location = new System.Drawing.Point(386, 1);
             this.textBoxPath.CustomButton.Name = "";
             this.textBoxPath.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.textBoxPath.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -77,7 +78,7 @@
             this.textBoxPath.SelectionStart = 0;
             this.textBoxPath.ShortcutsEnabled = true;
             this.textBoxPath.ShowButton = true;
-            this.textBoxPath.Size = new System.Drawing.Size(683, 23);
+            this.textBoxPath.Size = new System.Drawing.Size(408, 23);
             this.textBoxPath.TabIndex = 0;
             this.textBoxPath.UseSelectable = true;
             this.textBoxPath.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -237,7 +238,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(147, 280);
+            this.buttonCancel.Location = new System.Drawing.Point(147, 336);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(118, 28);
             this.buttonCancel.TabIndex = 15;
@@ -247,7 +248,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(12, 280);
+            this.buttonSave.Location = new System.Drawing.Point(23, 336);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(118, 28);
             this.buttonSave.TabIndex = 16;
@@ -274,11 +275,24 @@
             this.comboBoxThreads.TabIndex = 17;
             this.comboBoxThreads.UseSelectable = true;
             // 
+            // checkBoxPerTrackSettings
+            // 
+            this.checkBoxPerTrackSettings.AutoSize = true;
+            this.checkBoxPerTrackSettings.FontSize = MetroFramework.MetroCheckBoxSize.Medium;
+            this.checkBoxPerTrackSettings.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxPerTrackSettings.Location = new System.Drawing.Point(47, 270);
+            this.checkBoxPerTrackSettings.Name = "checkBoxPerTrackSettings";
+            this.checkBoxPerTrackSettings.Size = new System.Drawing.Size(123, 19);
+            this.checkBoxPerTrackSettings.TabIndex = 19;
+            this.checkBoxPerTrackSettings.Text = "Per track settings";
+            this.checkBoxPerTrackSettings.UseSelectable = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(786, 320);
+            this.ClientSize = new System.Drawing.Size(525, 378);
+            this.Controls.Add(this.checkBoxPerTrackSettings);
             this.Controls.Add(this.labelThreads);
             this.Controls.Add(this.comboBoxThreads);
             this.Controls.Add(this.buttonSave);
@@ -328,5 +342,6 @@
         private MetroFramework.Controls.MetroButton buttonSave;
         private MetroFramework.Controls.MetroLabel labelThreads;
         private MetroFramework.Controls.MetroComboBox comboBoxThreads;
+        private MetroFramework.Controls.MetroCheckBox checkBoxPerTrackSettings;
     }
 }
