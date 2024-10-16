@@ -24,14 +24,18 @@ namespace YtEzDL.Forms
             textBoxAbout.Text += Environment.NewLine;
 
             Task.Run(() =>
+            {
+                var version = new YoutubeDownload().GetVersion();
+
                 BeginInvoke(new MethodInvoker(() =>
                 {
-                    textBoxAbout.Text += $"yt-dlp version: {new YoutubeDownload().GetVersion()}" + Environment.NewLine;
+                    textBoxAbout.Text += $"yt-dlp version: {version}" + Environment.NewLine;
                     textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp" + Environment.NewLine;
                     textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg" + Environment.NewLine;
                     Height = textBoxAbout.Height + 100;
-                })));
-            
+                }));
+            });
+
             base.OnLoad(e);
         }
     }
