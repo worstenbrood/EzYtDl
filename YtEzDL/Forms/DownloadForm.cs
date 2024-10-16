@@ -122,7 +122,7 @@ namespace YtEzDL.Forms
         
         private void AddControl(TrackData trackData)
         {
-            ExecuteAsync(f =>
+            Execute(f =>
             {
                 // Check if already added
                 if (_ids.Contains(trackData.Id))
