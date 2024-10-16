@@ -436,6 +436,7 @@ namespace YtEzDL.Forms
         {
             using (var about = new About())
             {
+                about.ShowInTaskbar = false;
                 about.ShowDialog(this); 
             }
         }

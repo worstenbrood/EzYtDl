@@ -30,6 +30,7 @@ namespace YtEzDL.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.textBoxAbout = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
@@ -52,11 +53,11 @@ namespace YtEzDL.Forms
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
             this.ClientSize = new System.Drawing.Size(477, 308);
             this.Controls.Add(this.textBoxAbout);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "About";
             this.Resizable = false;
-            this.ShowInTaskbar = false;
             this.Text = "About";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.About_FormClosing);
             this.ResumeLayout(false);
