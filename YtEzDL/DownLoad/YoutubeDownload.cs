@@ -12,10 +12,10 @@ using YtEzDL.Utils;
 
 namespace YtEzDL.DownLoad
 {
-    public class YoutubeDownload
+    public class YoutubeDownload : ConsoleProcess
     {
-        private string _youtubeDlPath;
-        private string YoutubeDlPath
+        private static string _youtubeDlPath;
+        private static string YoutubeDlPath
         {
             get
             {
@@ -26,13 +26,8 @@ namespace YtEzDL.DownLoad
             }
         }
 
-        private readonly ConsoleProcess _consoleProcess;
-
-        public bool IsRunning => _consoleProcess.IsRunning;
-
-        public YoutubeDownload()
+        public YoutubeDownload() : base(YoutubeDlPath)
         {
-            _consoleProcess = new ConsoleProcess(YoutubeDlPath);
         }
 
         private static readonly Regex PercentRegex = new Regex(@"\[(?<action>\w+)\].[^\d]*(?<pct>\d+.\d+)%", RegexOptions.Compiled);
@@ -85,7 +80,7 @@ namespace YtEzDL.DownLoad
                 .Url(url)
                 .GetParameters();
             
-            await _consoleProcess.RunAsync(parameters, 
+            await RunAsync(parameters, 
                 s => ParseProgress(s, progress), cancellationToken, 
                 p =>
                 {
@@ -120,7 +115,7 @@ namespace YtEzDL.DownLoad
                 .Url(url)
                 .GetParameters();
            
-            await _consoleProcess.RunAsync(parameters, s =>
+            await RunAsync(parameters, s =>
                 {
                     try
                     {
@@ -163,7 +158,7 @@ namespace YtEzDL.DownLoad
         public async Task<int> RunAsync(DownLoadParameters downLoadParameters, Action<string> output = null, CancellationToken cancellationToken = default)
         {
             var parameters = downLoadParameters.GetParameters();
-            return await _consoleProcess.RunAsync(parameters, output, cancellationToken);
+            return await RunAsync(parameters, output, cancellationToken);
         }
 
         public int Run(DownLoadParameters downLoadParameters, Action<string> output = null, CancellationToken cancellationToken = default)
@@ -181,7 +176,7 @@ namespace YtEzDL.DownLoad
                 .Update()
                 .GetParameters();
             
-            _consoleProcess.RunAsync(parameters, action)
+            RunAsync(parameters, action)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
