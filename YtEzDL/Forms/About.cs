@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
-using YtEzDL.DownLoad;
 using YtEzDL.Properties;
 using YtEzDL.Utils;
 
@@ -47,8 +45,8 @@ namespace YtEzDL.Forms
             {
                 _loading = true;
 
-                var ytdlp = Tools.GetToolVersion("yt-dlp.exe");
-                var ffmpeg = Tools.GetToolVersion("ffmpeg.exe", "-version");
+                var ytdlp = Tools.GetYtDlpVersion();
+                var ffmpeg = Tools.GetFfMpegVersion();
 
                 Invoke(new MethodInvoker(() =>
                 {
@@ -57,7 +55,7 @@ namespace YtEzDL.Forms
                     textBoxAbout.Text += Environment.NewLine;
 
                     textBoxAbout.Text += $"yt-dlp version: {ytdlp}" + Environment.NewLine;
-                    textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp" + Environment.NewLine;
+                    textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp";
                     
                 }));
 
@@ -104,11 +102,13 @@ namespace YtEzDL.Forms
             }
 
             textBoxAbout.Select(textBoxAbout.Text.Length, 0);
+            Win32.HideCaret(textBoxAbout.Handle);
         }
 
         private void textBoxAbout_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+            Win32.HideCaret(textBoxAbout.Handle);
         }
     }
 }

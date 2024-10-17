@@ -61,5 +61,18 @@ namespace YtEzDL.Utils
                 return e.Message.TrimEnd('\r', '\n'); 
             }
         }
+
+        public const string YtDlp = "yt-dlp.exe";
+        public const string FfMpeg = "ffmpeg.exe";
+
+        public static string GetYtDlpVersion()
+        {
+            return GetToolVersion(YtDlp);
+        }
+
+        public static string GetFfMpegVersion()
+        {
+            return GetToolVersion(FfMpeg, "-version");
+        }
     }
 }

@@ -16,7 +16,6 @@ namespace YtEzDL.DownLoad
 {
     public class YoutubeDownload
     {
-        private const string YoutubeDlExe = "yt-dlp.exe";
         private string _youtubeDlPath;
         private string YoutubeDlPath
         {
@@ -25,7 +24,7 @@ namespace YtEzDL.DownLoad
                 if (_youtubeDlPath != null)
                     return _youtubeDlPath;
 
-                return _youtubeDlPath = Path.Combine(Tools.Path, YoutubeDlExe);
+                return _youtubeDlPath = Path.Combine(Tools.Path, Tools.YtDlp);
             }
         }
 

@@ -32,7 +32,6 @@ namespace YtEzDL.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
             this.textBoxAbout = new MetroFramework.Controls.MetroTextBox();
             this.SuspendLayout();
             // 
@@ -64,13 +63,13 @@ namespace YtEzDL.Forms
             this.textBoxAbout.Name = "textBoxAbout";
             this.textBoxAbout.PasswordChar = '\0';
             this.textBoxAbout.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.textBoxAbout.SelectedText = null;
+            this.textBoxAbout.SelectedText = "";
             this.textBoxAbout.SelectionLength = 0;
             this.textBoxAbout.SelectionStart = 0;
             this.textBoxAbout.ShortcutsEnabled = true;
             this.textBoxAbout.Size = new System.Drawing.Size(716, 250);
             this.textBoxAbout.TabIndex = 0;
-            this.textBoxAbout.UseSelectable = true;
+            this.textBoxAbout.UseSelectable = false;
             this.textBoxAbout.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.textBoxAbout.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.textBoxAbout.TextChanged += new System.EventHandler(this.textBoxAbout_TextChanged);
@@ -85,7 +84,6 @@ namespace YtEzDL.Forms
             this.ClientSize = new System.Drawing.Size(762, 326);
             this.Controls.Add(this.textBoxAbout);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "About";
