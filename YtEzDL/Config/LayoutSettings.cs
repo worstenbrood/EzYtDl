@@ -33,7 +33,7 @@ namespace YtEzDL.Config
             set => _selectionWidth = value;
         }
 
-        private volatile bool _perTrackSettings = true;
+        private volatile bool _perTrackSettings;
 
         [JsonProperty(PropertyName = "per_track_settings")]
         public bool PerTrackSettings
