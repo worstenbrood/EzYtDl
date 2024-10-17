@@ -72,12 +72,17 @@ namespace YtEzDL.Utils
             }
         }
 
+        public static FileVersionInfo GetToolFileVersionInfo(string tool)
+        {
+            return FileVersionInfo.GetVersionInfo(System.IO.Path.Combine(Path, tool));
+        }
+
         public const string YtDlp = "yt-dlp.exe";
         public const string FfMpeg = "ffmpeg.exe";
 
         public static string GetYtDlpVersion()
         {
-            return GetToolVersion(YtDlp);
+            return GetToolFileVersionInfo(YtDlp).ProductVersion;
         }
 
         public static string GetFfMpegVersion()

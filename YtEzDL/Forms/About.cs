@@ -19,12 +19,11 @@ namespace YtEzDL.Forms
             Icon = Resources.YTIcon;
         }
 
-        private volatile bool _loading;
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
+            
+            textBoxAbout.SuspendLayout();
             textBoxAbout.Text += $"ezytdl version: {Assembly.GetExecutingAssembly().GetName().Version}" + Environment.NewLine;
             textBoxAbout.Text += "written by worstenbrood (worstenbrood@gmail.com)" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
@@ -37,40 +36,17 @@ namespace YtEzDL.Forms
             textBoxAbout.Text += "https://chromium.googlesource.com/webm/libwebp" + Environment.NewLine;
             textBoxAbout.Text += "https://github.com/JosePineiro/WebP-wrapper" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
+            textBoxAbout.Text += $"{Tools.GetFfMpegVersion()}" + Environment.NewLine;
+            textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg" + Environment.NewLine;
+            textBoxAbout.Text += Environment.NewLine;
 
+            textBoxAbout.Text += $"yt-dlp version: {Tools.GetYtDlpVersion()}" + Environment.NewLine;
+            textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp";
 
             textBoxAbout.Select(textBoxAbout.Text.Length, 0);
-           
-            Task.Run(() =>
-            {
-                _loading = true;
-
-                var ytdlp = Tools.GetYtDlpVersion();
-                var ffmpeg = Tools.GetFfMpegVersion();
-
-                Invoke(new MethodInvoker(() =>
-                {
-                    textBoxAbout.Text += $"{ffmpeg}" + Environment.NewLine; 
-                    textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg" + Environment.NewLine;
-                    textBoxAbout.Text += Environment.NewLine;
-
-                    textBoxAbout.Text += $"yt-dlp version: {ytdlp}" + Environment.NewLine;
-                    textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp";
-                    
-                }));
-
-                _loading = false;
-            });
+            textBoxAbout.ResumeLayout();
         }
-
-        private void About_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (_loading)
-            {
-                e.Cancel = true;
-            }
-        }
-
+        
         public Rectangle GetScreen()
         {
             return Screen.FromControl(this).Bounds;
