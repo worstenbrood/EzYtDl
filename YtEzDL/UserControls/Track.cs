@@ -52,6 +52,9 @@ namespace YtEzDL.UserControls
             // Init
             InitializeComponent();
 
+            // Select first page
+            metroTabControl.SelectedIndex = 0;
+
             if (!Configuration.Default.LayoutSettings.PerTrackSettings)
             {
                 tabPageSettings.Enabled =
