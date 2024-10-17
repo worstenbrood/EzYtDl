@@ -137,6 +137,11 @@
             return AddParameter<DownLoadParameters>("--replace-in-metadata", expression);
         }
 
+        public DownLoadParameters FfMpegLocation(string path)
+        {
+            return AddParameter<DownLoadParameters>("--ffmpeg-location", $"\"{path}\"");
+        }
+
         public DownLoadParameters Reset()
         {
             return Reset<DownLoadParameters>();
