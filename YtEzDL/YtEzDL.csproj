@@ -214,7 +214,24 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy /Y "$(ProjectDir)External\*.dll" "$(ProjectDir)$(OutDir)"
+    <PreBuildEvent>SETLOCAL EnableDelayedExpansion
+
+FOR /F "tokens=* USEBACKQ" %25%25F IN (`git -C $(SolutionDir) rev-parse --short HEAD`) DO (
+CALL SET revision=%25%25F
+)
+
+FOR /F "tokens=* delims= USEBACKQ" %25%25L IN ($(ProjectDir)Properties\AssemblyInfo.cs) DO (
+CALL SET "line=%25%25L"
+CALL SET "line=%25%25line:$revision$=%25revision%25%25%25"
+CALL ECHO !line! &gt;&gt; temp.cs
+)
+
+move temp.cs $(ProjectDir)Properties\AssemblyInfo.cs
+</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+copy /Y "$(ProjectDir)External\*.dll" "$(ProjectDir)$(OutDir)"
 if not "$(ConfigurationName)" == "Release-external" exit
 if not exist "$(ProjectDir)$(OutDir)Tools" mkdir "$(ProjectDir)$(OutDir)Tools"
 del /F /Q "$(ProjectDir)$(OutDir)Tools\*.*"
@@ -228,11 +245,6 @@ powershell Expand-Archive -LiteralPath "$(ProjectDir)$(OutDir)Tools\ffmpeg-maste
 move /Y "$(ProjectDir)$(OutDir)\Tools\Temp\ffmpeg-master-latest-win64-gpl-shared\bin\*.*" "$(ProjectDir)$(OutDir)\Tools"
 rmdir /S /Q "$(ProjectDir)$(OutDir)\Tools\Temp"
 del /F /Q "$(ProjectDir)$(OutDir)\Tools\ffplay.exe"
-del /F /Q "$(ProjectDir)$(OutDir)Tools\ffmpeg-master-latest-win64-gpl-shared.zip"
-</PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+del /F /Q "$(ProjectDir)$(OutDir)Tools\ffmpeg-master-latest-win64-gpl-shared.zip"</PostBuildEvent>
   </PropertyGroup>
 </Project>
