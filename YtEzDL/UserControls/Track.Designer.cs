@@ -68,7 +68,7 @@
             this.metroTabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.metroTabControl.Location = new System.Drawing.Point(3, 3);
             this.metroTabControl.Name = "metroTabControl";
-            this.metroTabControl.SelectedIndex = 0;
+            this.metroTabControl.SelectedIndex = 1;
             this.metroTabControl.Size = new System.Drawing.Size(608, 197);
             this.metroTabControl.TabIndex = 14;
             this.metroTabControl.UseSelectable = true;
@@ -148,7 +148,7 @@
             this.labelVideoFormat.AutoSize = true;
             this.labelVideoFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.labelVideoFormat.ForeColor = System.Drawing.Color.Black;
-            this.labelVideoFormat.Location = new System.Drawing.Point(4, 111);
+            this.labelVideoFormat.Location = new System.Drawing.Point(4, 114);
             this.labelVideoFormat.Name = "labelVideoFormat";
             this.labelVideoFormat.Size = new System.Drawing.Size(115, 25);
             this.labelVideoFormat.TabIndex = 8;
@@ -172,7 +172,7 @@
             this.labelAudioQuality.AutoSize = true;
             this.labelAudioQuality.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.labelAudioQuality.ForeColor = System.Drawing.Color.Black;
-            this.labelAudioQuality.Location = new System.Drawing.Point(4, 76);
+            this.labelAudioQuality.Location = new System.Drawing.Point(4, 80);
             this.labelAudioQuality.Name = "labelAudioQuality";
             this.labelAudioQuality.Size = new System.Drawing.Size(116, 25);
             this.labelAudioQuality.TabIndex = 6;
@@ -196,7 +196,7 @@
             this.labelAudioFormat.AutoSize = true;
             this.labelAudioFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.labelAudioFormat.ForeColor = System.Drawing.Color.Black;
-            this.labelAudioFormat.Location = new System.Drawing.Point(4, 42);
+            this.labelAudioFormat.Location = new System.Drawing.Point(4, 45);
             this.labelAudioFormat.Name = "labelAudioFormat";
             this.labelAudioFormat.Size = new System.Drawing.Size(116, 25);
             this.labelAudioFormat.TabIndex = 4;
