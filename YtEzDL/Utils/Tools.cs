@@ -39,7 +39,8 @@ namespace YtEzDL.Utils
 
                 var assembly = Assembly.GetExecutingAssembly();
                 var fileInfo = new FileInfo(assembly.Location);
-                return _path = System.IO.Path.Combine(fileInfo.DirectoryName, "Tools");
+                var directory = fileInfo.DirectoryName ?? Environment.CurrentDirectory; 
+                return _path = System.IO.Path.Combine(directory, "Tools");
             }
         }
 
