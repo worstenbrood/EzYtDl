@@ -45,16 +45,16 @@ namespace YtEzDL.Forms
             {
                 _loading = true;
 
-                var ytdlpVersion = new YoutubeDownload().GetVersion();
-                var ffmpegVersion = Tools.GetToolVersion("ffmpeg.exe");
+                var ytdlp = Tools.GetToolVersion("yt-dlp.exe");
+                var ffmpeg = Tools.GetToolVersion("ffmpeg.exe", "-version");
 
                 Invoke(new MethodInvoker(() =>
                 {
-                    textBoxAbout.Text += $"{ffmpegVersion}";
+                    textBoxAbout.Text += $"{ffmpeg}" + Environment.NewLine; 
                     textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg" + Environment.NewLine;
                     textBoxAbout.Text += Environment.NewLine;
 
-                    textBoxAbout.Text += $"yt-dlp version: {ytdlpVersion}" + Environment.NewLine;
+                    textBoxAbout.Text += $"yt-dlp version: {ytdlp}" + Environment.NewLine;
                     textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp" + Environment.NewLine;
                     
                 }));

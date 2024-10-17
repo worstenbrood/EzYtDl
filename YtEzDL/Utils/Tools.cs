@@ -42,7 +42,7 @@ namespace YtEzDL.Utils
             }
         }
 
-        public static string GetToolVersion(string tool, string parameter = "-version")
+        public static string GetToolVersion(string tool, string parameter = "--version")
         {
             var output = new StringBuilder();
             var file = System.IO.Path.Combine(Path, tool);
@@ -54,11 +54,11 @@ namespace YtEzDL.Utils
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();
-                return output.ToString();
+                return output.ToString().TrimEnd('\r', '\n'); 
             }
             catch (ConsoleProcessException e)
             {
-                return e.Message;
+                return e.Message.TrimEnd('\r', '\n'); 
             }
         }
     }
