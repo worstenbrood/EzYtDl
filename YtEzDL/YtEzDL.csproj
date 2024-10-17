@@ -128,6 +128,7 @@
     <Compile Include="Forms\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <None Include="Properties\AssemblyInfo.Template" />
     <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Utils\FormTools.cs" />
@@ -220,13 +221,12 @@ FOR /F "tokens=* USEBACKQ" %25%25F IN (`git -C $(SolutionDir) rev-parse --short 
 CALL SET revision=%25%25F
 )
 
-FOR /F "tokens=* delims= USEBACKQ" %25%25L IN ($(ProjectDir)Properties\AssemblyInfo.cs) DO (
+CALL ECHO. &gt; $(ProjectDir)Properties\AssemblyInfo.cs
+FOR /F "tokens=* delims= USEBACKQ" %25%25L IN ($(ProjectDir)Properties\AssemblyInfo.template) DO (
 CALL SET "line=%25%25L"
 CALL SET "line=%25%25line:$revision$=%25revision%25%25%25"
-CALL ECHO !line! &gt;&gt; temp.cs
+CALL ECHO !line! &gt;&gt; $(ProjectDir)Properties\AssemblyInfo.cs
 )
-
-move temp.cs $(ProjectDir)Properties\AssemblyInfo.cs
 </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>

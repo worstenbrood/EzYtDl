@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace YtEzDL.Forms
             base.OnLoad(e);
             
             textBoxAbout.SuspendLayout();
-            textBoxAbout.Text += $"ezytdl version: {Assembly.GetExecutingAssembly().GetName().Version}" + Environment.NewLine;
+            textBoxAbout.Text += $"ezytdl version: {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}" + Environment.NewLine;
             textBoxAbout.Text += "written by worstenbrood (worstenbrood@gmail.com)" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
 
