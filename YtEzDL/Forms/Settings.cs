@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using YtEzDL.Config;
+using YtEzDL.Properties;
 using YtEzDL.Utils;
 
 namespace YtEzDL.Forms
@@ -13,6 +14,8 @@ namespace YtEzDL.Forms
         public Settings()
         {
             InitializeComponent();
+
+            Icon = Resources.YTIcon;
 
             // Select first page
             tabControl.SelectedIndex = 0;

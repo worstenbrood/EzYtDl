@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
 using YtEzDL.DownLoad;
+using YtEzDL.Properties;
 using YtEzDL.Utils;
 
 namespace YtEzDL.Forms
@@ -17,6 +18,7 @@ namespace YtEzDL.Forms
         {
             InitializeComponent();
             textBoxAbout.Font = MetroFonts.Default(16);
+            Icon = Resources.YTIcon;
         }
 
         private volatile bool _loading;

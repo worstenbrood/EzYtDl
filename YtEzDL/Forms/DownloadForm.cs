@@ -12,6 +12,7 @@ using MetroFramework;
 using MetroFramework.Forms;
 using YtEzDL.Config;
 using YtEzDL.DownLoad;
+using YtEzDL.Properties;
 using YtEzDL.UserControls;
 using YtEzDL.Utils;
 
@@ -208,6 +209,7 @@ namespace YtEzDL.Forms
             base.OnLoad(e);
 
             // Layout
+            Icon = Resources.YTIcon;
             Text = SafeString($"Fetching {_url}");
             metroProgressSpinner.Value = 25;
             flowLayoutPanel.AutoScroll = false;

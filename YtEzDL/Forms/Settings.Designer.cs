@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
             this.textBoxPath = new MetroFramework.Controls.MetroTextBox();
             this.labelPath = new MetroFramework.Controls.MetroLabel();
             this.checkBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();

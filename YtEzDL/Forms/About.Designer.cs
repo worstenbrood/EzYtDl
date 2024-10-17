@@ -32,7 +32,7 @@ namespace YtEzDL.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
             this.textBoxAbout = new MetroFramework.Controls.MetroTextBox();
             this.SuspendLayout();
             // 
