@@ -221,11 +221,11 @@ FOR /F "tokens=* USEBACKQ" %25%25F IN (`git -C $(SolutionDir) rev-parse --short 
 CALL SET revision=%25%25F
 )
 
-CALL ECHO. &gt; $(ProjectDir)Properties\AssemblyInfo.cs
-FOR /F "tokens=* delims= USEBACKQ" %25%25L IN ($(ProjectDir)Properties\AssemblyInfo.template) DO (
+IF EXIST "$(ProjectDir)Properties\AssemblyInfo.cs" DEL /F "$(ProjectDir)Properties\AssemblyInfo.cs"
+FOR /F "tokens=* delims= USEBACKQ" %25%25L IN ("$(ProjectDir)Properties\AssemblyInfo.template") DO (
 CALL SET "line=%25%25L"
 CALL SET "line=%25%25line:$revision$=%25revision%25%25%25"
-CALL ECHO !line! &gt;&gt; $(ProjectDir)Properties\AssemblyInfo.cs
+CALL ECHO !line! &gt;&gt; "$(ProjectDir)Properties\AssemblyInfo.cs"
 )
 </PreBuildEvent>
   </PropertyGroup>
