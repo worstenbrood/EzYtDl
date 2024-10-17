@@ -25,7 +25,10 @@ namespace YtEzDL.Forms
             base.OnLoad(e);
             
             textBoxAbout.SuspendLayout();
-            textBoxAbout.Text += $"ezytdl version: {FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion}" + Environment.NewLine;
+
+            var ezytdl = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
+
+            textBoxAbout.Text += $"ezytdl version: {ezytdl}" + Environment.NewLine;
             textBoxAbout.Text += "written by worstenbrood (worstenbrood@gmail.com)" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
 
