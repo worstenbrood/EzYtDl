@@ -9,12 +9,16 @@ namespace YtEzDL.Utils
 {
     public class ConsoleProcessException : Exception
     {
-        public ConsoleProcessException(string msg) : base(msg)
+        public int ExitCode;
+
+        public ConsoleProcessException(int exitCode, string msg) : base(msg)
         {
+            ExitCode = exitCode;
         }
 
-        public ConsoleProcessException(string format, params object[] arg) : base(string.Format(format, arg))
+        public ConsoleProcessException(int exitCode, string format, params object[] arg) : base(string.Format(format, arg))
         {
+            ExitCode = exitCode;
         }
     }
 
@@ -125,7 +129,7 @@ namespace YtEzDL.Utils
                     }
 
                     var message = error.Length > 0 ? error.ToString() : $"ExitCode({process.ExitCode})";
-                    return Task.FromException<int>(new ConsoleProcessException(message));
+                    return Task.FromException<int>(new ConsoleProcessException(process.ExitCode, message));
 
                 }
             }
