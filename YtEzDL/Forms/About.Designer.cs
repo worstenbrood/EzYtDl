@@ -1,4 +1,5 @@
-﻿using MetroFramework.Controls;
+﻿using System.Windows.Forms;
+using MetroFramework.Controls;
 
 namespace YtEzDL.Forms
 {
@@ -31,33 +32,35 @@ namespace YtEzDL.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
-            this.textBoxAbout = new MetroFramework.Controls.MetroLabel();
+            this.textBoxAbout = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxAbout
             // 
-            this.textBoxAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxAbout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAbout.AutoSize = true;
             this.textBoxAbout.BackColor = System.Drawing.Color.White;
-            this.textBoxAbout.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.textBoxAbout.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxAbout.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.textBoxAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.textBoxAbout.ForeColor = System.Drawing.Color.Black;
-            this.textBoxAbout.Location = new System.Drawing.Point(10, 63);
+            this.textBoxAbout.Location = new System.Drawing.Point(23, 54);
+            this.textBoxAbout.Multiline = true;
             this.textBoxAbout.Name = "textBoxAbout";
-            this.textBoxAbout.Size = new System.Drawing.Size(0, 0);
+            this.textBoxAbout.ReadOnly = true;
+            this.textBoxAbout.Size = new System.Drawing.Size(761, 362);
             this.textBoxAbout.TabIndex = 0;
-            this.textBoxAbout.UseSelectable = true;
-            this.textBoxAbout.SizeChanged += new System.EventHandler(this.textBoxAbout_SizeChanged);
+            this.textBoxAbout.TextChanged += new System.EventHandler(this.textBoxAbout_TextChanged);
             // 
             // About
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
-            this.ClientSize = new System.Drawing.Size(452, 205);
+            this.ClientSize = new System.Drawing.Size(807, 448);
             this.Controls.Add(this.textBoxAbout);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -72,6 +75,6 @@ namespace YtEzDL.Forms
 
         #endregion
 
-        private MetroLabel textBoxAbout;
+        private System.Windows.Forms.TextBox textBoxAbout;
     }
 }
