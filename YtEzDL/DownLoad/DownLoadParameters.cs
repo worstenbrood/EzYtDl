@@ -44,122 +44,102 @@
         
         public DownLoadParameters RemoveCache()
         {
-            AddParameter("--rm-cache-dir");
-            return this;
+            return AddParameter<DownLoadParameters>("--rm-cache-dir");
         }
 
         public DownLoadParameters ExtractAudio()
         {
-            AddParameter("-x");
-            return this;
+            return AddParameter<DownLoadParameters>("-x");
         }
 
         public DownLoadParameters AddMetadata()
         {
-            AddParameter("--add-metadata");
-            return this;
+            return AddParameter<DownLoadParameters>("--add-metadata");
         }
 
         public DownLoadParameters EmbedThumbnail()
         {
-            AddParameter("--embed-thumbnail");
-            return this;
+            return AddParameter<DownLoadParameters>("--embed-thumbnail");
         }
 
         public DownLoadParameters AudioFormat(AudioFormat format)
         {
-            AddParameter("--audio-format", format.ToString("G").ToLowerInvariant());
-            return this;
+            return AddParameter<DownLoadParameters>("--audio-format", format.ToString("G").ToLowerInvariant());
         }
 
         public DownLoadParameters AudioQuality(AudioQuality quality)
         {
-            AddParameter("--audio-quality", quality.ToString("D"));
-            return this;
+            return AddParameter<DownLoadParameters>("--audio-quality", quality.ToString("D"));
         }
 
         public DownLoadParameters MetadataFromTitle(string format)
         {
-            AddParameter("--metadata-from-title", format);
-            return this;
+            return AddParameter<DownLoadParameters>("--metadata-from-title", format);
         }
 
         public DownLoadParameters VideoFormat(VideoFormat format)
         {
-            AddParameter("--recode-video", format.ToString("G").ToLowerInvariant());
-            return this;
+            return AddParameter<DownLoadParameters>("--recode-video", format.ToString("G").ToLowerInvariant());
         }
 
         public DownLoadParameters IgnoreErrors()
         {
-            AddParameter("--ignore-errors");
-            return this;
+            return AddParameter<DownLoadParameters>("--ignore-errors");
         }
 
         public DownLoadParameters SetPath(string path)
         {
-            AddParameter("-P", $"\"{path}\"");
-            return this;
+            return AddParameter<DownLoadParameters>("-P", $"\"{path}\"");
         }
 
         public DownLoadParameters GetJson()
         {
-            AddParameter("-j");
-            return this;
-        }
+            return AddParameter<DownLoadParameters>("-j");
+ }
 
         public DownLoadParameters Update()
         {
-            AddParameter("--update");
-            return this;
+            return AddParameter<DownLoadParameters>("--update");
         }
 
         public DownLoadParameters Version()
         {
-            AddParameter("--version");
-            return this;
+            return AddParameter<DownLoadParameters>("--version");
         }
 
         public DownLoadParameters Url(string url)
         {
-            AddParameter($"\"{url}\"");
-            return this;
+            return AddParameter<DownLoadParameters>($"\"{url}\"");
         }
 
         public DownLoadParameters FlatPlaylist()
         {
-            AddParameter("--flat-playlist");
-            return this;
+            return AddParameter<DownLoadParameters>("--flat-playlist");
         }
 
         public DownLoadParameters LazyPlayList()
         {
-            AddParameter("--lazy-playlist");
-            return this;
+            return AddParameter<DownLoadParameters>("--lazy-playlist");
         }
 
         public DownLoadParameters NoCleanInfoJson()
         {
-            AddParameter("--no-clean-info-json");
-            return this;
+            return AddParameter<DownLoadParameters>("--no-clean-info-json");
         }
 
         public DownLoadParameters ParseMetadata(string expression)
         {
-            AddParameter("--parse-metadata", expression);
-            return this;
+            return AddParameter<DownLoadParameters>("--parse-metadata", expression);
         }
 
         public DownLoadParameters ReplaceMetadata(string expression)
         {
-            AddParameter("--replace-in-metadata", expression);
-            return this;
+            return AddParameter<DownLoadParameters>("--replace-in-metadata", expression);
         }
 
         public DownLoadParameters Reset()
         {
-            Clear();
-            return this;
+            return Reset<DownLoadParameters>();
         }
     }
 }

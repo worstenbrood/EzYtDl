@@ -4,11 +4,20 @@ namespace YtEzDL.DownLoad
 {
     public class Parameters : Dictionary<string, string>
     {
-        protected void AddParameter(string key, string value = null)
+        protected T AddParameter<T>(string key, string value = null)
+            where T: Parameters
         {
             this[key] = value;
+            return (T)this;
         }
-        
+
+        public T Reset<T>()
+            where T : Parameters
+        {
+            Clear();
+            return (T)this;
+        }
+
         public List<string> GetParameters()
         {
             var parameters = new List<string>();
