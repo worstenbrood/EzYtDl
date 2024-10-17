@@ -16,7 +16,6 @@ namespace YtEzDL.Forms
         public About()
         {
             InitializeComponent();
-            //textBoxAbout.AutoSize = true;
             textBoxAbout.Font = MetroFonts.Default(16);
         }
 
@@ -41,15 +40,16 @@ namespace YtEzDL.Forms
             {
                 _loading = true;
 
-                var version = new YoutubeDownload().GetVersion();
-                
+                var ytdlpVersion = new YoutubeDownload().GetVersion();
+                var ffmpegVersion = Tools.GetToolVersion("ffmpeg.exe");
+
                 Invoke(new MethodInvoker(() =>
                 {
-                    textBoxAbout.Text += $"{Tools.GetToolVersion("ffmpeg.exe")}";
+                    textBoxAbout.Text += $"{ffmpegVersion}";
                     textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg" + Environment.NewLine;
                     textBoxAbout.Text += Environment.NewLine;
 
-                    textBoxAbout.Text += $"yt-dlp version: {version}" + Environment.NewLine;
+                    textBoxAbout.Text += $"yt-dlp version: {ytdlpVersion}" + Environment.NewLine;
                     textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp" + Environment.NewLine;
                     
                 }));
@@ -75,7 +75,7 @@ namespace YtEzDL.Forms
 
         private void textBoxAbout_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxAbout.ScrollBars != ScrollBars.Vertical)
+            if (textBoxAbout.ScrollBars != RichTextBoxScrollBars.Vertical)
             {
                 var textHeight = textBoxAbout.GetTextHeight();
                 var screen = GetScreen();
@@ -85,7 +85,7 @@ namespace YtEzDL.Forms
                 {
                     Height = screen.Height - Location.Y + textBoxAbout.Location.Y;
                     textBoxAbout.Height = Height - textBoxAbout.Location.Y * 2;
-                    textBoxAbout.ScrollBars = ScrollBars.Vertical;
+                    textBoxAbout.ScrollBars = RichTextBoxScrollBars.Vertical;
                 }
                 else
                 {
@@ -97,6 +97,11 @@ namespace YtEzDL.Forms
                 var centerY = (screen.Height - Height) / 2;
                 Location = new Point(centerX, centerY);
             }
+        }
+
+        private void textBoxAbout_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start(e.LinkText);
         }
     }
 }
