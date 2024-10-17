@@ -187,22 +187,5 @@ namespace YtEzDL.DownLoad
                 .GetAwaiter()
                 .GetResult();
         }
-
-        public string GetVersion()
-        {
-            var output = new StringBuilder();
-            
-            // Parameters
-            var parameters = DownLoadParameters.Create
-                .Version()
-                .GetParameters();
-            
-            _consoleProcess.RunAsync(parameters, s => output.AppendLine(s))
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult();
-
-            return output.ToString().TrimEnd('\r', '\n');
-        }
     }
 }
