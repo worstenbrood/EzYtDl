@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -44,6 +45,9 @@ namespace YtEzDL.Utils
 
         public static string GetToolVersion(string tool, string parameter = "--version")
         {
+#if DEBUG
+            var start = DateTime.Now;
+#endif
             var output = new StringBuilder();
             var file = System.IO.Path.Combine(Path, tool);
             var consoleProcess = new ConsoleProcess(file);
@@ -54,10 +58,16 @@ namespace YtEzDL.Utils
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();
+#if DEBUG
+                Debug.WriteLine("GetToolVersion({0}): {1}ms", tool, (DateTime.Now - start).TotalMilliseconds);
+#endif
                 return output.ToString().TrimEnd('\r', '\n'); 
             }
             catch (ConsoleProcessException e)
             {
+#if DEBUG
+                Debug.WriteLine("GetToolVersion({0}): {1}ms", tool, (DateTime.Now - start).TotalMilliseconds);
+#endif
                 return e.Message.TrimEnd('\r', '\n'); 
             }
         }
