@@ -97,32 +97,36 @@ namespace YtEzDL.Utils
                         exited = process.WaitForExit(DefaultProcessWaitTime);
 
                         // Canceled
-                        if (cancellationToken.IsCancellationRequested)
+                        if (!cancellationToken.IsCancellationRequested)
                         {
-                            if (!process.HasExited)
-                            {
-                                // Cancel output reading
-                                process.CancelOutputRead();
-
-                                // Invoke cancel action
-                                cancelAction?.Invoke(process);
-                            }
-
-                            // Kill process tree
-                            process.KillProcessTree();
-
-                            // Canceled
-                            return Task.FromCanceled<int>(cancellationToken);
+                            continue;
                         }
+
+                        // Exit
+                        if (!process.HasExited)
+                        {
+                            // Cancel output reading
+                            process.CancelOutputRead();
+
+                            // Invoke cancel action
+                            cancelAction?.Invoke(process);
+                        }
+
+                        // Kill process tree
+                        process.KillProcessTree();
+
+                        // Canceled
+                        return Task.FromCanceled<int>(cancellationToken);
                     } while (!exited);
 
-                    if (handleError && process.ExitCode != 0)
+                    if (!handleError || process.ExitCode == 0)
                     {
-                        var message = error.Length > 0 ? error.ToString() : $"ExitCode({process.ExitCode})";
-                        return Task.FromException<int>(new ConsoleProcessException(message));
+                        return Task.FromResult(process.ExitCode);
                     }
 
-                    return Task.FromResult(process.ExitCode);
+                    var message = error.Length > 0 ? error.ToString() : $"ExitCode({process.ExitCode})";
+                    return Task.FromException<int>(new ConsoleProcessException(message));
+
                 }
             }
             catch (Exception ex)
