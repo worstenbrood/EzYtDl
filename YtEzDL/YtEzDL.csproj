@@ -226,12 +226,10 @@ FOR /F "tokens=* delims= USEBACKQ" %25%25L IN ("$(ProjectDir)Properties\Assembly
 CALL SET "line=%25%25L"
 CALL SET "line=%25%25line:$revision$=%25revision%25%25%25"
 CALL ECHO !line! &gt;&gt; "$(ProjectDir)Properties\AssemblyInfo.cs"
-)
-</PreBuildEvent>
+)</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>
-copy /Y "$(ProjectDir)External\*.dll" "$(ProjectDir)$(OutDir)"
+    <PostBuildEvent>copy /Y "$(ProjectDir)External\*.dll" "$(ProjectDir)$(OutDir)"
 if not "$(ConfigurationName)" == "Release-external" exit
 if not exist "$(ProjectDir)$(OutDir)Tools" mkdir "$(ProjectDir)$(OutDir)Tools"
 del /F /Q "$(ProjectDir)$(OutDir)Tools\*.*"
