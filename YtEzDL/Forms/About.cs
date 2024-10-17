@@ -23,6 +23,8 @@ namespace YtEzDL.Forms
 
         protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
+
             textBoxAbout.Text += $"ezytdl version: {Assembly.GetExecutingAssembly().GetName().Version}" + Environment.NewLine;
             textBoxAbout.Text += "written by worstenbrood (worstenbrood@gmail.com)" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
@@ -35,7 +37,7 @@ namespace YtEzDL.Forms
             textBoxAbout.Text += "https://chromium.googlesource.com/webm/libwebp" + Environment.NewLine;
             textBoxAbout.Text += "https://github.com/JosePineiro/WebP-wrapper" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
-
+            
             Task.Run(() =>
             {
                 _loading = true;
@@ -56,8 +58,6 @@ namespace YtEzDL.Forms
 
                 _loading = false;
             });
-
-            base.OnLoad(e);
         }
 
         private void About_FormClosing(object sender, FormClosingEventArgs e)
@@ -75,7 +75,7 @@ namespace YtEzDL.Forms
 
         private void textBoxAbout_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxAbout.ScrollBars != RichTextBoxScrollBars.Vertical)
+            if (textBoxAbout.ScrollBars != ScrollBars.Vertical)
             {
                 var textHeight = textBoxAbout.GetTextHeight();
                 var screen = GetScreen();
@@ -85,7 +85,7 @@ namespace YtEzDL.Forms
                 {
                     Height = screen.Height - Location.Y + textBoxAbout.Location.Y;
                     textBoxAbout.Height = Height - textBoxAbout.Location.Y * 2;
-                    textBoxAbout.ScrollBars = RichTextBoxScrollBars.Vertical;
+                    textBoxAbout.ScrollBars = ScrollBars.Vertical;
                 }
                 else
                 {
@@ -99,10 +99,9 @@ namespace YtEzDL.Forms
             }
         }
 
-        private void textBoxAbout_LinkClicked(object sender, LinkClickedEventArgs e)
+        private void textBoxAbout_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Process.Start(e.LinkText);
+            e.Handled = true;
         }
     }
 }
-;

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using MetroFramework.Controls;
+using YtEzDL.UserControls;
 
 namespace YtEzDL.Forms
 {
@@ -32,7 +33,7 @@ namespace YtEzDL.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
-            this.textBoxAbout = new System.Windows.Forms.RichTextBox();
+            this.textBoxAbout = new YtEzDL.UserControls.LinkMetroTextBox();
             this.SuspendLayout();
             // 
             // textBoxAbout
@@ -40,19 +41,40 @@ namespace YtEzDL.Forms
             this.textBoxAbout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAbout.BackColor = System.Drawing.Color.White;
-            this.textBoxAbout.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxAbout.Cursor = System.Windows.Forms.Cursors.Arrow;
+            // 
+            // 
+            // 
+            this.textBoxAbout.CustomButton.Image = null;
+            this.textBoxAbout.CustomButton.Location = new System.Drawing.Point(468, 2);
+            this.textBoxAbout.CustomButton.Name = "";
+            this.textBoxAbout.CustomButton.Size = new System.Drawing.Size(245, 245);
+            this.textBoxAbout.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.textBoxAbout.CustomButton.TabIndex = 1;
+            this.textBoxAbout.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.textBoxAbout.CustomButton.UseSelectable = true;
+            this.textBoxAbout.CustomButton.Visible = false;
+            this.textBoxAbout.FontSize = MetroFramework.MetroTextBoxSize.Tall;
+            this.textBoxAbout.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
             this.textBoxAbout.ForeColor = System.Drawing.Color.Black;
+            this.textBoxAbout.Lines = new string[0];
             this.textBoxAbout.Location = new System.Drawing.Point(23, 54);
             this.textBoxAbout.MaxLength = 32767;
+            this.textBoxAbout.Multiline = true;
             this.textBoxAbout.Name = "textBoxAbout";
-            this.textBoxAbout.ReadOnly = true;
-            this.textBoxAbout.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.textBoxAbout.Size = new System.Drawing.Size(730, 250);
+            this.textBoxAbout.PasswordChar = '\0';
+            this.textBoxAbout.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.textBoxAbout.SelectedText = "";
+            this.textBoxAbout.SelectionLength = 0;
+            this.textBoxAbout.SelectionStart = 0;
+            this.textBoxAbout.ShortcutsEnabled = true;
+            this.textBoxAbout.Size = new System.Drawing.Size(716, 250);
             this.textBoxAbout.TabIndex = 0;
-            this.textBoxAbout.Text = "";
-            this.textBoxAbout.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.textBoxAbout_LinkClicked);
+            this.textBoxAbout.UseSelectable = true;
+            this.textBoxAbout.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.textBoxAbout.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.textBoxAbout.TextChanged += new System.EventHandler(this.textBoxAbout_TextChanged);
+            this.textBoxAbout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxAbout_KeyPress);
             // 
             // About
             // 
@@ -60,7 +82,7 @@ namespace YtEzDL.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BorderStyle = MetroFramework.Forms.MetroFormBorderStyle.FixedSingle;
-            this.ClientSize = new System.Drawing.Size(776, 327);
+            this.ClientSize = new System.Drawing.Size(762, 326);
             this.Controls.Add(this.textBoxAbout);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -76,6 +98,6 @@ namespace YtEzDL.Forms
 
         #endregion
 
-        private RichTextBox textBoxAbout;
+        private LinkMetroTextBox textBoxAbout;
     }
 }
