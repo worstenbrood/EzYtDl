@@ -25,9 +25,7 @@ namespace YtEzDL.DownLoad
                 if (_youtubeDlPath != null)
                     return _youtubeDlPath;
 
-                var assembly = Assembly.GetExecutingAssembly();
-                var fileInfo = new FileInfo(assembly.Location);
-                return _youtubeDlPath = Path.Combine(fileInfo.DirectoryName, "Tools", YoutubeDlExe);
+                return _youtubeDlPath = Path.Combine(Tools.Path, YoutubeDlExe);
             }
         }
 
