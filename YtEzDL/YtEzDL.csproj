@@ -104,6 +104,7 @@
     <Compile Include="Config\LayoutSettings.cs" />
     <Compile Include="Config\LockedProperty.cs" />
     <Compile Include="DownLoad\DownLoadParameters.cs" />
+    <Compile Include="DownLoad\Parameters.cs" />
     <Compile Include="DownLoad\Thumbnail.cs" />
     <Compile Include="DownLoad\TrackData.cs" />
     <Compile Include="Forms\About.cs">
