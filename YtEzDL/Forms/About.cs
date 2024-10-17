@@ -37,7 +37,10 @@ namespace YtEzDL.Forms
             textBoxAbout.Text += "https://chromium.googlesource.com/webm/libwebp" + Environment.NewLine;
             textBoxAbout.Text += "https://github.com/JosePineiro/WebP-wrapper" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
-            
+
+
+            textBoxAbout.Select(textBoxAbout.Text.Length, 0);
+           
             Task.Run(() =>
             {
                 _loading = true;
@@ -97,6 +100,8 @@ namespace YtEzDL.Forms
                 var centerY = (screen.Height - Height) / 2;
                 Location = new Point(centerX, centerY);
             }
+
+            textBoxAbout.Select(textBoxAbout.Text.Length, 0);
         }
 
         private void textBoxAbout_KeyPress(object sender, KeyPressEventArgs e)

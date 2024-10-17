@@ -33,7 +33,7 @@ namespace YtEzDL.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
-            this.textBoxAbout = new YtEzDL.UserControls.LinkMetroTextBox();
+            this.textBoxAbout = new MetroFramework.Controls.MetroTextBox();
             this.SuspendLayout();
             // 
             // textBoxAbout
@@ -64,7 +64,7 @@ namespace YtEzDL.Forms
             this.textBoxAbout.Name = "textBoxAbout";
             this.textBoxAbout.PasswordChar = '\0';
             this.textBoxAbout.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.textBoxAbout.SelectedText = "";
+            this.textBoxAbout.SelectedText = null;
             this.textBoxAbout.SelectionLength = 0;
             this.textBoxAbout.SelectionStart = 0;
             this.textBoxAbout.ShortcutsEnabled = true;
@@ -98,6 +98,6 @@ namespace YtEzDL.Forms
 
         #endregion
 
-        private LinkMetroTextBox textBoxAbout;
+        private MetroFramework.Controls.MetroTextBox textBoxAbout;
     }
 }
