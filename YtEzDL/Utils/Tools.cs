@@ -121,15 +121,17 @@ namespace YtEzDL.Utils
 
         public static void SetAutoStart(bool autostart)
         {
-            var regKey = Registry.CurrentUser.OpenSubKey(RunKey, true);
-            if (autostart)
+            using (var regKey = Registry.CurrentUser.OpenSubKey(RunKey, true))
             {
-                // Specify the name and path of your application executable, add the application to the startup
-                regKey?.SetValue(ApplicationName, $"\"{ApplicationPath}\"");
-            }
-            else
-            {
-                regKey?.DeleteValue(ApplicationName, false);
+                if (autostart)
+                {
+                    // Specify the name and path of your application executable, add the application to the startup
+                    regKey?.SetValue(ApplicationName, $"\"{ApplicationPath}\"");
+                }
+                else
+                {
+                    regKey?.DeleteValue(ApplicationName, false);
+                }
             }
         }
     }
