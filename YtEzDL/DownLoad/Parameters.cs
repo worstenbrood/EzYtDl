@@ -7,7 +7,7 @@ namespace YtEzDL.DownLoad
         protected T AddParameter<T>(string key, string value = null)
             where T: Parameters
         {
-            this[key] = value;
+            this[key] = !string.IsNullOrEmpty(value) ? $"\"{value}\"" : value;
             return (T)this;
         }
 

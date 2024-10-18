@@ -83,7 +83,7 @@
 
         public DownLoadParameters SetPath(string path)
         {
-            return AddParameter<DownLoadParameters>("-P", $"\"{path}\"");
+            return AddParameter<DownLoadParameters>("-P", path);
         }
 
         public DownLoadParameters GetJson()
@@ -133,7 +133,7 @@
 
         internal DownLoadParameters FfMpegLocation(string path)
         {
-            return AddParameter<DownLoadParameters>("--ffmpeg-location", $"\"{path}\"");
+            return AddParameter<DownLoadParameters>("--ffmpeg-location", path);
         }
 
         public DownLoadParameters Reset()
