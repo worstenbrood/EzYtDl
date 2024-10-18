@@ -132,6 +132,9 @@
     <None Include="Build\PostBuild.cmd" />
     <None Include="Build\PreBuild.cmd" />
     <None Include="Properties\AssemblyInfo.Template.cs" />
+    <Compile Include="UserControls\CustomLayoutPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Utils\FormTools.cs" />

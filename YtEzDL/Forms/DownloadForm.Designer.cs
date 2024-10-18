@@ -1,4 +1,5 @@
 ﻿using MetroFramework.Controls;
+using YtEzDL.UserControls;
 
 namespace YtEzDL.Forms
 {
@@ -31,7 +32,7 @@ namespace YtEzDL.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
-            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel = new CustomLayoutPanel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNone = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAll = new System.Windows.Forms.ToolStripButton();
@@ -261,7 +262,7 @@ namespace YtEzDL.Forms
         }
 
         #endregion
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
+        private CustomLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.ToolStripButton toolStripButtonNone;
         private System.Windows.Forms.ToolStripButton toolStripButtonAll;
         private System.Windows.Forms.ToolStripButton toolStripButtonToggle;
