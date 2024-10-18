@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("worstenbrood")]
-[assembly: AssemblyProduct("YtEzDL")]
+[assembly: AssemblyProduct("YtEzDL ($revision$)")]
 [assembly: AssemblyCopyright("Copyright © worstenbrood 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
