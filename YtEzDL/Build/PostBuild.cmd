@@ -2,7 +2,7 @@
 set outdir=%~1%~2
 copy /Y "%~1External\*.dll" "%outdir%"
 if not "%~3" == "Release-external" exit
-set tools=%~1%~2Tools
+set tools=%outdir%Tools
 if not exist "%tools%" mkdir "%tools%"
 del /F /Q "%tools%\*.*"
 echo Downloading yt-dlp ...
