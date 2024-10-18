@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using YtEzDL.Utils;
 
@@ -46,11 +47,12 @@ namespace YtEzDL.UserControls
 
                         // Get clipboard data
                         var data = Clipboard.GetDataObject();
-                        
+#if DEBUG
+                        Debug.WriteLine("(ClipboardMonitor) Sequence: {0} Data: {1}", _prevSequence, data?.GetData(DataFormats.StringFormat));
+#endif
                         // Pass to event
                         OnClipboardDataChanged.Invoke(data);
                     }
-                    
                     break;
                 }
 
