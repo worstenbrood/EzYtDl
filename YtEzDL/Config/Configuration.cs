@@ -27,7 +27,7 @@ namespace YtEzDL.Config
             {
                 lock (Lock)
                 {
-                    return _configuration ?? (_configuration = new Configuration(DefaultFilename, true, nameof(YtEzDL)));
+                    return _configuration ?? (_configuration = new Configuration(DefaultFilename, nameof(YtEzDL)));
                 }
             }
         }
@@ -36,11 +36,7 @@ namespace YtEzDL.Config
         {
         }
 
-        public Configuration(string filename, bool load = true) : base(filename, load)
-        {
-        }
-
-        public Configuration(string filename, bool load = true, string subFolder = null) : base(filename, load, subFolder)
+        public Configuration(string filename, string subFolder = null, bool load = true) : base(filename, load, subFolder)
         {
         }
     }
