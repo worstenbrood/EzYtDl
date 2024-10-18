@@ -335,7 +335,7 @@
             this.tabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.tabControl.Location = new System.Drawing.Point(23, 63);
             this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 2;
+            this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(651, 260);
             this.tabControl.TabIndex = 20;
             this.tabControl.UseSelectable = true;
