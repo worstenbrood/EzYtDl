@@ -37,10 +37,10 @@ namespace YtEzDL.Utils
         public static extern IntPtr CreateToolhelp32Snapshot([In] SnapshotFlags dwFlags, int th32ProcessId);
 
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool Process32First([In] IntPtr hSnapshot, ref ProcessEntry32 lppe);
+        public static extern bool Process32First([In] IntPtr hSnapshot, ref ProcessEntry32 processEntry);
 
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool Process32Next([In] IntPtr hSnapshot, ref ProcessEntry32 lppe);
+        public static extern bool Process32Next([In] IntPtr hSnapshot, ref ProcessEntry32 processEntry);
 
         [Flags]
         public enum ThreadAccess : int

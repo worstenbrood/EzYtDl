@@ -39,7 +39,7 @@ namespace YtEzDL.Utils
         {
             var arguments = string.Join(" ", parameters);
 #if DEBUG
-            Debug.WriteLine("Command: " + _fileName + " Arguments: " + arguments);
+            Debug.WriteLine("(ConsoleProcess) Command: " + _fileName + " Arguments: " + arguments);
 #endif
 
             var processStartInfo = new ProcessStartInfo
