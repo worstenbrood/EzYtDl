@@ -14,25 +14,7 @@ namespace YtEzDL.Config.Settings
             get => _downloadThreads <= 0 ? _downloadThreads = 2 : _downloadThreads;
             set => _downloadThreads = value;
         }
-
-        private volatile bool _fetchThumbnail = true;
-
-        [JsonProperty(PropertyName = "fetch_thumbnail")]
-        public bool FetchThumbnail
-        {
-            get => _fetchThumbnail;
-            set => _fetchThumbnail = value;
-        }
-
-        private volatile bool _fetchBestThumbnail = true;
-
-        [JsonProperty(PropertyName = "fetch_best_thumbnail")]
-        public bool FetchBestThumbnail
-        {
-            get => _fetchBestThumbnail;
-            set => _fetchBestThumbnail = value;
-        }
-
+        
         private volatile bool _extractAudio = true;
 
         [JsonProperty(PropertyName = "extract_audio")]

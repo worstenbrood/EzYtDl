@@ -37,8 +37,8 @@ namespace YtEzDL.Forms
             comboBoxAudioFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioFormat);
             comboBoxAudioQuality.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioQuality);
             comboBoxVideoFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.VideoFormat);
-            checkBoxFetchThumbnail.AddCheckedBinding(_configuration.DownloadSettings, p => p.FetchThumbnail);
-            checkBoxFetchBestThumbnail.AddCheckedBinding(_configuration.DownloadSettings, p => p.FetchBestThumbnail);
+            checkBoxFetchThumbnail.AddCheckedBinding(_configuration.LayoutSettings, p => p.FetchThumbnail);
+            checkBoxFetchBestThumbnail.AddCheckedBinding(_configuration.LayoutSettings, p => p.FetchBestThumbnail);
             checkBoxAutoSelect.AddCheckedBinding(_configuration.LayoutSettings, p => p.AutoSelect);
             comboBoxThreads.AddRangeBinding(_configuration.DownloadSettings, p => p.DownloadThreads, 1, Environment.ProcessorCount);
             checkBoxPerTrackSettings.AddCheckedBinding(_configuration.LayoutSettings, p => p.PerTrackSettings);

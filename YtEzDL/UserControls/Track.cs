@@ -74,7 +74,7 @@ namespace YtEzDL.UserControls
 
         private string FindThumbNail()
         {
-            if (TrackData.Thumbnails == null || !Configuration.Default.DownloadSettings.FetchBestThumbnail)
+            if (TrackData.Thumbnails == null || !Configuration.Default.LayoutSettings.FetchBestThumbnail)
             {
                 return TrackData.Thumbnail;
             }
@@ -145,7 +145,7 @@ namespace YtEzDL.UserControls
                     textBoxTitle.Text += Environment.NewLine + date.ToString("D");
                 }
 
-                if (Configuration.Default.DownloadSettings.FetchThumbnail)
+                if (Configuration.Default.LayoutSettings.FetchThumbnail)
                 {
                     Task.Run(SetThumbNail);
                 }
