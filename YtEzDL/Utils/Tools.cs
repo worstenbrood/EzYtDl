@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
@@ -89,6 +90,15 @@ namespace YtEzDL.Utils
         public static string GetFfMpegVersion()
         {
             return GetToolVersion(FfMpeg, "-version");
+        }
+
+        public static string ProfileFolderCombine(params string[] arg)
+        {
+            var paths = new[] { Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) }
+                .Concat(arg)
+                .ToArray();
+
+            return System.IO.Path.Combine(paths);
         }
     }
 }

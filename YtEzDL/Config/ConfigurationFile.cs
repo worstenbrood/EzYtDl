@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using YtEzDL.Utils;
 
 namespace YtEzDL.Config
 {
@@ -19,11 +20,46 @@ namespace YtEzDL.Config
             Converters = { new StringEnumConverter() }
         };
 
-        public ConfigurationFile(string filename, bool load = true)
+        public ConfigurationFile() : this(null, false, null)
         {
-            _filename = Path.GetDirectoryName(filename) == string.Empty ? 
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), filename) : 
-                filename;
+        }
+
+        public ConfigurationFile(string filename, string subfolder) : this(filename, true, subfolder)
+        {
+        }
+
+        public ConfigurationFile(string filename, bool load = true, string subfolder = null)
+        {
+            if (string.IsNullOrEmpty(filename))
+            {
+                return;
+            }
+
+            if (Path.GetDirectoryName(filename) == string.Empty)
+            {
+                var profile = Tools.ProfileFolderCombine(filename);
+                if (!string.IsNullOrEmpty(subfolder))
+                {
+                    var folderName = Tools.ProfileFolderCombine(subfolder);
+                    Directory.CreateDirectory(folderName);
+                    var profileFolder = Path.Combine(folderName, filename);
+
+                    if (File.Exists(profile))
+                    {
+                        File.Move(profile, profileFolder);
+                    }
+
+                    _filename = profileFolder;
+                }
+                else
+                {
+                    _filename = profile;
+                }
+            }
+            else
+            {
+                _filename = filename;
+            }
 
             if (load)
             {

@@ -107,7 +107,7 @@
             return AddParameter<DownLoadParameters>("--version");
         }
 
-        public DownLoadParameters Url(string url)
+        internal DownLoadParameters Url(string url)
         {
             return AddParameter<DownLoadParameters>($"\"{url}\"");
         }
@@ -137,7 +137,7 @@
             return AddParameter<DownLoadParameters>("--replace-in-metadata", expression);
         }
 
-        public DownLoadParameters FfMpegLocation(string path)
+        internal DownLoadParameters FfMpegLocation(string path)
         {
             return AddParameter<DownLoadParameters>("--ffmpeg-location", $"\"{path}\"");
         }

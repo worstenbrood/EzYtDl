@@ -77,6 +77,7 @@ namespace YtEzDL.DownLoad
         public async Task<YoutubeDownload> DownloadAsync(DownLoadParameters downLoadParameters, string url, string directory, string filename, IProgress progress, CancellationToken cancellationToken = default)
         {
             var parameters = downLoadParameters
+                .FfMpegLocation(Tools.Path)
                 .Url(url)
                 .GetParameters();
             
