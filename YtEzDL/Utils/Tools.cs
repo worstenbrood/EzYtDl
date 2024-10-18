@@ -91,12 +91,8 @@ namespace YtEzDL.Utils
 
         public static string ApplicationName = nameof(YtEzDL);
         public static string ApplicationPath = Assembly.GetExecutingAssembly().Location;
+        public static string ApplicationProductVersion = FileVersionInfo.GetVersionInfo(ApplicationPath).ProductVersion;
         
-        public static string GetProductVersion()
-        {
-            return FileVersionInfo.GetVersionInfo(ApplicationPath).ProductVersion;
-        }
-
         public const string YtDlp = "yt-dlp.exe";
         public const string FfMpeg = "ffmpeg.exe";
 

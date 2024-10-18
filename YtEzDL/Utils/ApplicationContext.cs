@@ -67,6 +67,9 @@ namespace YtEzDL.Utils
         {
             IContainer container = new Container();
             var contextMenu = new MetroContextMenu(container);
+            contextMenu.Items.Add($"{Tools.ApplicationName} {Tools.ApplicationProductVersion}");
+            contextMenu.Items[0].Enabled = false;
+            contextMenu.Items.Add("-");
             contextMenu.Items.Add("&About", null, (sender, args) => ShowAboutForm());
             contextMenu.Items.Add("&Settings", null, (sender, args) => ShowSettingsForm());
             contextMenu.Items.Add("&Clear cache", null, (sender, args) => ClearCache());

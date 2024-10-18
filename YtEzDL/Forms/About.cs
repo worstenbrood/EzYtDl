@@ -23,7 +23,7 @@ namespace YtEzDL.Forms
             
             textBoxAbout.SuspendLayout();
             
-            textBoxAbout.Text += $"ezytdl version: {Tools.GetProductVersion()}" + Environment.NewLine;
+            textBoxAbout.Text += $"ezytdl version: {Tools.ApplicationProductVersion}" + Environment.NewLine;
             textBoxAbout.Text += "written by worstenbrood (worstenbrood@gmail.com)" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
 
