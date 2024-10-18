@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using YtEzDL.DownLoad;
 
-namespace YtEzDL.Config
+namespace YtEzDL.Config.Settings
 {
     public class DownloadSettings
     {

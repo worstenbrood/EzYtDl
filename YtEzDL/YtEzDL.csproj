@@ -112,12 +112,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ApplicationSettings.cs" />
+    <Compile Include="Config\Settings\ApplicationSettings.cs" />
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\ConfigurationFile.cs" />
-    <Compile Include="Config\DownloadSettings.cs" />
-    <Compile Include="Config\FileSettings.cs" />
-    <Compile Include="Config\LayoutSettings.cs" />
+    <Compile Include="Config\Settings\DownloadSettings.cs" />
+    <Compile Include="Config\Settings\FileSettings.cs" />
+    <Compile Include="Config\Settings\LayoutSettings.cs" />
     <Compile Include="Config\LockedProperty.cs" />
     <Compile Include="DownLoad\DownLoadParameters.cs" />
     <Compile Include="DownLoad\Parameters.cs" />

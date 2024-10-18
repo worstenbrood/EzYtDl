@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace YtEzDL.Config
+namespace YtEzDL.Config.Settings
 {
     public class FileSettings
     {
