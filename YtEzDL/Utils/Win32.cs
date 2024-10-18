@@ -72,17 +72,17 @@ namespace YtEzDL.Utils
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         public struct ProcessEntry32
         {
-            public int dwSize;
-            public int cntUsage;
-            public int th32ProcessID;
-            public IntPtr th32DefaultHeapID;
-            public int th32ModuleID;
-            public int cntThreads;
-            public int th32ParentProcessID;
-            public int pcPriClassBase;
-            public int dwFlags;
+            public int Size;
+            public int UsageCount;
+            public int ProcessID;
+            public IntPtr DefaultHeapID;
+            public int ModuleID;
+            public int ThreadCount;
+            public int ParentProcessID;
+            public int PriClassBase;
+            public int Flags;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-            public string szExeFile;
+            public string ExeFile;
         }
     }
 }

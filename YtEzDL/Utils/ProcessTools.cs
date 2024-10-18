@@ -54,7 +54,7 @@ namespace YtEzDL.Utils
             try
             {
                 var entry = new Win32.ProcessEntry32();
-                entry.dwSize = Marshal.SizeOf(entry);
+                entry.Size = Marshal.SizeOf(entry);
 
                 if (!Win32.Process32First(handle, ref entry))
                 {
@@ -64,14 +64,14 @@ namespace YtEzDL.Utils
                 do
                 {
                     // Next
-                    if (entry.th32ParentProcessID != parentProcessId)
+                    if (entry.ParentProcessID != parentProcessId)
                     {
                         continue;
                     }
                     
                     try
                     {
-                        var childProcess = Process.GetProcessById(entry.th32ProcessID);
+                        var childProcess = Process.GetProcessById(entry.ProcessID);
                         action.Invoke(childProcess);
                     }
                     catch (Exception)
@@ -80,7 +80,7 @@ namespace YtEzDL.Utils
                     }
 
                     // Process children of this process
-                    ProcessTree(entry.th32ProcessID, action);
+                    ProcessTree(entry.ProcessID, action);
 
                 } while (Win32.Process32Next(handle, ref entry));
             }
