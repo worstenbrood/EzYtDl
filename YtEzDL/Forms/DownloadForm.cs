@@ -236,21 +236,27 @@ namespace YtEzDL.Forms
 
         private void CleanupPath()
         {
-            if (IsPlaylist && Configuration.Default.FileSettings.CreatePlaylistFolder)
+            if (!IsPlaylist || !Configuration.Default.FileSettings.CreatePlaylistFolder)
             {
-                var path = Path.Combine(Configuration.Default.FileSettings.Path, Tracks.First().TrackData.Playlist);
-                if (!Directory.EnumerateFileSystemEntries(path).Any())
-                {
-                    try
-                    {
-                        Directory.Delete(path);
-                    }
-#if DEBUG
-                    catch (Exception ex)
-                    {
+                return;
+            }
 
-                        Debug.WriteLine("DeleteDirectory: " + ex.Message);
-                    }
+            var path = Path.Combine(Configuration.Default.FileSettings.Path, Tracks.First().TrackData.Playlist);
+            if (Directory.EnumerateFileSystemEntries(path).Any())
+            {
+                return;
+            }
+
+            try
+            {
+                Directory.Delete(path, true);
+            }
+#if DEBUG
+            catch (Exception ex)
+            {
+
+                Debug.WriteLine("DeleteDirectory: " + ex.Message);
+            }
 #else
                     catch (Exception)
                     {
@@ -258,8 +264,6 @@ namespace YtEzDL.Forms
                         // Ignore
                     }
 #endif
-                }
-            }
         }
 
         private void StartDownloadTasks()
