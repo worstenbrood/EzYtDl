@@ -45,7 +45,7 @@ namespace YtEzDL.Utils
             }
         }
 
-        public static string GetToolVersion(string tool, string parameter = "--version")
+        public static string GetToolOutput(string tool, string parameter = "--version")
         {
 #if DEBUG
             var start = DateTime.Now;
@@ -89,7 +89,7 @@ namespace YtEzDL.Utils
 
         public static string GetFfMpegVersion()
         {
-            return GetToolVersion(FfMpeg, "-version");
+            return GetToolOutput(FfMpeg, "-version");
         }
 
         public static string ProfileFolderCombine(params string[] arg)
