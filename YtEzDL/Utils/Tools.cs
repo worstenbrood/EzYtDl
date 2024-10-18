@@ -100,5 +100,7 @@ namespace YtEzDL.Utils
 
             return System.IO.Path.Combine(paths);
         }
+
+        public static string EzYtDlProfilePath = ProfileFolderCombine(nameof(YtEzDL));
     }
 }

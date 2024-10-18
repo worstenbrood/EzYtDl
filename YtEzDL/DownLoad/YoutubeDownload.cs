@@ -22,7 +22,19 @@ namespace YtEzDL.DownLoad
                 if (_youtubeDlPath != null)
                     return _youtubeDlPath;
 
-                return _youtubeDlPath = Path.Combine(Tools.Path, Tools.YtDlp);
+                var profilePath = Path.Combine(Tools.EzYtDlProfilePath, Tools.YtDlp);
+                if (File.Exists(profilePath))
+                {
+                    return _youtubeDlPath = profilePath;
+                }
+
+                // Copy yt-dlp to profile folder for updating
+                var youtubeDlPath = Path.Combine(Tools.Path, Tools.YtDlp);
+                Directory.CreateDirectory(Tools.EzYtDlProfilePath);
+                File.Copy(youtubeDlPath, profilePath, false);
+
+                // Use profile copy
+                return _youtubeDlPath = profilePath;
             }
         }
 
