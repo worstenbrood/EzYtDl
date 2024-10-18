@@ -52,6 +52,7 @@
             this.tabPageFileSettings = new MetroFramework.Controls.MetroTabPage();
             this.tabPageDownloadSettings = new MetroFramework.Controls.MetroTabPage();
             this.tabPageLayoutSettings = new MetroFramework.Controls.MetroTabPage();
+            this.checkBoxYoutubeFastFetch = new MetroFramework.Controls.MetroCheckBox();
             this.tabPageApplication = new MetroFramework.Controls.MetroTabPage();
             this.checkBoxAutostart = new MetroFramework.Controls.MetroCheckBox();
             this.tabControl.SuspendLayout();
@@ -334,7 +335,7 @@
             this.tabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.tabControl.Location = new System.Drawing.Point(23, 63);
             this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
+            this.tabControl.SelectedIndex = 2;
             this.tabControl.Size = new System.Drawing.Size(651, 260);
             this.tabControl.TabIndex = 20;
             this.tabControl.UseSelectable = true;
@@ -388,6 +389,7 @@
             // tabPageLayoutSettings
             // 
             this.tabPageLayoutSettings.BackColor = System.Drawing.Color.White;
+            this.tabPageLayoutSettings.Controls.Add(this.checkBoxYoutubeFastFetch);
             this.tabPageLayoutSettings.Controls.Add(this.checkBoxPerTrackSettings);
             this.tabPageLayoutSettings.Controls.Add(this.checkBoxFetchThumbnail);
             this.tabPageLayoutSettings.Controls.Add(this.checkBoxFetchBestThumbnail);
@@ -404,6 +406,18 @@
             this.tabPageLayoutSettings.VerticalScrollbarBarColor = true;
             this.tabPageLayoutSettings.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageLayoutSettings.VerticalScrollbarSize = 10;
+            // 
+            // checkBoxYoutubeFastFetch
+            // 
+            this.checkBoxYoutubeFastFetch.AutoSize = true;
+            this.checkBoxYoutubeFastFetch.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.checkBoxYoutubeFastFetch.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxYoutubeFastFetch.Location = new System.Drawing.Point(7, 137);
+            this.checkBoxYoutubeFastFetch.Name = "checkBoxYoutubeFastFetch";
+            this.checkBoxYoutubeFastFetch.Size = new System.Drawing.Size(164, 25);
+            this.checkBoxYoutubeFastFetch.TabIndex = 20;
+            this.checkBoxYoutubeFastFetch.Text = "Youtube fast fetch";
+            this.checkBoxYoutubeFastFetch.UseSelectable = true;
             // 
             // tabPageApplication
             // 
@@ -486,5 +500,6 @@
         private MetroFramework.Controls.MetroTabPage tabPageLayoutSettings;
         private MetroFramework.Controls.MetroTabPage tabPageApplication;
         private MetroFramework.Controls.MetroCheckBox checkBoxAutostart;
+        private MetroFramework.Controls.MetroCheckBox checkBoxYoutubeFastFetch;
     }
 }

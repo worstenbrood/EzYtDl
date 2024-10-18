@@ -59,5 +59,14 @@ namespace YtEzDL.Config.Settings
             get => _fetchBestThumbnail;
             set => _fetchBestThumbnail = value;
         }
+
+        private volatile bool _youtubeFastFetch = true;
+
+        [JsonProperty(PropertyName = "youtube_fast_fetch")]
+        public bool YoutubeFastFetch
+        {
+            get => _youtubeFastFetch;
+            set => _youtubeFastFetch = value;
+        }
     }
 }

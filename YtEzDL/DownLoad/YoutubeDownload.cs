@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using YtEzDL.Config;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
 
@@ -14,6 +15,8 @@ namespace YtEzDL.DownLoad
 {
     public class YoutubeDownload : ConsoleProcess
     {
+        private const string YoutubeHost = "www.youtube.com";
+
         private static string _youtubeDlPath;
         private static string YoutubeDlPath
         {
@@ -131,11 +134,23 @@ namespace YtEzDL.DownLoad
             // Parameters
             var parameters = DownLoadParameters.Create
                 .IgnoreErrors()
-                .GetJson()
-                .Url(url)
-                .GetParameters();
-           
-            await RunAsync(parameters, s =>
+                .GetJson();
+
+            // Fast fetch "hack", shows less info, loads playlists faster
+            if (Configuration.Default.LayoutSettings.YoutubeFastFetch)
+            {
+                var uri = new Uri(url);
+                if (uri.Host.Equals(YoutubeHost, StringComparison.OrdinalIgnoreCase))
+                {
+                    parameters.FlatPlaylist();
+                }
+            }
+
+            // Set url
+            parameters.Url(url);
+            
+            // Fetch
+            await RunAsync(parameters.GetParameters(), s =>
                 {
                     try
                     {

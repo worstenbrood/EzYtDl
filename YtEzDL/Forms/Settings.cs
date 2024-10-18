@@ -43,6 +43,7 @@ namespace YtEzDL.Forms
             comboBoxThreads.AddRangeBinding(_configuration.DownloadSettings, p => p.DownloadThreads, 1, Environment.ProcessorCount);
             checkBoxPerTrackSettings.AddCheckedBinding(_configuration.LayoutSettings, p => p.PerTrackSettings);
             checkBoxAutostart.AddCheckedBinding(_configuration.ApplicationSettings, p => p.Autostart);
+            checkBoxYoutubeFastFetch.AddCheckedBinding(_configuration.LayoutSettings, p => p.YoutubeFastFetch);
 
             // Path selector
             textBoxPath.CustomButton.Click += (sender, args) =>

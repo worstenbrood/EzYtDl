@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -206,7 +207,7 @@ namespace YtEzDL.UserControls
                 parameters
                     .SetPath(path)
                     .IgnoreErrors();
-
+                
                 // Download
                 _youtubeDl.Download(parameters, TrackData.WebpageUrl, path, TrackData.Filename, this, token);
                     
