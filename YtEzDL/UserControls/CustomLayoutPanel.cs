@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace YtEzDL.UserControls
 {
@@ -20,9 +15,8 @@ namespace YtEzDL.UserControls
             Application.DoEvents();
 
             // PerformLayout ensures all child user controls added to this control are visible.
-            this.PerformLayout();
+            PerformLayout();
 
-            // INVESTIGATE following need further investigation.
             base.OnScroll(se);
         }
     }
