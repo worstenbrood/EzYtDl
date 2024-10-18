@@ -19,7 +19,7 @@ namespace YtEzDL.Forms
 {
     public partial class DownloadForm : MetroForm
     {
-        private readonly string _url;
+        private readonly Uri _url;
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
         private readonly HashSet<string> _ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -43,7 +43,7 @@ namespace YtEzDL.Forms
             }
         }
 
-        public DownloadForm(string url)
+        public DownloadForm(Uri url)
         {
             _url = url;
             
@@ -150,7 +150,7 @@ namespace YtEzDL.Forms
         {
             try
             {
-                _youtubeDl.GetJson(_url, AddControl, Source.Token);
+                _youtubeDl.GetJson(_url.ToString(), AddControl, Source.Token);
             }
             catch (OperationCanceledException)
             {

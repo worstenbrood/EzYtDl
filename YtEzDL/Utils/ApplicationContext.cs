@@ -96,7 +96,7 @@ namespace YtEzDL.Utils
             clipboardMonitor.Monitor();
         }
 
-        private static void ShowDownLoadForm(string url)
+        private static void ShowDownLoadForm(Uri url)
         {
             // Show form
             using (var downloadForm = new Forms.DownloadForm(url))
@@ -127,7 +127,7 @@ namespace YtEzDL.Utils
             try
             {
                 var url = new Uri(text);
-                Task.Run(() => ShowDownLoadForm(url.ToString()));
+                Task.Run(() => ShowDownLoadForm(url));
             }
             catch (Exception)
             {
