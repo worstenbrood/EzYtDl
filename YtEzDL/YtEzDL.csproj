@@ -112,6 +112,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\ApplicationSettings.cs" />
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\ConfigurationFile.cs" />
     <Compile Include="Config\DownloadSettings.cs" />

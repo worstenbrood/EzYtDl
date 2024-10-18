@@ -42,6 +42,7 @@ namespace YtEzDL.Forms
             checkBoxAutoSelect.AddCheckedBinding(_configuration.LayoutSettings, p => p.AutoSelect);
             comboBoxThreads.AddRangeBinding(_configuration.DownloadSettings, p => p.DownloadThreads, 1, Environment.ProcessorCount);
             checkBoxPerTrackSettings.AddCheckedBinding(_configuration.LayoutSettings, p => p.PerTrackSettings);
+            checkBoxAutostart.AddCheckedBinding(_configuration.ApplicationSettings, p => p.Autostart);
 
             // Path selector
             textBoxPath.CustomButton.Click += (sender, args) =>
@@ -67,6 +68,9 @@ namespace YtEzDL.Forms
         {
             // Save to file
             Configuration.Default.Save(_configuration);
+
+            // Set autostart
+            Tools.SetAutoStart(Configuration.Default.ApplicationSettings.Autostart);
 
             // Reload default
             Configuration.Default.Load();

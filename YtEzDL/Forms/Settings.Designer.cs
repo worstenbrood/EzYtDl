@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
             this.textBoxPath = new MetroFramework.Controls.MetroTextBox();
             this.labelPath = new MetroFramework.Controls.MetroLabel();
             this.checkBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
@@ -53,10 +52,13 @@
             this.tabPageFileSettings = new MetroFramework.Controls.MetroTabPage();
             this.tabPageDownloadSettings = new MetroFramework.Controls.MetroTabPage();
             this.tabPageLayoutSettings = new MetroFramework.Controls.MetroTabPage();
+            this.tabPageApplication = new MetroFramework.Controls.MetroTabPage();
+            this.checkBoxAutostart = new MetroFramework.Controls.MetroCheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageFileSettings.SuspendLayout();
             this.tabPageDownloadSettings.SuspendLayout();
             this.tabPageLayoutSettings.SuspendLayout();
+            this.tabPageApplication.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxPath
@@ -328,10 +330,11 @@
             this.tabControl.Controls.Add(this.tabPageFileSettings);
             this.tabControl.Controls.Add(this.tabPageDownloadSettings);
             this.tabControl.Controls.Add(this.tabPageLayoutSettings);
+            this.tabControl.Controls.Add(this.tabPageApplication);
             this.tabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.tabControl.Location = new System.Drawing.Point(23, 63);
             this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 1;
+            this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(651, 260);
             this.tabControl.TabIndex = 20;
             this.tabControl.UseSelectable = true;
@@ -402,6 +405,35 @@
             this.tabPageLayoutSettings.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageLayoutSettings.VerticalScrollbarSize = 10;
             // 
+            // tabPageApplication
+            // 
+            this.tabPageApplication.BackColor = System.Drawing.Color.White;
+            this.tabPageApplication.Controls.Add(this.checkBoxAutostart);
+            this.tabPageApplication.ForeColor = System.Drawing.Color.Black;
+            this.tabPageApplication.HorizontalScrollbarBarColor = true;
+            this.tabPageApplication.HorizontalScrollbarHighlightOnWheel = false;
+            this.tabPageApplication.HorizontalScrollbarSize = 10;
+            this.tabPageApplication.Location = new System.Drawing.Point(4, 44);
+            this.tabPageApplication.Name = "tabPageApplication";
+            this.tabPageApplication.Size = new System.Drawing.Size(643, 212);
+            this.tabPageApplication.TabIndex = 3;
+            this.tabPageApplication.Text = "Application";
+            this.tabPageApplication.VerticalScrollbarBarColor = true;
+            this.tabPageApplication.VerticalScrollbarHighlightOnWheel = false;
+            this.tabPageApplication.VerticalScrollbarSize = 10;
+            // 
+            // checkBoxAutostart
+            // 
+            this.checkBoxAutostart.AutoSize = true;
+            this.checkBoxAutostart.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.checkBoxAutostart.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxAutostart.Location = new System.Drawing.Point(7, 13);
+            this.checkBoxAutostart.Name = "checkBoxAutostart";
+            this.checkBoxAutostart.Size = new System.Drawing.Size(97, 25);
+            this.checkBoxAutostart.TabIndex = 13;
+            this.checkBoxAutostart.Text = "Autostart";
+            this.checkBoxAutostart.UseSelectable = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -410,7 +442,6 @@
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Settings";
             this.Resizable = false;
             this.Text = "Settings";
@@ -421,6 +452,8 @@
             this.tabPageDownloadSettings.PerformLayout();
             this.tabPageLayoutSettings.ResumeLayout(false);
             this.tabPageLayoutSettings.PerformLayout();
+            this.tabPageApplication.ResumeLayout(false);
+            this.tabPageApplication.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -451,5 +484,7 @@
         private MetroFramework.Controls.MetroTabPage tabPageFileSettings;
         private MetroFramework.Controls.MetroTabPage tabPageDownloadSettings;
         private MetroFramework.Controls.MetroTabPage tabPageLayoutSettings;
+        private MetroFramework.Controls.MetroTabPage tabPageApplication;
+        private MetroFramework.Controls.MetroCheckBox checkBoxAutostart;
     }
 }

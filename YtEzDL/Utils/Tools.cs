@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using Microsoft.Win32;
 
 namespace YtEzDL.Utils
 {
@@ -38,8 +39,7 @@ namespace YtEzDL.Utils
                     return _path;
                 }
 
-                var assembly = Assembly.GetExecutingAssembly();
-                var fileInfo = new FileInfo(assembly.Location);
+                var fileInfo = new FileInfo(ApplicationPath);
                 var directory = fileInfo.DirectoryName ?? Environment.CurrentDirectory; 
                 return _path = System.IO.Path.Combine(directory, "Tools");
             }
@@ -89,9 +89,12 @@ namespace YtEzDL.Utils
             return Assembly.GetAssembly(typeof(T)).GetName().Version;
         }
 
+        public static string ApplicationName = nameof(YtEzDL);
+        public static string ApplicationPath = Assembly.GetExecutingAssembly().Location;
+        
         public static string GetProductVersion()
         {
-            return FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
+            return FileVersionInfo.GetVersionInfo(ApplicationPath).ProductVersion;
         }
 
         public const string YtDlp = "yt-dlp.exe";
@@ -116,6 +119,20 @@ namespace YtEzDL.Utils
             return System.IO.Path.Combine(paths);
         }
 
-        public static string EzYtDlProfilePath = ProfileFolderCombine(nameof(YtEzDL));
+        public static string EzYtDlProfilePath = ProfileFolderCombine(ApplicationName);
+
+        public static void SetAutoStart(bool autostart)
+        {
+            var regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            if (autostart)
+            {
+                // Specify the name and path of your application executable, add the application to the startup
+                regKey?.SetValue(ApplicationName, $"\"{ApplicationPath}\"");
+            }
+            else
+            {
+                regKey?.DeleteValue(ApplicationName, false);
+            }
+        }
     }
 }

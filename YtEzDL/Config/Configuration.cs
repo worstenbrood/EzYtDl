@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using YtEzDL.Utils;
 
 namespace YtEzDL.Config
 {
@@ -15,6 +16,9 @@ namespace YtEzDL.Config
         [JsonProperty(PropertyName = "layoutSettings")]
         public LayoutSettings LayoutSettings { get; set; } = new LayoutSettings();
 
+        [JsonProperty(PropertyName = "applicationSettings")]
+        public ApplicationSettings ApplicationSettings { get; set; } = new ApplicationSettings();
+
         // Logic
 
         private const string DefaultFilename = "ezytdl.json";
@@ -27,7 +31,7 @@ namespace YtEzDL.Config
             {
                 lock (Lock)
                 {
-                    return _configuration ?? (_configuration = new Configuration(DefaultFilename, nameof(YtEzDL)));
+                    return _configuration ?? (_configuration = new Configuration(DefaultFilename, Tools.ApplicationName));
                 }
             }
         }
