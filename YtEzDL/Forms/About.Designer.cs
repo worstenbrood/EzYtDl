@@ -45,9 +45,9 @@ namespace YtEzDL.Forms
             // 
             // 
             this.textBoxAbout.CustomButton.Image = null;
-            this.textBoxAbout.CustomButton.Location = new System.Drawing.Point(468, 2);
+            this.textBoxAbout.CustomButton.Location = new System.Drawing.Point(476, 1);
             this.textBoxAbout.CustomButton.Name = "";
-            this.textBoxAbout.CustomButton.Size = new System.Drawing.Size(245, 245);
+            this.textBoxAbout.CustomButton.Size = new System.Drawing.Size(239, 239);
             this.textBoxAbout.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.textBoxAbout.CustomButton.TabIndex = 1;
             this.textBoxAbout.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -57,7 +57,7 @@ namespace YtEzDL.Forms
             this.textBoxAbout.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
             this.textBoxAbout.ForeColor = System.Drawing.Color.Black;
             this.textBoxAbout.Lines = new string[0];
-            this.textBoxAbout.Location = new System.Drawing.Point(23, 54);
+            this.textBoxAbout.Location = new System.Drawing.Point(23, 63);
             this.textBoxAbout.MaxLength = 32767;
             this.textBoxAbout.Multiline = true;
             this.textBoxAbout.Name = "textBoxAbout";
@@ -67,9 +67,8 @@ namespace YtEzDL.Forms
             this.textBoxAbout.SelectionLength = 0;
             this.textBoxAbout.SelectionStart = 0;
             this.textBoxAbout.ShortcutsEnabled = true;
-            this.textBoxAbout.Size = new System.Drawing.Size(716, 250);
+            this.textBoxAbout.Size = new System.Drawing.Size(716, 241);
             this.textBoxAbout.TabIndex = 0;
-            this.textBoxAbout.UseSelectable = false;
             this.textBoxAbout.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.textBoxAbout.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.textBoxAbout.TextChanged += new System.EventHandler(this.textBoxAbout_TextChanged);
