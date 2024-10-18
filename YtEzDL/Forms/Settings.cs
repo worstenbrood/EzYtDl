@@ -69,11 +69,11 @@ namespace YtEzDL.Forms
             // Save to file
             Configuration.Default.Save(_configuration);
 
-            // Set autostart
-            Tools.SetAutoStart(Configuration.Default.ApplicationSettings.Autostart);
-
             // Reload default
             Configuration.Default.Load();
+
+            // Set auto start
+            Tools.SetAutoStart(Configuration.Default.ApplicationSettings.Autostart);
 
             // Close form
             Close();
