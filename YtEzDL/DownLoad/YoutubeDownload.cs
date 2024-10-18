@@ -194,5 +194,10 @@ namespace YtEzDL.DownLoad
                 .GetAwaiter()
                 .GetResult();
         }
+
+        public static string GetVersion()
+        {
+            return Tools.GetFileVersionInfo(YoutubeDlPath).ProductVersion;
+        }
     }
 }

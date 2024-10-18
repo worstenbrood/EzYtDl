@@ -24,14 +24,12 @@ namespace YtEzDL.Forms
             base.OnLoad(e);
             
             textBoxAbout.SuspendLayout();
-
-            var ezytdl = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
-
-            textBoxAbout.Text += $"ezytdl version: {ezytdl}" + Environment.NewLine;
+            
+            textBoxAbout.Text += $"ezytdl version: {Tools.GetProductVersion()}" + Environment.NewLine;
             textBoxAbout.Text += "written by worstenbrood (worstenbrood@gmail.com)" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
 
-            textBoxAbout.Text += $"MetroFramework version: {Assembly.GetAssembly(typeof(MetroForm)).GetName().Version}" + Environment.NewLine;
+            textBoxAbout.Text += $"MetroFramework version: {Tools.GetVersion<MetroForm>()}" + Environment.NewLine;
             textBoxAbout.Text += "https://github.com/thielj/MetroFramework" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
 

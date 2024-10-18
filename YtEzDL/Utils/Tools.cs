@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroFramework.Forms;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -74,9 +75,24 @@ namespace YtEzDL.Utils
             }
         }
 
+        public static FileVersionInfo GetFileVersionInfo(string filename)
+        {
+            return FileVersionInfo.GetVersionInfo(filename);
+        }
+
         public static FileVersionInfo GetToolFileVersionInfo(string tool)
         {
-            return FileVersionInfo.GetVersionInfo(System.IO.Path.Combine(Path, tool));
+            return GetFileVersionInfo(System.IO.Path.Combine(Path, tool));
+        }
+
+        public static Version GetVersion<T>()
+        {
+            return Assembly.GetAssembly(typeof(T)).GetName().Version;
+        }
+
+        public static string GetProductVersion()
+        {
+            return FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
         }
 
         public const string YtDlp = "yt-dlp.exe";
