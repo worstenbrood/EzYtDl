@@ -32,12 +32,6 @@
         Avi
     }
 
-    public enum DownloadAction
-    {
-        Download,
-        ExtractAudio
-    }
-
     public class DownLoadParameters : Parameters
     {
         public static DownLoadParameters Create => new DownLoadParameters();
