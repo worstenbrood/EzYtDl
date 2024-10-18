@@ -121,9 +121,11 @@ namespace YtEzDL.Utils
 
         public static string EzYtDlProfilePath = ProfileFolderCombine(ApplicationName);
 
+        private const string RunKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+
         public static void SetAutoStart(bool autostart)
         {
-            var regKey = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            var regKey = Registry.CurrentUser.OpenSubKey(RunKey, true);
             if (autostart)
             {
                 // Specify the name and path of your application executable, add the application to the startup
