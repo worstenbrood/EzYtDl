@@ -1,10 +1,10 @@
 ﻿using MetroFramework.Controls;
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YtEzDL.DownLoad;
+using YtEzDL.Properties;
 using YtEzDL.UserControls;
 
 namespace YtEzDL.Utils
@@ -77,11 +77,11 @@ namespace YtEzDL.Utils
             contextMenu.Items.Add("-");
             contextMenu.Items.Add("&Exit", null,    (sender, args) => ExitThread());
             
-            // Setup notifyicon
+            // Setup notify icon
             _notifyIcon = new NotifyIcon(container)
             {
                 ContextMenuStrip = contextMenu,
-                Icon = new Icon(typeof(Program), "YTIcon.ico"),
+                Icon = Resources.YTIcon,
                 Text = "youtube-dl",
                 Visible = true,
             };
