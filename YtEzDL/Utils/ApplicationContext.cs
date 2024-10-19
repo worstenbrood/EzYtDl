@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using YtEzDL.DownLoad;
 using YtEzDL.Properties;
+using YtEzDL.Tools;
 using YtEzDL.UserControls;
 
 namespace YtEzDL.Utils
@@ -67,7 +68,7 @@ namespace YtEzDL.Utils
         {
             IContainer container = new Container();
             var contextMenu = new MetroContextMenu(container);
-            contextMenu.Items.Add($"{Tools.ApplicationName} {Tools.ApplicationProductVersion}");
+            contextMenu.Items.Add($"{CommonTools.ApplicationName} {CommonTools.ApplicationProductVersion}");
             contextMenu.Items[0].Enabled = false;
             contextMenu.Items.Add("-");
             contextMenu.Items.Add("&About", null, (sender, args) => ShowAboutForm());

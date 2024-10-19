@@ -32,7 +32,7 @@ namespace YtEzDL.Config
             {
                 lock (Lock)
                 {
-                    return _configuration ?? (_configuration = new Configuration(DefaultFilename, Tools.ApplicationName));
+                    return _configuration ?? (_configuration = new Configuration(DefaultFilename, CommonTools.ApplicationName));
                 }
             }
         }

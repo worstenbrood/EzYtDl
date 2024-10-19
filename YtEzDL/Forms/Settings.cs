@@ -74,7 +74,7 @@ namespace YtEzDL.Forms
             Configuration.Default.Load();
 
             // Set auto start
-            Tools.SetAutoStart(Configuration.Default.ApplicationSettings.Autostart);
+            CommonTools.SetAutoStart(Configuration.Default.ApplicationSettings.Autostart);
 
             // Close form
             Close();

@@ -11,6 +11,7 @@ using MetroFramework.Controls;
 using YtEzDL.Config;
 using YtEzDL.DownLoad;
 using YtEzDL.Interfaces;
+using YtEzDL.Tools;
 using YtEzDL.Utils;
 
 namespace YtEzDL.UserControls

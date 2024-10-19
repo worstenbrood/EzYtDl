@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace YtEzDL.Utils
 {
@@ -35,7 +35,8 @@ namespace YtEzDL.Utils
             _fileName = filename;
         }
 
-        private Process CreateProcess(IEnumerable<string> parameters, Action<string> data = null, Action<string> error = null, CancellationToken cancellationToken = default)
+        private Process CreateProcess(IEnumerable<string> parameters, Action<string> data = null,
+            Action<string> error = null, CancellationToken cancellationToken = default)
         {
             var arguments = string.Join(" ", parameters);
 #if DEBUG
@@ -85,14 +86,16 @@ namespace YtEzDL.Utils
             return process;
         }
 
-        public Task<int> RunAsync(List<string> parameters, Action<string> outputAction, CancellationToken cancellationToken = default, Action<Process> cancelAction = null, bool handleError = true)
+        public Task<int> RunAsync(List<string> parameters, Action<string> outputAction,
+            CancellationToken cancellationToken = default, Action<Process> cancelAction = null, bool handleError = true)
         {
             Interlocked.Increment(ref _processCount);
 
             try
             {
                 var error = new StringBuilder();
-                using (var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s), cancellationToken))
+                using (var process =
+                       CreateProcess(parameters, outputAction, s => error.AppendLine(s), cancellationToken))
                 {
                     bool exited;
                     do
@@ -140,6 +143,33 @@ namespace YtEzDL.Utils
             finally
             {
                 Interlocked.Decrement(ref _processCount);
+            }
+        }
+
+        public string GetOutput(string parameter = "--version")
+        {
+#if DEBUG
+            var start = DateTime.Now;
+#endif
+            var output = new StringBuilder();
+
+            try
+            {
+                RunAsync(new List<string> { parameter }, s => output.AppendLine(s))
+                    .ConfigureAwait(false)
+                    .GetAwaiter()
+                    .GetResult();
+#if DEBUG
+                Debug.WriteLine("GetOutput({0}): {1}ms", _fileName, (DateTime.Now - start).TotalMilliseconds);
+#endif
+                return output.ToString().TrimEnd('\r', '\n');
+            }
+            catch (ConsoleProcessException e)
+            {
+#if DEBUG
+                Debug.WriteLine("GetOutput({0}): {1}ms", _fileName, (DateTime.Now - start).TotalMilliseconds);
+#endif
+                return e.Message.TrimEnd('\r', '\n');
             }
         }
     }

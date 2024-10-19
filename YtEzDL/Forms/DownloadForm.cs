@@ -12,6 +12,7 @@ using MetroFramework.Forms;
 using YtEzDL.Config;
 using YtEzDL.DownLoad;
 using YtEzDL.Properties;
+using YtEzDL.Tools;
 using YtEzDL.UserControls;
 using YtEzDL.Utils;
 

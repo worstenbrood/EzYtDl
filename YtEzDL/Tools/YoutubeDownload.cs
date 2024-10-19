@@ -1,47 +1,49 @@
 ﻿using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using YtEzDL.Config;
+using YtEzDL.DownLoad;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
 
-namespace YtEzDL.DownLoad
+namespace YtEzDL.Tools
 {
-    public class YoutubeDownload : ConsoleProcess
+    public class YoutubeDownload : ConsoleProcess, ITool
     {
         private const string YoutubeHost = "www.youtube.com";
+        private const string Executable = "yt-dlp.exe";
 
-        private static string _youtubeDlPath;
-        private static string YoutubeDlPath
+        private static string _path;
+        private static string Path
         {
             get
             {
-                if (_youtubeDlPath != null)
-                    return _youtubeDlPath;
+                if (_path != null)
+                    return _path;
 
-                var profilePath = Path.Combine(Tools.EzYtDlProfilePath, Tools.YtDlp);
+                var profilePath = System.IO.Path.Combine(CommonTools.EzYtDlProfilePath, Executable);
                 if (File.Exists(profilePath))
                 {
-                    return _youtubeDlPath = profilePath;
+                    return _path = profilePath;
                 }
 
                 // Copy yt-dlp to profile folder for updating
-                var youtubeDlPath = Path.Combine(Tools.Path, Tools.YtDlp);
-                Directory.CreateDirectory(Tools.EzYtDlProfilePath);
+                var youtubeDlPath = System.IO.Path.Combine(CommonTools.ToolsPath, Executable);
+                Directory.CreateDirectory(CommonTools.EzYtDlProfilePath);
                 File.Copy(youtubeDlPath, profilePath, false);
 
                 // Use profile copy
-                return _youtubeDlPath = profilePath;
+                return _path = profilePath;
             }
         }
 
-        public YoutubeDownload() : base(YoutubeDlPath)
+        public YoutubeDownload() : base(Path)
         {
         }
 
@@ -99,7 +101,7 @@ namespace YtEzDL.DownLoad
         public async Task<YoutubeDownload> DownloadAsync(DownLoadParameters downLoadParameters, string url, string directory, string filename, IProgress progress, CancellationToken cancellationToken = default)
         {
             var parameters = downLoadParameters
-                .FfMpegLocation(Tools.Path)
+                .FfMpegLocation(FfMpeg.Path)
                 .Url(url)
                 .GetParameters();
             
@@ -111,7 +113,8 @@ namespace YtEzDL.DownLoad
                     p.Exited += (sender, args) =>
                     {
                         // Cleanup files
-                        foreach (var file in Directory.EnumerateFiles(directory, $"{Path.GetFileNameWithoutExtension(filename)}.*"))
+                        foreach (var file in Directory.EnumerateFiles(directory, 
+                                     $"{System.IO.Path.GetFileNameWithoutExtension(filename)}.*"))
                         {
                             File.Delete(file);
                         }
@@ -216,10 +219,10 @@ namespace YtEzDL.DownLoad
                 .GetAwaiter()
                 .GetResult();
         }
-
-        public static string GetVersion()
+        
+        public string GetVersion()
         {
-            return Tools.GetFileVersionInfo(YoutubeDlPath).ProductVersion;
+            return CommonTools.GetFileVersionInfo(Path).ProductVersion;
         }
     }
 }

@@ -37,10 +37,10 @@ namespace YtEzDL.Config
 
             if (Path.GetDirectoryName(filename) == string.Empty)
             {
-                var profile = Tools.ProfileFolderCombine(filename);
+                var profile = CommonTools.ProfileFolderCombine(filename);
                 if (!string.IsNullOrEmpty(subfolder))
                 {
-                    var folderName = Tools.ProfileFolderCombine(subfolder);
+                    var folderName = CommonTools.ProfileFolderCombine(subfolder);
                     Directory.CreateDirectory(folderName);
                     var profileFolder = Path.Combine(folderName, filename);
 

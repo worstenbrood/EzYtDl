@@ -132,13 +132,15 @@
     <None Include="Build\PostBuild.cmd" />
     <None Include="Build\PreBuild.cmd" />
     <None Include="Properties\AssemblyInfo.Template.cs" />
+    <Compile Include="Interfaces\ITool.cs" />
+    <Compile Include="Tools\FfMpeg.cs" />
     <Compile Include="UserControls\CustomLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Utils\FormTools.cs" />
-    <Compile Include="Utils\Tools.cs" />
+    <Compile Include="Utils\CommonTools.cs" />
     <Compile Include="Utils\WebPWrapper.cs" />
     <Compile Include="Forms\Settings.cs">
       <SubType>Form</SubType>
@@ -177,7 +179,7 @@
     <Compile Include="Utils\TimedVariable.cs" />
     <Compile Include="Utils\ApplicationContext.cs" />
     <Compile Include="Utils\Win32.cs" />
-    <Compile Include="DownLoad\YoutubeDownload.cs" />
+    <Compile Include="Tools\YoutubeDownload.cs" />
     <EmbeddedResource Include="Forms\DownloadForm.resx">
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>DownloadForm1.Designer.cs</LastGenOutput>
