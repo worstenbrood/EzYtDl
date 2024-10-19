@@ -269,11 +269,10 @@ namespace YtEzDL.Forms
                 Debug.WriteLine("DeleteDirectory: " + ex.Message);
             }
 #else
-                    catch (Exception)
-                    {
-
-                        // Ignore
-                    }
+            catch (Exception)
+            {
+                // Ignore
+            }
 #endif
         }
 
