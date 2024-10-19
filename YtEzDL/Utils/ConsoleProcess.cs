@@ -160,14 +160,14 @@ namespace YtEzDL.Utils
                     .GetAwaiter()
                     .GetResult();
 #if DEBUG
-                Debug.WriteLine("GetOutput({0}): {1}ms", _fileName, (DateTime.Now - start).TotalMilliseconds);
+                Debug.WriteLine("(GetOutput) {0}: {1}ms", _fileName, (DateTime.Now - start).TotalMilliseconds);
 #endif
                 return output.ToString().TrimEnd('\r', '\n');
             }
             catch (ConsoleProcessException e)
             {
 #if DEBUG
-                Debug.WriteLine("GetOutput({0}): {1}ms", _fileName, (DateTime.Now - start).TotalMilliseconds);
+                Debug.WriteLine("(GetOutput) {0}: {1}ms", _fileName, (DateTime.Now - start).TotalMilliseconds);
 #endif
                 return e.Message.TrimEnd('\r', '\n');
             }

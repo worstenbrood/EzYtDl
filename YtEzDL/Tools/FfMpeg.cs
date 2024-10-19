@@ -16,7 +16,7 @@ namespace YtEzDL.Tools
                 if (_path != null)
                     return _path;
 
-                return _path = CommonTools.ProfileFolderCombine(CommonTools.ToolsPath, Executable);
+                return _path = System.IO.Path.Combine(CommonTools.ToolsPath, Executable);
             }
         }
 
