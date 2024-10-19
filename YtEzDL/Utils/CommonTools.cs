@@ -29,6 +29,7 @@ namespace YtEzDL.Utils
         public static string ApplicationName = nameof(YtEzDL);
         public static string ApplicationPath = Assembly.GetExecutingAssembly().Location;
         public static string ApplicationProductVersion = FileVersionInfo.GetVersionInfo(ApplicationPath).ProductVersion;
+        public static string EzYtDlProfilePath = ProfileFolderCombine(ApplicationName);
 
         private static string _toolsPath;
 
@@ -65,9 +66,7 @@ namespace YtEzDL.Utils
 
             return Path.Combine(paths);
         }
-
-        public static string EzYtDlProfilePath = ProfileFolderCombine(ApplicationName);
-
+        
         private const string RunKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
 
         public static void SetAutoStart(bool autostart)
