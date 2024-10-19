@@ -230,7 +230,12 @@ namespace YtEzDL.Forms
             {
                 return path;
             }
-            path = Path.Combine(path, Tracks.First().TrackData.Playlist);
+
+            var folder = Tracks
+                .First().TrackData.Playlist
+                .Normalize()
+                .RemoveInvalidPathChars();
+            path = Path.Combine(path, folder);
             Directory.CreateDirectory(path);
             return path;
         }
@@ -242,7 +247,12 @@ namespace YtEzDL.Forms
                 return;
             }
 
-            var path = Path.Combine(Configuration.Default.FileSettings.Path, Tracks.First().TrackData.Playlist);
+            var folder = Tracks
+                .First().TrackData.Playlist
+                .Normalize()
+                .RemoveInvalidPathChars();
+                
+            var path = Path.Combine(Configuration.Default.FileSettings.Path, folder);
             if (Directory.EnumerateFileSystemEntries(path).Any())
             {
                 return;

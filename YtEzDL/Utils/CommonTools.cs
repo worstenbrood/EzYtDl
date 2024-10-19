@@ -4,6 +4,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using Microsoft.Win32;
 
 namespace YtEzDL.Utils
@@ -92,14 +93,19 @@ namespace YtEzDL.Utils
                 .Aggregate(name, (current, c) => current.Replace(c, replaceChar));
         }
 
-        public static string RemoveInvalidPathChars(string name, char replaceChar = '-')
+        public static string RemoveInvalidPathChars(this string name, char replaceChar = '-')
         {
-            return RemoveInvalidChars(name, Path.GetInvalidPathChars(), replaceChar);
+            return name.RemoveInvalidChars(Path.GetInvalidPathChars(), replaceChar);
         }
 
-        public static string RemoveInvalidFileChars(string name, char replaceChar = '-')
+        public static string RemoveInvalidFileChars(this string name, char replaceChar = '-')
         {
-            return RemoveInvalidChars(name, Path.GetInvalidFileNameChars(), replaceChar);
+            return name.RemoveInvalidChars(Path.GetInvalidFileNameChars(), replaceChar);
+        }
+
+        public static string Normalize(this string s)
+        {
+            return s.Normalize(NormalizationForm.FormC);
         }
     }
 }
