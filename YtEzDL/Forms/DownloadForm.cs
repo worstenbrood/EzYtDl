@@ -436,13 +436,15 @@ namespace YtEzDL.Forms
 
         private void flowLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
         {
-            if (Tracks.Count() == 1)
+            if (Tracks.Count() != 1)
             {
-                // Set foreground window
-                Activate();
-                Show();
-                FocusMe();
+                return;
             }
+
+            // Set foreground window
+            Activate();
+            Show();
+            FocusMe();
         }
 
         private void toolStripButtonAbout_Click(object sender, EventArgs e)
