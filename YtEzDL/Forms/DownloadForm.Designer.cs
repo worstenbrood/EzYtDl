@@ -293,6 +293,7 @@ namespace YtEzDL.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel.AutoScroll = true;
+            this.flowLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel.ImeMode = System.Windows.Forms.ImeMode.On;
             this.flowLayoutPanel.Location = new System.Drawing.Point(9, 99);
