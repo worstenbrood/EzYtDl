@@ -4,7 +4,6 @@ using System.Linq;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 using Microsoft.Win32;
 
 namespace YtEzDL.Utils
@@ -29,7 +28,7 @@ namespace YtEzDL.Utils
 
         public static string ApplicationName = nameof(YtEzDL);
         public static string ApplicationPath = Assembly.GetExecutingAssembly().Location;
-        public static string ApplicationProductVersion = FileVersionInfo.GetVersionInfo(ApplicationPath).ProductVersion;
+        public static string ApplicationProductVersion = GetFileVersionInfo(ApplicationPath).ProductVersion;
         public static string EzYtDlProfilePath = ProfileFolderCombine(ApplicationName);
 
         private static string _toolsPath;

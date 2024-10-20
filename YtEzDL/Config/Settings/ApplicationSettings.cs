@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using YtEzDL.Utils;
 
 namespace YtEzDL.Config.Settings
 {
@@ -10,7 +11,13 @@ namespace YtEzDL.Config.Settings
         public bool Autostart
         {
             get => _autostart;
-            set => _autostart = value;
+            set
+            {
+                _autostart = value;
+                
+                // Set auto start
+                CommonTools.SetAutoStart(value);
+            }
         }
     }
 }
