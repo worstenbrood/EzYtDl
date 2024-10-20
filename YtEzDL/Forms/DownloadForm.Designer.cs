@@ -48,9 +48,9 @@ namespace YtEzDL.Forms
             this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClearCache = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAbout = new System.Windows.Forms.ToolStripButton();
-            this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.flowLayoutPanel = new YtEzDL.UserControls.CustomLayoutPanel();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -256,34 +256,36 @@ namespace YtEzDL.Forms
             this.toolStripButtonAbout.ToolTipText = "About";
             this.toolStripButtonAbout.Click += new System.EventHandler(this.toolStripButtonAbout_Click);
             // 
-            // metroProgressSpinner
-            // 
-            this.metroProgressSpinner.Location = new System.Drawing.Point(5, 30);
-            this.metroProgressSpinner.Margin = new System.Windows.Forms.Padding(0);
-            this.metroProgressSpinner.Maximum = 100;
-            this.metroProgressSpinner.Name = "metroProgressSpinner";
-            this.metroProgressSpinner.Size = new System.Drawing.Size(16, 16);
-            this.metroProgressSpinner.TabIndex = 14;
-            this.metroProgressSpinner.UseSelectable = true;
-            // 
             // statusStrip
             // 
+            this.statusStrip.AutoSize = false;
             this.statusStrip.BackColor = System.Drawing.Color.White;
             this.statusStrip.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel});
-            this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.statusStrip.Location = new System.Drawing.Point(9, 412);
+            this.toolStripStatusLabel,
+            this.toolStripProgressBar});
+            this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.statusStrip.Location = new System.Drawing.Point(9, 390);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(894, 5);
+            this.statusStrip.Size = new System.Drawing.Size(894, 27);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 15;
-            this.statusStrip.Text = "statusStrip1";
             // 
             // toolStripStatusLabel
             // 
+            this.toolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 0);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(131, 22);
+            this.toolStripStatusLabel.Text = "Total: 0 / Selected: 0";
+            // 
+            // toolStripProgressBar
+            // 
+            this.toolStripProgressBar.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.toolStripProgressBar.Size = new System.Drawing.Size(200, 21);
+            this.toolStripProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.toolStripProgressBar.ToolTipText = "Total progress";
             // 
             // flowLayoutPanel
             // 
@@ -309,7 +311,6 @@ namespace YtEzDL.Forms
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(912, 427);
             this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.metroProgressSpinner);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.flowLayoutPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -341,7 +342,6 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripButton toolStripButtonDownload;
         private System.Windows.Forms.ToolStripButton toolStripButtonCancel;
         private System.Windows.Forms.ToolStripButton toolStripButtonClearCache;
-        private MetroProgressSpinner metroProgressSpinner;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripButton toolStripButtonAbout;
@@ -351,5 +351,6 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripMenuItem sortByTitleDescendingItem;
         private System.Windows.Forms.ToolStripMenuItem sortByLengthDescendingItem;
         private System.Windows.Forms.ToolStripMenuItem resetItem;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
     }
 }

@@ -238,8 +238,8 @@ namespace YtEzDL.Forms
                     dropDownButtonSort.Enabled = true;
                     toolStripButtonDownload.Enabled = true;
                     toolStripButtonCancel.Enabled = false;
-                    metroProgressSpinner.Spinning = false;
-                    metroProgressSpinner.Visible = false;
+                    toolStripProgressBar.Style = ProgressBarStyle.Blocks;
+                    toolStripProgressBar.Value = 0;
                     Invalidate(ClientRectangle, false);
                 });
             }
@@ -253,14 +253,13 @@ namespace YtEzDL.Forms
             // Layout
             Icon = Resources.YTIcon;
             Text = SafeString($"Fetching {_url}");
-            metroProgressSpinner.Value = 25;
             flowLayoutPanel.AutoScroll = false;
             flowLayoutPanel.HorizontalScroll.Minimum = int.MaxValue;
             flowLayoutPanel.HorizontalScroll.Maximum = int.MaxValue;
             flowLayoutPanel.HorizontalScroll.Visible = false;
             flowLayoutPanel.HorizontalScroll.Enabled = false;
             flowLayoutPanel.AutoScroll = true;
-            
+           
             // Load data
             Task.Run(LoadData);
         }
