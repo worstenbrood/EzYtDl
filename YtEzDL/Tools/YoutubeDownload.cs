@@ -137,6 +137,7 @@ namespace YtEzDL.Tools
             // Parameters
             var parameters = DownLoadParameters.Create
                 .IgnoreErrors()
+                .FfMpegLocation(FfMpeg.Path)
                 .GetJson();
 
             // Fast fetch "hack", shows less info, loads playlists faster
