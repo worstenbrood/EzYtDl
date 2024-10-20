@@ -320,7 +320,7 @@ namespace YtEzDL.Forms
         private void StartDownloadTasks()
         {
             var path = GetPath();
-            var scheduler = new LimitedConcurrencyLevelTaskScheduler(Configuration.Default.DownloadSettings.DownloadThreads, 
+            var scheduler = new LimitedConcurrencyLevelTaskScheduler(Configuration.Default.DownloadSettings.DownloadThreads,
                 // Increase progress
                 () => ExecuteAsync(f => toolStripProgressBar.Value++));
             var downloadTasks = Tracks
@@ -333,7 +333,12 @@ namespace YtEzDL.Forms
                 })
                 .ToArray();
 
-            Execute(f => toolStripProgressBar.Maximum = downloadTasks.Length);
+            // Set progressbar
+            Execute(f =>
+            {
+                toolStripProgressBar.Value = 0;
+                toolStripProgressBar.Maximum = downloadTasks.Length;
+            });
 
             try
             {
