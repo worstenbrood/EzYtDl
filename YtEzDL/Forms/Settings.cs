@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using MetroFramework.Forms;
+using Newtonsoft.Json.Linq;
 using YtEzDL.Config;
 using YtEzDL.Properties;
 using YtEzDL.Utils;
@@ -72,7 +73,10 @@ namespace YtEzDL.Forms
 
             // Reload default
             Configuration.Default.Load();
-            
+
+            // Apply autostart
+            CommonTools.SetAutoStart(Configuration.Default.ApplicationSettings.Autostart);
+
             // Close form
             Close();
         }
