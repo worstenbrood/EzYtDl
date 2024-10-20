@@ -104,7 +104,7 @@ namespace YtEzDL.Tools
         public async Task<YoutubeDownload> DownloadAsync(DownLoadParameters downLoadParameters, string url, string directory, string filename, IProgress progress, CancellationToken cancellationToken = default)
         {
             var parameters = downLoadParameters
-                .FfMpegLocation(FfMpeg.Path)
+                .FfMpegLocation(CommonTools.ToolsPath)
                 .Url(url)
                 .GetParameters();
             
@@ -140,7 +140,7 @@ namespace YtEzDL.Tools
             // Parameters
             var parameters = DownLoadParameters.Create
                 .IgnoreErrors()
-                .FfMpegLocation(FfMpeg.Path)
+                .FfMpegLocation(CommonTools.ToolsPath)
                 .GetJson();
 
             // Fast fetch "hack", shows less info, loads playlists faster
