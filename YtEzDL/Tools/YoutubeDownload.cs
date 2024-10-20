@@ -16,7 +16,7 @@ namespace YtEzDL.Tools
 {
     public class YoutubeDownload : ConsoleProcess, ITool
     {
-        private const string YoutubeHost = "www.youtube.com";
+        private const string YoutubeHost = "youtube.com";
         private const string Executable = "yt-dlp.exe";
 
         private static string _path;
@@ -54,7 +54,10 @@ namespace YtEzDL.Tools
         {
             Download,
             ExtractAudio,
-            VideoConvertor
+            VideoConvertor,
+            Metadata,
+            ThumbnailsConvertor,
+            EmbedThumbnail
         }
 
         private static void ParseProgress(string data, IProgress progress)
@@ -92,7 +95,7 @@ namespace YtEzDL.Tools
 
                 default:
                     {
-                        progress.FfMpeg(0);
+                        progress.FfMpeg(action, 0);
                         break;
                     }
             }
@@ -144,7 +147,7 @@ namespace YtEzDL.Tools
             if (Configuration.Default.LayoutSettings.YoutubeFastFetch)
             {
                 var uri = new Uri(url);
-                if (uri.Host.Equals(YoutubeHost, StringComparison.OrdinalIgnoreCase))
+                if (uri.Host.IndexOf(YoutubeHost, StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     parameters.FlatPlaylist();
                 }

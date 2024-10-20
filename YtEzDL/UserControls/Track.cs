@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -341,11 +340,36 @@ namespace YtEzDL.UserControls
             });
         }
 
-        public void FfMpeg(double progress)
+        public void FfMpeg(YoutubeDownload.DownloadAction action, double progress)
         {
             SetProperty(c =>
             {
-                metroLabel.Text = "Converting...";
+                var text = "Converting...";
+
+                switch (action)
+                {
+                    case YoutubeDownload.DownloadAction.VideoConvertor:
+                        text = "Converting video...";
+                        break;
+
+                    case YoutubeDownload.DownloadAction.ExtractAudio:
+                        text = "Extracting audio...";
+                        break;
+
+                    case YoutubeDownload.DownloadAction.ThumbnailsConvertor:
+                        text = "Converting thumbnail...";
+                        break;
+
+                    case YoutubeDownload.DownloadAction.EmbedThumbnail:
+                        text = "Embedding thumbnail...";
+                        break;
+
+                    case YoutubeDownload.DownloadAction.Metadata:
+                        text = "Adding metadata ...";
+                        break;
+                }
+
+                metroLabel.Text = text;
                 metroProgressBar.Value = 100;
             });
         }
