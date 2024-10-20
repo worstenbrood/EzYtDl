@@ -228,5 +228,10 @@ namespace YtEzDL.Tools
         {
             return CommonTools.GetFileVersionInfo(Path).ProductVersion;
         }
+
+        public string GetPath()
+        {
+            return Path;
+        }
     }
 }
