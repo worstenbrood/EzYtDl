@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using MetroFramework;
 using MetroFramework.Forms;
 using YtEzDL.Config;
@@ -122,8 +122,31 @@ namespace YtEzDL.Forms
             flowLayoutPanel.ResumeLayout();
         }
 
+        private List<Track> _originalSorting;
+
+        private void ResetTracks()
+        {
+            if (_originalSorting == null)
+            {
+                return;
+            }
+
+            flowLayoutPanel.SuspendLayout();
+            foreach (var track in _originalSorting)
+            {
+                track.SendToBack();
+            }
+
+            flowLayoutPanel.ResumeLayout();
+        }
         private void SortTracks(Func<Track, object> keySelector, bool descending = false)
         {
+            // Save original sorting
+            if (_originalSorting == null)
+            {
+                _originalSorting = Tracks.ToList();
+            }
+
             flowLayoutPanel.SuspendLayout();
             foreach (var track in Tracks.OrderBy(keySelector))
             {
@@ -492,6 +515,11 @@ namespace YtEzDL.Forms
         private void sortByLengthDescendingItem_Click(object sender, EventArgs e)
         {
             SortTracks(t => t.TrackData.Duration, true);
+        }
+
+        private void resetItem_Click(object sender, EventArgs e)
+        {
+            ResetTracks();
         }
     }
 }

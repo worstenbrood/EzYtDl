@@ -43,6 +43,7 @@ namespace YtEzDL.Forms
             this.sortByTitleDescendingItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortByLengthItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortByLengthDescendingItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButtonDownload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClearCache = new System.Windows.Forms.ToolStripButton();
@@ -155,7 +156,8 @@ namespace YtEzDL.Forms
             this.sortByTitleItem,
             this.sortByTitleDescendingItem,
             this.sortByLengthItem,
-            this.sortByLengthDescendingItem});
+            this.sortByLengthDescendingItem,
+            this.resetItem});
             this.dropDownButtonSort.Enabled = false;
             this.dropDownButtonSort.ForeColor = System.Drawing.Color.Black;
             this.dropDownButtonSort.Image = ((System.Drawing.Image)(resources.GetObject("dropDownButtonSort.Image")));
@@ -171,6 +173,7 @@ namespace YtEzDL.Forms
             this.sortByTitleItem.Name = "sortByTitleItem";
             this.sortByTitleItem.Size = new System.Drawing.Size(246, 24);
             this.sortByTitleItem.Text = "Sort by title";
+            this.sortByTitleItem.ToolTipText = "Sort by title";
             this.sortByTitleItem.Click += new System.EventHandler(this.sortByTitleItem_Click);
             // 
             // sortByTitleDescendingItem
@@ -179,6 +182,7 @@ namespace YtEzDL.Forms
             this.sortByTitleDescendingItem.Name = "sortByTitleDescendingItem";
             this.sortByTitleDescendingItem.Size = new System.Drawing.Size(246, 24);
             this.sortByTitleDescendingItem.Text = "Sort by title (Descending)";
+            this.sortByTitleDescendingItem.ToolTipText = "Sort by title, descending";
             this.sortByTitleDescendingItem.Click += new System.EventHandler(this.sortByTitleDescendingItem_Click);
             // 
             // sortByLengthItem
@@ -187,6 +191,7 @@ namespace YtEzDL.Forms
             this.sortByLengthItem.Name = "sortByLengthItem";
             this.sortByLengthItem.Size = new System.Drawing.Size(246, 24);
             this.sortByLengthItem.Text = "Sort by length";
+            this.sortByLengthItem.ToolTipText = "Sort by length";
             this.sortByLengthItem.Click += new System.EventHandler(this.sortByLengthItem_Click);
             // 
             // sortByLengthDescendingItem
@@ -195,7 +200,17 @@ namespace YtEzDL.Forms
             this.sortByLengthDescendingItem.Name = "sortByLengthDescendingItem";
             this.sortByLengthDescendingItem.Size = new System.Drawing.Size(246, 24);
             this.sortByLengthDescendingItem.Text = "Sort by length (Descending)";
+            this.sortByLengthDescendingItem.ToolTipText = "Sort by length, descending";
             this.sortByLengthDescendingItem.Click += new System.EventHandler(this.sortByLengthDescendingItem_Click);
+            // 
+            // resetItem
+            // 
+            this.resetItem.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.resetItem.Name = "resetItem";
+            this.resetItem.Size = new System.Drawing.Size(246, 24);
+            this.resetItem.Text = "Reset";
+            this.resetItem.ToolTipText = "Reset sorting to original";
+            this.resetItem.Click += new System.EventHandler(this.resetItem_Click);
             // 
             // toolStripButtonDownload
             // 
@@ -335,5 +350,6 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripMenuItem sortByLengthItem;
         private System.Windows.Forms.ToolStripMenuItem sortByTitleDescendingItem;
         private System.Windows.Forms.ToolStripMenuItem sortByLengthDescendingItem;
+        private System.Windows.Forms.ToolStripMenuItem resetItem;
     }
 }
