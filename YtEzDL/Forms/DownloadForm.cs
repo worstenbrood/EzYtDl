@@ -121,7 +121,24 @@ namespace YtEzDL.Forms
             }
             flowLayoutPanel.ResumeLayout();
         }
-        
+
+        private void SortTracks(Func<Track, object> keySelector, bool descending = false)
+        {
+            flowLayoutPanel.SuspendLayout();
+            foreach (var track in Tracks.OrderBy(keySelector))
+            {
+                if (descending)
+                {
+                    track.BringToFront();
+                }
+                else
+                {
+                    track.SendToBack();
+                }
+            }
+            flowLayoutPanel.ResumeLayout();
+        }
+
         private void AddControl(TrackData trackData)
         {
             Execute(f =>
@@ -454,6 +471,25 @@ namespace YtEzDL.Forms
                 about.ShowInTaskbar = false;
                 about.ShowDialog(this); 
             }
+        }
+        
+        private void sortByTitleItem_Click(object sender, EventArgs e)
+        {
+            SortTracks(t => t.TrackData.Title);
+        }
+        private void sortByTitleDescendingItem_Click(object sender, EventArgs e)
+        {
+            SortTracks(t => t.TrackData.Title, true);
+        }
+
+        private void sortByLengthItem_Click(object sender, EventArgs e)
+        {
+            SortTracks(t => t.TrackData.Duration);
+        }
+
+        private void sortByLengthDescendingItem_Click(object sender, EventArgs e)
+        {
+            SortTracks(t => t.TrackData.Duration, true);
         }
     }
 }

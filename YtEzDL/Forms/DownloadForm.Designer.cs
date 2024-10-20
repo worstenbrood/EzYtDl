@@ -32,13 +32,15 @@ namespace YtEzDL.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
-            this.flowLayoutPanel = new CustomLayoutPanel();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNone = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonToggle = new System.Windows.Forms.ToolStripButton();
             this.toolStripTextBoxSearch = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButtonReset = new System.Windows.Forms.ToolStripButton();
+            this.dropDownButtonSort = new System.Windows.Forms.ToolStripDropDownButton();
+            this.sortByTitleItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortByLengthItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButtonDownload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClearCache = new System.Windows.Forms.ToolStripButton();
@@ -46,25 +48,12 @@ namespace YtEzDL.Forms
             this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.sortByTitleDescendingItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortByLengthDescendingItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flowLayoutPanel = new YtEzDL.UserControls.CustomLayoutPanel();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // flowLayoutPanel
-            // 
-            this.flowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel.AutoScroll = true;
-            this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(9, 99);
-            this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 288);
-            this.flowLayoutPanel.TabIndex = 12;
-            this.flowLayoutPanel.WrapContents = false;
-            this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.flowLayoutPanel_ControlAdded);
             // 
             // toolStrip
             // 
@@ -79,6 +68,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonToggle,
             this.toolStripTextBoxSearch,
             this.toolStripButtonReset,
+            this.dropDownButtonSort,
             this.toolStripButtonDownload,
             this.toolStripButtonCancel,
             this.toolStripButtonClearCache,
@@ -158,6 +148,38 @@ namespace YtEzDL.Forms
             this.toolStripButtonReset.Text = "Reset filter";
             this.toolStripButtonReset.Click += new System.EventHandler(this.toolStripButtonReset_Click);
             // 
+            // dropDownButtonSort
+            // 
+            this.dropDownButtonSort.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.dropDownButtonSort.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sortByTitleItem,
+            this.sortByTitleDescendingItem,
+            this.sortByLengthItem,
+            this.sortByLengthDescendingItem});
+            this.dropDownButtonSort.ForeColor = System.Drawing.Color.Black;
+            this.dropDownButtonSort.Image = ((System.Drawing.Image)(resources.GetObject("dropDownButtonSort.Image")));
+            this.dropDownButtonSort.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.dropDownButtonSort.Name = "dropDownButtonSort";
+            this.dropDownButtonSort.Size = new System.Drawing.Size(33, 24);
+            this.dropDownButtonSort.Text = "Sort";
+            this.dropDownButtonSort.ToolTipText = "Sort";
+            // 
+            // sortByTitleItem
+            // 
+            this.sortByTitleItem.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.sortByTitleItem.Name = "sortByTitleItem";
+            this.sortByTitleItem.Size = new System.Drawing.Size(246, 24);
+            this.sortByTitleItem.Text = "Sort by title";
+            this.sortByTitleItem.Click += new System.EventHandler(this.sortByTitleItem_Click);
+            // 
+            // sortByLengthItem
+            // 
+            this.sortByLengthItem.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.sortByLengthItem.Name = "sortByLengthItem";
+            this.sortByLengthItem.Size = new System.Drawing.Size(246, 24);
+            this.sortByLengthItem.Text = "Sort by length";
+            this.sortByLengthItem.Click += new System.EventHandler(this.sortByLengthItem_Click);
+            // 
             // toolStripButtonDownload
             // 
             this.toolStripButtonDownload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -231,6 +253,38 @@ namespace YtEzDL.Forms
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 0);
             // 
+            // sortByTitleDescendingItem
+            // 
+            this.sortByTitleDescendingItem.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.sortByTitleDescendingItem.Name = "sortByTitleDescendingItem";
+            this.sortByTitleDescendingItem.Size = new System.Drawing.Size(246, 24);
+            this.sortByTitleDescendingItem.Text = "Sort by title (Descending)";
+            this.sortByTitleDescendingItem.Click += new System.EventHandler(this.sortByTitleDescendingItem_Click);
+            // 
+            // sortByLengthDescendingItem
+            // 
+            this.sortByLengthDescendingItem.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.sortByLengthDescendingItem.Name = "sortByLengthDescendingItem";
+            this.sortByLengthDescendingItem.Size = new System.Drawing.Size(246, 24);
+            this.sortByLengthDescendingItem.Text = "Sort by length (Descending)";
+            this.sortByLengthDescendingItem.Click += new System.EventHandler(this.sortByLengthDescendingItem_Click);
+            // 
+            // flowLayoutPanel
+            // 
+            this.flowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel.AutoScroll = true;
+            this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.flowLayoutPanel.Location = new System.Drawing.Point(9, 99);
+            this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 288);
+            this.flowLayoutPanel.TabIndex = 12;
+            this.flowLayoutPanel.WrapContents = false;
+            this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.flowLayoutPanel_ControlAdded);
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -243,7 +297,6 @@ namespace YtEzDL.Forms
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.flowLayoutPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(1);
             this.MinimumSize = new System.Drawing.Size(909, 400);
             this.Name = "DownloadForm";
@@ -276,5 +329,10 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripButton toolStripButtonAbout;
+        private System.Windows.Forms.ToolStripDropDownButton dropDownButtonSort;
+        private System.Windows.Forms.ToolStripMenuItem sortByTitleItem;
+        private System.Windows.Forms.ToolStripMenuItem sortByLengthItem;
+        private System.Windows.Forms.ToolStripMenuItem sortByTitleDescendingItem;
+        private System.Windows.Forms.ToolStripMenuItem sortByLengthDescendingItem;
     }
 }
