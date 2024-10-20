@@ -205,12 +205,14 @@ namespace YtEzDL.Forms
                             toolStripButtonToggle.Enabled = false;
                             toolStripTextBoxSearch.Enabled = false;
                             toolStripButtonReset.Enabled = false;
+                            dropDownButtonSort.Enabled = false;
                             break;
                         case 0:
                             Close();
                             return;
                     }
-                    
+
+                    dropDownButtonSort.Enabled = true;
                     toolStripButtonDownload.Enabled = true;
                     toolStripButtonCancel.Enabled = false;
                     metroProgressSpinner.Spinning = false;

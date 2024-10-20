@@ -40,7 +40,9 @@ namespace YtEzDL.Forms
             this.toolStripButtonReset = new System.Windows.Forms.ToolStripButton();
             this.dropDownButtonSort = new System.Windows.Forms.ToolStripDropDownButton();
             this.sortByTitleItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortByTitleDescendingItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortByLengthItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortByLengthDescendingItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButtonDownload = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCancel = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonClearCache = new System.Windows.Forms.ToolStripButton();
@@ -48,8 +50,6 @@ namespace YtEzDL.Forms
             this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.sortByTitleDescendingItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sortByLengthDescendingItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel = new YtEzDL.UserControls.CustomLayoutPanel();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -156,6 +156,7 @@ namespace YtEzDL.Forms
             this.sortByTitleDescendingItem,
             this.sortByLengthItem,
             this.sortByLengthDescendingItem});
+            this.dropDownButtonSort.Enabled = false;
             this.dropDownButtonSort.ForeColor = System.Drawing.Color.Black;
             this.dropDownButtonSort.Image = ((System.Drawing.Image)(resources.GetObject("dropDownButtonSort.Image")));
             this.dropDownButtonSort.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -172,6 +173,14 @@ namespace YtEzDL.Forms
             this.sortByTitleItem.Text = "Sort by title";
             this.sortByTitleItem.Click += new System.EventHandler(this.sortByTitleItem_Click);
             // 
+            // sortByTitleDescendingItem
+            // 
+            this.sortByTitleDescendingItem.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.sortByTitleDescendingItem.Name = "sortByTitleDescendingItem";
+            this.sortByTitleDescendingItem.Size = new System.Drawing.Size(246, 24);
+            this.sortByTitleDescendingItem.Text = "Sort by title (Descending)";
+            this.sortByTitleDescendingItem.Click += new System.EventHandler(this.sortByTitleDescendingItem_Click);
+            // 
             // sortByLengthItem
             // 
             this.sortByLengthItem.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -179,6 +188,14 @@ namespace YtEzDL.Forms
             this.sortByLengthItem.Size = new System.Drawing.Size(246, 24);
             this.sortByLengthItem.Text = "Sort by length";
             this.sortByLengthItem.Click += new System.EventHandler(this.sortByLengthItem_Click);
+            // 
+            // sortByLengthDescendingItem
+            // 
+            this.sortByLengthDescendingItem.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.sortByLengthDescendingItem.Name = "sortByLengthDescendingItem";
+            this.sortByLengthDescendingItem.Size = new System.Drawing.Size(246, 24);
+            this.sortByLengthDescendingItem.Text = "Sort by length (Descending)";
+            this.sortByLengthDescendingItem.Click += new System.EventHandler(this.sortByLengthDescendingItem_Click);
             // 
             // toolStripButtonDownload
             // 
@@ -252,22 +269,6 @@ namespace YtEzDL.Forms
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 0);
-            // 
-            // sortByTitleDescendingItem
-            // 
-            this.sortByTitleDescendingItem.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.sortByTitleDescendingItem.Name = "sortByTitleDescendingItem";
-            this.sortByTitleDescendingItem.Size = new System.Drawing.Size(246, 24);
-            this.sortByTitleDescendingItem.Text = "Sort by title (Descending)";
-            this.sortByTitleDescendingItem.Click += new System.EventHandler(this.sortByTitleDescendingItem_Click);
-            // 
-            // sortByLengthDescendingItem
-            // 
-            this.sortByLengthDescendingItem.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.sortByLengthDescendingItem.Name = "sortByLengthDescendingItem";
-            this.sortByLengthDescendingItem.Size = new System.Drawing.Size(246, 24);
-            this.sortByLengthDescendingItem.Text = "Sort by length (Descending)";
-            this.sortByLengthDescendingItem.Click += new System.EventHandler(this.sortByLengthDescendingItem_Click);
             // 
             // flowLayoutPanel
             // 
