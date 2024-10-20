@@ -97,15 +97,5 @@ namespace YtEzDL.Utils
         {
             return name.RemoveInvalidChars(Path.GetInvalidPathChars(), replaceChar);
         }
-
-        public static string RemoveInvalidFileChars(this string name, char replaceChar = '-')
-        {
-            return name.RemoveInvalidChars(Path.GetInvalidFileNameChars(), replaceChar);
-        }
-
-        public static string Normalize(this string s)
-        {
-            return s.Normalize(NormalizationForm.FormC);
-        }
     }
 }

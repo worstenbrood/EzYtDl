@@ -233,7 +233,7 @@ namespace YtEzDL.Forms
 
             var folder = Tracks
                 .First().TrackData.Playlist
-                .Normalize()
+                .Normalize(NormalizationForm.FormC)
                 .RemoveInvalidPathChars();
             path = Path.Combine(path, folder);
             Directory.CreateDirectory(path);
@@ -249,7 +249,7 @@ namespace YtEzDL.Forms
 
             var folder = Tracks
                 .First().TrackData.Playlist
-                .Normalize()
+                .Normalize(NormalizationForm.FormC)
                 .RemoveInvalidPathChars();
                 
             var path = Path.Combine(Configuration.Default.FileSettings.Path, folder);
