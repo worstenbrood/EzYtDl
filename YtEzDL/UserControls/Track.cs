@@ -44,18 +44,16 @@ namespace YtEzDL.UserControls
         public Track()
         {
             InitializeComponent();
-        }
-
-        public Track(TrackData trackData)
-        {
-            // Save json
-            TrackData = trackData ?? throw new ArgumentNullException(nameof(trackData));
-
-            // Init
-            InitializeComponent();
 
             // Select first page
             metroTabControl.SelectedIndex = 0;
+
+            if (!Configuration.Default.LayoutSettings.FetchThumbnail)
+            {
+                pictureBox.Visible = false;
+                pictureBox.Enabled = false;
+                textBoxTitle.Location = pictureBox.Location;
+            }
 
             if (!Configuration.Default.LayoutSettings.PerTrackSettings)
             {
@@ -64,6 +62,12 @@ namespace YtEzDL.UserControls
                 metroTabControl.Controls.Remove(tabPageSettings);
                 tabPageSettings.Dispose();
             }
+        }
+
+        public Track(TrackData trackData) : this()
+        {
+            // Save json
+            TrackData = trackData ?? throw new ArgumentNullException(nameof(trackData));
         }
 
         private void SetProperty(Action<UserControl> action)
