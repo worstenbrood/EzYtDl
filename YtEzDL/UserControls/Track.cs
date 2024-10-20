@@ -57,8 +57,7 @@ namespace YtEzDL.UserControls
 
             if (!Configuration.Default.LayoutSettings.PerTrackSettings)
             {
-                tabPageSettings.Enabled =
-                    tabPageSettings.Visible = Configuration.Default.LayoutSettings.PerTrackSettings;
+                tabPageSettings.Enabled = tabPageSettings.Visible = false;
                 metroTabControl.Controls.Remove(tabPageSettings);
                 tabPageSettings.Dispose();
             }
