@@ -265,9 +265,9 @@ namespace YtEzDL.Forms
             this.toolStripStatusLabel,
             this.toolStripProgressBar});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip.Location = new System.Drawing.Point(9, 390);
+            this.statusStrip.Location = new System.Drawing.Point(9, 392);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(894, 27);
+            this.statusStrip.Size = new System.Drawing.Size(894, 25);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 15;
             // 
