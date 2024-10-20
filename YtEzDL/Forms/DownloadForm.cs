@@ -47,8 +47,18 @@ namespace YtEzDL.Forms
         public DownloadForm(Uri url)
         {
             _url = url;
-            
+
             InitializeComponent();
+
+            // Layout
+            Icon = Resources.YTIcon;
+            Text = SafeString($"Fetching {_url}");
+            flowLayoutPanel.AutoScroll = false;
+            flowLayoutPanel.HorizontalScroll.Minimum = int.MaxValue;
+            flowLayoutPanel.HorizontalScroll.Maximum = int.MaxValue;
+            flowLayoutPanel.HorizontalScroll.Visible = false;
+            flowLayoutPanel.HorizontalScroll.Enabled = false;
+            flowLayoutPanel.AutoScroll = true;
         }
 
         private void ExecuteAsync(Action<Form> action)
@@ -249,16 +259,6 @@ namespace YtEzDL.Forms
         {
             // Base
             base.OnLoad(e);
-
-            // Layout
-            Icon = Resources.YTIcon;
-            Text = SafeString($"Fetching {_url}");
-            flowLayoutPanel.AutoScroll = false;
-            flowLayoutPanel.HorizontalScroll.Minimum = int.MaxValue;
-            flowLayoutPanel.HorizontalScroll.Maximum = int.MaxValue;
-            flowLayoutPanel.HorizontalScroll.Visible = false;
-            flowLayoutPanel.HorizontalScroll.Enabled = false;
-            flowLayoutPanel.AutoScroll = true;
            
             // Load data
             Task.Run(LoadData);
@@ -320,7 +320,9 @@ namespace YtEzDL.Forms
         private void StartDownloadTasks()
         {
             var path = GetPath();
-            var scheduler = new LimitedConcurrencyLevelTaskScheduler(Configuration.Default.DownloadSettings.DownloadThreads);
+            var scheduler = new LimitedConcurrencyLevelTaskScheduler(Configuration.Default.DownloadSettings.DownloadThreads, 
+                // Increase progress
+                () => ExecuteAsync(f => toolStripProgressBar.Value++));
             var downloadTasks = Tracks
                 .Where(t => t.Selected)
                 .Select(t =>
@@ -330,6 +332,8 @@ namespace YtEzDL.Forms
                     return task;
                 })
                 .ToArray();
+
+            Execute(f => toolStripProgressBar.Maximum = downloadTasks.Length);
 
             try
             {
