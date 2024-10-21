@@ -104,10 +104,11 @@
             this.labelPath.AutoSize = true;
             this.labelPath.BackColor = System.Drawing.Color.White;
             this.labelPath.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelPath.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.labelPath.ForeColor = System.Drawing.Color.Black;
             this.labelPath.Location = new System.Drawing.Point(3, 16);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(49, 25);
+            this.labelPath.Size = new System.Drawing.Size(50, 25);
             this.labelPath.TabIndex = 1;
             this.labelPath.Text = "Path:";
             // 
@@ -115,11 +116,10 @@
             // 
             this.checkBoxExtractAudio.AutoSize = true;
             this.checkBoxExtractAudio.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxExtractAudio.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxExtractAudio.ForeColor = System.Drawing.Color.Black;
             this.checkBoxExtractAudio.Location = new System.Drawing.Point(7, 13);
             this.checkBoxExtractAudio.Name = "checkBoxExtractAudio";
-            this.checkBoxExtractAudio.Size = new System.Drawing.Size(126, 25);
+            this.checkBoxExtractAudio.Size = new System.Drawing.Size(130, 25);
             this.checkBoxExtractAudio.TabIndex = 2;
             this.checkBoxExtractAudio.Text = "Extract audio";
             this.checkBoxExtractAudio.UseSelectable = true;
@@ -130,11 +130,10 @@
             this.checkBoxCreatePlaylistFolder.AutoSize = true;
             this.checkBoxCreatePlaylistFolder.BackColor = System.Drawing.Color.White;
             this.checkBoxCreatePlaylistFolder.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxCreatePlaylistFolder.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxCreatePlaylistFolder.ForeColor = System.Drawing.Color.Black;
             this.checkBoxCreatePlaylistFolder.Location = new System.Drawing.Point(8, 58);
             this.checkBoxCreatePlaylistFolder.Name = "checkBoxCreatePlaylistFolder";
-            this.checkBoxCreatePlaylistFolder.Size = new System.Drawing.Size(182, 25);
+            this.checkBoxCreatePlaylistFolder.Size = new System.Drawing.Size(190, 25);
             this.checkBoxCreatePlaylistFolder.TabIndex = 3;
             this.checkBoxCreatePlaylistFolder.Text = "Create playlist folder";
             this.checkBoxCreatePlaylistFolder.UseSelectable = true;
@@ -143,10 +142,9 @@
             // 
             this.checkBoxAddMetadata.AutoSize = true;
             this.checkBoxAddMetadata.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxAddMetadata.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxAddMetadata.Location = new System.Drawing.Point(7, 44);
             this.checkBoxAddMetadata.Name = "checkBoxAddMetadata";
-            this.checkBoxAddMetadata.Size = new System.Drawing.Size(135, 25);
+            this.checkBoxAddMetadata.Size = new System.Drawing.Size(142, 25);
             this.checkBoxAddMetadata.TabIndex = 4;
             this.checkBoxAddMetadata.Text = "Add metadata";
             this.checkBoxAddMetadata.UseSelectable = true;
@@ -155,10 +153,9 @@
             // 
             this.checkBoxEmbedThumbnail.AutoSize = true;
             this.checkBoxEmbedThumbnail.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxEmbedThumbnail.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxEmbedThumbnail.Location = new System.Drawing.Point(7, 75);
             this.checkBoxEmbedThumbnail.Name = "checkBoxEmbedThumbnail";
-            this.checkBoxEmbedThumbnail.Size = new System.Drawing.Size(163, 25);
+            this.checkBoxEmbedThumbnail.Size = new System.Drawing.Size(169, 25);
             this.checkBoxEmbedThumbnail.TabIndex = 5;
             this.checkBoxEmbedThumbnail.Text = "Embed thumbnail";
             this.checkBoxEmbedThumbnail.UseSelectable = true;
@@ -180,9 +177,10 @@
             // 
             this.labelAudioFormat.AutoSize = true;
             this.labelAudioFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelAudioFormat.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.labelAudioFormat.Location = new System.Drawing.Point(196, 16);
             this.labelAudioFormat.Name = "labelAudioFormat";
-            this.labelAudioFormat.Size = new System.Drawing.Size(116, 25);
+            this.labelAudioFormat.Size = new System.Drawing.Size(123, 25);
             this.labelAudioFormat.TabIndex = 7;
             this.labelAudioFormat.Text = "Audio format:";
             // 
@@ -190,9 +188,10 @@
             // 
             this.labelAudioQuality.AutoSize = true;
             this.labelAudioQuality.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelAudioQuality.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.labelAudioQuality.Location = new System.Drawing.Point(196, 50);
             this.labelAudioQuality.Name = "labelAudioQuality";
-            this.labelAudioQuality.Size = new System.Drawing.Size(116, 25);
+            this.labelAudioQuality.Size = new System.Drawing.Size(122, 25);
             this.labelAudioQuality.TabIndex = 9;
             this.labelAudioQuality.Text = "Audio quality:";
             // 
@@ -213,9 +212,10 @@
             // 
             this.labelVideoFormat.AutoSize = true;
             this.labelVideoFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelVideoFormat.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.labelVideoFormat.Location = new System.Drawing.Point(196, 84);
             this.labelVideoFormat.Name = "labelVideoFormat";
-            this.labelVideoFormat.Size = new System.Drawing.Size(115, 25);
+            this.labelVideoFormat.Size = new System.Drawing.Size(121, 25);
             this.labelVideoFormat.TabIndex = 11;
             this.labelVideoFormat.Text = "Video format:";
             // 
@@ -236,10 +236,9 @@
             // 
             this.checkBoxFetchThumbnail.AutoSize = true;
             this.checkBoxFetchThumbnail.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxFetchThumbnail.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxFetchThumbnail.Location = new System.Drawing.Point(7, 13);
             this.checkBoxFetchThumbnail.Name = "checkBoxFetchThumbnail";
-            this.checkBoxFetchThumbnail.Size = new System.Drawing.Size(150, 25);
+            this.checkBoxFetchThumbnail.Size = new System.Drawing.Size(155, 25);
             this.checkBoxFetchThumbnail.TabIndex = 12;
             this.checkBoxFetchThumbnail.Text = "Fetch thumbnail";
             this.checkBoxFetchThumbnail.UseSelectable = true;
@@ -249,10 +248,9 @@
             // 
             this.checkBoxFetchBestThumbnail.AutoSize = true;
             this.checkBoxFetchBestThumbnail.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxFetchBestThumbnail.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxFetchBestThumbnail.Location = new System.Drawing.Point(7, 44);
             this.checkBoxFetchBestThumbnail.Name = "checkBoxFetchBestThumbnail";
-            this.checkBoxFetchBestThumbnail.Size = new System.Drawing.Size(186, 25);
+            this.checkBoxFetchBestThumbnail.Size = new System.Drawing.Size(194, 25);
             this.checkBoxFetchBestThumbnail.TabIndex = 13;
             this.checkBoxFetchBestThumbnail.Text = "Fetch best thumbnail";
             this.checkBoxFetchBestThumbnail.UseSelectable = true;
@@ -261,10 +259,9 @@
             // 
             this.checkBoxAutoSelect.AutoSize = true;
             this.checkBoxAutoSelect.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxAutoSelect.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxAutoSelect.Location = new System.Drawing.Point(7, 75);
             this.checkBoxAutoSelect.Name = "checkBoxAutoSelect";
-            this.checkBoxAutoSelect.Size = new System.Drawing.Size(111, 25);
+            this.checkBoxAutoSelect.Size = new System.Drawing.Size(116, 25);
             this.checkBoxAutoSelect.TabIndex = 14;
             this.checkBoxAutoSelect.Text = "Auto select";
             this.checkBoxAutoSelect.UseSelectable = true;
@@ -297,9 +294,10 @@
             // 
             this.labelThreads.AutoSize = true;
             this.labelThreads.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelThreads.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.labelThreads.Location = new System.Drawing.Point(196, 118);
             this.labelThreads.Name = "labelThreads";
-            this.labelThreads.Size = new System.Drawing.Size(76, 25);
+            this.labelThreads.Size = new System.Drawing.Size(78, 25);
             this.labelThreads.TabIndex = 18;
             this.labelThreads.Text = "Threads:";
             // 
@@ -320,10 +318,9 @@
             // 
             this.checkBoxPerTrackSettings.AutoSize = true;
             this.checkBoxPerTrackSettings.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxPerTrackSettings.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxPerTrackSettings.Location = new System.Drawing.Point(7, 106);
             this.checkBoxPerTrackSettings.Name = "checkBoxPerTrackSettings";
-            this.checkBoxPerTrackSettings.Size = new System.Drawing.Size(155, 25);
+            this.checkBoxPerTrackSettings.Size = new System.Drawing.Size(162, 25);
             this.checkBoxPerTrackSettings.TabIndex = 19;
             this.checkBoxPerTrackSettings.Text = "Per track settings";
             this.checkBoxPerTrackSettings.UseSelectable = true;
@@ -335,6 +332,7 @@
             this.tabControl.Controls.Add(this.tabPageLayoutSettings);
             this.tabControl.Controls.Add(this.tabPageApplication);
             this.tabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
+            this.tabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular;
             this.tabControl.Location = new System.Drawing.Point(23, 63);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 2;
@@ -415,9 +413,10 @@
             // 
             this.labelColorStyle.AutoSize = true;
             this.labelColorStyle.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelColorStyle.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.labelColorStyle.Location = new System.Drawing.Point(222, 16);
             this.labelColorStyle.Name = "labelColorStyle";
-            this.labelColorStyle.Size = new System.Drawing.Size(95, 25);
+            this.labelColorStyle.Size = new System.Drawing.Size(100, 25);
             this.labelColorStyle.TabIndex = 22;
             this.labelColorStyle.Text = "Color style:";
             // 
@@ -439,10 +438,9 @@
             // 
             this.checkBoxYoutubeFastFetch.AutoSize = true;
             this.checkBoxYoutubeFastFetch.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxYoutubeFastFetch.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxYoutubeFastFetch.Location = new System.Drawing.Point(7, 137);
             this.checkBoxYoutubeFastFetch.Name = "checkBoxYoutubeFastFetch";
-            this.checkBoxYoutubeFastFetch.Size = new System.Drawing.Size(164, 25);
+            this.checkBoxYoutubeFastFetch.Size = new System.Drawing.Size(171, 25);
             this.checkBoxYoutubeFastFetch.TabIndex = 20;
             this.checkBoxYoutubeFastFetch.Text = "Youtube fast fetch";
             this.checkBoxYoutubeFastFetch.UseSelectable = true;
@@ -468,10 +466,9 @@
             // 
             this.checkBoxAutostart.AutoSize = true;
             this.checkBoxAutostart.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxAutostart.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxAutostart.Location = new System.Drawing.Point(7, 13);
             this.checkBoxAutostart.Name = "checkBoxAutostart";
-            this.checkBoxAutostart.Size = new System.Drawing.Size(97, 25);
+            this.checkBoxAutostart.Size = new System.Drawing.Size(102, 25);
             this.checkBoxAutostart.TabIndex = 13;
             this.checkBoxAutostart.Text = "Autostart";
             this.checkBoxAutostart.UseSelectable = true;

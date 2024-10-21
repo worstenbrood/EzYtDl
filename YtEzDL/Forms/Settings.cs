@@ -15,14 +15,14 @@ namespace YtEzDL.Forms
         public Settings()
         {
             InitializeComponent();
-
+            // Set style manager
+            AppStyle.SetManager(this);
+            AppStyle.Manager.Update();
+            
             Icon = Resources.YTIcon;
 
             // Select first page
-            tabControl.SelectedIndex = 0;
-
-            // Set style manager
-            AppStyle.SetManager(this);
+            tabControl.SelectedIndex = 0;         
         }
 
         protected override void OnLoad(EventArgs e)
