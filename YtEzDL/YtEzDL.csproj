@@ -181,9 +181,6 @@
     <Compile Include="Utils\ApplicationContext.cs" />
     <Compile Include="Utils\Win32.cs" />
     <Compile Include="Tools\YoutubeDownload.cs" />
-    <EmbeddedResource Include="Forms\About.resx">
-      <DependentUpon>About.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DownloadForm.resx">
       <Generator>ResXFileCodeGeneratorEx</Generator>
       <LastGenOutput>DownloadForm1.Designer.cs</LastGenOutput>
