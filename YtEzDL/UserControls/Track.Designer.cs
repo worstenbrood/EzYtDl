@@ -66,6 +66,7 @@
             this.metroTabControl.Controls.Add(this.tabPageInfo);
             this.metroTabControl.Controls.Add(this.tabPageSettings);
             this.metroTabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
+            this.metroTabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular;
             this.metroTabControl.Location = new System.Drawing.Point(3, 3);
             this.metroTabControl.Name = "metroTabControl";
             this.metroTabControl.SelectedIndex = 0;
@@ -147,10 +148,11 @@
             // 
             this.labelVideoFormat.AutoSize = true;
             this.labelVideoFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelVideoFormat.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.labelVideoFormat.ForeColor = System.Drawing.Color.Black;
             this.labelVideoFormat.Location = new System.Drawing.Point(4, 114);
             this.labelVideoFormat.Name = "labelVideoFormat";
-            this.labelVideoFormat.Size = new System.Drawing.Size(115, 25);
+            this.labelVideoFormat.Size = new System.Drawing.Size(121, 25);
             this.labelVideoFormat.TabIndex = 8;
             this.labelVideoFormat.Text = "Video format:";
             // 
@@ -161,7 +163,7 @@
             this.comboBoxVideoFormat.ForeColor = System.Drawing.Color.Black;
             this.comboBoxVideoFormat.FormattingEnabled = true;
             this.comboBoxVideoFormat.ItemHeight = 29;
-            this.comboBoxVideoFormat.Location = new System.Drawing.Point(125, 110);
+            this.comboBoxVideoFormat.Location = new System.Drawing.Point(127, 110);
             this.comboBoxVideoFormat.Name = "comboBoxVideoFormat";
             this.comboBoxVideoFormat.Size = new System.Drawing.Size(121, 35);
             this.comboBoxVideoFormat.TabIndex = 7;
@@ -171,10 +173,11 @@
             // 
             this.labelAudioQuality.AutoSize = true;
             this.labelAudioQuality.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelAudioQuality.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.labelAudioQuality.ForeColor = System.Drawing.Color.Black;
             this.labelAudioQuality.Location = new System.Drawing.Point(4, 80);
             this.labelAudioQuality.Name = "labelAudioQuality";
-            this.labelAudioQuality.Size = new System.Drawing.Size(116, 25);
+            this.labelAudioQuality.Size = new System.Drawing.Size(122, 25);
             this.labelAudioQuality.TabIndex = 6;
             this.labelAudioQuality.Text = "Audio quality:";
             // 
@@ -185,7 +188,7 @@
             this.comboBoxAudioQuality.ForeColor = System.Drawing.Color.Black;
             this.comboBoxAudioQuality.FormattingEnabled = true;
             this.comboBoxAudioQuality.ItemHeight = 29;
-            this.comboBoxAudioQuality.Location = new System.Drawing.Point(125, 76);
+            this.comboBoxAudioQuality.Location = new System.Drawing.Point(127, 76);
             this.comboBoxAudioQuality.Name = "comboBoxAudioQuality";
             this.comboBoxAudioQuality.Size = new System.Drawing.Size(121, 35);
             this.comboBoxAudioQuality.TabIndex = 5;
@@ -195,10 +198,11 @@
             // 
             this.labelAudioFormat.AutoSize = true;
             this.labelAudioFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelAudioFormat.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.labelAudioFormat.ForeColor = System.Drawing.Color.Black;
             this.labelAudioFormat.Location = new System.Drawing.Point(4, 45);
             this.labelAudioFormat.Name = "labelAudioFormat";
-            this.labelAudioFormat.Size = new System.Drawing.Size(116, 25);
+            this.labelAudioFormat.Size = new System.Drawing.Size(123, 25);
             this.labelAudioFormat.TabIndex = 4;
             this.labelAudioFormat.Text = "Audio format:";
             // 
@@ -209,7 +213,7 @@
             this.comboBoxAudioFormat.ForeColor = System.Drawing.Color.Black;
             this.comboBoxAudioFormat.FormattingEnabled = true;
             this.comboBoxAudioFormat.ItemHeight = 29;
-            this.comboBoxAudioFormat.Location = new System.Drawing.Point(125, 42);
+            this.comboBoxAudioFormat.Location = new System.Drawing.Point(127, 42);
             this.comboBoxAudioFormat.Name = "comboBoxAudioFormat";
             this.comboBoxAudioFormat.Size = new System.Drawing.Size(121, 35);
             this.comboBoxAudioFormat.TabIndex = 3;
@@ -219,11 +223,10 @@
             // 
             this.checkBoxExtractAudio.AutoSize = true;
             this.checkBoxExtractAudio.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxExtractAudio.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxExtractAudio.ForeColor = System.Drawing.Color.Black;
             this.checkBoxExtractAudio.Location = new System.Drawing.Point(3, 14);
             this.checkBoxExtractAudio.Name = "checkBoxExtractAudio";
-            this.checkBoxExtractAudio.Size = new System.Drawing.Size(126, 25);
+            this.checkBoxExtractAudio.Size = new System.Drawing.Size(130, 25);
             this.checkBoxExtractAudio.TabIndex = 2;
             this.checkBoxExtractAudio.Text = "Extract audio";
             this.checkBoxExtractAudio.UseSelectable = true;
