@@ -30,9 +30,9 @@ namespace YtEzDL.Utils
             c.DataBindings.Add(nameof(ComboBox.SelectedItem), data, CommonTools.GetMemberName(property), false, updateMode);
         }
 
-        public static int GetTextHeight(this Control tBox)
+        public static int GetTextHeight(this Control c)
         {
-            return TextRenderer.MeasureText(tBox.Text, tBox.Font, tBox.ClientSize,
+            return TextRenderer.MeasureText(c.Text, c.Font, c.ClientSize,
                 TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl).Height;
         }
     }
