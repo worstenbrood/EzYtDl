@@ -312,7 +312,7 @@ namespace YtEzDL.UserControls
             // Draw selection border
             if (_selected)
             {
-                var color = Color.FromName(Configuration.Default.LayoutSettings.ColorStyle.ToString());
+                var color = FormTools.ColorMapping[Configuration.Default.LayoutSettings.ColorStyle.ToString()];
                 using (var pen = new Pen(color, Configuration.Default.LayoutSettings.SelectionWidth))
                 {
                     e.Graphics.DrawRectangle(pen, ClientRectangle);

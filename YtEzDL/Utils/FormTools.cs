@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MetroFramework;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Reflection;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Forms;
@@ -13,7 +16,7 @@ namespace YtEzDL.Utils
             c.DataBindings.Add(nameof(CheckBox.Checked), data, CommonTools.GetMemberName(property), false, updateMode);
         }
 
-        public static void AddEnumBinding<TEnum,T>(this ComboBox c, T data, Expression<Func<T, TEnum>> property, DataSourceUpdateMode updateMode = DataSourceUpdateMode.OnPropertyChanged)
+        public static void AddEnumBinding<TEnum, T>(this ComboBox c, T data, Expression<Func<T, TEnum>> property, DataSourceUpdateMode updateMode = DataSourceUpdateMode.OnPropertyChanged)
             where TEnum : struct, Enum
         {
             c.DataSource = Enum.GetValues(typeof(TEnum));
@@ -48,5 +51,24 @@ namespace YtEzDL.Utils
             return TextRenderer.MeasureText(c.Text, c.Font, c.ClientSize,
                 TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl).Height;
         }
+
+        public static Dictionary<string, Color> ColorMapping =
+            new Dictionary<string, Color>(StringComparer.OrdinalIgnoreCase)
+            {
+                {"Black", MetroColors.Black},
+                {"White", MetroColors.White},
+                {"Silver", MetroColors.Silver},
+                {"Blue", MetroColors.Blue},
+                {"Green", MetroColors.Green},
+                {"Lime", MetroColors.Lime},
+                {"Teal", MetroColors.Teal},
+                {"Orange", MetroColors.Orange},
+                {"Brown", MetroColors.Brown},
+                {"Pink", MetroColors.Pink},
+                {"Magenta", MetroColors.Magenta},
+                {"Purple", MetroColors.Purple},
+                {"Red", MetroColors.Red},
+                {"Yellow", MetroColors.Orange}
+            };
     }
 }
