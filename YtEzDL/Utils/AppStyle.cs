@@ -1,6 +1,8 @@
 ﻿using MetroFramework;
 using MetroFramework.Components;
+using MetroFramework.Forms;
 using MetroFramework.Interfaces;
+using System.Linq;
 using System.Windows.Forms;
 using YtEzDL.Config;
 
@@ -55,6 +57,15 @@ namespace YtEzDL.Utils
         {
             Manager.Style = style;
             Manager.Update();
+        }
+
+        public static void RefreshActiveForms()
+        {
+            // Refresh style
+            foreach (var form in Application.OpenForms.OfType<MetroForm>())
+            {
+                form.BeginInvoke(new MethodInvoker(() => form.Refresh()));
+            }
         }
     }
 }

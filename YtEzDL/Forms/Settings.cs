@@ -82,6 +82,8 @@ namespace YtEzDL.Forms
             // Apply autostart
             CommonTools.SetAutoStart(Configuration.Default.ApplicationSettings.Autostart);
 
+            AppStyle.RefreshActiveForms();
+
             // Close form
             Close();
         }
