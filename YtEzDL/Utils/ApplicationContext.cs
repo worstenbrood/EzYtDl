@@ -1,6 +1,4 @@
-﻿using MetroFramework.Controls;
-using MetroFramework.Forms;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +7,7 @@ using YtEzDL.DownLoad;
 using YtEzDL.Properties;
 using YtEzDL.Tools;
 using YtEzDL.UserControls;
+using MetroFramework.Controls;
 
 namespace YtEzDL.Utils
 {
