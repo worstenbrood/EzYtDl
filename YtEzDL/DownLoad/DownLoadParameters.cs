@@ -17,6 +17,7 @@
         Best = 0,
         Medium = 1,
         Worst = 9,
+        Cbr128 = 128,
         Cbr192 = 192,
         Cbr256 = 256,
         Cbr320 = 320
