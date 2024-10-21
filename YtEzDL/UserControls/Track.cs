@@ -44,6 +44,9 @@ namespace YtEzDL.UserControls
         {
             InitializeComponent();
 
+            // Set style manager
+            AppStyle.SetManager(this);
+
             // Select first page
             metroTabControl.SelectedIndex = 0;
 
@@ -309,7 +312,8 @@ namespace YtEzDL.UserControls
             // Draw selection border
             if (_selected)
             {
-                using (var pen = new Pen(Configuration.Default.LayoutSettings.SelectionColor, Configuration.Default.LayoutSettings.SelectionWidth))
+                var color = Color.FromName(Configuration.Default.LayoutSettings.ColorStyle.ToString());
+                using (var pen = new Pen(color, Configuration.Default.LayoutSettings.SelectionWidth))
                 {
                     e.Graphics.DrawRectangle(pen, ClientRectangle);
                 }

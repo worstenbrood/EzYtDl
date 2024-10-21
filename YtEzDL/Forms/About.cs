@@ -14,8 +14,11 @@ namespace YtEzDL.Forms
         public About()
         {
             InitializeComponent();
-            textBoxAbout.Font = MetroFonts.Default(16);
             Icon = Resources.YTIcon;
+            textBoxAbout.Font = MetroFonts.Default(16);
+
+            // Set style manager
+            AppStyle.SetManager(this);
         }
 
         protected override void OnLoad(EventArgs e)

@@ -68,5 +68,14 @@ namespace YtEzDL.Config.Settings
             get => _youtubeFastFetch;
             set => _youtubeFastFetch = value;
         }
+
+        private volatile MetroColorStyle _colorStyle = MetroColorStyle.Blue;
+
+        [JsonProperty(PropertyName = "colorStyle")]
+        public MetroColorStyle ColorStyle
+        {
+            get => _colorStyle;
+            set => _colorStyle = value;
+        }
     }
 }

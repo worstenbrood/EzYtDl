@@ -59,6 +59,9 @@ namespace YtEzDL.Forms
             flowLayoutPanel.HorizontalScroll.Visible = false;
             flowLayoutPanel.HorizontalScroll.Enabled = false;
             flowLayoutPanel.AutoScroll = true;
+
+            // Set style manager
+            AppStyle.SetManager(this);
         }
 
         private void ExecuteAsync(Action<Form> action)

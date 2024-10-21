@@ -69,6 +69,8 @@ namespace YtEzDL.Forms
             this.textBoxAbout.ShortcutsEnabled = true;
             this.textBoxAbout.Size = new System.Drawing.Size(716, 241);
             this.textBoxAbout.TabIndex = 0;
+            this.textBoxAbout.UseSelectable = true;
+            this.textBoxAbout.UseStyleColors = true;
             this.textBoxAbout.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.textBoxAbout.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.textBoxAbout.TextChanged += new System.EventHandler(this.textBoxAbout_TextChanged);

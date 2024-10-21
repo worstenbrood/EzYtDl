@@ -275,7 +275,7 @@ namespace YtEzDL.Forms
             // 
             this.toolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(131, 22);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(131, 20);
             this.toolStripStatusLabel.Text = "Total: 0 / Selected: 0";
             // 
             // toolStripProgressBar
@@ -283,7 +283,7 @@ namespace YtEzDL.Forms
             this.toolStripProgressBar.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripProgressBar.Name = "toolStripProgressBar";
             this.toolStripProgressBar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.toolStripProgressBar.Size = new System.Drawing.Size(200, 21);
+            this.toolStripProgressBar.Size = new System.Drawing.Size(200, 19);
             this.toolStripProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.toolStripProgressBar.ToolTipText = "Total progress";
             // 
@@ -293,7 +293,6 @@ namespace YtEzDL.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel.AutoScroll = true;
-            this.flowLayoutPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel.ImeMode = System.Windows.Forms.ImeMode.On;
             this.flowLayoutPanel.Location = new System.Drawing.Point(9, 99);

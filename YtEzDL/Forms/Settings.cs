@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using MetroFramework;
 using MetroFramework.Forms;
-using Newtonsoft.Json.Linq;
 using YtEzDL.Config;
 using YtEzDL.Properties;
 using YtEzDL.Utils;
@@ -20,6 +20,9 @@ namespace YtEzDL.Forms
 
             // Select first page
             tabControl.SelectedIndex = 0;
+
+            // Set style manager
+            AppStyle.SetManager(this);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -45,6 +48,7 @@ namespace YtEzDL.Forms
             checkBoxPerTrackSettings.AddCheckedBinding(_configuration.LayoutSettings, p => p.PerTrackSettings);
             checkBoxAutostart.AddCheckedBinding(_configuration.ApplicationSettings, p => p.Autostart);
             checkBoxYoutubeFastFetch.AddCheckedBinding(_configuration.LayoutSettings, p => p.YoutubeFastFetch);
+            comboBoxColorStyle.AddEnumBinding(_configuration.LayoutSettings, p => p.ColorStyle);
 
             // Path selector
             textBoxPath.CustomButton.Click += (sender, args) =>
@@ -91,6 +95,13 @@ namespace YtEzDL.Forms
         private void checkBoxFetchThumbnail_CheckedChanged(object sender, EventArgs e)
         {
             checkBoxFetchBestThumbnail.Enabled = checkBoxFetchThumbnail.Checked;
+        }
+
+        private void comboBoxColorStyle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Change style
+            AppStyle.SetStyle((MetroColorStyle)comboBoxColorStyle.SelectedItem);
+            Refresh();
         }
     }
 }
