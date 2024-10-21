@@ -49,6 +49,7 @@ namespace YtEzDL.Forms
             checkBoxAutostart.AddCheckedBinding(_configuration.ApplicationSettings, p => p.Autostart);
             checkBoxYoutubeFastFetch.AddCheckedBinding(_configuration.LayoutSettings, p => p.YoutubeFastFetch);
             comboBoxColorStyle.AddEnumBinding(_configuration.LayoutSettings, p => p.ColorStyle);
+            comboBoxSelectionWidth.AddRangeBinding(_configuration.LayoutSettings, p => p.SelectionWidth, 1, 10);
 
             // Path selector
             textBoxPath.CustomButton.Click += (sender, args) =>

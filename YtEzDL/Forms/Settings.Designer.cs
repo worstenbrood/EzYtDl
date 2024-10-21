@@ -52,6 +52,8 @@
             this.tabPageFileSettings = new MetroFramework.Controls.MetroTabPage();
             this.tabPageDownloadSettings = new MetroFramework.Controls.MetroTabPage();
             this.tabPageLayoutSettings = new MetroFramework.Controls.MetroTabPage();
+            this.labelSelectionWidth = new MetroFramework.Controls.MetroLabel();
+            this.comboBoxSelectionWidth = new MetroFramework.Controls.MetroComboBox();
             this.labelColorStyle = new MetroFramework.Controls.MetroLabel();
             this.comboBoxColorStyle = new MetroFramework.Controls.MetroComboBox();
             this.checkBoxYoutubeFastFetch = new MetroFramework.Controls.MetroCheckBox();
@@ -389,6 +391,8 @@
             // tabPageLayoutSettings
             // 
             this.tabPageLayoutSettings.BackColor = System.Drawing.Color.White;
+            this.tabPageLayoutSettings.Controls.Add(this.labelSelectionWidth);
+            this.tabPageLayoutSettings.Controls.Add(this.comboBoxSelectionWidth);
             this.tabPageLayoutSettings.Controls.Add(this.labelColorStyle);
             this.tabPageLayoutSettings.Controls.Add(this.comboBoxColorStyle);
             this.tabPageLayoutSettings.Controls.Add(this.checkBoxYoutubeFastFetch);
@@ -409,6 +413,30 @@
             this.tabPageLayoutSettings.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageLayoutSettings.VerticalScrollbarSize = 10;
             // 
+            // labelSelectionWidth
+            // 
+            this.labelSelectionWidth.AutoSize = true;
+            this.labelSelectionWidth.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelSelectionWidth.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.labelSelectionWidth.Location = new System.Drawing.Point(222, 50);
+            this.labelSelectionWidth.Name = "labelSelectionWidth";
+            this.labelSelectionWidth.Size = new System.Drawing.Size(136, 25);
+            this.labelSelectionWidth.TabIndex = 24;
+            this.labelSelectionWidth.Text = "Selection width:";
+            // 
+            // comboBoxSelectionWidth
+            // 
+            this.comboBoxSelectionWidth.BackColor = System.Drawing.Color.White;
+            this.comboBoxSelectionWidth.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxSelectionWidth.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxSelectionWidth.FormattingEnabled = true;
+            this.comboBoxSelectionWidth.ItemHeight = 29;
+            this.comboBoxSelectionWidth.Location = new System.Drawing.Point(359, 47);
+            this.comboBoxSelectionWidth.Name = "comboBoxSelectionWidth";
+            this.comboBoxSelectionWidth.Size = new System.Drawing.Size(121, 35);
+            this.comboBoxSelectionWidth.TabIndex = 23;
+            this.comboBoxSelectionWidth.UseSelectable = true;
+            // 
             // labelColorStyle
             // 
             this.labelColorStyle.AutoSize = true;
@@ -427,7 +455,7 @@
             this.comboBoxColorStyle.ForeColor = System.Drawing.Color.Black;
             this.comboBoxColorStyle.FormattingEnabled = true;
             this.comboBoxColorStyle.ItemHeight = 29;
-            this.comboBoxColorStyle.Location = new System.Drawing.Point(344, 13);
+            this.comboBoxColorStyle.Location = new System.Drawing.Point(359, 13);
             this.comboBoxColorStyle.Name = "comboBoxColorStyle";
             this.comboBoxColorStyle.Size = new System.Drawing.Size(121, 35);
             this.comboBoxColorStyle.TabIndex = 21;
@@ -528,5 +556,7 @@
         private MetroFramework.Controls.MetroCheckBox checkBoxYoutubeFastFetch;
         private MetroFramework.Controls.MetroComboBox comboBoxColorStyle;
         private MetroFramework.Controls.MetroLabel labelColorStyle;
+        private MetroFramework.Controls.MetroLabel labelSelectionWidth;
+        private MetroFramework.Controls.MetroComboBox comboBoxSelectionWidth;
     }
 }

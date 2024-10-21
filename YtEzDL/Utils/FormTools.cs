@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Forms;
@@ -26,7 +27,19 @@ namespace YtEzDL.Utils
 
         public static void AddRangeBinding<T>(this ComboBox c, T data, Expression<Func<T, int>> property, int start, int count, DataSourceUpdateMode updateMode = DataSourceUpdateMode.OnPropertyChanged)
         {
-            c.DataSource = Enumerable.Range(1, Environment.ProcessorCount).ToArray();
+            c.DataSource = Enumerable.Range(start, count).ToArray();
+            c.DataBindings.Add(nameof(ComboBox.SelectedItem), data, CommonTools.GetMemberName(property), false, updateMode);
+        }
+
+        public static void AddRangeBinding<T>(this ComboBox c, T data, Expression<Func<T, float>> property, float start, int count, DataSourceUpdateMode updateMode = DataSourceUpdateMode.OnPropertyChanged)
+        {
+            var list = new List<float>();
+            for (var f = start; f < start + count; f++)
+            {
+                list.Add(f);
+            }
+
+            c.DataSource = list;
             c.DataBindings.Add(nameof(ComboBox.SelectedItem), data, CommonTools.GetMemberName(property), false, updateMode);
         }
 
