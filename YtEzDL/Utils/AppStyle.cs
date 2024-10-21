@@ -1,8 +1,6 @@
 ﻿using MetroFramework;
 using MetroFramework.Components;
 using MetroFramework.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using YtEzDL.Config;
 
@@ -34,12 +32,15 @@ namespace YtEzDL.Utils
         {
             if (control is IMetroControl metroControl)
             {
-                metroControl.UseStyleColors = true;
                 metroControl.StyleManager = Manager;
             }
             else if (control is IMetroForm metroForm)
             {
                 metroForm.StyleManager = Manager;
+            }
+            else if (control is IMetroComponent metroComponent)
+            {
+                metroComponent.StyleManager = Manager;
             }
 
             foreach (Control c in control.Controls)
