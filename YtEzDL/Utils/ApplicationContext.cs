@@ -93,7 +93,7 @@ namespace YtEzDL.Utils
             contextMenu.Items.Add("&Clear cache", null, (sender, args) => ClearCache());
             contextMenu.Items.Add("&Update", null, (sender, args) => Update());
             contextMenu.Items.Add("-");
-            contextMenu.Items.Add("&Exit", null,    (sender, args) => ExitThread());
+            contextMenu.Items.Add("&Exit", null, (sender, args) => ExitThread());
             
             // Setup notify icon
             _notifyIcon = new NotifyIcon(container)
