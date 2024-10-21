@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -95,6 +96,11 @@ namespace YtEzDL.Utils
         public static string RemoveInvalidPathChars(this string name, char replaceChar = '-')
         {
             return name.RemoveInvalidChars(Path.GetInvalidPathChars(), replaceChar);
+        }
+
+        public static string GetValidPath(this string s)
+        {
+            return s.Normalize(NormalizationForm.FormC).RemoveInvalidPathChars();
         }
     }
 }

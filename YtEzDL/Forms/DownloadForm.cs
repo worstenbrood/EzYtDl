@@ -275,10 +275,7 @@ namespace YtEzDL.Forms
                 return path;
             }
 
-            var folder = Tracks
-                .First().TrackData.Playlist
-                .Normalize(NormalizationForm.FormC)
-                .RemoveInvalidPathChars();
+            var folder = Tracks.First().TrackData.Playlist.GetValidPath();
             path = Path.Combine(path, folder);
             Directory.CreateDirectory(path);
             return path;
@@ -291,11 +288,7 @@ namespace YtEzDL.Forms
                 return;
             }
 
-            var folder = Tracks
-                .First().TrackData.Playlist
-                .Normalize(NormalizationForm.FormC)
-                .RemoveInvalidPathChars();
-                
+            var folder = Tracks.First().TrackData.Playlist.GetValidPath();
             var path = Path.Combine(Configuration.Default.FileSettings.Path, folder);
             if (Directory.EnumerateFileSystemEntries(path).Any())
             {
