@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using YtEzDL.Utils;
+using YtEzDL.DownLoad;
 
 namespace YtEzDL.Config.Settings
 {
@@ -12,6 +12,15 @@ namespace YtEzDL.Config.Settings
         {
             get => _autostart;
             set => _autostart = value;
+        }
+
+        private volatile UpdateChannel _updateChannel = UpdateChannel.Stable;
+
+        [JsonProperty(PropertyName = "updateChannel")]
+        public UpdateChannel UpdateChannel
+        {
+            get => _updateChannel;
+            set => _updateChannel = value;
         }
     }
 }

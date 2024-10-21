@@ -32,6 +32,13 @@
         Avi
     }
 
+    public enum UpdateChannel
+    {
+        Stable,
+        Master,
+        Nightly
+    }
+
     public class DownLoadParameters : Parameters
     {
         public static DownLoadParameters Create => new DownLoadParameters();
@@ -134,6 +141,11 @@
         internal DownLoadParameters FfMpegLocation(string path)
         {
             return AddParameter<DownLoadParameters>("--ffmpeg-location", path);
+        }
+
+        public DownLoadParameters UpdateTo(UpdateChannel updateChannel)
+        {
+            return AddParameter<DownLoadParameters>("--update-to", updateChannel.ToString("G").ToLowerInvariant());
         }
 
         public DownLoadParameters Reset()
