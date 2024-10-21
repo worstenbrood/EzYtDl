@@ -80,8 +80,16 @@ namespace YtEzDL.Utils
             }
 
             process.Start();
-            process.BeginErrorReadLine();
-            process.BeginOutputReadLine();
+
+            if (error != null)
+            {
+                process.BeginErrorReadLine();
+            }
+
+            if (data != null)
+            {
+                process.BeginOutputReadLine();
+            }
 
             return process;
         }
