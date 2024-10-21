@@ -1,6 +1,8 @@
 ﻿using MetroFramework.Controls;
+using MetroFramework.Forms;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YtEzDL.DownLoad;
@@ -48,6 +50,14 @@ namespace YtEzDL.Utils
 
         private static void ShowSettingsForm()
         {
+            var active = Application.OpenForms.OfType<Forms.Settings>()
+                .FirstOrDefault();
+            if (active != null)
+            {
+                active.FocusMe();
+                return;
+            }
+
             // Show form
             using (var settings = new Forms.Settings())
             {
@@ -57,6 +67,14 @@ namespace YtEzDL.Utils
 
         private static void ShowAboutForm()
         {
+            var active = Application.OpenForms.OfType<Forms.About>()
+                .FirstOrDefault();
+            if (active != null)
+            {
+                active.FocusMe();
+                return;
+            }
+
             // Show form
             using (var about = new Forms.About())
             {

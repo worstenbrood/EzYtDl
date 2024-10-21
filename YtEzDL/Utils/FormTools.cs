@@ -52,23 +52,23 @@ namespace YtEzDL.Utils
                 TextFormatFlags.WordBreak | TextFormatFlags.TextBoxControl).Height;
         }
 
-        public static Dictionary<string, Color> ColorMapping =
-            new Dictionary<string, Color>(StringComparer.OrdinalIgnoreCase)
+        public static Dictionary<MetroColorStyle, Color> ColorMapping =
+            new Dictionary<MetroColorStyle, Color>()
             {
-                {"Black", MetroColors.Black},
-                {"White", MetroColors.White},
-                {"Silver", MetroColors.Silver},
-                {"Blue", MetroColors.Blue},
-                {"Green", MetroColors.Green},
-                {"Lime", MetroColors.Lime},
-                {"Teal", MetroColors.Teal},
-                {"Orange", MetroColors.Orange},
-                {"Brown", MetroColors.Brown},
-                {"Pink", MetroColors.Pink},
-                {"Magenta", MetroColors.Magenta},
-                {"Purple", MetroColors.Purple},
-                {"Red", MetroColors.Red},
-                {"Yellow", MetroColors.Orange}
+                {MetroColorStyle.Black, MetroColors.Black},
+                {MetroColorStyle.White, MetroColors.White},
+                {MetroColorStyle.Silver, MetroColors.Silver},
+                {MetroColorStyle.Blue, MetroColors.Blue},
+                {MetroColorStyle.Green, MetroColors.Green},
+                {MetroColorStyle.Lime, MetroColors.Lime},
+                {MetroColorStyle.Teal, MetroColors.Teal},
+                {MetroColorStyle.Orange, MetroColors.Orange},
+                {MetroColorStyle.Brown, MetroColors.Brown},
+                {MetroColorStyle.Pink, MetroColors.Pink},
+                {MetroColorStyle.Magenta, MetroColors.Magenta},
+                {MetroColorStyle.Purple, MetroColors.Purple},
+                {MetroColorStyle.Red, MetroColors.Red},
+                {MetroColorStyle.Yellow, MetroColors.Orange}
             };
     }
 }
