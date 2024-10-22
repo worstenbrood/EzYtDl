@@ -7,6 +7,7 @@ using YtEzDL.Properties;
 using YtEzDL.Tools;
 using YtEzDL.UserControls;
 using MetroFramework.Controls;
+using MetroFramework.Forms;
 
 namespace YtEzDL.Utils
 {
@@ -46,34 +47,6 @@ namespace YtEzDL.Utils
            RunYtDlp(() => _youtubeDl.Run(DownLoadParameters.Create.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info)));
         }
 
-        private static void ShowSettingsForm()
-        {
-            if (FormTools.ShowActiveForm<Forms.Settings>())
-            {
-                return;
-            }
-
-            // Show form
-            using (var settings = new Forms.Settings())
-            {
-                settings.ShowDialog();
-            }
-        }
-
-        private static void ShowAboutForm()
-        {
-            if (FormTools.ShowActiveForm<Forms.About>())
-            {
-                return;
-            }
-
-            // Show form
-            using (var about = new Forms.About())
-            {
-                about.ShowDialog();
-            }
-        }
-
         public ApplicationContext()
         {
             IContainer container = new Container();
@@ -81,8 +54,8 @@ namespace YtEzDL.Utils
             contextMenu.Items.Add($"{CommonTools.ApplicationName} {CommonTools.ApplicationProductVersion}");
             contextMenu.Items[0].Enabled = false;
             contextMenu.Items.Add("-");
-            contextMenu.Items.Add("&About", null, (sender, args) => ShowAboutForm());
-            contextMenu.Items.Add("&Settings", null, (sender, args) => ShowSettingsForm());
+            contextMenu.Items.Add("&About", null, (sender, args) => FormTools.ShowFormDialog<Forms.About>());
+            contextMenu.Items.Add("&Settings", null, (sender, args) => FormTools.ShowFormDialog<Forms.Settings>());
             contextMenu.Items.Add("&Clear cache", null, (sender, args) => ClearCache());
             contextMenu.Items.Add("&Update", null, (sender, args) => Update());
             contextMenu.Items.Add("-");

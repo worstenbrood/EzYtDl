@@ -92,5 +92,20 @@ namespace YtEzDL.Utils
             
             return false;
         }
+
+        public static void ShowFormDialog<T>()
+           where T : MetroForm, new()
+        {
+            if (ShowActiveForm<T>())
+            {
+                return;
+            }
+
+            // Show form
+            using (var about = new T())
+            {
+                about.ShowDialog();
+            }
+        }
     }
 }
