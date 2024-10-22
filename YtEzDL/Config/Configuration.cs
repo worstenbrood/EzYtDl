@@ -20,6 +20,9 @@ namespace YtEzDL.Config
         [JsonProperty(PropertyName = "applicationSettings")]
         public ApplicationSettings ApplicationSettings { get; set; } = new ApplicationSettings();
 
+        [JsonProperty(PropertyName = "advancedSettings")]
+        public AdvancedSettings AdvancedSettings { get; set; } = new AdvancedSettings();
+
         // Logic
 
         private const string DefaultFilename = "ezytdl.json";

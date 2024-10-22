@@ -21,6 +21,8 @@ namespace YtEzDL.Forms
             // Select first page
             tabControl.SelectedIndex = 0;
 
+            ToggleAdvancedTab(Configuration.Default.ApplicationSettings.AdvancedSettings);
+
             // Set style manager
             AppStyle.SetManager(this);
         }
@@ -50,7 +52,8 @@ namespace YtEzDL.Forms
             checkBoxYoutubeFastFetch.AddCheckedBinding(_configuration.LayoutSettings, p => p.YoutubeFastFetch);
             comboBoxColorStyle.AddEnumBinding(_configuration.LayoutSettings, p => p.ColorStyle);
             comboBoxSelectionWidth.AddRangeBinding(_configuration.LayoutSettings, p => p.SelectionWidth, 1, 10);
-            comboBoxUpdateChannel.AddEnumBinding(_configuration.ApplicationSettings, p => p.UpdateChannel);
+            comboBoxUpdateChannel.AddEnumBinding(_configuration.AdvancedSettings, p => p.UpdateChannel);
+            checkBoxAdvanced.AddCheckedBinding(_configuration.ApplicationSettings, p => p.AdvancedSettings);
 
             // Path selector
             textBoxPath.CustomButton.Click += (sender, args) =>
@@ -106,6 +109,23 @@ namespace YtEzDL.Forms
             // Change style
             AppStyle.SetStyle((MetroColorStyle)comboBoxColorStyle.SelectedItem);
             Refresh();
+        }
+
+        private void ToggleAdvancedTab(bool show)
+        {
+            if (show)
+            {
+                tabControl.Controls.Add(tabPageAdvanced);
+            }
+            else
+            {
+                tabControl.Controls.Remove(tabPageAdvanced);
+            }
+        }
+
+        private void checkBoxAdvanced_CheckedChanged(object sender, EventArgs e)
+        {
+            ToggleAdvancedTab(checkBoxAdvanced.Checked);
         }
     }
 }

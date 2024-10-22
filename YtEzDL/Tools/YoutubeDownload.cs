@@ -216,7 +216,7 @@ namespace YtEzDL.Tools
             // Parameters
             var parameters = DownLoadParameters.Create
                 .Update()
-                .UpdateTo(Configuration.Default.ApplicationSettings.UpdateChannel)
+                .UpdateTo(Configuration.Default.AdvancedSettings.UpdateChannel)
                 .GetParameters();
             
             RunAsync(parameters, action)

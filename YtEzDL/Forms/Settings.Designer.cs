@@ -58,14 +58,17 @@
             this.comboBoxColorStyle = new MetroFramework.Controls.MetroComboBox();
             this.checkBoxYoutubeFastFetch = new MetroFramework.Controls.MetroCheckBox();
             this.tabPageApplication = new MetroFramework.Controls.MetroTabPage();
+            this.checkBoxAdvanced = new MetroFramework.Controls.MetroCheckBox();
+            this.checkBoxAutostart = new MetroFramework.Controls.MetroCheckBox();
+            this.tabPageAdvanced = new MetroFramework.Controls.MetroTabPage();
             this.labelUpdateChannel = new MetroFramework.Controls.MetroLabel();
             this.comboBoxUpdateChannel = new MetroFramework.Controls.MetroComboBox();
-            this.checkBoxAutostart = new MetroFramework.Controls.MetroCheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageFileSettings.SuspendLayout();
             this.tabPageDownloadSettings.SuspendLayout();
             this.tabPageLayoutSettings.SuspendLayout();
             this.tabPageApplication.SuspendLayout();
+            this.tabPageAdvanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxPath
@@ -335,11 +338,12 @@
             this.tabControl.Controls.Add(this.tabPageDownloadSettings);
             this.tabControl.Controls.Add(this.tabPageLayoutSettings);
             this.tabControl.Controls.Add(this.tabPageApplication);
+            this.tabControl.Controls.Add(this.tabPageAdvanced);
             this.tabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
             this.tabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular;
             this.tabControl.Location = new System.Drawing.Point(23, 63);
             this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 2;
+            this.tabControl.SelectedIndex = 3;
             this.tabControl.Size = new System.Drawing.Size(651, 260);
             this.tabControl.TabIndex = 20;
             this.tabControl.UseSelectable = true;
@@ -478,8 +482,7 @@
             // tabPageApplication
             // 
             this.tabPageApplication.BackColor = System.Drawing.Color.White;
-            this.tabPageApplication.Controls.Add(this.labelUpdateChannel);
-            this.tabPageApplication.Controls.Add(this.comboBoxUpdateChannel);
+            this.tabPageApplication.Controls.Add(this.checkBoxAdvanced);
             this.tabPageApplication.Controls.Add(this.checkBoxAutostart);
             this.tabPageApplication.ForeColor = System.Drawing.Color.Black;
             this.tabPageApplication.HorizontalScrollbarBarColor = true;
@@ -494,29 +497,17 @@
             this.tabPageApplication.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageApplication.VerticalScrollbarSize = 10;
             // 
-            // labelUpdateChannel
+            // checkBoxAdvanced
             // 
-            this.labelUpdateChannel.AutoSize = true;
-            this.labelUpdateChannel.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelUpdateChannel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.labelUpdateChannel.Location = new System.Drawing.Point(3, 52);
-            this.labelUpdateChannel.Name = "labelUpdateChannel";
-            this.labelUpdateChannel.Size = new System.Drawing.Size(139, 25);
-            this.labelUpdateChannel.TabIndex = 26;
-            this.labelUpdateChannel.Text = "Update channel:";
-            // 
-            // comboBoxUpdateChannel
-            // 
-            this.comboBoxUpdateChannel.BackColor = System.Drawing.Color.White;
-            this.comboBoxUpdateChannel.FontSize = MetroFramework.MetroComboBoxSize.Tall;
-            this.comboBoxUpdateChannel.ForeColor = System.Drawing.Color.Black;
-            this.comboBoxUpdateChannel.FormattingEnabled = true;
-            this.comboBoxUpdateChannel.ItemHeight = 29;
-            this.comboBoxUpdateChannel.Location = new System.Drawing.Point(143, 49);
-            this.comboBoxUpdateChannel.Name = "comboBoxUpdateChannel";
-            this.comboBoxUpdateChannel.Size = new System.Drawing.Size(121, 35);
-            this.comboBoxUpdateChannel.TabIndex = 25;
-            this.comboBoxUpdateChannel.UseSelectable = true;
+            this.checkBoxAdvanced.AutoSize = true;
+            this.checkBoxAdvanced.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.checkBoxAdvanced.Location = new System.Drawing.Point(7, 44);
+            this.checkBoxAdvanced.Name = "checkBoxAdvanced";
+            this.checkBoxAdvanced.Size = new System.Drawing.Size(174, 25);
+            this.checkBoxAdvanced.TabIndex = 27;
+            this.checkBoxAdvanced.Text = "Advanced settings";
+            this.checkBoxAdvanced.UseSelectable = true;
+            this.checkBoxAdvanced.CheckedChanged += new System.EventHandler(this.checkBoxAdvanced_CheckedChanged);
             // 
             // checkBoxAutostart
             // 
@@ -528,6 +519,46 @@
             this.checkBoxAutostart.TabIndex = 13;
             this.checkBoxAutostart.Text = "Autostart";
             this.checkBoxAutostart.UseSelectable = true;
+            // 
+            // tabPageAdvanced
+            // 
+            this.tabPageAdvanced.Controls.Add(this.labelUpdateChannel);
+            this.tabPageAdvanced.Controls.Add(this.comboBoxUpdateChannel);
+            this.tabPageAdvanced.HorizontalScrollbarBarColor = true;
+            this.tabPageAdvanced.HorizontalScrollbarHighlightOnWheel = false;
+            this.tabPageAdvanced.HorizontalScrollbarSize = 10;
+            this.tabPageAdvanced.Location = new System.Drawing.Point(4, 44);
+            this.tabPageAdvanced.Name = "tabPageAdvanced";
+            this.tabPageAdvanced.Size = new System.Drawing.Size(643, 212);
+            this.tabPageAdvanced.TabIndex = 4;
+            this.tabPageAdvanced.Text = "Advanced";
+            this.tabPageAdvanced.VerticalScrollbarBarColor = true;
+            this.tabPageAdvanced.VerticalScrollbarHighlightOnWheel = false;
+            this.tabPageAdvanced.VerticalScrollbarSize = 10;
+            // 
+            // labelUpdateChannel
+            // 
+            this.labelUpdateChannel.AutoSize = true;
+            this.labelUpdateChannel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelUpdateChannel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.labelUpdateChannel.Location = new System.Drawing.Point(3, 11);
+            this.labelUpdateChannel.Name = "labelUpdateChannel";
+            this.labelUpdateChannel.Size = new System.Drawing.Size(139, 25);
+            this.labelUpdateChannel.TabIndex = 28;
+            this.labelUpdateChannel.Text = "Update channel:";
+            // 
+            // comboBoxUpdateChannel
+            // 
+            this.comboBoxUpdateChannel.BackColor = System.Drawing.Color.White;
+            this.comboBoxUpdateChannel.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxUpdateChannel.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxUpdateChannel.FormattingEnabled = true;
+            this.comboBoxUpdateChannel.ItemHeight = 29;
+            this.comboBoxUpdateChannel.Location = new System.Drawing.Point(143, 7);
+            this.comboBoxUpdateChannel.Name = "comboBoxUpdateChannel";
+            this.comboBoxUpdateChannel.Size = new System.Drawing.Size(121, 35);
+            this.comboBoxUpdateChannel.TabIndex = 27;
+            this.comboBoxUpdateChannel.UseSelectable = true;
             // 
             // Settings
             // 
@@ -549,6 +580,8 @@
             this.tabPageLayoutSettings.PerformLayout();
             this.tabPageApplication.ResumeLayout(false);
             this.tabPageApplication.PerformLayout();
+            this.tabPageAdvanced.ResumeLayout(false);
+            this.tabPageAdvanced.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -586,6 +619,8 @@
         private MetroFramework.Controls.MetroLabel labelColorStyle;
         private MetroFramework.Controls.MetroLabel labelSelectionWidth;
         private MetroFramework.Controls.MetroComboBox comboBoxSelectionWidth;
+        private MetroFramework.Controls.MetroCheckBox checkBoxAdvanced;
+        private MetroFramework.Controls.MetroTabPage tabPageAdvanced;
         private MetroFramework.Controls.MetroLabel labelUpdateChannel;
         private MetroFramework.Controls.MetroComboBox comboBoxUpdateChannel;
     }

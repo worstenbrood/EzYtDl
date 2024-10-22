@@ -14,13 +14,13 @@ namespace YtEzDL.Config.Settings
             set => _autostart = value;
         }
 
-        private volatile UpdateChannel _updateChannel = UpdateChannel.Stable;
+        private volatile bool _advancedSettings;
 
-        [JsonProperty(PropertyName = "updateChannel")]
-        public UpdateChannel UpdateChannel
+        [JsonProperty(PropertyName = "advancedSettings")]
+        public bool AdvancedSettings
         {
-            get => _updateChannel;
-            set => _updateChannel = value;
+            get => _advancedSettings;
+            set => _advancedSettings = value;
         }
     }
 }
