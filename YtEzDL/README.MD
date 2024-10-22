@@ -1,4 +1,4 @@
-EzYtDl is a windows frontend for yt-dlp (or youtube-dl). It monitors the clipboard for urls and passes those to
+EzYtDl is a windows (.net) frontend for yt-dlp (or youtube-dl). It monitors the clipboard for urls and passes those to
 yt-dlp. yt-dlp's json output is used to fetch the data. Audio/video processing is done by ffmpeg.
 
 Build
@@ -14,6 +14,7 @@ Build
 Dependencies
 ============
 
+- .NET Framework 4.8
 - MetroFramework (http://thielj.github.io/MetroFramework/)
 - yt-dlp (https://github.com/yt-dlp/yt-dlp)
 - ffmpeg (https://www.ffmpeg.org/)
