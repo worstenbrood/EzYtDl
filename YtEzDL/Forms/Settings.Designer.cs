@@ -58,6 +58,8 @@
             this.comboBoxColorStyle = new MetroFramework.Controls.MetroComboBox();
             this.checkBoxYoutubeFastFetch = new MetroFramework.Controls.MetroCheckBox();
             this.tabPageApplication = new MetroFramework.Controls.MetroTabPage();
+            this.labelUpdateChannel = new MetroFramework.Controls.MetroLabel();
+            this.comboBoxUpdateChannel = new MetroFramework.Controls.MetroComboBox();
             this.checkBoxAutostart = new MetroFramework.Controls.MetroCheckBox();
             this.tabControl.SuspendLayout();
             this.tabPageFileSettings.SuspendLayout();
@@ -476,6 +478,8 @@
             // tabPageApplication
             // 
             this.tabPageApplication.BackColor = System.Drawing.Color.White;
+            this.tabPageApplication.Controls.Add(this.labelUpdateChannel);
+            this.tabPageApplication.Controls.Add(this.comboBoxUpdateChannel);
             this.tabPageApplication.Controls.Add(this.checkBoxAutostart);
             this.tabPageApplication.ForeColor = System.Drawing.Color.Black;
             this.tabPageApplication.HorizontalScrollbarBarColor = true;
@@ -489,6 +493,30 @@
             this.tabPageApplication.VerticalScrollbarBarColor = true;
             this.tabPageApplication.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageApplication.VerticalScrollbarSize = 10;
+            // 
+            // labelUpdateChannel
+            // 
+            this.labelUpdateChannel.AutoSize = true;
+            this.labelUpdateChannel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.labelUpdateChannel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.labelUpdateChannel.Location = new System.Drawing.Point(3, 52);
+            this.labelUpdateChannel.Name = "labelUpdateChannel";
+            this.labelUpdateChannel.Size = new System.Drawing.Size(139, 25);
+            this.labelUpdateChannel.TabIndex = 26;
+            this.labelUpdateChannel.Text = "Update channel:";
+            // 
+            // comboBoxUpdateChannel
+            // 
+            this.comboBoxUpdateChannel.BackColor = System.Drawing.Color.White;
+            this.comboBoxUpdateChannel.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxUpdateChannel.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxUpdateChannel.FormattingEnabled = true;
+            this.comboBoxUpdateChannel.ItemHeight = 29;
+            this.comboBoxUpdateChannel.Location = new System.Drawing.Point(143, 49);
+            this.comboBoxUpdateChannel.Name = "comboBoxUpdateChannel";
+            this.comboBoxUpdateChannel.Size = new System.Drawing.Size(121, 35);
+            this.comboBoxUpdateChannel.TabIndex = 25;
+            this.comboBoxUpdateChannel.UseSelectable = true;
             // 
             // checkBoxAutostart
             // 
@@ -558,5 +586,7 @@
         private MetroFramework.Controls.MetroLabel labelColorStyle;
         private MetroFramework.Controls.MetroLabel labelSelectionWidth;
         private MetroFramework.Controls.MetroComboBox comboBoxSelectionWidth;
+        private MetroFramework.Controls.MetroLabel labelUpdateChannel;
+        private MetroFramework.Controls.MetroComboBox comboBoxUpdateChannel;
     }
 }
