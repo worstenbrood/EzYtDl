@@ -66,7 +66,7 @@ namespace YtEzDL.Utils
             {
                 ContextMenuStrip = contextMenu,
                 Icon = Resources.YTIcon,
-                Text = "youtube-dl",
+                Text = contextMenu.Items[0].Text,
                 Visible = true,
             };
 
