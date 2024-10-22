@@ -85,13 +85,14 @@ namespace YtEzDL.Forms
             // toolStripButtonNone
             // 
             this.toolStripButtonNone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonNone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripButtonNone.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonNone.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNone.Image")));
             this.toolStripButtonNone.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonNone.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonNone.Name = "toolStripButtonNone";
             this.toolStripButtonNone.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.toolStripButtonNone.Size = new System.Drawing.Size(40, 24);
+            this.toolStripButtonNone.Size = new System.Drawing.Size(41, 24);
             this.toolStripButtonNone.Text = "None";
             this.toolStripButtonNone.ToolTipText = "Select none";
             this.toolStripButtonNone.Click += new System.EventHandler(this.toolStripButtonNone_Click);
@@ -99,6 +100,7 @@ namespace YtEzDL.Forms
             // toolStripButtonAll
             // 
             this.toolStripButtonAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonAll.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripButtonAll.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAll.Image")));
             this.toolStripButtonAll.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -113,13 +115,14 @@ namespace YtEzDL.Forms
             // toolStripButtonToggle
             // 
             this.toolStripButtonToggle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonToggle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripButtonToggle.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonToggle.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonToggle.Image")));
             this.toolStripButtonToggle.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonToggle.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonToggle.Name = "toolStripButtonToggle";
             this.toolStripButtonToggle.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.toolStripButtonToggle.Size = new System.Drawing.Size(46, 24);
+            this.toolStripButtonToggle.Size = new System.Drawing.Size(48, 24);
             this.toolStripButtonToggle.Text = "Toggle";
             this.toolStripButtonToggle.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             this.toolStripButtonToggle.ToolTipText = "Toggle selection";
