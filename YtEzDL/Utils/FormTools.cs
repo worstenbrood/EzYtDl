@@ -79,7 +79,14 @@ namespace YtEzDL.Utils
                 .FirstOrDefault();
             if (active != null)
             {
-                active.FocusMe();
+                if (active.InvokeRequired)
+                {
+                    active.Invoke(new MethodInvoker(() => active.FocusMe()));
+                }
+                else
+                {
+                    active.FocusMe();
+                }
                 return true;
             }
             
