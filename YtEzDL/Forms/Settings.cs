@@ -11,6 +11,7 @@ namespace YtEzDL.Forms
     public partial class Settings : MetroForm
     {
         private readonly Configuration _configuration = new Configuration();
+        private MetroColorStyle _currentStyle = AppStyle.Manager.Style;
 
         public Settings()
         {
@@ -71,6 +72,10 @@ namespace YtEzDL.Forms
         
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            // Revert
+            Configuration.Default.LayoutSettings.ColorStyle = _currentStyle;
+            AppStyle.SetStyle(_currentStyle);
+            AppStyle.RefreshActiveForms();
             Close();
         }
 
@@ -84,8 +89,6 @@ namespace YtEzDL.Forms
 
             // Apply autostart
             CommonTools.SetAutoStart(Configuration.Default.ApplicationSettings.Autostart);
-
-            AppStyle.RefreshActiveForms();
 
             // Close form
             Close();
@@ -106,8 +109,11 @@ namespace YtEzDL.Forms
         private void comboBoxColorStyle_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Change style
-            AppStyle.SetStyle((MetroColorStyle)comboBoxColorStyle.SelectedItem);
-            Refresh();
+            var style = (MetroColorStyle)comboBoxColorStyle.SelectedItem;
+            // To make selection work
+            Configuration.Default.LayoutSettings.ColorStyle = style;
+            AppStyle.SetStyle(style);
+            AppStyle.RefreshActiveForms();
         }
 
         private void ToggleAdvancedTab(bool show)
