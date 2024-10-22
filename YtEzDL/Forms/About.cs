@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Forms;
@@ -43,12 +44,17 @@ namespace YtEzDL.Forms
             textBoxAbout.Text += $"yt-dlp version: {new YoutubeDownload().GetVersion()}" + Environment.NewLine;
             textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp" + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
-
-            textBoxAbout.Text += $"{new FfMpeg().GetVersion()}" + Environment.NewLine;
-            textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg";
-
-            textBoxAbout.Select(textBoxAbout.Text.Length, 0);
             textBoxAbout.ResumeLayout();
+
+            Task.Run(() =>
+            {
+                Invoke(new MethodInvoker(() =>
+                {
+                    textBoxAbout.Text += $"{new FfMpeg().GetVersion()}" + Environment.NewLine;
+                    textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg";
+                    textBoxAbout.Select(textBoxAbout.Text.Length, 0);
+                }));
+            });          
         }
         
         public Rectangle GetScreen()
