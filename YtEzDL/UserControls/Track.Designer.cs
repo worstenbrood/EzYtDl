@@ -32,6 +32,7 @@
             this.metroTabControl = new MetroFramework.Controls.MetroTabControl();
             this.tabPageInfo = new MetroFramework.Controls.MetroTabPage();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.tabPageSettings = new MetroFramework.Controls.MetroTabPage();
             this.labelVideoFormat = new MetroFramework.Controls.MetroLabel();
             this.comboBoxVideoFormat = new MetroFramework.Controls.MetroComboBox();
@@ -41,7 +42,6 @@
             this.comboBoxAudioFormat = new MetroFramework.Controls.MetroComboBox();
             this.checkBoxExtractAudio = new MetroFramework.Controls.MetroCheckBox();
             this.metroProgressBar = new MetroFramework.Controls.MetroProgressBar();
-            this.textBoxTitle = new YtEzDL.UserControls.ScrollTextBox();
             this.metroTabControl.SuspendLayout();
             this.tabPageInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -58,6 +58,7 @@
             this.metroLabel.Size = new System.Drawing.Size(624, 20);
             this.metroLabel.TabIndex = 16;
             this.metroLabel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
+            this.metroLabel.Resize += new System.EventHandler(this.controlResize);
             // 
             // metroTabControl
             // 
@@ -92,6 +93,7 @@
             this.tabPageInfo.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageInfo.VerticalScrollbarSize = 10;
             this.tabPageInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
+            this.tabPageInfo.Resize += new System.EventHandler(this.controlResize);
             // 
             // pictureBox
             // 
@@ -103,6 +105,24 @@
             this.pictureBox.TabIndex = 11;
             this.pictureBox.TabStop = false;
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
+            // 
+            // textBoxTitle
+            // 
+            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTitle.BackColor = System.Drawing.Color.White;
+            this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.textBoxTitle.ForeColor = System.Drawing.Color.Black;
+            this.textBoxTitle.Location = new System.Drawing.Point(305, 21);
+            this.textBoxTitle.Multiline = true;
+            this.textBoxTitle.Name = "textBoxTitle";
+            this.textBoxTitle.ReadOnly = true;
+            this.textBoxTitle.Size = new System.Drawing.Size(310, 126);
+            this.textBoxTitle.TabIndex = 1;
+            this.textBoxTitle.Text = "Title";
+            this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // tabPageSettings
             // 
@@ -226,24 +246,7 @@
             this.metroProgressBar.Size = new System.Drawing.Size(625, 17);
             this.metroProgressBar.TabIndex = 15;
             this.metroProgressBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
-            // 
-            // textBoxTitle
-            // 
-            this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTitle.BackColor = System.Drawing.Color.White;
-            this.textBoxTitle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxTitle.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.textBoxTitle.ForeColor = System.Drawing.Color.Black;
-            this.textBoxTitle.Location = new System.Drawing.Point(305, 21);
-            this.textBoxTitle.Multiline = true;
-            this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.ReadOnly = true;
-            this.textBoxTitle.Size = new System.Drawing.Size(310, 126);
-            this.textBoxTitle.TabIndex = 1;
-            this.textBoxTitle.Text = "Title";
-            this.textBoxTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
+            this.metroProgressBar.Resize += new System.EventHandler(this.controlResize);
             // 
             // Track
             // 

@@ -377,5 +377,10 @@ namespace YtEzDL.UserControls
                 metroProgressBar.Value = 100;
             });
         }
+
+        private void controlResize(object sender, EventArgs e)
+        {
+            metroTabControl.Width = Width - 25;
+        }
     }
 }

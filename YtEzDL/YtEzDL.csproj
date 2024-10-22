@@ -206,6 +206,9 @@
     <None Include="README.MD" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UserControls\Track.resx">
+      <DependentUpon>Track.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="YTIcon.ico" />
   </ItemGroup>
   <ItemGroup>
