@@ -261,26 +261,30 @@ namespace YtEzDL.Forms
             // 
             // statusStrip
             // 
+            this.statusStrip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.statusStrip.AutoSize = false;
             this.statusStrip.BackColor = System.Drawing.Color.White;
+            this.statusStrip.Dock = System.Windows.Forms.DockStyle.None;
             this.statusStrip.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel,
             this.toolStripProgressBar});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip.Location = new System.Drawing.Point(9, 397);
+            this.statusStrip.Location = new System.Drawing.Point(9, 406);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(894, 25);
+            this.statusStrip.Size = new System.Drawing.Size(872, 25);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 15;
             // 
             // toolStripStatusLabel
             // 
-            this.toolStripStatusLabel.AutoSize = false;
+            this.toolStripStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
+            this.toolStripStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.toolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(131, 23);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(124, 20);
             this.toolStripStatusLabel.Text = "Total: 0 / Selected: 0";
             // 
             // toolStripProgressBar
@@ -314,7 +318,7 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.Location = new System.Drawing.Point(9, 99);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 293);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 305);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.flowLayoutPanel_ControlAdded);
