@@ -77,14 +77,14 @@ namespace YtEzDL.Forms
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(894, 27);
+            this.toolStrip.Size = new System.Drawing.Size(894, 31);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 13;
             this.toolStrip.Text = "toolStrip";
             // 
             // toolStripButtonNone
             // 
-            this.toolStripButtonNone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonNone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonNone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripButtonNone.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonNone.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNone.Image")));
@@ -92,14 +92,14 @@ namespace YtEzDL.Forms
             this.toolStripButtonNone.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonNone.Name = "toolStripButtonNone";
             this.toolStripButtonNone.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.toolStripButtonNone.Size = new System.Drawing.Size(41, 24);
-            this.toolStripButtonNone.Text = "None";
+            this.toolStripButtonNone.Size = new System.Drawing.Size(24, 29);
+            this.toolStripButtonNone.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.toolStripButtonNone.ToolTipText = "Select none";
             this.toolStripButtonNone.Click += new System.EventHandler(this.toolStripButtonNone_Click);
             // 
             // toolStripButtonAll
             // 
-            this.toolStripButtonAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonAll.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripButtonAll.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAll.Image")));
@@ -107,14 +107,13 @@ namespace YtEzDL.Forms
             this.toolStripButtonAll.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonAll.Name = "toolStripButtonAll";
             this.toolStripButtonAll.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.toolStripButtonAll.Size = new System.Drawing.Size(25, 24);
-            this.toolStripButtonAll.Text = "All";
+            this.toolStripButtonAll.Size = new System.Drawing.Size(24, 29);
             this.toolStripButtonAll.ToolTipText = "Select all";
             this.toolStripButtonAll.Click += new System.EventHandler(this.toolStripButtonAll_Click);
             // 
             // toolStripButtonToggle
             // 
-            this.toolStripButtonToggle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonToggle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonToggle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripButtonToggle.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonToggle.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonToggle.Image")));
@@ -122,8 +121,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonToggle.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonToggle.Name = "toolStripButtonToggle";
             this.toolStripButtonToggle.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.toolStripButtonToggle.Size = new System.Drawing.Size(48, 24);
-            this.toolStripButtonToggle.Text = "Toggle";
+            this.toolStripButtonToggle.Size = new System.Drawing.Size(24, 29);
             this.toolStripButtonToggle.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             this.toolStripButtonToggle.ToolTipText = "Toggle selection";
             this.toolStripButtonToggle.Click += new System.EventHandler(this.toolStripButtonToggle_Click);
@@ -134,10 +132,9 @@ namespace YtEzDL.Forms
             this.toolStripTextBoxSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.toolStripTextBoxSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBoxSearch.ForeColor = System.Drawing.Color.Black;
-            this.toolStripTextBoxSearch.Margin = new System.Windows.Forms.Padding(0, 1, 1, 1);
+            this.toolStripTextBoxSearch.Margin = new System.Windows.Forms.Padding(2, 2, 1, 0);
             this.toolStripTextBoxSearch.Name = "toolStripTextBoxSearch";
-            this.toolStripTextBoxSearch.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.toolStripTextBoxSearch.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBoxSearch.Size = new System.Drawing.Size(200, 23);
             this.toolStripTextBoxSearch.ToolTipText = "Filter";
             this.toolStripTextBoxSearch.TextChanged += new System.EventHandler(this.toolStripTextBoxSearch_TextChanged);
             // 
@@ -282,9 +279,9 @@ namespace YtEzDL.Forms
             this.toolStripStatusLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)));
             this.toolStripStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.toolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.toolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(124, 20);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(149, 20);
             this.toolStripStatusLabel.Text = "Total: 0 / Selected: 0";
             // 
             // toolStripProgressBar
