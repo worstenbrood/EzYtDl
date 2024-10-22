@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using MetroFramework;
+﻿using MetroFramework;
 using Newtonsoft.Json;
 
 namespace YtEzDL.Config.Settings
