@@ -268,7 +268,7 @@ namespace YtEzDL.Forms
             this.toolStripStatusLabel,
             this.toolStripProgressBar});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip.Location = new System.Drawing.Point(9, 392);
+            this.statusStrip.Location = new System.Drawing.Point(9, 397);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(894, 25);
             this.statusStrip.SizingGrip = false;
@@ -314,7 +314,7 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.Location = new System.Drawing.Point(9, 99);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 288);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 293);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.flowLayoutPanel_ControlAdded);
@@ -335,14 +335,14 @@ namespace YtEzDL.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(912, 427);
+            this.ClientSize = new System.Drawing.Size(912, 432);
             this.Controls.Add(this.metroProgressSpinner);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.flowLayoutPanel);
             this.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.Margin = new System.Windows.Forms.Padding(1);
-            this.MinimumSize = new System.Drawing.Size(909, 400);
+            this.MinimumSize = new System.Drawing.Size(909, 432);
             this.Name = "DownloadForm";
             this.Padding = new System.Windows.Forms.Padding(9, 60, 9, 10);
             this.Text = "DownloadForm";
