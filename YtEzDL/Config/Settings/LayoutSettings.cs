@@ -15,15 +15,6 @@ namespace YtEzDL.Config.Settings
             set => _autoSelect = value;
         }
 
-        private readonly LockedProperty<Color> _selectionColor = new LockedProperty<Color>(MetroColors.Blue);
-
-        [JsonProperty(PropertyName = "selectionColor")]
-        public Color SelectionColor 
-        {
-            get => _selectionColor.Get(); 
-            set => _selectionColor.Set(value);
-        }
-
         private volatile float _selectionWidth = 4;
 
         [JsonProperty(PropertyName = "selectionWidth")]
