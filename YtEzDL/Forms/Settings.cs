@@ -11,7 +11,7 @@ namespace YtEzDL.Forms
     public partial class Settings : MetroForm
     {
         private readonly Configuration _configuration = new Configuration();
-        private MetroColorStyle _currentStyle = AppStyle.Manager.Style;
+        private readonly MetroColorStyle _currentStyle = AppStyle.Manager.Style;
 
         public Settings()
         {
