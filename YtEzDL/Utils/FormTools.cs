@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 
 namespace YtEzDL.Utils
 {
@@ -70,5 +71,19 @@ namespace YtEzDL.Utils
                 {MetroColorStyle.Red, MetroColors.Red},
                 {MetroColorStyle.Yellow, MetroColors.Orange}
             };
+
+        public static bool ShowActiveForm<T>()
+            where T: MetroForm
+        {
+            var active = Application.OpenForms.OfType<T>()
+                .FirstOrDefault();
+            if (active != null)
+            {
+                active.FocusMe();
+                return true;
+            }
+            
+            return false;
+        }
     }
 }

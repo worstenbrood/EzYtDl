@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YtEzDL.DownLoad;
@@ -49,11 +48,8 @@ namespace YtEzDL.Utils
 
         private static void ShowSettingsForm()
         {
-            var active = Application.OpenForms.OfType<Forms.Settings>()
-                .FirstOrDefault();
-            if (active != null)
+            if (FormTools.ShowActiveForm<Forms.Settings>())
             {
-                active.FocusMe();
                 return;
             }
 
@@ -66,11 +62,8 @@ namespace YtEzDL.Utils
 
         private static void ShowAboutForm()
         {
-            var active = Application.OpenForms.OfType<Forms.About>()
-                .FirstOrDefault();
-            if (active != null)
+            if (FormTools.ShowActiveForm<Forms.About>())
             {
-                active.FocusMe();
                 return;
             }
 
