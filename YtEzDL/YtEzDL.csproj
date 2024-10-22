@@ -138,6 +138,9 @@
     <Compile Include="UserControls\CustomLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UserControls\MetroToolStripProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils\AppStyle.cs" />
     <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />

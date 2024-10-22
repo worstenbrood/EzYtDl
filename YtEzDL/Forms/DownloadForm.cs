@@ -15,6 +15,7 @@ using YtEzDL.Properties;
 using YtEzDL.Tools;
 using YtEzDL.UserControls;
 using YtEzDL.Utils;
+using MetroFramework.Controls;
 
 namespace YtEzDL.Forms
 {
@@ -251,8 +252,7 @@ namespace YtEzDL.Forms
                     dropDownButtonSort.Enabled = true;
                     toolStripButtonDownload.Enabled = true;
                     toolStripButtonCancel.Enabled = false;
-                    toolStripProgressBar.Style = ProgressBarStyle.Blocks;
-                    toolStripProgressBar.Value = 0;
+                    metroProgressSpinner.Enabled = metroProgressSpinner.Visible = false;
                     Invalidate(ClientRectangle, false);
                 });
             }
@@ -332,6 +332,7 @@ namespace YtEzDL.Forms
             // Set progressbar
             Execute(f =>
             {
+                toolStripProgressBar.ProgressBarStyle = ProgressBarStyle.Blocks;
                 toolStripProgressBar.Value = 0;
                 toolStripProgressBar.Maximum = downloadTasks.Length;
             });

@@ -1,5 +1,4 @@
-﻿using MetroFramework.Controls;
-using YtEzDL.UserControls;
+﻿using YtEzDL.UserControls;
 
 namespace YtEzDL.Forms
 {
@@ -50,8 +49,9 @@ namespace YtEzDL.Forms
             this.toolStripButtonAbout = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripProgressBar = new YtEzDL.UserControls.MetroToolStripProgressBar();
             this.flowLayoutPanel = new YtEzDL.UserControls.CustomLayoutPanel();
+            this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -277,15 +277,23 @@ namespace YtEzDL.Forms
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
             this.toolStripStatusLabel.Size = new System.Drawing.Size(131, 20);
             this.toolStripStatusLabel.Text = "Total: 0 / Selected: 0";
+            this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // toolStripProgressBar
             // 
+            this.toolStripProgressBar.AutoSize = false;
             this.toolStripProgressBar.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.toolStripProgressBar.Maximum = 100;
+            this.toolStripProgressBar.Minimum = 0;
             this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.ProgressBarStyle = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.toolStripProgressBar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.toolStripProgressBar.Size = new System.Drawing.Size(200, 19);
-            this.toolStripProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.toolStripProgressBar.Size = new System.Drawing.Size(250, 23);
+            this.toolStripProgressBar.Style = MetroFramework.MetroColorStyle.Default;
+            this.toolStripProgressBar.StyleManager = null;
+            this.toolStripProgressBar.Theme = MetroFramework.MetroThemeStyle.Default;
             this.toolStripProgressBar.ToolTipText = "Total progress";
+            this.toolStripProgressBar.Value = 0;
             // 
             // flowLayoutPanel
             // 
@@ -303,6 +311,16 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.flowLayoutPanel_ControlAdded);
             // 
+            // metroProgressSpinner
+            // 
+            this.metroProgressSpinner.Location = new System.Drawing.Point(9, 29);
+            this.metroProgressSpinner.Maximum = 100;
+            this.metroProgressSpinner.Name = "metroProgressSpinner";
+            this.metroProgressSpinner.Size = new System.Drawing.Size(16, 16);
+            this.metroProgressSpinner.TabIndex = 16;
+            this.metroProgressSpinner.UseSelectable = true;
+            this.metroProgressSpinner.Value = 30;
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -310,6 +328,7 @@ namespace YtEzDL.Forms
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(912, 427);
+            this.Controls.Add(this.metroProgressSpinner);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.flowLayoutPanel);
@@ -351,6 +370,7 @@ namespace YtEzDL.Forms
         private System.Windows.Forms.ToolStripMenuItem sortByTitleDescendingItem;
         private System.Windows.Forms.ToolStripMenuItem sortByLengthDescendingItem;
         private System.Windows.Forms.ToolStripMenuItem resetItem;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
+        private YtEzDL.UserControls.MetroToolStripProgressBar toolStripProgressBar;
+        private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner;
     }
 }
