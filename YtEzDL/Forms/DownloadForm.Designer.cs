@@ -273,11 +273,12 @@ namespace YtEzDL.Forms
             // 
             // toolStripStatusLabel
             // 
+            this.toolStripStatusLabel.AutoSize = false;
             this.toolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(131, 20);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(131, 23);
             this.toolStripStatusLabel.Text = "Total: 0 / Selected: 0";
-            this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // toolStripProgressBar
             // 
@@ -288,11 +289,15 @@ namespace YtEzDL.Forms
             this.toolStripProgressBar.Name = "toolStripProgressBar";
             this.toolStripProgressBar.ProgressBarStyle = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.toolStripProgressBar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.toolStripProgressBar.Size = new System.Drawing.Size(250, 23);
+            this.toolStripProgressBar.Size = new System.Drawing.Size(250, 20);
             this.toolStripProgressBar.Style = MetroFramework.MetroColorStyle.Default;
             this.toolStripProgressBar.StyleManager = null;
             this.toolStripProgressBar.Theme = MetroFramework.MetroThemeStyle.Default;
             this.toolStripProgressBar.ToolTipText = "Total progress";
+            this.toolStripProgressBar.UseCustomBackColor = false;
+            this.toolStripProgressBar.UseCustomForeColor = false;
+            this.toolStripProgressBar.UseSelectable = false;
+            this.toolStripProgressBar.UseStyleColors = true;
             this.toolStripProgressBar.Value = 0;
             // 
             // flowLayoutPanel
