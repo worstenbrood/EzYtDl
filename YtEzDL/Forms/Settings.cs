@@ -20,11 +20,15 @@ namespace YtEzDL.Forms
 
             // Select first page
             tabControl.SelectedIndex = 0;
-
-            ToggleAdvancedTab(Configuration.Default.ApplicationSettings.AdvancedSettings);
-
+            if (!Configuration.Default.ApplicationSettings.AdvancedSettings)
+            {
+                tabControl.Controls.Remove(tabPageAdvanced);
+            }
+            
             // Set style manager
             AppStyle.SetManager(this);
+
+
         }
 
         protected override void OnLoad(EventArgs e)
@@ -113,11 +117,12 @@ namespace YtEzDL.Forms
 
         private void ToggleAdvancedTab(bool show)
         {
-            if (show)
+            var exists = tabControl.Controls.Contains(tabPageAdvanced);
+            if (show && !exists)
             {
                 tabControl.Controls.Add(tabPageAdvanced);
             }
-            else
+            else if (!show && exists)             
             {
                 tabControl.Controls.Remove(tabPageAdvanced);
             }
