@@ -62,6 +62,7 @@ namespace YtEzDL.Forms
             this.textBoxAbout.Multiline = true;
             this.textBoxAbout.Name = "textBoxAbout";
             this.textBoxAbout.PasswordChar = '\0';
+            this.textBoxAbout.ReadOnly = true;
             this.textBoxAbout.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.textBoxAbout.SelectedText = "";
             this.textBoxAbout.SelectionLength = 0;
