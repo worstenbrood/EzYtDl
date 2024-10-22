@@ -20,15 +20,10 @@ namespace YtEzDL.Forms
 
             // Select first page
             tabControl.SelectedIndex = 0;
-            if (!Configuration.Default.ApplicationSettings.AdvancedSettings)
-            {
-                tabControl.Controls.Remove(tabPageAdvanced);
-            }
-            
+            ToggleAdvancedTab(Configuration.Default.ApplicationSettings.AdvancedSettings);
+                        
             // Set style manager
             AppStyle.SetManager(this);
-
-
         }
 
         protected override void OnLoad(EventArgs e)
