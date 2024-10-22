@@ -74,8 +74,11 @@ namespace YtEzDL.Forms
         {
             // Revert
             Configuration.Default.LayoutSettings.ColorStyle = _currentStyle;
-            AppStyle.SetStyle(_currentStyle);
-            AppStyle.RefreshActiveForms();
+            if (AppStyle.Manager.Style != _currentStyle)
+            {
+                AppStyle.SetStyle(_currentStyle);
+                AppStyle.RefreshActiveForms();
+            }
             Close();
         }
 
@@ -110,10 +113,15 @@ namespace YtEzDL.Forms
         {
             // Change style
             var style = (MetroColorStyle)comboBoxColorStyle.SelectedItem;
+
             // To make selection work
             Configuration.Default.LayoutSettings.ColorStyle = style;
-            AppStyle.SetStyle(style);
-            AppStyle.RefreshActiveForms();
+
+            if (AppStyle.Manager.Style != style)
+            {
+                AppStyle.SetStyle(style);
+                AppStyle.RefreshActiveForms();
+            }
         }
 
         private void ToggleAdvancedTab(bool show)
