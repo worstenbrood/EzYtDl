@@ -22,7 +22,7 @@ namespace YtEzDL.UserControls
                 Size = new Size(100, 15),
                 UseStyleColors = true,
                 UseCustomBackColor = false,
-                UseCustomForeColor = false
+                UseCustomForeColor = false,               
             };
             return progressBar;
         }
@@ -31,7 +31,9 @@ namespace YtEzDL.UserControls
 
         public MetroToolStripProgressBar() : base(CreateControlInstance())
         {
-           
+            ProgressBar.CustomPaint += CustomPaint;
+            ProgressBar.CustomPaintBackground += CustomPaintBackground;
+            ProgressBar.CustomPaintForeground += CustomPaintForeground;
         }
                 
         public int Minimum
