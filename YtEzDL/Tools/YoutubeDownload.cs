@@ -63,7 +63,7 @@ namespace YtEzDL.Tools
         private static void ParseProgress(string data, IProgress progress)
         {
 #if DEBUG
-            //Debug.WriteLine("Data: " + data);
+            Debug.WriteLine("Data: " + data);
 #endif
 
             // [download]  10.0% of 40.17MiB at  3.86MiB/s ETA 00:09.net 
