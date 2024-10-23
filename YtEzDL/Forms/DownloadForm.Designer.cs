@@ -284,11 +284,11 @@ namespace YtEzDL.Forms
             this.toolStripStatusLabel.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.toolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.toolStripStatusLabel.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(150, 20);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(150, 23);
             this.toolStripStatusLabel.Text = "Total: 0 / Selected: 0";
             this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.toolStripStatusLabel.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             // 
             // toolStripProgressBar
             // 
@@ -339,8 +339,8 @@ namespace YtEzDL.Forms
             // 
             // DownloadForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(912, 432);
