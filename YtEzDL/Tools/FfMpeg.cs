@@ -6,15 +6,14 @@ namespace YtEzDL.Tools
     public class FfMpeg : ConsoleProcess, ITool
     {
         private const string Executable = "ffmpeg.exe";
-        private static readonly string Path = System.IO.Path.Combine(CommonTools.ToolsPath, Executable);
-       
-        public FfMpeg() : base(Path)
+        
+        public FfMpeg() : base(System.IO.Path.Combine(CommonTools.ToolsPath, Executable))
         {
         }
 
         public string GetPath()
         {
-            return Path;
+            return FileName;
         }
 
         public string GetVersion()

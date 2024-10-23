@@ -25,14 +25,14 @@ namespace YtEzDL.Utils
     public class ConsoleProcess
     {
         public const int DefaultProcessWaitTime = 250;
-        private readonly string _fileName;
+        public readonly string FileName;
         private volatile int _processCount;
 
         public bool IsRunning => _processCount > 0;
 
         public ConsoleProcess(string filename)
         {
-            _fileName = filename;
+            FileName = filename;
         }
 
         private Process CreateProcess(IEnumerable<string> parameters, Action<string> data = null,
@@ -40,12 +40,12 @@ namespace YtEzDL.Utils
         {
             var arguments = string.Join(" ", parameters);
 #if DEBUG
-            Debug.WriteLine("(ConsoleProcess) Command: " + _fileName + " Arguments: " + arguments);
+            Debug.WriteLine("(ConsoleProcess) Command: " + FileName + " Arguments: " + arguments);
 #endif
 
             var processStartInfo = new ProcessStartInfo
             {
-                FileName = _fileName,
+                FileName = FileName,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardInput = true,
@@ -168,14 +168,14 @@ namespace YtEzDL.Utils
                     .GetAwaiter()
                     .GetResult();
 #if DEBUG
-                Debug.WriteLine("(GetOutput) {0}: {1}ms", _fileName, (DateTime.Now - start).TotalMilliseconds);
+                Debug.WriteLine("(GetOutput) {0}: {1}ms", FileName, (DateTime.Now - start).TotalMilliseconds);
 #endif
                 return output.ToString().TrimEnd('\r', '\n');
             }
             catch (ConsoleProcessException e)
             {
 #if DEBUG
-                Debug.WriteLine("(GetOutput) {0}: {1}ms", _fileName, (DateTime.Now - start).TotalMilliseconds);
+                Debug.WriteLine("(GetOutput) {0}: {1}ms", FileName, (DateTime.Now - start).TotalMilliseconds);
 #endif
                 return e.Message.TrimEnd('\r', '\n');
             }
