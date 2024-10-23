@@ -11,7 +11,7 @@ namespace YtEzDL.Utils
 {
     public static class CommonTools
     {
-        public static string GetMemberName<TDelegate>(Expression<TDelegate> p)
+        public static string GetMemberName<TDelegate>(this Expression<TDelegate> p)
             where TDelegate : class, Delegate
         {
             switch (p.Body)
