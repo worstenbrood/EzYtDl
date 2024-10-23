@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace YtEzDL.Utils
 {
@@ -94,7 +95,7 @@ namespace YtEzDL.Utils
             return process;
         }
 
-        public Task<int> RunAsync(List<string> parameters, Action<string> outputAction,
+        public Task<int> RunAsync(IEnumerable<string> parameters, Action<string> outputAction,
             CancellationToken cancellationToken = default, Action<Process> cancelAction = null, bool handleError = true)
         {
             Interlocked.Increment(ref _processCount);
@@ -154,7 +155,7 @@ namespace YtEzDL.Utils
             }
         }
 
-        public string GetOutput(string parameter = "--version")
+        public string GetOutput(params string[] parameters)
         {
 #if DEBUG
             var start = DateTime.Now;
@@ -163,7 +164,7 @@ namespace YtEzDL.Utils
 
             try
             {
-                RunAsync(new List<string> { parameter }, s => output.AppendLine(s))
+                RunAsync(parameters, s => output.AppendLine(s))
                     .ConfigureAwait(false)
                     .GetAwaiter()
                     .GetResult();
