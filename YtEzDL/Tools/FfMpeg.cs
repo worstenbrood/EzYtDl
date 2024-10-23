@@ -1,4 +1,5 @@
-﻿using YtEzDL.Interfaces;
+﻿using System.IO;
+using YtEzDL.Interfaces;
 using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
@@ -7,7 +8,7 @@ namespace YtEzDL.Tools
     {
         private const string Executable = "ffmpeg.exe";
         
-        public FfMpeg() : base(System.IO.Path.Combine(CommonTools.ToolsPath, Executable))
+        public FfMpeg() : base(Path.Combine(CommonTools.ToolsPath, Executable))
         {
         }
 
