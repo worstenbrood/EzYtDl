@@ -17,7 +17,7 @@ namespace YtEzDL.UserControls
 
         private static Control CreateControlInstance()
         {
-            MetroProgressBar progressBar = new MetroProgressBar
+            var progressBar = new MetroProgressBar
             {
                 Size = new Size(100, 15),
                 UseStyleColors = true,
@@ -36,16 +36,16 @@ namespace YtEzDL.UserControls
             ProgressBar.CustomPaintForeground += CustomPaintForeground;
         }
                 
-        public int Minimum { get { return ProgressBar.Minimum; } set { ProgressBar.Minimum = value; } }
-        public int Maximum { get { return ProgressBar.Maximum; } set { ProgressBar.Maximum = value; } }
-        public int Value { get { return ProgressBar.Value; } set { ProgressBar.Value = value; } }
-        public ProgressBarStyle ProgressBarStyle { get { return ProgressBar.ProgressBarStyle; } set { ProgressBar.ProgressBarStyle = value; } }
-        public MetroColorStyle Style { get { return ProgressBar.Style; } set { ProgressBar.Style = value; } }
-        public MetroThemeStyle Theme { get { return ProgressBar.Theme; } set { ProgressBar.Theme = value; } }
-        public MetroStyleManager StyleManager { get { return ProgressBar.StyleManager; } set { ProgressBar.StyleManager = value; } }
-        public bool UseCustomBackColor { get { return ProgressBar.UseCustomBackColor; } set { ProgressBar.UseCustomBackColor = value; } }
-        public bool UseCustomForeColor { get { return ProgressBar.UseCustomForeColor; } set { ProgressBar.UseCustomForeColor = value; } }
-        public bool UseStyleColors { get { return ProgressBar.UseStyleColors; } set { ProgressBar.UseStyleColors = value; } }
-        public bool UseSelectable { get { return ProgressBar.UseSelectable; } set { ProgressBar.UseSelectable = value; } }
+        public int Minimum { get => ProgressBar.Minimum; set => ProgressBar.Minimum = value; }
+        public int Maximum { get => ProgressBar.Maximum; set => ProgressBar.Maximum = value; }
+        public int Value { get => ProgressBar.Value; set => ProgressBar.Value = value; }
+        public ProgressBarStyle ProgressBarStyle { get => ProgressBar.ProgressBarStyle; set => ProgressBar.ProgressBarStyle = value; }
+        public MetroColorStyle Style { get => ProgressBar.Style; set => ProgressBar.Style = value; }
+        public MetroThemeStyle Theme { get => ProgressBar.Theme; set => ProgressBar.Theme = value; }
+        public MetroStyleManager StyleManager { get => ProgressBar.StyleManager; set => ProgressBar.StyleManager = value; }
+        public bool UseCustomBackColor { get => ProgressBar.UseCustomBackColor; set => ProgressBar.UseCustomBackColor = value; }
+        public bool UseCustomForeColor { get => ProgressBar.UseCustomForeColor; set => ProgressBar.UseCustomForeColor = value; }
+        public bool UseStyleColors { get => ProgressBar.UseStyleColors; set => ProgressBar.UseStyleColors = value; }
+        public bool UseSelectable { get => ProgressBar.UseSelectable; set => ProgressBar.UseSelectable = value; }
     }
 }
