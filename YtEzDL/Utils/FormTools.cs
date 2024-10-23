@@ -68,7 +68,7 @@ namespace YtEzDL.Utils
                 {MetroColorStyle.Magenta, MetroColors.Magenta},
                 {MetroColorStyle.Purple, MetroColors.Purple},
                 {MetroColorStyle.Red, MetroColors.Red},
-                {MetroColorStyle.Yellow, MetroColors.Orange}
+                {MetroColorStyle.Yellow, MetroColors.Yellow}
             };
 
         public static bool ShowActiveForm<T>()
