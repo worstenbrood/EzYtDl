@@ -15,7 +15,6 @@ using YtEzDL.Properties;
 using YtEzDL.Tools;
 using YtEzDL.UserControls;
 using YtEzDL.Utils;
-using MetroFramework.Controls;
 
 namespace YtEzDL.Forms
 {
