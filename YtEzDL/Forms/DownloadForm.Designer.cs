@@ -1,4 +1,5 @@
-﻿using YtEzDL.UserControls;
+﻿using System.Diagnostics;
+using YtEzDL.UserControls;
 
 namespace YtEzDL.Forms
 {
@@ -287,17 +288,19 @@ namespace YtEzDL.Forms
             this.toolStripStatusLabel.Size = new System.Drawing.Size(150, 20);
             this.toolStripStatusLabel.Text = "Total: 0 / Selected: 0";
             this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.toolStripStatusLabel.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             // 
             // toolStripProgressBar
             // 
             this.toolStripProgressBar.AutoSize = false;
             this.toolStripProgressBar.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.toolStripProgressBar.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.toolStripProgressBar.Maximum = 100;
             this.toolStripProgressBar.Minimum = 0;
             this.toolStripProgressBar.Name = "toolStripProgressBar";
             this.toolStripProgressBar.ProgressBarStyle = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.toolStripProgressBar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.toolStripProgressBar.Size = new System.Drawing.Size(250, 20);
+            this.toolStripProgressBar.Size = new System.Drawing.Size(250, 19);
             this.toolStripProgressBar.Style = MetroFramework.MetroColorStyle.Default;
             this.toolStripProgressBar.StyleManager = null;
             this.toolStripProgressBar.Theme = MetroFramework.MetroThemeStyle.Default;

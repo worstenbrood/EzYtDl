@@ -28,7 +28,7 @@ namespace YtEzDL.UserControls
         }
 
         public MetroProgressBar ProgressBar => Control as MetroProgressBar;
-
+               
         public MetroToolStripProgressBar() : base(CreateControlInstance())
         {
             ProgressBar.CustomPaint += CustomPaint;
