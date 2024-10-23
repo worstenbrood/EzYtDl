@@ -36,54 +36,10 @@ namespace YtEzDL.UserControls
             ProgressBar.CustomPaintForeground += CustomPaintForeground;
         }
                 
-        public int Minimum
-        {
-            get
-            {
-                return ProgressBar.Minimum;
-            }
-            set
-            {
-                ProgressBar.Minimum = value;
-            }
-        }
-
-        public int Maximum
-        {
-            get
-            {
-                return ProgressBar.Maximum;
-            }
-            set
-            {
-                ProgressBar.Maximum = value;
-            }
-        }
-
-        public int Value
-        {
-            get
-            {
-                return ProgressBar.Value;
-            }
-            set
-            {
-                ProgressBar.Value = value;
-            }
-        }
-
-        public ProgressBarStyle ProgressBarStyle
-        {
-            get
-            {
-                return ProgressBar.ProgressBarStyle;
-            }
-            set
-            {
-                ProgressBar.ProgressBarStyle = value;
-            }
-        }
-
+        public int Minimum { get { return ProgressBar.Minimum; } set { ProgressBar.Minimum = value; } }
+        public int Maximum { get { return ProgressBar.Maximum; } set { ProgressBar.Maximum = value; } }
+        public int Value { get { return ProgressBar.Value; } set { ProgressBar.Value = value; } }
+        public ProgressBarStyle ProgressBarStyle { get { return ProgressBar.ProgressBarStyle; } set { ProgressBar.ProgressBarStyle = value; } }
         public MetroColorStyle Style { get { return ProgressBar.Style; } set { ProgressBar.Style = value; } }
         public MetroThemeStyle Theme { get { return ProgressBar.Theme; } set { ProgressBar.Theme = value; } }
         public MetroStyleManager StyleManager { get { return ProgressBar.StyleManager; } set { ProgressBar.StyleManager = value; } }
