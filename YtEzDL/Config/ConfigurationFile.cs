@@ -20,7 +20,7 @@ namespace YtEzDL.Config
             Converters = { new StringEnumConverter() }
         };
 
-        public ConfigurationFile() : this(null, false, null)
+        public ConfigurationFile() : this(null, false)
         {
         }
 
