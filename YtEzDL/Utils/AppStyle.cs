@@ -32,17 +32,17 @@ namespace YtEzDL.Utils
 
         public static void SetManager(Control control)
         {
-            if (control is IMetroControl metroControl)
+            switch (control)
             {
-                metroControl.StyleManager = Manager;
-            }
-            else if (control is IMetroForm metroForm)
-            {
-                metroForm.StyleManager = Manager;
-            }
-            else if (control is IMetroComponent metroComponent)
-            {
-                metroComponent.StyleManager = Manager;
+                case IMetroControl metroControl:
+                    metroControl.StyleManager = Manager;
+                    break;
+                case IMetroForm metroForm:
+                    metroForm.StyleManager = Manager;
+                    break;
+                //case IMetroComponent metroComponent:
+                //    metroComponent.StyleManager = Manager;
+                //    break;
             }
 
             foreach (Control c in control.Controls)
