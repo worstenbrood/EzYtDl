@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -86,7 +87,7 @@ namespace YtEzDL.Utils
             }
         }
         
-        public static string RemoveInvalidChars(this string name, char[] invalidChars, char replaceChar = '-')
+        public static string RemoveInvalidChars(this string name, IEnumerable<char> invalidChars, char replaceChar = '-')
         {
             return invalidChars
                 .Join(name, c => c, c => c, (c, d) => c)
@@ -95,7 +96,7 @@ namespace YtEzDL.Utils
 
         public static string RemoveInvalidPathChars(this string name, char replaceChar = '-')
         {
-            return name.RemoveInvalidChars(Path.GetInvalidPathChars(), replaceChar);
+            return name.RemoveInvalidChars(Path.GetInvalidPathChars().Append(':'), replaceChar);
         }
 
         public static string GetValidPath(this string s)
