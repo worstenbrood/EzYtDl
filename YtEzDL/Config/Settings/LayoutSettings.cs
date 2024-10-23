@@ -1,4 +1,6 @@
-﻿using MetroFramework;
+﻿using System.Drawing;
+using System.Windows.Forms;
+using MetroFramework;
 using Newtonsoft.Json;
 
 namespace YtEzDL.Config.Settings
@@ -66,6 +68,24 @@ namespace YtEzDL.Config.Settings
         {
             get => _colorStyle;
             set => _colorStyle = value;
+        }
+
+        private volatile FormWindowState _windowState = FormWindowState.Normal;
+
+        [JsonProperty(PropertyName = "windowState")]
+        public FormWindowState WindowState
+        {
+            get => _windowState;
+            set => _windowState = value;
+        }
+
+        private readonly LockedProperty<Size> _windowSize = new LockedProperty<Size>(new Size(909, 432));
+
+        [JsonProperty(PropertyName = "windowSize")]
+        public Size WindowSize
+        {
+            get => _windowSize.Get();
+            set => _windowSize.Set(value);
         }
     }
 }

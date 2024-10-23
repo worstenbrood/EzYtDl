@@ -53,13 +53,16 @@ namespace YtEzDL.Forms
 
             // Layout
             Icon = Resources.YTIcon;
-            Text = SafeString($"Fetching {_url}");
+            
             flowLayoutPanel.AutoScroll = false;
             flowLayoutPanel.HorizontalScroll.Minimum = int.MaxValue;
             flowLayoutPanel.HorizontalScroll.Maximum = int.MaxValue;
             flowLayoutPanel.HorizontalScroll.Visible = false;
             flowLayoutPanel.HorizontalScroll.Enabled = false;
             flowLayoutPanel.AutoScroll = true;
+
+            Size = Configuration.Default.LayoutSettings.WindowSize;
+            WindowState = Configuration.Default.LayoutSettings.WindowState;
 
             // Set style manager
             AppStyle.SetManager(this);
@@ -262,7 +265,9 @@ namespace YtEzDL.Forms
         {
             // Base
             base.OnLoad(e);
-           
+
+            Text = SafeString($"Fetching {_url}");
+
             // Load data
             Task.Run(LoadData);
         }
@@ -449,7 +454,16 @@ namespace YtEzDL.Forms
             {
                 ResizeTracks();
             }
+
             _previousWindowState = WindowState;
+
+            // Save window state
+            if (WindowState != FormWindowState.Minimized)
+            {
+                Configuration.Default.LayoutSettings.WindowState = WindowState;
+                Configuration.Default.LayoutSettings.WindowSize = Size;
+                Configuration.Default.Save();
+            }
         }
         
         private void ClearCache()
