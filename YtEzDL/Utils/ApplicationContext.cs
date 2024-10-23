@@ -7,7 +7,6 @@ using YtEzDL.Properties;
 using YtEzDL.Tools;
 using YtEzDL.UserControls;
 using MetroFramework.Controls;
-using MetroFramework.Forms;
 
 namespace YtEzDL.Utils
 {
