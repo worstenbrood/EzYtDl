@@ -70,7 +70,7 @@ namespace YtEzDL.Forms
             };
         }
         
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             // Revert
             Configuration.Default.LayoutSettings.ColorStyle = _currentStyle;
@@ -82,7 +82,7 @@ namespace YtEzDL.Forms
             Close();
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void ButtonSave_Click(object sender, EventArgs e)
         {
             // Save to file
             Configuration.Default.Save(_configuration);
@@ -97,19 +97,19 @@ namespace YtEzDL.Forms
             Close();
         }
 
-        private void checkBoxExtractAudio_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxExtractAudio_CheckedChanged(object sender, EventArgs e)
         {
             comboBoxAudioFormat.Enabled = checkBoxExtractAudio.Checked;
             comboBoxAudioQuality.Enabled = checkBoxExtractAudio.Checked;
             comboBoxVideoFormat.Enabled = !checkBoxExtractAudio.Checked;
         }
 
-        private void checkBoxFetchThumbnail_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxFetchThumbnail_CheckedChanged(object sender, EventArgs e)
         {
             checkBoxFetchBestThumbnail.Enabled = checkBoxFetchThumbnail.Checked;
         }
 
-        private void comboBoxColorStyle_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxColorStyle_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Change style
             var style = (MetroColorStyle)comboBoxColorStyle.SelectedItem;
@@ -137,7 +137,7 @@ namespace YtEzDL.Forms
             }
         }
 
-        private void checkBoxAdvanced_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxAdvanced_CheckedChanged(object sender, EventArgs e)
         {
             ToggleAdvancedTab(checkBoxAdvanced.Checked);
         }

@@ -130,7 +130,7 @@
             this.checkBoxExtractAudio.TabIndex = 2;
             this.checkBoxExtractAudio.Text = "Extract audio";
             this.checkBoxExtractAudio.UseSelectable = true;
-            this.checkBoxExtractAudio.CheckedChanged += new System.EventHandler(this.checkBoxExtractAudio_CheckedChanged);
+            this.checkBoxExtractAudio.CheckedChanged += new System.EventHandler(this.CheckBoxExtractAudio_CheckedChanged);
             // 
             // checkBoxCreatePlaylistFolder
             // 
@@ -249,7 +249,7 @@
             this.checkBoxFetchThumbnail.TabIndex = 12;
             this.checkBoxFetchThumbnail.Text = "Fetch thumbnail";
             this.checkBoxFetchThumbnail.UseSelectable = true;
-            this.checkBoxFetchThumbnail.CheckedChanged += new System.EventHandler(this.checkBoxFetchThumbnail_CheckedChanged);
+            this.checkBoxFetchThumbnail.CheckedChanged += new System.EventHandler(this.CheckBoxFetchThumbnail_CheckedChanged);
             // 
             // checkBoxFetchBestThumbnail
             // 
@@ -283,7 +283,7 @@
             this.buttonCancel.TabIndex = 15;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseSelectable = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // buttonSave
             // 
@@ -295,7 +295,7 @@
             this.buttonSave.TabIndex = 16;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseSelectable = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // labelThreads
             // 
@@ -466,7 +466,7 @@
             this.comboBoxColorStyle.Size = new System.Drawing.Size(121, 35);
             this.comboBoxColorStyle.TabIndex = 21;
             this.comboBoxColorStyle.UseSelectable = true;
-            this.comboBoxColorStyle.SelectedIndexChanged += new System.EventHandler(this.comboBoxColorStyle_SelectedIndexChanged);
+            this.comboBoxColorStyle.SelectedIndexChanged += new System.EventHandler(this.ComboBoxColorStyle_SelectedIndexChanged);
             // 
             // checkBoxYoutubeFastFetch
             // 
@@ -507,7 +507,7 @@
             this.checkBoxAdvanced.TabIndex = 27;
             this.checkBoxAdvanced.Text = "Advanced settings";
             this.checkBoxAdvanced.UseSelectable = true;
-            this.checkBoxAdvanced.CheckedChanged += new System.EventHandler(this.checkBoxAdvanced_CheckedChanged);
+            this.checkBoxAdvanced.CheckedChanged += new System.EventHandler(this.CheckBoxAdvanced_CheckedChanged);
             // 
             // checkBoxAutostart
             // 

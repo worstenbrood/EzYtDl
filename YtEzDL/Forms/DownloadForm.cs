@@ -488,13 +488,13 @@ namespace YtEzDL.Forms
             }
         }
 
-        private void toolStripButtonClearCache_Click(object sender, EventArgs e)
+        private void ToolStripButtonClearCache_Click(object sender, EventArgs e)
         {
             toolStripButtonClearCache.Enabled = false;
             Task.Run(ClearCache);
         }
 
-        private void flowLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
+        private void FlowLayoutPanel_ControlAdded(object sender, ControlEventArgs e)
         {
             if (Tracks.Count() != 1)
             {
@@ -507,7 +507,7 @@ namespace YtEzDL.Forms
             FocusMe();
         }
 
-        private void toolStripButtonAbout_Click(object sender, EventArgs e)
+        private void ToolStripButtonAbout_Click(object sender, EventArgs e)
         {
             using (var about = new About())
             {
@@ -516,26 +516,26 @@ namespace YtEzDL.Forms
             }
         }
         
-        private void sortByTitleItem_Click(object sender, EventArgs e)
+        private void SortByTitleItem_Click(object sender, EventArgs e)
         {
             SortTracks(t => t.TrackData.Title);
         }
-        private void sortByTitleDescendingItem_Click(object sender, EventArgs e)
+        private void SortByTitleDescendingItem_Click(object sender, EventArgs e)
         {
             SortTracks(t => t.TrackData.Title, true);
         }
 
-        private void sortByLengthItem_Click(object sender, EventArgs e)
+        private void SortByLengthItem_Click(object sender, EventArgs e)
         {
             SortTracks(t => t.TrackData.Duration);
         }
 
-        private void sortByLengthDescendingItem_Click(object sender, EventArgs e)
+        private void SortByLengthDescendingItem_Click(object sender, EventArgs e)
         {
             SortTracks(t => t.TrackData.Duration, true);
         }
 
-        private void resetItem_Click(object sender, EventArgs e)
+        private void ResetItem_Click(object sender, EventArgs e)
         {
             ResetTracks();
         }

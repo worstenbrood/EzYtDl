@@ -178,7 +178,7 @@ namespace YtEzDL.Forms
             this.sortByTitleItem.Size = new System.Drawing.Size(246, 24);
             this.sortByTitleItem.Text = "Sort by title";
             this.sortByTitleItem.ToolTipText = "Sort by title";
-            this.sortByTitleItem.Click += new System.EventHandler(this.sortByTitleItem_Click);
+            this.sortByTitleItem.Click += new System.EventHandler(this.SortByTitleItem_Click);
             // 
             // sortByTitleDescendingItem
             // 
@@ -187,7 +187,7 @@ namespace YtEzDL.Forms
             this.sortByTitleDescendingItem.Size = new System.Drawing.Size(246, 24);
             this.sortByTitleDescendingItem.Text = "Sort by title (Descending)";
             this.sortByTitleDescendingItem.ToolTipText = "Sort by title, descending";
-            this.sortByTitleDescendingItem.Click += new System.EventHandler(this.sortByTitleDescendingItem_Click);
+            this.sortByTitleDescendingItem.Click += new System.EventHandler(this.SortByTitleDescendingItem_Click);
             // 
             // sortByLengthItem
             // 
@@ -196,7 +196,7 @@ namespace YtEzDL.Forms
             this.sortByLengthItem.Size = new System.Drawing.Size(246, 24);
             this.sortByLengthItem.Text = "Sort by length";
             this.sortByLengthItem.ToolTipText = "Sort by length";
-            this.sortByLengthItem.Click += new System.EventHandler(this.sortByLengthItem_Click);
+            this.sortByLengthItem.Click += new System.EventHandler(this.SortByLengthItem_Click);
             // 
             // sortByLengthDescendingItem
             // 
@@ -205,7 +205,7 @@ namespace YtEzDL.Forms
             this.sortByLengthDescendingItem.Size = new System.Drawing.Size(246, 24);
             this.sortByLengthDescendingItem.Text = "Sort by length (Descending)";
             this.sortByLengthDescendingItem.ToolTipText = "Sort by length, descending";
-            this.sortByLengthDescendingItem.Click += new System.EventHandler(this.sortByLengthDescendingItem_Click);
+            this.sortByLengthDescendingItem.Click += new System.EventHandler(this.SortByLengthDescendingItem_Click);
             // 
             // resetItem
             // 
@@ -214,7 +214,7 @@ namespace YtEzDL.Forms
             this.resetItem.Size = new System.Drawing.Size(246, 24);
             this.resetItem.Text = "Reset";
             this.resetItem.ToolTipText = "Reset sorting to original";
-            this.resetItem.Click += new System.EventHandler(this.resetItem_Click);
+            this.resetItem.Click += new System.EventHandler(this.ResetItem_Click);
             // 
             // toolStripButtonDownload
             // 
@@ -248,7 +248,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonClearCache.Name = "toolStripButtonClearCache";
             this.toolStripButtonClearCache.Size = new System.Drawing.Size(24, 24);
             this.toolStripButtonClearCache.ToolTipText = "Clear yt-dlp cache";
-            this.toolStripButtonClearCache.Click += new System.EventHandler(this.toolStripButtonClearCache_Click);
+            this.toolStripButtonClearCache.Click += new System.EventHandler(this.ToolStripButtonClearCache_Click);
             // 
             // toolStripButtonAbout
             // 
@@ -258,7 +258,7 @@ namespace YtEzDL.Forms
             this.toolStripButtonAbout.Name = "toolStripButtonAbout";
             this.toolStripButtonAbout.Size = new System.Drawing.Size(24, 24);
             this.toolStripButtonAbout.ToolTipText = "About";
-            this.toolStripButtonAbout.Click += new System.EventHandler(this.toolStripButtonAbout_Click);
+            this.toolStripButtonAbout.Click += new System.EventHandler(this.ToolStripButtonAbout_Click);
             // 
             // statusStrip
             // 
@@ -325,7 +325,7 @@ namespace YtEzDL.Forms
             this.flowLayoutPanel.Size = new System.Drawing.Size(894, 305);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
-            this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.flowLayoutPanel_ControlAdded);
+            this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_ControlAdded);
             // 
             // metroProgressSpinner
             // 

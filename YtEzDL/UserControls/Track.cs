@@ -326,7 +326,7 @@ namespace YtEzDL.UserControls
             Invalidate(ClientRectangle, false);
         }
         
-        private void checkBoxExtractAudio_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxExtractAudio_CheckedChanged(object sender, EventArgs e)
         {
             comboBoxAudioFormat.Enabled = checkBoxExtractAudio.Checked;
             comboBoxAudioQuality.Enabled = checkBoxExtractAudio.Checked;
@@ -378,7 +378,7 @@ namespace YtEzDL.UserControls
             });
         }
 
-        private void controlResize(object sender, EventArgs e)
+        private void ControlResize(object sender, EventArgs e)
         {
             metroTabControl.Width = Width - 25;
         }

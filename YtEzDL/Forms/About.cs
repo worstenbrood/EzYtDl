@@ -62,7 +62,7 @@ namespace YtEzDL.Forms
             return Screen.FromControl(this).Bounds;
         }
 
-        private void textBoxAbout_TextChanged(object sender, EventArgs e)
+        private void TextBoxAbout_TextChanged(object sender, EventArgs e)
         {
             if (textBoxAbout.ScrollBars != ScrollBars.Vertical)
             {
@@ -91,7 +91,7 @@ namespace YtEzDL.Forms
             Win32.HideCaret(textBoxAbout.Handle);
         }
 
-        private void textBoxAbout_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBoxAbout_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
             Win32.HideCaret(textBoxAbout.Handle);

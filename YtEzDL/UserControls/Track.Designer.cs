@@ -58,7 +58,7 @@
             this.metroLabel.Size = new System.Drawing.Size(624, 20);
             this.metroLabel.TabIndex = 16;
             this.metroLabel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
-            this.metroLabel.Resize += new System.EventHandler(this.controlResize);
+            this.metroLabel.Resize += new System.EventHandler(this.ControlResize);
             // 
             // metroTabControl
             // 
@@ -93,7 +93,7 @@
             this.tabPageInfo.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageInfo.VerticalScrollbarSize = 10;
             this.tabPageInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
-            this.tabPageInfo.Resize += new System.EventHandler(this.controlResize);
+            this.tabPageInfo.Resize += new System.EventHandler(this.ControlResize);
             // 
             // pictureBox
             // 
@@ -233,7 +233,7 @@
             this.checkBoxExtractAudio.TabIndex = 2;
             this.checkBoxExtractAudio.Text = "Extract audio";
             this.checkBoxExtractAudio.UseSelectable = true;
-            this.checkBoxExtractAudio.CheckedChanged += new System.EventHandler(this.checkBoxExtractAudio_CheckedChanged);
+            this.checkBoxExtractAudio.CheckedChanged += new System.EventHandler(this.CheckBoxExtractAudio_CheckedChanged);
             // 
             // metroProgressBar
             // 
@@ -246,7 +246,7 @@
             this.metroProgressBar.Size = new System.Drawing.Size(625, 17);
             this.metroProgressBar.TabIndex = 15;
             this.metroProgressBar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
-            this.metroProgressBar.Resize += new System.EventHandler(this.controlResize);
+            this.metroProgressBar.Resize += new System.EventHandler(this.ControlResize);
             // 
             // Track
             // 

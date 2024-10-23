@@ -74,8 +74,8 @@ namespace YtEzDL.Forms
             this.textBoxAbout.UseStyleColors = true;
             this.textBoxAbout.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.textBoxAbout.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            this.textBoxAbout.TextChanged += new System.EventHandler(this.textBoxAbout_TextChanged);
-            this.textBoxAbout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxAbout_KeyPress);
+            this.textBoxAbout.TextChanged += new System.EventHandler(this.TextBoxAbout_TextChanged);
+            this.textBoxAbout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxAbout_KeyPress);
             // 
             // About
             // 
