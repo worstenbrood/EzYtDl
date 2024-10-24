@@ -22,6 +22,9 @@ namespace YtEzDL.Utils
         public static extern bool AddClipboardFormatListener(IntPtr hWnd);
 
         [DllImport("user32", SetLastError = true)]
+        public static extern bool RemoveClipboardFormatListener(IntPtr hWnd);
+        
+        [DllImport("user32", SetLastError = true)]
         public static extern uint GetClipboardSequenceNumber();
 
         [DllImport("kernel32", SetLastError = true)]
