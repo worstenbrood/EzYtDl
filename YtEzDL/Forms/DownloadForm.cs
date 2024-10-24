@@ -457,12 +457,18 @@ namespace YtEzDL.Forms
             _previousWindowState = WindowState;
 
             // Save window state
-            if (WindowState != FormWindowState.Minimized)
+            if (WindowState == FormWindowState.Minimized)
             {
-                Configuration.Default.LayoutSettings.WindowState = WindowState;
-                Configuration.Default.LayoutSettings.WindowSize = Size;
-                Configuration.Default.Save();
+                return;
             }
+
+            Configuration.Default.LayoutSettings.WindowState = WindowState;
+            if (WindowState != FormWindowState.Maximized)
+            {
+                Configuration.Default.LayoutSettings.WindowSize = Size;
+            }
+
+            Configuration.Default.Save();
         }
         
         private void ClearCache()
