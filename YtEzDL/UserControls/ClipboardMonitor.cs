@@ -61,7 +61,7 @@ namespace YtEzDL.UserControls
                         Debug.WriteLine("(ClipboardMonitor) Sequence: {0} Data: {1}", _prevSequence, data?.GetData(DataFormats.StringFormat));
 #endif
                         // Pass to event
-                        OnClipboardDataChanged.Invoke(data);
+                        OnClipboardDataChanged?.Invoke(data);
                     }
                     break;
                 }
