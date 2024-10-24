@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using YtEzDL.Config;
 using YtEzDL.Utils;
 
 namespace YtEzDL.UserControls
@@ -17,25 +16,35 @@ namespace YtEzDL.UserControls
         // Globals
         private volatile uint _prevSequence;
 
-        public void Monitor()
+        public ClipboardMonitor()
         {
             // Initial sequence
             _prevSequence = Win32.GetClipboardSequenceNumber();
 
             //Turn the child window into a message-only window (refer to Microsoft docs)
             Win32.SetParent(Handle, HwndMessage);
-
-            //Place window in the system-maintained clipboard format listener list
-            Win32.AddClipboardFormatListener(Handle);
         }
-
+        
+        public void EnableListener(bool enable)
+        {
+            if (enable)
+            {
+                //Place window in the system-maintained clipboard format listener list
+                Win32.AddClipboardFormatListener(Handle);
+            }
+            else
+            {
+                Win32.RemoveClipboardFormatListener(Handle);
+            }
+        }
+        
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
             {
                 case Win32.ClipboardUpdate:
                 {
-                    if (Configuration.Default.ApplicationSettings.CaptureClipboard && OnClipboardDataChanged != null)
+                    if (OnClipboardDataChanged != null)
                     {
                         lock (this)
                         {

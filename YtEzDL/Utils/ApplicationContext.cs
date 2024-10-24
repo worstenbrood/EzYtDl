@@ -17,6 +17,7 @@ namespace YtEzDL.Utils
         private readonly object _lock = new object();
         // Start youtube-dl
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
+        private ClipboardMonitor _clipboardMonitor = new ClipboardMonitor();
 
         private void RunYtDlp(Action a)
         {
@@ -65,6 +66,8 @@ namespace YtEzDL.Utils
                 // Change and save config
                 Configuration.Default.ApplicationSettings.CaptureClipboard = captureClipboard.Checked;
                 Configuration.Default.Save();
+
+                _clipboardMonitor.EnableListener(captureClipboard.Checked);
             };
 
             contextMenu.Items.Add($"{CommonTools.ApplicationName} {CommonTools.ApplicationProductVersion}");
@@ -98,11 +101,9 @@ namespace YtEzDL.Utils
 #if !DEBUG
             Update();
 #endif
-
             // Start clipboard monitor
-            var clipboardMonitor = new ClipboardMonitor();
-            clipboardMonitor.OnClipboardDataChanged += d => Task.Run(() => HandleClipboard(d));
-            clipboardMonitor.Monitor();
+            _clipboardMonitor.OnClipboardDataChanged += d => Task.Run(() => HandleClipboard(d));
+            _clipboardMonitor.EnableListener(Configuration.Default.ApplicationSettings.CaptureClipboard);
         }
 
         private static void ShowDownLoadForm(Uri url)
