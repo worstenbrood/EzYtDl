@@ -127,13 +127,14 @@ namespace YtEzDL.Forms
         private void ToggleAdvancedTab(bool show)
         {
             var exists = tabControl.Controls.Contains(tabPageAdvanced);
-            if (show && !exists)
+            switch (show)
             {
-                tabControl.Controls.Add(tabPageAdvanced);
-            }
-            else if (!show && exists)             
-            {
-                tabControl.Controls.Remove(tabPageAdvanced);
+                case true when !exists:
+                    tabControl.Controls.Add(tabPageAdvanced);
+                    break;
+                case false when exists:
+                    tabControl.Controls.Remove(tabPageAdvanced);
+                    break;
             }
         }
 
