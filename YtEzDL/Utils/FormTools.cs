@@ -55,6 +55,7 @@ namespace YtEzDL.Utils
         public static Dictionary<MetroColorStyle, Color> ColorMapping =
             new Dictionary<MetroColorStyle, Color>()
             {
+                {MetroColorStyle.Default, MetroColors.Blue},
                 {MetroColorStyle.Black, MetroColors.Black},
                 {MetroColorStyle.White, MetroColors.White},
                 {MetroColorStyle.Silver, MetroColors.Silver},
