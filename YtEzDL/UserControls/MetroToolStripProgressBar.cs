@@ -11,9 +11,23 @@ namespace YtEzDL.UserControls
 {
     public class MetroToolStripProgressBar : ToolStripControlHost, IMetroControl
     {
-        public event EventHandler<MetroPaintEventArgs> CustomPaintBackground;
-        public event EventHandler<MetroPaintEventArgs> CustomPaint;
-        public event EventHandler<MetroPaintEventArgs> CustomPaintForeground;
+        public event EventHandler<MetroPaintEventArgs> CustomPaintBackground
+        {
+            add => ProgressBar.CustomPaintBackground += value;
+            remove => ProgressBar.CustomPaintBackground -= value;
+        }
+
+        public event EventHandler<MetroPaintEventArgs> CustomPaint
+        {
+            add => ProgressBar.CustomPaint += value;
+            remove => ProgressBar.CustomPaint -= value;
+        }
+
+        public event EventHandler<MetroPaintEventArgs> CustomPaintForeground
+        {
+            add => ProgressBar.CustomPaintForeground += value;
+            remove => ProgressBar.CustomPaintForeground -= value;
+        }
 
         private static Control CreateControlInstance()
         {
@@ -31,9 +45,6 @@ namespace YtEzDL.UserControls
                
         public MetroToolStripProgressBar() : base(CreateControlInstance())
         {
-            ProgressBar.CustomPaint += CustomPaint;
-            ProgressBar.CustomPaintBackground += CustomPaintBackground;
-            ProgressBar.CustomPaintForeground += CustomPaintForeground;
         }
                 
         public int Minimum { get => ProgressBar.Minimum; set => ProgressBar.Minimum = value; }
