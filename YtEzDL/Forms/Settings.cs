@@ -51,6 +51,7 @@ namespace YtEzDL.Forms
             checkBoxAutostart.AddCheckedBinding(_configuration.ApplicationSettings, p => p.Autostart);
             checkBoxYoutubeFastFetch.AddCheckedBinding(_configuration.LayoutSettings, p => p.YoutubeFastFetch);
             comboBoxColorStyle.AddEnumBinding(_configuration.LayoutSettings, p => p.ColorStyle);
+            AppStyle.SetStyle(_configuration.LayoutSettings.ColorStyle);
             comboBoxSelectionWidth.AddRangeBinding(_configuration.LayoutSettings, p => p.SelectionWidth, 1, 10);
             comboBoxUpdateChannel.AddEnumBinding(_configuration.AdvancedSettings, p => p.UpdateChannel);
             checkBoxAdvanced.AddCheckedBinding(_configuration.ApplicationSettings, p => p.AdvancedSettings);
