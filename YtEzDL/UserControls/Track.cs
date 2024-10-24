@@ -349,32 +349,31 @@ namespace YtEzDL.UserControls
         {
             SetProperty(c =>
             {
-                var text = Resources.StatusConverting;
+                metroLabel.Text = Resources.StatusConverting;
 
                 switch (action)
                 {
                     case YoutubeDownload.DownloadAction.VideoConvertor:
-                        text = Resources.StatusConvertingVideo;
+                        metroLabel.Text = Resources.StatusConvertingVideo;
                         break;
 
                     case YoutubeDownload.DownloadAction.ExtractAudio:
-                        text = Resources.StatusExtractingAudio;
+                        metroLabel.Text = Resources.StatusExtractingAudio;
                         break;
 
                     case YoutubeDownload.DownloadAction.ThumbnailsConvertor:
-                        text = Resources.StatusConvertingThumbnail;
+                        metroLabel.Text = Resources.StatusConvertingThumbnail;
                         break;
 
                     case YoutubeDownload.DownloadAction.EmbedThumbnail:
-                        text = Resources.StatusEmbeddingThumbnail;
+                        metroLabel.Text = Resources.StatusEmbeddingThumbnail;
                         break;
 
                     case YoutubeDownload.DownloadAction.Metadata:
-                        text = Resources.StatusAddingMetadata;
+                        metroLabel.Text = Resources.StatusAddingMetadata;
                         break;
                 }
 
-                metroLabel.Text = text;
                 metroProgressBar.Value = 100;
             });
         }
