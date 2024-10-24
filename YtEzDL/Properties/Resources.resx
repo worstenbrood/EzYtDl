@@ -121,4 +121,109 @@
   <data name="YTIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\YTIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ContextCaptureClipboard" xml:space="preserve">
+    <value>Capture clipboard</value>
+  </data>
+  <data name="StatusLabelText" xml:space="preserve">
+    <value>Total: {0} / Selected: {1}</value>
+  </data>
+  <data name="YtDlp" xml:space="preserve">
+    <value>yt-dlp</value>
+  </data>
+  <data name="SystemException" xml:space="preserve">
+    <value>System exception</value>
+  </data>
+  <data name="YtDlpError" xml:space="preserve">
+    <value>yt-dlp error</value>
+  </data>
+  <data name="RemoveCacheError" xml:space="preserve">
+    <value>Error removing cache</value>
+  </data>
+  <data name="Fetching" xml:space="preserve">
+    <value>Fetching {0}</value>
+  </data>
+  <data name="Playlist" xml:space="preserve">
+    <value>Playlist: {0} ({1})</value>
+  </data>
+  <data name="Track" xml:space="preserve">
+    <value>Track: {0} ({1})</value>
+  </data>
+  <data name="EzYtDlVersion" xml:space="preserve">
+    <value>ezytdl version: {0}</value>
+  </data>
+  <data name="EzYtDlCredits" xml:space="preserve">
+    <value>written by worstenbrood (worstenbrood@gmail.com)</value>
+  </data>
+  <data name="MetroFrameworkVersion" xml:space="preserve">
+    <value>MetroFramework version: {0}</value>
+  </data>
+  <data name="MetroFrameworkUrl" xml:space="preserve">
+    <value>https://github.com/thielj/MetroFramework</value>
+  </data>
+  <data name="WebPVersion" xml:space="preserve">
+    <value>WebP version: {0}</value>
+  </data>
+  <data name="WebPUrl" xml:space="preserve">
+    <value>https://chromium.googlesource.com/webm/libwebp</value>
+  </data>
+  <data name="WebPWrapperUrl" xml:space="preserve">
+    <value>https://github.com/JosePineiro/WebP-wrapper</value>
+  </data>
+  <data name="YtDlpVersion" xml:space="preserve">
+    <value>yt-dlp version: {0}</value>
+  </data>
+  <data name="YtDlpUrl" xml:space="preserve">
+    <value>https://github.com/yt-dlp/yt-dlp</value>
+  </data>
+  <data name="FfMpegUrl" xml:space="preserve">
+    <value>https://github.com/FFmpeg/FFmpeg</value>
+  </data>
+  <data name="YtDlpUpdate" xml:space="preserve">
+    <value>yt-dlp update</value>
+  </data>
+  <data name="ContextAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ContextSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="ContextClearCache" xml:space="preserve">
+    <value>Clear cache</value>
+  </data>
+  <data name="ContextUpdate" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="ContextExit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Untitled" xml:space="preserve">
+    <value>Untitled</value>
+  </data>
+  <data name="StatusDone" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="StatusError" xml:space="preserve">
+    <value>Error: {0}</value>
+  </data>
+  <data name="Downloading" xml:space="preserve">
+    <value>Downloading...</value>
+  </data>
+  <data name="StatusConverting" xml:space="preserve">
+    <value>Converting ...</value>
+  </data>
+  <data name="StatusConvertingVideo" xml:space="preserve">
+    <value>Converting video ...</value>
+  </data>
+  <data name="StatusExtractingAudio" xml:space="preserve">
+    <value>Extracting audio ...</value>
+  </data>
+  <data name="StatusConvertingThumbnail" xml:space="preserve">
+    <value>Converting thumbnail ...</value>
+  </data>
+  <data name="StatusEmbeddingThumbnail" xml:space="preserve">
+    <value>Embedding thumbnail ...</value>
+  </data>
+  <data name="StatusAddingMetadata" xml:space="preserve">
+    <value>Adding metadata ...</value>
+  </data>
 </root>

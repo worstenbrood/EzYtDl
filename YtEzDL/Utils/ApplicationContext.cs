@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YtEzDL.DownLoad;
@@ -17,7 +18,7 @@ namespace YtEzDL.Utils
         private readonly object _lock = new object();
         // Start youtube-dl
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
-        private ClipboardMonitor _clipboardMonitor = new ClipboardMonitor();
+        private readonly ClipboardMonitor _clipboardMonitor = new ClipboardMonitor();
 
         private void RunYtDlp(Action a)
         {
@@ -28,19 +29,19 @@ namespace YtEzDL.Utils
             catch (ConsoleProcessException ex)
             {
                 // Error
-                _notifyIcon.ShowBalloonTip(2000, "yt-dlp error", ex.Message, ToolTipIcon.Error);
+                _notifyIcon.ShowBalloonTip(2000, Resources.YtDlpError, ex.Message, ToolTipIcon.Error);
             }
             catch (Exception ex)
             {
                 // Error
-                _notifyIcon.ShowBalloonTip(2000, "System error", ex.Message, ToolTipIcon.Error);
+                _notifyIcon.ShowBalloonTip(2000, Resources.SystemException, ex.Message, ToolTipIcon.Error);
             }
         }
 
         private void Update()
         {
            // Update
-           RunYtDlp(() => _youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp update", t, ToolTipIcon.Info)));
+           RunYtDlp(() => _youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, Resources.YtDlpUpdate, t, ToolTipIcon.Info)));
         }
 
         private void ClearCache()
@@ -53,7 +54,7 @@ namespace YtEzDL.Utils
             var contextMenu = new MetroContextMenu(container);
             var captureClipboard = new ToolStripMenuItem
             {
-                Text = "Capture clipboard",
+                Text = Resources.ContextCaptureClipboard,
                 Checked = Configuration.Default.ApplicationSettings.CaptureClipboard,
             };
             captureClipboard.Click += (o, e) =>
@@ -74,12 +75,12 @@ namespace YtEzDL.Utils
             contextMenu.Items[0].Enabled = false;
             contextMenu.Items.Add("-");
             contextMenu.Items.Add(captureClipboard);
-            contextMenu.Items.Add("&About", null, (sender, args) => FormTools.ShowFormDialog<Forms.About>());
-            contextMenu.Items.Add("&Settings", null, (sender, args) => FormTools.ShowFormDialog<Forms.Settings>());
-            contextMenu.Items.Add("&Clear cache", null, (sender, args) => ClearCache());
-            contextMenu.Items.Add("&Update", null, (sender, args) => Update());
+            contextMenu.Items.Add(Resources.ContextAbout, null, (sender, args) => FormTools.ShowFormDialog<Forms.About>());
+            contextMenu.Items.Add(Resources.ContextSettings, null, (sender, args) => FormTools.ShowFormDialog<Forms.Settings>());
+            contextMenu.Items.Add(Resources.ContextClearCache, null, (sender, args) => ClearCache());
+            contextMenu.Items.Add(Resources.ContextUpdate, null, (sender, args) => Update());
             contextMenu.Items.Add("-");
-            contextMenu.Items.Add("&Exit", null, (sender, args) => ExitThread());
+            contextMenu.Items.Add(Resources.ContextExit, null, (sender, args) => ExitThread());
 
             return contextMenu;
         }

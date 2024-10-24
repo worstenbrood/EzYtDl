@@ -10,6 +10,7 @@ using MetroFramework.Controls;
 using YtEzDL.Config;
 using YtEzDL.DownLoad;
 using YtEzDL.Interfaces;
+using YtEzDL.Properties;
 using YtEzDL.Tools;
 using YtEzDL.Utils;
 
@@ -114,7 +115,7 @@ namespace YtEzDL.UserControls
             }
             catch (Exception ex)
             {
-                Invoke(new MethodInvoker(() => MetroMessageBox.Show(this, ex.ToString(), "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error)));
+                Invoke(new MethodInvoker(() => MetroMessageBox.Show(this, ex.ToString(), nameof(Exception), MessageBoxButtons.OK, MessageBoxIcon.Error)));
                 return null;
             }
         }
@@ -135,7 +136,7 @@ namespace YtEzDL.UserControls
                 textBoxTitle.Font = MetroFonts.Default(16);
 
                 // Set title
-                Text = TrackData.Title?.Replace("&", "&&") ?? "Untitled";
+                Text = TrackData.Title?.Replace("&", "&&") ?? Resources.Untitled;
 
                 // Set info
                 textBoxTitle.Text = TrackData.Title + Environment.NewLine + TrackData.WebpageUrl;
@@ -217,11 +218,11 @@ namespace YtEzDL.UserControls
                 // Download
                 _youtubeDl.Download(parameters, TrackData.WebpageUrl, path, TrackData.Filename, this, token);
                     
-                SetStatus("Done");
+                SetStatus(Resources.StatusDone);
             }
             catch (Exception ex)
             {
-                SetStatus($"Error: {ex.Message}");
+                SetStatus(string.Format(Resources.StatusError, ex.Message));
             }
             finally
             {
@@ -339,7 +340,7 @@ namespace YtEzDL.UserControls
         {
             SetProperty(c =>
             {
-                metroLabel.Text = "Downloading...";
+                metroLabel.Text = Resources.Downloading;
                 metroProgressBar.Value = (int)progress;
             });
         }
@@ -348,28 +349,28 @@ namespace YtEzDL.UserControls
         {
             SetProperty(c =>
             {
-                var text = "Converting...";
+                var text = Resources.StatusConverting;
 
                 switch (action)
                 {
                     case YoutubeDownload.DownloadAction.VideoConvertor:
-                        text = "Converting video...";
+                        text = Resources.StatusConvertingVideo;
                         break;
 
                     case YoutubeDownload.DownloadAction.ExtractAudio:
-                        text = "Extracting audio...";
+                        text = Resources.StatusExtractingAudio;
                         break;
 
                     case YoutubeDownload.DownloadAction.ThumbnailsConvertor:
-                        text = "Converting thumbnail...";
+                        text = Resources.StatusConvertingThumbnail;
                         break;
 
                     case YoutubeDownload.DownloadAction.EmbedThumbnail:
-                        text = "Embedding thumbnail...";
+                        text = Resources.StatusEmbeddingThumbnail;
                         break;
 
                     case YoutubeDownload.DownloadAction.Metadata:
-                        text = "Adding metadata ...";
+                        text = Resources.StatusAddingMetadata;
                         break;
                 }
 

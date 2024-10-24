@@ -61,6 +61,321 @@ namespace YtEzDL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string ContextAbout {
+            get {
+                return ResourceManager.GetString("ContextAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capture clipboard.
+        /// </summary>
+        internal static string ContextCaptureClipboard {
+            get {
+                return ResourceManager.GetString("ContextCaptureClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear cache.
+        /// </summary>
+        internal static string ContextClearCache {
+            get {
+                return ResourceManager.GetString("ContextClearCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string ContextExit {
+            get {
+                return ResourceManager.GetString("ContextExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string ContextSettings {
+            get {
+                return ResourceManager.GetString("ContextSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string ContextUpdate {
+            get {
+                return ResourceManager.GetString("ContextUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading....
+        /// </summary>
+        internal static string Downloading {
+            get {
+                return ResourceManager.GetString("Downloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to written by worstenbrood (worstenbrood@gmail.com).
+        /// </summary>
+        internal static string EzYtDlCredits {
+            get {
+                return ResourceManager.GetString("EzYtDlCredits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ezytdl version: {0}.
+        /// </summary>
+        internal static string EzYtDlVersion {
+            get {
+                return ResourceManager.GetString("EzYtDlVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fetching {0}.
+        /// </summary>
+        internal static string Fetching {
+            get {
+                return ResourceManager.GetString("Fetching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/FFmpeg/FFmpeg.
+        /// </summary>
+        internal static string FfMpegUrl {
+            get {
+                return ResourceManager.GetString("FfMpegUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/thielj/MetroFramework.
+        /// </summary>
+        internal static string MetroFrameworkUrl {
+            get {
+                return ResourceManager.GetString("MetroFrameworkUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MetroFramework version: {0}.
+        /// </summary>
+        internal static string MetroFrameworkVersion {
+            get {
+                return ResourceManager.GetString("MetroFrameworkVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playlist: {0} ({1}).
+        /// </summary>
+        internal static string Playlist {
+            get {
+                return ResourceManager.GetString("Playlist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error removing cache.
+        /// </summary>
+        internal static string RemoveCacheError {
+            get {
+                return ResourceManager.GetString("RemoveCacheError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding metadata ....
+        /// </summary>
+        internal static string StatusAddingMetadata {
+            get {
+                return ResourceManager.GetString("StatusAddingMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Converting ....
+        /// </summary>
+        internal static string StatusConverting {
+            get {
+                return ResourceManager.GetString("StatusConverting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Converting thumbnail ....
+        /// </summary>
+        internal static string StatusConvertingThumbnail {
+            get {
+                return ResourceManager.GetString("StatusConvertingThumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Converting video ....
+        /// </summary>
+        internal static string StatusConvertingVideo {
+            get {
+                return ResourceManager.GetString("StatusConvertingVideo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        internal static string StatusDone {
+            get {
+                return ResourceManager.GetString("StatusDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Embedding thumbnail ....
+        /// </summary>
+        internal static string StatusEmbeddingThumbnail {
+            get {
+                return ResourceManager.GetString("StatusEmbeddingThumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: {0}.
+        /// </summary>
+        internal static string StatusError {
+            get {
+                return ResourceManager.GetString("StatusError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extracting audio ....
+        /// </summary>
+        internal static string StatusExtractingAudio {
+            get {
+                return ResourceManager.GetString("StatusExtractingAudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total: {0} / Selected: {1}.
+        /// </summary>
+        internal static string StatusLabelText {
+            get {
+                return ResourceManager.GetString("StatusLabelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System exception.
+        /// </summary>
+        internal static string SystemException {
+            get {
+                return ResourceManager.GetString("SystemException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track: {0} ({1}).
+        /// </summary>
+        internal static string Track {
+            get {
+                return ResourceManager.GetString("Track", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Untitled.
+        /// </summary>
+        internal static string Untitled {
+            get {
+                return ResourceManager.GetString("Untitled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://chromium.googlesource.com/webm/libwebp.
+        /// </summary>
+        internal static string WebPUrl {
+            get {
+                return ResourceManager.GetString("WebPUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebP version: {0}.
+        /// </summary>
+        internal static string WebPVersion {
+            get {
+                return ResourceManager.GetString("WebPVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/JosePineiro/WebP-wrapper.
+        /// </summary>
+        internal static string WebPWrapperUrl {
+            get {
+                return ResourceManager.GetString("WebPWrapperUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yt-dlp.
+        /// </summary>
+        internal static string YtDlp {
+            get {
+                return ResourceManager.GetString("YtDlp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yt-dlp error.
+        /// </summary>
+        internal static string YtDlpError {
+            get {
+                return ResourceManager.GetString("YtDlpError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yt-dlp update.
+        /// </summary>
+        internal static string YtDlpUpdate {
+            get {
+                return ResourceManager.GetString("YtDlpUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/yt-dlp/yt-dlp.
+        /// </summary>
+        internal static string YtDlpUrl {
+            get {
+                return ResourceManager.GetString("YtDlpUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yt-dlp version: {0}.
+        /// </summary>
+        internal static string YtDlpVersion {
+            get {
+                return ResourceManager.GetString("YtDlpVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon YTIcon {

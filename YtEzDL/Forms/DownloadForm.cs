@@ -85,7 +85,7 @@ namespace YtEzDL.Forms
 
         private void SetStatusLabel()
         {
-            toolStripStatusLabel.Text = $"Total: {Tracks.Count()} / Selected: {Tracks.Count(t => t.Selected)}";
+            toolStripStatusLabel.Text = string.Format(Resources.StatusLabelText, Tracks.Count(), Tracks.Count(t => t.Selected));
         }
 
         private void track_OnToggle(object o, Track.ToggleEventArgs e)
@@ -217,13 +217,13 @@ namespace YtEzDL.Forms
             {
                 if (Tracks.Count() > 1)
                 {
-                    Execute(f => MetroMessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK,
+                    Execute(f => MetroMessageBox.Show(this, exception.Message, Resources.YtDlp, MessageBoxButtons.OK,
                         MessageBoxIcon.Error));
                 }
             }
             catch (Exception exception)
             {
-                Execute(f => MetroMessageBox.Show(this, exception.Message, "System exception", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                Execute(f => MetroMessageBox.Show(this, exception.Message, Resources.SystemException, MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             finally
             {
@@ -233,12 +233,14 @@ namespace YtEzDL.Forms
 
                     if (count > 1)
                     {
-                        Text = SafeString($"Playlist: {Tracks.First().TrackData.Playlist} ({Tracks.First().TrackData.WebpageUrlDomain})");
+                        Text = SafeString(string.Format(Resources.Playlist, Tracks.First().TrackData.Playlist,
+                            Tracks.First().TrackData.WebpageUrlDomain));
                     }
                     else switch (count)
                     {
                         case 1:
-                            Text = SafeString($"Track: {Tracks.First().TrackData.Title} ({Tracks.First().TrackData.WebpageUrlDomain})");
+                            Text = SafeString(string.Format(Resources.Track, Tracks.First().TrackData.Title, 
+                                Tracks.First().TrackData.WebpageUrlDomain));
                             toolStripButtonAll.Enabled = false;
                             toolStripButtonNone.Enabled = false;
                             toolStripButtonToggle.Enabled = false;
@@ -265,7 +267,7 @@ namespace YtEzDL.Forms
             // Base
             base.OnLoad(e);
 
-            Text = SafeString($"Fetching {_url}");
+            Text = SafeString(string.Format(Resources.Fetching, _url));
 
             // Load data
             Task.Run(LoadData);
@@ -478,15 +480,15 @@ namespace YtEzDL.Forms
                 var output = new StringBuilder();
                 _youtubeDl.Run(DownLoadParameters.Create.RemoveCache(), t => output.AppendLine(t));
                 
-                Execute(f => MetroMessageBox.Show(this, output.ToString(), "yt-dlp", MessageBoxButtons.OK, MessageBoxIcon.Information));
+                Execute(f => MetroMessageBox.Show(this, output.ToString(), Resources.YtDlp, MessageBoxButtons.OK, MessageBoxIcon.Information));
             }
             catch (ConsoleProcessException exception)
             {
-                Execute(f => MetroMessageBox.Show(this, exception.Message, "yt-dlp error", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                Execute(f => MetroMessageBox.Show(this, exception.Message, Resources.YtDlpError, MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             catch (Exception exception)
             {
-                Execute(f => MetroMessageBox.Show(this, exception.Message, "Error removing cache", MessageBoxButtons.OK, MessageBoxIcon.Error));
+                Execute(f => MetroMessageBox.Show(this, exception.Message, Resources.RemoveCacheError, MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             finally
             {

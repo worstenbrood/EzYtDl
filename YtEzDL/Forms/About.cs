@@ -28,21 +28,21 @@ namespace YtEzDL.Forms
             
             textBoxAbout.SuspendLayout();
             
-            textBoxAbout.Text += $"ezytdl version: {CommonTools.ApplicationProductVersion}" + Environment.NewLine;
-            textBoxAbout.Text += "written by worstenbrood (worstenbrood@gmail.com)" + Environment.NewLine;
+            textBoxAbout.Text += string.Format(Resources.EzYtDlVersion, CommonTools.ApplicationProductVersion) + Environment.NewLine;
+            textBoxAbout.Text += Resources.EzYtDlCredits + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
 
-            textBoxAbout.Text += $"MetroFramework version: {CommonTools.GetVersion<MetroForm>()}" + Environment.NewLine;
-            textBoxAbout.Text += "https://github.com/thielj/MetroFramework" + Environment.NewLine;
+            textBoxAbout.Text += string.Format(Resources.MetroFrameworkVersion, CommonTools.GetVersion<MetroForm>()) + Environment.NewLine;
+            textBoxAbout.Text += Resources.MetroFrameworkUrl + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
 
-            textBoxAbout.Text += $"WebP version: {ImageTools.WebP.GetVersion()}" + Environment.NewLine;
-            textBoxAbout.Text += "https://chromium.googlesource.com/webm/libwebp" + Environment.NewLine;
-            textBoxAbout.Text += "https://github.com/JosePineiro/WebP-wrapper" + Environment.NewLine;
+            textBoxAbout.Text += string.Format(Resources.WebPVersion, ImageTools.WebP.GetVersion()) + Environment.NewLine;
+            textBoxAbout.Text += Resources.WebPUrl + Environment.NewLine;
+            textBoxAbout.Text += Resources.WebPWrapperUrl + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
 
-            textBoxAbout.Text += $"yt-dlp version: {new YoutubeDownload().GetVersion()}" + Environment.NewLine;
-            textBoxAbout.Text += "https://github.com/yt-dlp/yt-dlp" + Environment.NewLine;
+            textBoxAbout.Text += string.Format(Resources.YtDlpVersion, new YoutubeDownload().GetVersion()) + Environment.NewLine;
+            textBoxAbout.Text += Resources.YtDlpUrl + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
             textBoxAbout.ResumeLayout();
 
@@ -51,7 +51,7 @@ namespace YtEzDL.Forms
                 Invoke(new MethodInvoker(() =>
                 {
                     textBoxAbout.Text += $"{new FfMpeg().GetVersion()}" + Environment.NewLine;
-                    textBoxAbout.Text += "https://github.com/FFmpeg/FFmpeg";
+                    textBoxAbout.Text += Resources.FfMpegUrl;
                     textBoxAbout.Select(textBoxAbout.Text.Length, 0);
                 }));
             });          
