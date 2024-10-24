@@ -4,10 +4,10 @@ namespace YtEzDL.DownLoad
 {
     public class Parameters : Dictionary<string, string>
     {
-        protected T AddParameter<T>(string key, string value = null)
+        protected T AddParameter<T>(string key, string value = null, bool enclose = true)
             where T: Parameters
         {
-            this[key] = !string.IsNullOrEmpty(value) ? $"\"{value}\"" : value;
+            this[key] = !string.IsNullOrEmpty(value) ? enclose ? $"\"{value}\"" : value : value;
             return (T)this;
         }
 

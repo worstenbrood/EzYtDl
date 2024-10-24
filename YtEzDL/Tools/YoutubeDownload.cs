@@ -104,6 +104,7 @@ namespace YtEzDL.Tools
         public async Task<YoutubeDownload> DownloadAsync(DownLoadParameters downLoadParameters, string url, string directory, string filename, IProgress progress, CancellationToken cancellationToken = default)
         {
             var parameters = downLoadParameters
+                .ReplaceMetadata("title", "(.+):(\\s+)", "")
                 .FfMpegLocation(CommonTools.ToolsPath)
                 .Url(url)
                 .GetParameters();
@@ -140,6 +141,7 @@ namespace YtEzDL.Tools
             // Parameters
             var parameters = DownLoadParameters.Create
                 .IgnoreErrors()
+                .ReplaceMetadata("title", "(.+):(\\s+)", "")
                 .FfMpegLocation(CommonTools.ToolsPath)
                 .GetJson();
 

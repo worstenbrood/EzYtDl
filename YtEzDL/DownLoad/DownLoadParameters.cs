@@ -1,4 +1,6 @@
-﻿namespace YtEzDL.DownLoad
+﻿using System.Linq;
+
+namespace YtEzDL.DownLoad
 {
     public enum AudioFormat
     {
@@ -134,9 +136,11 @@
             return AddParameter<DownLoadParameters>("--parse-metadata", expression);
         }
 
-        public DownLoadParameters ReplaceMetadata(string expression)
+        public DownLoadParameters ReplaceMetadata(params string[] arg)
         {
-            return AddParameter<DownLoadParameters>("--replace-in-metadata", expression);
+            return arg.Length == 0 ? this : 
+                AddParameter<DownLoadParameters>("--replace-in-metadata", 
+                    string.Join(" ", arg.Select(a => $"\"{a}\"")), false);
         }
 
         internal DownLoadParameters FfMpegLocation(string path)
