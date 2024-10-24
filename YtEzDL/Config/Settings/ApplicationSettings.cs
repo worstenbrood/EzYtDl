@@ -21,5 +21,14 @@ namespace YtEzDL.Config.Settings
             get => _advancedSettings;
             set => _advancedSettings = value;
         }
+
+        private volatile bool _captureClipboard = true;
+
+        [JsonProperty(PropertyName = "captureClipboard")]
+        public bool CaptureClipboard
+        {
+            get => _captureClipboard;
+            set => _captureClipboard = value;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using YtEzDL.Config;
 using YtEzDL.Utils;
 
 namespace YtEzDL.UserControls
@@ -34,7 +35,7 @@ namespace YtEzDL.UserControls
             {
                 case Win32.ClipboardUpdate:
                 {
-                    if (OnClipboardDataChanged != null)
+                    if (Configuration.Default.ApplicationSettings.CaptureClipboard && OnClipboardDataChanged != null)
                     {
                         lock (this)
                         {
