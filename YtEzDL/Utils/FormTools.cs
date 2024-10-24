@@ -74,22 +74,21 @@ namespace YtEzDL.Utils
         public static bool ShowActiveForm<T>()
             where T: MetroForm
         {
-            var active = Application.OpenForms.OfType<T>()
-                .FirstOrDefault();
-            if (active != null)
+            var active = Application.OpenForms.OfType<T>().FirstOrDefault();
+            if (active == null)
             {
-                if (active.InvokeRequired)
-                {
-                    active.Invoke(new MethodInvoker(() => active.FocusMe()));
-                }
-                else
-                {
-                    active.FocusMe();
-                }
-                return true;
+                return false;
             }
             
-            return false;
+            if (active.InvokeRequired)
+            {
+                active.Invoke(new MethodInvoker(() => active.FocusMe()));
+            }
+            else
+            {
+                active.FocusMe();
+            }
+            return true;
         }
 
         public static void ShowFormDialog<T>()
@@ -101,9 +100,9 @@ namespace YtEzDL.Utils
             }
 
             // Show form
-            using (var about = new T())
+            using (var form = new T())
             {
-                about.ShowDialog();
+                form.ShowDialog();
             }
         }
     }
