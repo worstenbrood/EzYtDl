@@ -7,6 +7,7 @@ using YtEzDL.Properties;
 using YtEzDL.Tools;
 using YtEzDL.UserControls;
 using MetroFramework.Controls;
+using YtEzDL.Config;
 
 namespace YtEzDL.Utils
 {
@@ -46,19 +47,44 @@ namespace YtEzDL.Utils
            RunYtDlp(() => _youtubeDl.Run(DownLoadParameters.Create.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info)));
         }
 
-        public ApplicationContext()
+        private MetroContextMenu SetupContextMenu(IContainer container)
         {
-            IContainer container = new Container();
             var contextMenu = new MetroContextMenu(container);
+            var captureClipboard = new ToolStripMenuItem
+            {
+                Text = "Capture clipboard",
+                Checked = Configuration.Default.ApplicationSettings.CaptureClipboard,
+            };
+            captureClipboard.Click += (o, e) =>
+            {
+                // Change checked status
+                captureClipboard.Checked = !captureClipboard.Checked;
+            };
+            captureClipboard.CheckedChanged += (o, e) =>
+            {
+                // Change and save config
+                Configuration.Default.ApplicationSettings.CaptureClipboard = captureClipboard.Checked;
+                Configuration.Default.Save();
+            };
+
             contextMenu.Items.Add($"{CommonTools.ApplicationName} {CommonTools.ApplicationProductVersion}");
             contextMenu.Items[0].Enabled = false;
             contextMenu.Items.Add("-");
+            contextMenu.Items.Add(captureClipboard);
             contextMenu.Items.Add("&About", null, (sender, args) => FormTools.ShowFormDialog<Forms.About>());
             contextMenu.Items.Add("&Settings", null, (sender, args) => FormTools.ShowFormDialog<Forms.Settings>());
             contextMenu.Items.Add("&Clear cache", null, (sender, args) => ClearCache());
             contextMenu.Items.Add("&Update", null, (sender, args) => Update());
             contextMenu.Items.Add("-");
             contextMenu.Items.Add("&Exit", null, (sender, args) => ExitThread());
+
+            return contextMenu;
+        }
+
+        public ApplicationContext()
+        {
+            IContainer container = new Container();
+            var contextMenu = SetupContextMenu(container);
             
             // Setup notify icon
             _notifyIcon = new NotifyIcon(container)
