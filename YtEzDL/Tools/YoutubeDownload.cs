@@ -227,6 +227,16 @@ namespace YtEzDL.Tools
                 .GetResult();
         }
 
+        public async Task StreamAsync(string url, Stream output, CancellationToken cancellationToken)
+        {
+            var parameters = DownLoadParameters.Create
+                .Output("-")
+                .Url(url)
+                .GetParameters();
+
+            await StreamAsync(parameters, output, cancellationToken);
+        }
+
         public void Stream(string url, Stream output)
         {
             var parameters = DownLoadParameters.Create

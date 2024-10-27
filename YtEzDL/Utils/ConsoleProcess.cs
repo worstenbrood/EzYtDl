@@ -29,7 +29,7 @@ namespace YtEzDL.Utils
     public class ConsoleProcess
     {
         public const int DefaultProcessWaitTime = 250;
-        public const int DefaultBufferSize = 8192;
+        public const int DefaultBufferSize = 65535;
         public readonly string FileName;
         private volatile int _processCount;
         
@@ -40,7 +40,7 @@ namespace YtEzDL.Utils
             FileName = filename;
         }
 
-        private Process CreateProcess(IEnumerable<string> parameters, Action<string> error)
+        protected Process CreateProcess(IEnumerable<string> parameters, Action<string> error)
         {
             var arguments = string.Join(" ", parameters);
 #if DEBUG
@@ -61,7 +61,6 @@ namespace YtEzDL.Utils
             };
 
             var process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
-            process.Exited += (o, a) => Interlocked.Decrement(ref _processCount);
             if (error != null)
             {
                 process.ErrorDataReceived += (sender, args) =>
@@ -76,7 +75,7 @@ namespace YtEzDL.Utils
             return process;
         }
 
-        private Process CreateProcess(IEnumerable<string> parameters, Action<string> data, Action<string> error, CancellationToken cancellationToken = default)
+        protected Process CreateProcess(IEnumerable<string> parameters, Action<string> data, Action<string> error, CancellationToken cancellationToken = default)
         {
             var process = CreateProcess(parameters, error);
             if (data != null)
@@ -206,29 +205,30 @@ namespace YtEzDL.Utils
                 return Task.FromException<int>(ex);
             }
         }
-
+                
         /// <summary>
         /// Write std out to a stream async
         /// </summary>
         /// <param name="parameters">Parameters</param>
-        /// <param name="outputStream">Stream to write to</param>
+        /// <param name="outputStream">Output stream</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <param name="handleError">If true, throw exception in case of bad exit code or output on std error</param>
         /// <param name="bufferSize">Buffer size to read</param>
         /// <returns>Process exit code</returns>
-        public Task<int> StreamAsync(IEnumerable<string> parameters, Stream outputStream, CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
+        public async Task<int> StreamAsync(IEnumerable<string> parameters, Stream outputStream, CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
-            try
+            var error = new StringBuilder();
+            using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
             {
-                var error = new StringBuilder();
-                using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
+                process.Start();
+
+                try
                 {
-                    process.Start();
                     Interlocked.Increment(ref _processCount);
                     process.BeginErrorReadLine();
-                    
+
                     int bytesRead;
-                    var binaryReader = new BinaryReader(process.StandardOutput.BaseStream, Encoding.UTF8);
+                    var binaryReader = new BinaryReader(process.StandardOutput.BaseStream, Encoding.ASCII);
                     var buffer = new byte[bufferSize];
 
                     while ((bytesRead = binaryReader.Read(buffer, 0, bufferSize)) > 0)
@@ -243,12 +243,16 @@ namespace YtEzDL.Utils
                         outputStream.Write(buffer, 0, bytesRead);
                     }
 
-                    return WaitAsync(process, error, cancellationToken, handleError);
+                    // Close output
+                    outputStream.Close();
+
+                    // Close process nicely
+                    return await WaitAsync(process, error, cancellationToken, handleError);
                 }
-            }
-            catch (Exception ex)
-            {
-                return Task.FromException<int>(ex);
+                finally
+                {
+                    Interlocked.Decrement(ref _processCount);
+                }
             }
         }
 
@@ -256,7 +260,7 @@ namespace YtEzDL.Utils
         /// Write std out to a stream
         /// </summary>
         /// <param name="parameters">Parameters</param>
-        /// <param name="outputStream">Stream to write to</param>
+        /// <param name="outputStream">Output stream</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <param name="handleError">If true, throw exception in case of bad exit code or output on std error</param>
         /// <param name="bufferSize">Buffer size to read</param>
