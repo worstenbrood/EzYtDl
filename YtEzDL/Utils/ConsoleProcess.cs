@@ -229,7 +229,7 @@ namespace YtEzDL.Utils
                     process.BeginErrorReadLine();
                     
                     int bytesRead;
-                    var binaryReader = new BinaryReader(process.StandardOutput.BaseStream, Encoding.ASCII);
+                    var binaryReader = new BinaryReader(process.StandardOutput.BaseStream, Encoding.UTF8);
                     var buffer = new byte[bufferSize];
 
                     while ((bytesRead = binaryReader.Read(buffer, 0, bufferSize)) > 0)

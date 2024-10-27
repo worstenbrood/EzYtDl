@@ -153,6 +153,11 @@ namespace YtEzDL.DownLoad
             return AddParameter<DownLoadParameters>("--update-to", updateChannel.ToString("G").ToLowerInvariant());
         }
 
+        internal DownLoadParameters Output(string path)
+        {
+            return AddParameter<DownLoadParameters>("-o", path);
+        }
+
         public DownLoadParameters Reset()
         {
             return Reset<DownLoadParameters>();

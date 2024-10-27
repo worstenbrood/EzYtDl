@@ -226,6 +226,16 @@ namespace YtEzDL.Tools
                 .GetAwaiter()
                 .GetResult();
         }
+
+        public void Stream(string url, Stream output)
+        {
+            var parameters = DownLoadParameters.Create
+                .Output("-")
+                .Url(url)
+                .GetParameters();
+
+            Stream(parameters, output);
+        }
         
         public string GetVersion()
         {
