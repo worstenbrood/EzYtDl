@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using YtEzDL.DownLoad;
 
 namespace YtEzDL.Utils
 {
