@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using YtEzDL.DownLoad;
 
 namespace YtEzDL.Utils
 {
@@ -29,6 +30,7 @@ namespace YtEzDL.Utils
     public class ConsoleProcess : IDisposable
     {
         public const int DefaultProcessWaitTime = 250;
+        public const int DefaultBufferSize = 8192;
         public readonly string FileName;
         private volatile int _processCount;
         
@@ -60,6 +62,7 @@ namespace YtEzDL.Utils
             };
 
             var process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
+            process.Exited += (o, a) => Interlocked.Decrement(ref _processCount);
             if (error != null)
             {
                 process.ErrorDataReceived += (sender, args) =>
@@ -164,53 +167,15 @@ namespace YtEzDL.Utils
             }
         }
 
-        [ThreadStatic] private static Process _process;
-        [ThreadStatic] private static StringBuilder _error;
-
-        public Task<Process> StartAsync(params string[] parameters)
+        private static Task<int> WaitAsync(Process process, StringBuilder error, CancellationToken cancellationToken, bool handleError)
         {
-            Interlocked.Increment(ref _processCount);
-
-            try
-            {
-                _error = new StringBuilder();
-                _process = CreateProcess(parameters, e => _error.AppendLine(e));
-                _process.Exited += (o, a) => Interlocked.Decrement(ref _processCount);
-                _process.Start();
-                _process.BeginErrorReadLine();
-                return Task.FromResult(_process);
-            }
-            catch (Exception ex)
-            {
-                _process = null;
-                _error = null;
-                Interlocked.Decrement(ref _processCount);
-                return Task.FromException<Process>(ex);
-            }
-        }
-
-        public Process Start(params string[] parameters)
-        {
-            return StartAsync(parameters)
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult();
-        }
-
-        public Task<int> WaitAsync(CancellationToken cancellationToken = default)
-        {
-            if (_process == null)
-            {
-                return Task.FromException<int>(new ArgumentNullException(nameof(_process)));
-            }
-
             try
             {
                 bool exited;
                 do
                 {
                     // Wait for exit
-                    exited = _process.WaitForExit(DefaultProcessWaitTime);
+                    exited = process.WaitForExit(DefaultProcessWaitTime);
 
                     // Canceled
                     if (!cancellationToken.IsCancellationRequested)
@@ -219,39 +184,73 @@ namespace YtEzDL.Utils
                     }
 
                     // Kill process tree
-                    _process.KillProcessTree();
+                    process.KillProcessTree();
 
                     // Canceled
                     return Task.FromCanceled<int>(cancellationToken);
                 } while (!exited);
 
-                if (_process.ExitCode == 0)
+                if (!handleError || process.ExitCode == 0)
                 {
-                    return Task.FromResult(_process.ExitCode);
+                    return Task.FromResult(process.ExitCode);
                 }
 
-                var message = _error.Length > 0 ? _error.ToString() : $"ExitCode({_process.ExitCode})";
-                return Task.FromException<int>(new ConsoleProcessException(_process.ExitCode, message));
+                var message = error.Length > 0 ? error.ToString() : $"ExitCode({process.ExitCode})";
+                return Task.FromException<int>(new ConsoleProcessException(process.ExitCode, message));
             }
             catch (Exception ex)
             {
                 return Task.FromException<int>(ex);
             }
-            finally
+        }
+        
+        public Task<int> StreamAsync(IEnumerable<string> parameters, Action<byte[], int> bufferAction,
+            CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
+        {
+            Interlocked.Increment(ref _processCount);
+
+            try
             {
-                _process = null;
-                _error = null;
+                var error = new StringBuilder();
+                using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
+                {
+                    process.Start();
+                    process.BeginErrorReadLine();
+                    
+                    int bytesRead;
+                    var binaryReader = new BinaryReader(process.StandardOutput.BaseStream);
+                    var buffer = new byte[bufferSize];
+
+                    while ((bytesRead = binaryReader.Read(buffer, 0, bufferSize)) > 0)
+                    {
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            // Canceled
+                            return Task.FromCanceled<int>(cancellationToken);
+                        }
+
+                        // Invoke action
+                        bufferAction.Invoke(buffer, bytesRead);
+                    }
+
+                    return WaitAsync(process, error, cancellationToken, handleError);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Task.FromException<int>(ex);
             }
         }
 
-        public int Wait(CancellationToken cancellationToken = default)
+        public int Stream(IEnumerable<string> parameters, Action<byte[], int> bufferAction,
+            CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
-            return WaitAsync(cancellationToken)
+            return StreamAsync(parameters, bufferAction, cancellationToken, handleError, bufferSize)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
         }
-        
+
         public string GetOutput(params string[] parameters)
         {
 #if DEBUG
