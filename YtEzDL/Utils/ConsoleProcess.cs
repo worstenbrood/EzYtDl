@@ -199,7 +199,7 @@ namespace YtEzDL.Utils
             }
         }
         
-        public Task<int> StreamAsync(IEnumerable<string> parameters, Action<byte[], int> bufferAction, CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
+        public Task<int> StreamAsync(IEnumerable<string> parameters, Stream outputStream, CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
             try
             {
@@ -211,7 +211,7 @@ namespace YtEzDL.Utils
                     process.BeginErrorReadLine();
                     
                     int bytesRead;
-                    var binaryReader = new BinaryReader(process.StandardOutput.BaseStream);
+                    var binaryReader = new BinaryReader(process.StandardOutput.BaseStream, Encoding.ASCII);
                     var buffer = new byte[bufferSize];
 
                     while ((bytesRead = binaryReader.Read(buffer, 0, bufferSize)) > 0)
@@ -222,8 +222,8 @@ namespace YtEzDL.Utils
                             break;
                         }
 
-                        // Invoke action
-                        bufferAction.Invoke(buffer, bytesRead);
+                        // Write to stream
+                        outputStream.Write(buffer, 0, bytesRead);
                     }
 
                     return WaitAsync(process, error, cancellationToken, handleError);
@@ -235,10 +235,10 @@ namespace YtEzDL.Utils
             }
         }
 
-        public int Stream(IEnumerable<string> parameters, Action<byte[], int> bufferAction,
+        public int Stream(IEnumerable<string> parameters, Stream outputStream,
             CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
-            return StreamAsync(parameters, bufferAction, cancellationToken, handleError, bufferSize)
+            return StreamAsync(parameters, outputStream, cancellationToken, handleError, bufferSize)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
