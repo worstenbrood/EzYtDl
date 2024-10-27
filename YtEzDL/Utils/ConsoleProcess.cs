@@ -106,6 +106,15 @@ namespace YtEzDL.Utils
             return process;
         }
 
+        /// <summary>
+        /// Run the console app async
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="outputAction"></param>
+        /// <param name="cancellationToken"></param>
+        /// <param name="cancelAction"></param>
+        /// <param name="handleError"></param>
+        /// <returns></returns>
         public Task<int> RunAsync(IEnumerable<string> parameters, Action<string> outputAction,
             CancellationToken cancellationToken = default, Action<Process> cancelAction = null, bool handleError = true)
         {
@@ -198,7 +207,16 @@ namespace YtEzDL.Utils
                 return Task.FromException<int>(ex);
             }
         }
-        
+
+        /// <summary>
+        /// Write std out to a stream async
+        /// </summary>
+        /// <param name="parameters">Parameters</param>
+        /// <param name="outputStream">Stream to write to</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <param name="handleError">If true, throw exception in case of bad exit code or output on std error</param>
+        /// <param name="bufferSize">Buffer size to read</param>
+        /// <returns>Process exit code</returns>
         public Task<int> StreamAsync(IEnumerable<string> parameters, Stream outputStream, CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
             try
@@ -235,6 +253,15 @@ namespace YtEzDL.Utils
             }
         }
 
+        /// <summary>
+        /// Write std out to a stream
+        /// </summary>
+        /// <param name="parameters">Parameters</param>
+        /// <param name="outputStream">Stream to write to</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <param name="handleError">If true, throw exception in case of bad exit code or output on std error</param>
+        /// <param name="bufferSize">Buffer size to read</param>
+        /// <returns>Process exit code</returns>
         public int Stream(IEnumerable<string> parameters, Stream outputStream,
             CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
