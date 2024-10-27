@@ -160,10 +160,6 @@ namespace YtEzDL.Utils
             {
                 return Task.FromException<int>(ex);
             }
-            finally
-            {
-                Interlocked.Decrement(ref _processCount);
-            }
         }
 
         private static Task<int> WaitAsync(Process process, StringBuilder error, CancellationToken cancellationToken, bool handleError)
