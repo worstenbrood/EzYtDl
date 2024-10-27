@@ -572,7 +572,7 @@ namespace YtEzDL.Forms
             this.Controls.Add(this.buttonCancel);
             this.Name = "Settings";
             this.Resizable = false;
-            this.Text = Resources.ContextSettings;
+            this.Text = "Settings";
             this.tabControl.ResumeLayout(false);
             this.tabPageFileSettings.ResumeLayout(false);
             this.tabPageFileSettings.PerformLayout();

@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using YtEzDL.UserControls;
-
-namespace YtEzDL.Forms
+﻿namespace YtEzDL.Forms
 {
     partial class DownloadForm
     {
@@ -367,7 +364,7 @@ namespace YtEzDL.Forms
         }
 
         #endregion
-        private CustomLayoutPanel flowLayoutPanel;
+        private YtEzDL.UserControls.CustomLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.ToolStripButton toolStripButtonNone;
         private System.Windows.Forms.ToolStripButton toolStripButtonAll;
         private System.Windows.Forms.ToolStripButton toolStripButtonToggle;
