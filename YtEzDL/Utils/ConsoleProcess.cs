@@ -206,8 +206,8 @@ namespace YtEzDL.Utils
                 var error = new StringBuilder();
                 using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
                 {
-                    Interlocked.Increment(ref _processCount);
                     process.Start();
+                    Interlocked.Increment(ref _processCount);
                     process.BeginErrorReadLine();
                     
                     int bytesRead;
