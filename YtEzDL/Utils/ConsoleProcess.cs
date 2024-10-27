@@ -27,7 +27,7 @@ namespace YtEzDL.Utils
         }
     }
 
-    public class ConsoleProcess : IDisposable
+    public class ConsoleProcess
     {
         public const int DefaultProcessWaitTime = 250;
         public const int DefaultBufferSize = 8192;
@@ -199,8 +199,7 @@ namespace YtEzDL.Utils
             }
         }
         
-        public Task<int> StreamAsync(IEnumerable<string> parameters, Action<byte[], int> bufferAction,
-            CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
+        public Task<int> StreamAsync(IEnumerable<string> parameters, Action<byte[], int> bufferAction, CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
             try
             {
@@ -220,7 +219,7 @@ namespace YtEzDL.Utils
                         if (cancellationToken.IsCancellationRequested)
                         {
                             // Canceled
-                            return Task.FromCanceled<int>(cancellationToken);
+                            break;
                         }
 
                         // Invoke action
@@ -270,11 +269,6 @@ namespace YtEzDL.Utils
 #endif
                 return e.Message.TrimEnd('\r', '\n');
             }
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }
