@@ -109,13 +109,12 @@ namespace YtEzDL.Utils
         public Task<int> RunAsync(IEnumerable<string> parameters, Action<string> outputAction,
             CancellationToken cancellationToken = default, Action<Process> cancelAction = null, bool handleError = true)
         {
-            Interlocked.Increment(ref _processCount);
-
             try
             {
                 var error = new StringBuilder();
                 using (var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s), cancellationToken))
                 {
+                    Interlocked.Increment(ref _processCount);
                     bool exited;
                     do
                     {
@@ -207,13 +206,12 @@ namespace YtEzDL.Utils
         public Task<int> StreamAsync(IEnumerable<string> parameters, Action<byte[], int> bufferAction,
             CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
-            Interlocked.Increment(ref _processCount);
-
             try
             {
                 var error = new StringBuilder();
                 using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
                 {
+                    Interlocked.Increment(ref _processCount);
                     process.Start();
                     process.BeginErrorReadLine();
                     

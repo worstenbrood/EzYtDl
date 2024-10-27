@@ -50,7 +50,7 @@ namespace YtEzDL.Forms
             {
                 Invoke(new MethodInvoker(() =>
                 {
-                    textBoxAbout.Text += $"{new FfMpeg().GetVersion()}" + Environment.NewLine;
+                    textBoxAbout.Text += new FfMpeg().GetVersion() + Environment.NewLine;
                     textBoxAbout.Text += Resources.FfMpegUrl;
                     textBoxAbout.Select(textBoxAbout.Text.Length, 0);
                 }));
