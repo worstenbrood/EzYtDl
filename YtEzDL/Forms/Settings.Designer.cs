@@ -1,4 +1,6 @@
-﻿namespace YtEzDL.Forms
+﻿using Resources = YtEzDL.Properties.Resources;
+
+namespace YtEzDL.Forms
 {
     partial class Settings
     {
@@ -570,7 +572,7 @@
             this.Controls.Add(this.buttonCancel);
             this.Name = "Settings";
             this.Resizable = false;
-            this.Text = "Settings";
+            this.Text = Resources.ContextSettings;
             this.tabControl.ResumeLayout(false);
             this.tabPageFileSettings.ResumeLayout(false);
             this.tabPageFileSettings.PerformLayout();

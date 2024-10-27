@@ -55,7 +55,7 @@ namespace YtEzDL.Utils
                 WindowStyle = ProcessWindowStyle.Hidden,
                 Arguments = arguments
             };
-
+            
             var process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
             if (data != null)
             {
@@ -102,8 +102,7 @@ namespace YtEzDL.Utils
             try
             {
                 var error = new StringBuilder();
-                using (var process =
-                       CreateProcess(parameters, outputAction, s => error.AppendLine(s), cancellationToken))
+                using (var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s), cancellationToken))
                 {
                     bool exited;
                     do
