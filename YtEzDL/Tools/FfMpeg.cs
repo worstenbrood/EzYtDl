@@ -58,7 +58,6 @@ namespace YtEzDL.Tools
         public async Task ConvertToAudio(string url, Action<byte[], int> output, AudioFormat format = AudioFormat.Wav,
             CancellationToken cancellationToken = default)
         {
-            var error = new StringBuilder();
             var parameters = new[]
             {
                 "-i", // Input
@@ -73,10 +72,11 @@ namespace YtEzDL.Tools
                 process.Start();
 
                 // ffmpeg output reader
-                _ = Task.Run(() => OutputReader(process.StandardOutput.BaseStream, output, cancellationToken));
+                var reader = Task.Run(() => OutputReader(process.StandardOutput.BaseStream, output, cancellationToken), cancellationToken);
 
                 // Redirect yt-dlp's output to ffmpeg's input (hmm)
-                await _youtubeDownload.StreamAsync(url, process.StandardInput.BaseStream, cancellationToken);
+                var writer = _youtubeDownload.StreamAsync(url, process.StandardInput.BaseStream, cancellationToken);
+                await Task.WhenAll(reader, writer);
             }
         }
 
