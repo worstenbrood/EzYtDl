@@ -28,7 +28,7 @@ namespace YtEzDL.Tools
             return GetOutput("-version");
         }
 
-        private static readonly YoutubeDownload _youtubeDownload = new YoutubeDownload();
+        private static readonly YoutubeDownload YoutubeDownload = new YoutubeDownload();
 
         private static void OutputReader(Process process, Action<byte[], int> output, CancellationToken cancellationToken)
         {
@@ -81,7 +81,7 @@ namespace YtEzDL.Tools
             var reader = Task.Run(() => OutputReader(process, output, cancellationToken), cancellationToken);
 
             // Redirect yt-dlp's output to ffmpeg's input (hmm)
-            var writer = _youtubeDownload.StreamAsync(url, process.StandardInput.BaseStream, cancellationToken);
+            var writer = YoutubeDownload.StreamAsync(url, process.StandardInput.BaseStream, cancellationToken);
             
             // Wait on both tasks
             await Task.WhenAll(reader, writer);
