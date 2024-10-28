@@ -30,20 +30,27 @@ namespace YtEzDL.Tools
 
         private static readonly YoutubeDownload _youtubeDownload = new YoutubeDownload();
 
-        private static void OutputReader(Stream stream, Action<byte[], int> output, CancellationToken cancellationToken)
+        private static void OutputReader(Process process, Action<byte[], int> output, CancellationToken cancellationToken)
         {
-            int bytesRead;
-            var binaryReader = new BinaryReader(stream, Encoding.ASCII);
+            var binaryReader = new BinaryReader(process.StandardOutput.BaseStream, Encoding.ASCII);
             var buffer = new byte[DefaultBufferSize];
 
-            while ((bytesRead = binaryReader.Read(buffer, 0, DefaultBufferSize)) > 0)
+            try
             {
-                if (cancellationToken.IsCancellationRequested)
+                int bytesRead;
+                while ((bytesRead = binaryReader.Read(buffer, 0, DefaultBufferSize)) > 0)
                 {
-                    break;
-                }
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
 
-                output?.Invoke(buffer, bytesRead);
+                    output?.Invoke(buffer, bytesRead);
+                }
+            }
+            finally
+            {
+                process.Dispose();
             }
         }
 
@@ -55,7 +62,7 @@ namespace YtEzDL.Tools
         /// <param name="format">AudioFormat</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
-        public async Task ConvertToAudio(string url, Action<byte[], int> output, AudioFormat format = AudioFormat.Wav,
+        public async Task ConvertToAudio(string url, Action<byte[], int> output, AudioFormat format = AudioFormat.S16Le,
             CancellationToken cancellationToken = default)
         {
             var parameters = new[]
@@ -67,20 +74,20 @@ namespace YtEzDL.Tools
                 "pipe:1" // StdOut
             };
 
-            using (var process = CreateProcess(parameters, null))
-            {
-                process.Start();
+            var process = CreateProcess(parameters);
+            process.Start();
 
-                // ffmpeg output reader
-                var reader = Task.Run(() => OutputReader(process.StandardOutput.BaseStream, output, cancellationToken), cancellationToken);
+            // ffmpeg output reader
+            var reader = Task.Run(() => OutputReader(process, output, cancellationToken), cancellationToken);
 
-                // Redirect yt-dlp's output to ffmpeg's input (hmm)
-                var writer = _youtubeDownload.StreamAsync(url, process.StandardInput.BaseStream, cancellationToken);
-                await Task.WhenAll(reader, writer);
-            }
+            // Redirect yt-dlp's output to ffmpeg's input (hmm)
+            var writer = _youtubeDownload.StreamAsync(url, process.StandardInput.BaseStream, cancellationToken);
+            
+            // Wait on both tasks
+            await Task.WhenAll(reader, writer);
         }
 
-        public async Task ConvertToAudio(string url, Stream output, AudioFormat format = AudioFormat.Wav,
+        public async Task ConvertToAudio(string url, Stream output, AudioFormat format = AudioFormat.S16Le,
             CancellationToken cancellationToken = default)
         {
             await ConvertToAudio(url, (b, c) => output.Write(b, 0, c), format, cancellationToken);

@@ -40,7 +40,7 @@ namespace YtEzDL.Utils
             FileName = filename;
         }
 
-        protected Process CreateProcess(IEnumerable<string> parameters, Action<string> error)
+        protected Process CreateProcess(IEnumerable<string> parameters, Action<string> error = null)
         {
             var arguments = string.Join(" ", parameters);
 #if DEBUG
@@ -240,7 +240,7 @@ namespace YtEzDL.Utils
                         }
 
                         // Write to stream
-                        outputStream.Write(buffer, 0, bytesRead);
+                        await outputStream.WriteAsync(buffer, 0, bytesRead, cancellationToken);
                     }
 
                     // Close output
