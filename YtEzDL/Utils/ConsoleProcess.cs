@@ -29,7 +29,7 @@ namespace YtEzDL.Utils
     public class ConsoleProcess
     {
         public const int DefaultProcessWaitTime = 250;
-        public const int DefaultBufferSize = 65535;
+        public const int DefaultBufferSize = 8192;
         public readonly string FileName;
         private volatile int _processCount;
         
@@ -104,6 +104,49 @@ namespace YtEzDL.Utils
             return process;
         }
 
+        private static Task<int> WaitAsync(Process process, StringBuilder error, Action<string> outputAction, CancellationToken cancellationToken, Action<Process> cancelAction, bool handleError)
+        {
+            bool exited;
+            do
+            {
+                // Wait for exit
+                exited = process.WaitForExit(DefaultProcessWaitTime);
+
+                // Canceled
+                if (!cancellationToken.IsCancellationRequested)
+                {
+                    continue;
+                }
+
+                // Exit
+                if (!process.HasExited)
+                {
+                    if (outputAction != null)
+                    {
+                        // Cancel output reading
+                        process.CancelOutputRead();
+                    }
+
+                    // Invoke cancel action
+                    cancelAction?.Invoke(process);
+                }
+
+                // Kill process tree
+                process.KillProcessTree();
+
+                // Canceled
+                return Task.FromCanceled<int>(cancellationToken);
+            } while (!exited);
+
+            if (!handleError || process.ExitCode == 0)
+            {
+                return Task.FromResult(process.ExitCode);
+            }
+
+            var message = error.Length > 0 ? error.ToString() : $"ExitCode({process.ExitCode})";
+            return Task.FromException<int>(new ConsoleProcessException(process.ExitCode, message));
+        }
+
         /// <summary>
         /// Run the console app async
         /// </summary>
@@ -113,7 +156,7 @@ namespace YtEzDL.Utils
         /// <param name="cancelAction"></param>
         /// <param name="handleError"></param>
         /// <returns></returns>
-        public Task<int> RunAsync(IEnumerable<string> parameters, Action<string> outputAction,
+        public async Task<int> RunAsync(IEnumerable<string> parameters, Action<string> outputAction,
             CancellationToken cancellationToken = default, Action<Process> cancelAction = null, bool handleError = true)
         {
             try
@@ -122,90 +165,15 @@ namespace YtEzDL.Utils
                 using (var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s), cancellationToken))
                 {
                     Interlocked.Increment(ref _processCount);
-                    bool exited;
-                    do
-                    {
-                        // Wait for exit
-                        exited = process.WaitForExit(DefaultProcessWaitTime);
-
-                        // Canceled
-                        if (!cancellationToken.IsCancellationRequested)
-                        {
-                            continue;
-                        }
-
-                        // Exit
-                        if (!process.HasExited)
-                        {
-                            if (outputAction != null)
-                            {
-                                // Cancel output reading
-                                process.CancelOutputRead();
-                            }
-
-                            // Invoke cancel action
-                            cancelAction?.Invoke(process);
-                        }
-
-                        // Kill process tree
-                        process.KillProcessTree();
-
-                        // Canceled
-                        return Task.FromCanceled<int>(cancellationToken);
-                    } while (!exited);
-
-                    if (!handleError || process.ExitCode == 0)
-                    {
-                        return Task.FromResult(process.ExitCode);
-                    }
-
-                    var message = error.Length > 0 ? error.ToString() : $"ExitCode({process.ExitCode})";
-                    return Task.FromException<int>(new ConsoleProcessException(process.ExitCode, message));
+                    return await WaitAsync(process, error, outputAction, cancellationToken, cancelAction, handleError);
                 }
             }
-            catch (Exception ex)
+            finally
             {
-                return Task.FromException<int>(ex);
+                Interlocked.Decrement(ref _processCount);
             }
         }
-
-        private static Task<int> WaitAsync(Process process, StringBuilder error, CancellationToken cancellationToken, bool handleError)
-        {
-            try
-            {
-                bool exited;
-                do
-                {
-                    // Wait for exit
-                    exited = process.WaitForExit(DefaultProcessWaitTime);
-
-                    // Canceled
-                    if (!cancellationToken.IsCancellationRequested)
-                    {
-                        continue;
-                    }
-
-                    // Kill process tree
-                    process.KillProcessTree();
-
-                    // Canceled
-                    return Task.FromCanceled<int>(cancellationToken);
-                } while (!exited);
-
-                if (!handleError || process.ExitCode == 0)
-                {
-                    return Task.FromResult(process.ExitCode);
-                }
-
-                var message = error.Length > 0 ? error.ToString() : $"ExitCode({process.ExitCode})";
-                return Task.FromException<int>(new ConsoleProcessException(process.ExitCode, message));
-            }
-            catch (Exception ex)
-            {
-                return Task.FromException<int>(ex);
-            }
-        }
-                
+        
         /// <summary>
         /// Write std out to a stream async
         /// </summary>
@@ -247,7 +215,7 @@ namespace YtEzDL.Utils
                     outputStream.Close();
 
                     // Close process nicely
-                    return await WaitAsync(process, error, cancellationToken, handleError);
+                    return await WaitAsync(process, error, null, cancellationToken, null, handleError);
                 }
                 finally
                 {
