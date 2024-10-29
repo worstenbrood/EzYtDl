@@ -32,7 +32,7 @@ namespace YtEzDL.Utils
     public class ConsoleProcess
     {
         public const int DefaultProcessWaitTime = 250;
-        public const int DefaultBufferSize = 8192;
+        public const int DefaultBufferSize = 4096;
         public readonly string FileName;
         private volatile int _processCount;
         
