@@ -44,6 +44,7 @@ namespace YtEzDL.Tools
             }
             finally
             {
+                // Cleanup
                 process.Dispose();
             }
         }
@@ -73,7 +74,7 @@ namespace YtEzDL.Tools
 
             // ffmpeg output reader
             var reader = Task.Run(() => OutputReader(process, output, cancellationToken), cancellationToken);
-           
+                
             // Redirect yt-dlp's output to ffmpeg's input (hmm)
             var writer = YoutubeDownload.Instance.StreamAsync(url, process.StandardInput.BaseStream, cancellationToken);
             
