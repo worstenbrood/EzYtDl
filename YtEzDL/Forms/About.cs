@@ -41,7 +41,7 @@ namespace YtEzDL.Forms
             textBoxAbout.Text += Resources.WebPWrapperUrl + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
 
-            textBoxAbout.Text += string.Format(Resources.YtDlpVersion, new YoutubeDownload().GetVersion()) + Environment.NewLine;
+            textBoxAbout.Text += string.Format(Resources.YtDlpVersion, YoutubeDownload.Instance.GetVersion()) + Environment.NewLine;
             textBoxAbout.Text += Resources.YtDlpUrl + Environment.NewLine;
             textBoxAbout.Text += Environment.NewLine;
             textBoxAbout.ResumeLayout();
@@ -50,7 +50,7 @@ namespace YtEzDL.Forms
             {
                 Invoke(new MethodInvoker(() =>
                 {
-                    textBoxAbout.Text += new FfMpeg().GetVersion() + Environment.NewLine;
+                    textBoxAbout.Text += FfMpeg.Instance.GetVersion() + Environment.NewLine;
                     textBoxAbout.Text += Resources.FfMpegUrl;
                     textBoxAbout.Select(textBoxAbout.Text.Length, 0);
                 }));

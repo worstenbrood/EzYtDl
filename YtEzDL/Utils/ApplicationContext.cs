@@ -16,7 +16,6 @@ namespace YtEzDL.Utils
         private readonly NotifyIcon _notifyIcon;
         private readonly object _lock = new object();
         // Start youtube-dl
-        private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
         private readonly ClipboardMonitor _clipboardMonitor = new ClipboardMonitor();
 
         private void RunYtDlp(Action a)
@@ -40,12 +39,12 @@ namespace YtEzDL.Utils
         private void Update()
         {
            // Update
-           RunYtDlp(() => _youtubeDl.Update(t => _notifyIcon.ShowBalloonTip(2000, Resources.YtDlpUpdate, t, ToolTipIcon.Info)));
+           RunYtDlp(() => YoutubeDownload.Instance.Update(t => _notifyIcon.ShowBalloonTip(2000, Resources.YtDlpUpdate, t, ToolTipIcon.Info)));
         }
 
         private void ClearCache()
         {
-           RunYtDlp(() => _youtubeDl.Run(DownLoadParameters.Create.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info)));
+           RunYtDlp(() => YoutubeDownload.Instance.Run(DownLoadParameters.Create.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info)));
         }
 
         private MetroContextMenu SetupContextMenu(IContainer container)
