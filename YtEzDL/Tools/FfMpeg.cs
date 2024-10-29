@@ -76,9 +76,7 @@ namespace YtEzDL.Tools
 
             var process = CreateProcess(parameters);
             process.Start();
-
-            var tasks = new Task[2];
-
+            
             // ffmpeg output reader
             var reader = new Task(() => OutputReader(process, output, cancellationToken));
             reader.Start();
