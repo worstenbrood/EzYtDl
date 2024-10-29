@@ -1,7 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using YtEzDL.DownLoad;
@@ -34,7 +32,7 @@ namespace YtEzDL.Tools
 
         private static void OutputReader(Process process, DataOutput output, CancellationToken cancellationToken)
         {
-            var binaryReader = new BinaryReader(process.StandardOutput.BaseStream, Encoding.ASCII);
+            var binaryReader = new BinaryReader(process.StandardOutput.BaseStream);
             var buffer = new byte[DefaultBufferSize];
 
             try
@@ -80,13 +78,18 @@ namespace YtEzDL.Tools
             process.Start();
 
             // ffmpeg output reader
-            var reader = Task.Run(() => OutputReader(process, output, cancellationToken), cancellationToken);
-
+            var reader = new Thread(() => OutputReader(process, output, cancellationToken));
+            
             // Redirect yt-dlp's output to ffmpeg's input (hmm)
             var writer = YoutubeDownload.StreamAsync(url, process.StandardInput.BaseStream, cancellationToken);
             
+            // Start reader
+            reader.IsBackground = true;
+            reader.Start();
+
             // Wait on both tasks
-            await Task.WhenAll(reader, writer);
+            await writer;
+            reader.Join();
         }
 
         public async Task ConvertToAudio(string url, Stream output, AudioFormat format = AudioFormat.S16Le,
