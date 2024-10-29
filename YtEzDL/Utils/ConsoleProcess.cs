@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using YtEzDL.Tools;
 
 namespace YtEzDL.Utils
 {
@@ -29,7 +30,7 @@ namespace YtEzDL.Utils
     public delegate void StringOutput(string s);
     public delegate void CancelProcess(Process process);
 
-    public class ConsoleProcess
+    public abstract class ConsoleProcess<T> where T: ConsoleProcess<T>, new()
     {
         public const int DefaultProcessWaitTime = 250;
         public const int DefaultBufferSize = 4096;
@@ -38,7 +39,12 @@ namespace YtEzDL.Utils
         
         public bool IsRunning => _processCount > 0;
 
-        public ConsoleProcess(string filename)
+        // Singleton
+        private static readonly Lazy<T> Lazy = new Lazy<T>(() => new T());
+
+        public static T Instance => Lazy.Value;
+        
+        protected ConsoleProcess(string filename)
         {
             FileName = filename;
         }

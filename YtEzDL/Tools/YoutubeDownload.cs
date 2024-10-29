@@ -14,7 +14,7 @@ using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
 {
-    public class YoutubeDownload : ConsoleProcess, ITool
+    public class YoutubeDownload : ConsoleProcess<YoutubeDownload>, ITool
     {
         private const string YoutubeHost = "youtube.com";
         private const string Executable = "yt-dlp.exe";

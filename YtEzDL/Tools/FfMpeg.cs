@@ -10,10 +10,10 @@ namespace YtEzDL.Tools
 {
     public delegate bool DataReader(BinaryReader reader);
 
-    public class FfMpeg : ConsoleProcess, ITool
+    public class FfMpeg : ConsoleProcess<FfMpeg>, ITool
     {
         private const string Executable = "ffmpeg.exe";
-
+        
         public FfMpeg() : base(Path.Combine(CommonTools.ToolsPath, Executable))
         {
         }
