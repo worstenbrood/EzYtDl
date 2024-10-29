@@ -198,26 +198,11 @@ namespace YtEzDL.Utils
                 {
                     Interlocked.Increment(ref _processCount);
                     process.BeginErrorReadLine();
-
-                    int bytesRead;
-                    var binaryReader = new BinaryReader(process.StandardOutput.BaseStream, Encoding.ASCII);
-                    var buffer = new byte[bufferSize];
-
-                    while ((bytesRead = binaryReader.Read(buffer, 0, bufferSize)) > 0)
-                    {
-                        if (cancellationToken.IsCancellationRequested)
-                        {
-                            // Canceled
-                            break;
-                        }
-
-                        // Write to stream
-                        await outputStream.WriteAsync(buffer, 0, bytesRead, cancellationToken);
-                    }
-
-                    // Close output
+                    await process.StandardOutput.BaseStream.CopyToAsync(outputStream, bufferSize, cancellationToken);
+                    
+                    // Close stream
                     outputStream.Close();
-
+                    
                     // Close process nicely
                     return await WaitAsync(process, error, null, cancellationToken, null, handleError);
                 }
