@@ -77,19 +77,17 @@ namespace YtEzDL.Tools
             var process = CreateProcess(parameters);
             process.Start();
 
+            var tasks = new Task[2];
+
             // ffmpeg output reader
-            var reader = new Thread(() => OutputReader(process, output, cancellationToken));
-            
+            var reader = new Task(() => OutputReader(process, output, cancellationToken));
+            reader.Start();
+
             // Redirect yt-dlp's output to ffmpeg's input (hmm)
             var writer = YoutubeDownload.StreamAsync(url, process.StandardInput.BaseStream, cancellationToken);
             
-            // Start reader
-            reader.IsBackground = true;
-            reader.Start();
-
             // Wait on both tasks
-            await writer;
-            reader.Join();
+            await Task.WhenAll(reader, writer);
         }
 
         public async Task ConvertToAudio(string url, Stream output, AudioFormat format = AudioFormat.S16Le,
