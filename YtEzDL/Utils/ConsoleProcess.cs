@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using YtEzDL.Tools;
 
 namespace YtEzDL.Utils
 {
@@ -33,7 +32,7 @@ namespace YtEzDL.Utils
     public abstract class ConsoleProcess<T> where T: ConsoleProcess<T>, new()
     {
         public const int DefaultProcessWaitTime = 250;
-        public const int DefaultBufferSize = 4096;
+        public const int DefaultBufferSize = 8192;
         public readonly string FileName;
         private volatile int _processCount;
         
@@ -62,7 +61,7 @@ namespace YtEzDL.Utils
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardInput = true,
-                RedirectStandardError = true,
+                RedirectStandardError = error != null,
                 CreateNoWindow = true,
                 LoadUserProfile = false,
                 WindowStyle = ProcessWindowStyle.Hidden,
@@ -204,6 +203,8 @@ namespace YtEzDL.Utils
                 {
                     Interlocked.Increment(ref _processCount);
                     process.BeginErrorReadLine();
+                    
+                    // Copy data to output stream
                     await process.StandardOutput.BaseStream.CopyToAsync(outputStream, bufferSize, cancellationToken);
                     
                     // Close stream

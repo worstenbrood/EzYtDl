@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using YtEzDL.DownLoad;
@@ -8,7 +10,7 @@ using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
 {
-    public delegate bool DataReader(BinaryReader reader);
+    public delegate bool DataReader(Stream reader);
 
     public class FfMpeg : ConsoleProcess<FfMpeg>, ITool
     {
@@ -30,17 +32,15 @@ namespace YtEzDL.Tools
 
         private static void OutputReader(Process process, DataReader reader, CancellationToken cancellationToken)
         {
-            var binaryReader = new BinaryReader(process.StandardOutput.BaseStream);
-            
             try
             {
-                while (reader(binaryReader))
+                do
                 {
                     if (cancellationToken.IsCancellationRequested)
                     {
                         break;
                     }
-                }
+                } while (reader(process.StandardOutput.BaseStream));
             }
             finally
             {
@@ -70,11 +70,10 @@ namespace YtEzDL.Tools
 
             var process = CreateProcess(parameters);
             process.Start();
-            
-            // ffmpeg output reader
-            var reader = new Task(() => OutputReader(process, output, cancellationToken));
-            reader.Start();
 
+            // ffmpeg output reader
+            var reader = Task.Run(() => OutputReader(process, output, cancellationToken), cancellationToken);
+           
             // Redirect yt-dlp's output to ffmpeg's input (hmm)
             var writer = YoutubeDownload.Instance.StreamAsync(url, process.StandardInput.BaseStream, cancellationToken);
             
@@ -82,14 +81,21 @@ namespace YtEzDL.Tools
             await Task.WhenAll(reader, writer);
         }
 
-        private static bool Redirect(BinaryReader reader, byte[] buffer, int length, Stream output)
+        private static bool Redirect(Stream reader, byte[] buffer, int length, Stream output)
         {
-            var bytesRead = reader.Read(buffer, 0, length);
-            if (bytesRead > 0)
+            try
             {
-                output.Write(buffer, 0, bytesRead);
+                var bytesRead = reader.Read(buffer, 0, length);
+                if (bytesRead > 0)
+                {
+                    output.Write(buffer, 0, bytesRead);
+                }
+                return bytesRead > 0;
             }
-            return bytesRead != 0;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task ConvertToAudio(string url, Stream output, AudioFormat format = AudioFormat.S16Le,
