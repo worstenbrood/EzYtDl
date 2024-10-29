@@ -10,6 +10,8 @@ using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
 {
+    public delegate void DataOutput(byte[] data, int length);
+
     public class FfMpeg : ConsoleProcess, ITool
     {
         private const string Executable = "ffmpeg.exe";
@@ -30,7 +32,7 @@ namespace YtEzDL.Tools
 
         private static readonly YoutubeDownload YoutubeDownload = new YoutubeDownload();
 
-        private static void OutputReader(Process process, Action<byte[], int> output, CancellationToken cancellationToken)
+        private static void OutputReader(Process process, DataOutput output, CancellationToken cancellationToken)
         {
             var binaryReader = new BinaryReader(process.StandardOutput.BaseStream, Encoding.ASCII);
             var buffer = new byte[DefaultBufferSize];
@@ -62,7 +64,7 @@ namespace YtEzDL.Tools
         /// <param name="format">AudioFormat</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
-        public async Task ConvertToAudio(string url, Action<byte[], int> output, AudioFormat format = AudioFormat.S16Le,
+        public async Task ConvertToAudio(string url, DataOutput output, AudioFormat format = AudioFormat.S16Le,
             CancellationToken cancellationToken = default)
         {
             var parameters = new[]

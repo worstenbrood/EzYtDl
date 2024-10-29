@@ -199,13 +199,13 @@ namespace YtEzDL.Tools
             return result;
         }
       
-        public async Task<int> RunAsync(DownLoadParameters downLoadParameters, Action<string> output = null, CancellationToken cancellationToken = default)
+        public async Task<int> RunAsync(DownLoadParameters downLoadParameters, StringOutput output = null, CancellationToken cancellationToken = default)
         {
             var parameters = downLoadParameters.GetParameters();
             return await RunAsync(parameters, output, cancellationToken);
         }
 
-        public int Run(DownLoadParameters downLoadParameters, Action<string> output = null, CancellationToken cancellationToken = default)
+        public int Run(DownLoadParameters downLoadParameters, StringOutput output = null, CancellationToken cancellationToken = default)
         {
             return RunAsync(downLoadParameters, output, cancellationToken)
                 .ConfigureAwait(false)
@@ -213,7 +213,7 @@ namespace YtEzDL.Tools
                 .GetResult();
         }
         
-        public void Update(Action<string> action)
+        public void Update(StringOutput action)
         {
             // Parameters
             var parameters = DownLoadParameters.Create

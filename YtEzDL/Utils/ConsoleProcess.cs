@@ -26,6 +26,9 @@ namespace YtEzDL.Utils
         }
     }
 
+    public delegate void StringOutput(string s);
+    public delegate void CancelProcess(Process process);
+
     public class ConsoleProcess
     {
         public const int DefaultProcessWaitTime = 250;
@@ -40,7 +43,7 @@ namespace YtEzDL.Utils
             FileName = filename;
         }
 
-        protected Process CreateProcess(IEnumerable<string> parameters, Action<string> error = null)
+        protected Process CreateProcess(IEnumerable<string> parameters, StringOutput error = null)
         {
             var arguments = string.Join(" ", parameters);
 #if DEBUG
@@ -75,7 +78,7 @@ namespace YtEzDL.Utils
             return process;
         }
 
-        protected Process CreateProcess(IEnumerable<string> parameters, Action<string> data, Action<string> error, CancellationToken cancellationToken = default)
+        protected Process CreateProcess(IEnumerable<string> parameters, StringOutput data, StringOutput error, CancellationToken cancellationToken = default)
         {
             var process = CreateProcess(parameters, error);
             if (data != null)
@@ -104,7 +107,8 @@ namespace YtEzDL.Utils
             return process;
         }
 
-        private static Task<int> WaitAsync(Process process, StringBuilder error, Action<string> outputAction, CancellationToken cancellationToken, Action<Process> cancelAction, bool handleError)
+        private static Task<int> WaitAsync(Process process, StringBuilder error, StringOutput output, 
+            CancellationToken cancellationToken, CancelProcess cancel, bool handleError)
         {
             bool exited;
             do
@@ -121,14 +125,14 @@ namespace YtEzDL.Utils
                 // Exit
                 if (!process.HasExited)
                 {
-                    if (outputAction != null)
+                    if (output != null)
                     {
                         // Cancel output reading
                         process.CancelOutputRead();
                     }
 
                     // Invoke cancel action
-                    cancelAction?.Invoke(process);
+                    cancel?.Invoke(process);
                 }
 
                 // Kill process tree
@@ -151,21 +155,21 @@ namespace YtEzDL.Utils
         /// Run the console app async
         /// </summary>
         /// <param name="parameters"></param>
-        /// <param name="outputAction"></param>
+        /// <param name="output"></param>
         /// <param name="cancellationToken"></param>
-        /// <param name="cancelAction"></param>
+        /// <param name="cancel"></param>
         /// <param name="handleError"></param>
         /// <returns></returns>
-        public async Task<int> RunAsync(IEnumerable<string> parameters, Action<string> outputAction,
-            CancellationToken cancellationToken = default, Action<Process> cancelAction = null, bool handleError = true)
+        public async Task<int> RunAsync(IEnumerable<string> parameters, StringOutput output,
+            CancellationToken cancellationToken = default, CancelProcess cancel = null, bool handleError = true)
         {
             try
             {
                 var error = new StringBuilder();
-                using (var process = CreateProcess(parameters, outputAction, s => error.AppendLine(s), cancellationToken))
+                using (var process = CreateProcess(parameters, output, s => error.AppendLine(s), cancellationToken))
                 {
                     Interlocked.Increment(ref _processCount);
-                    return await WaitAsync(process, error, outputAction, cancellationToken, cancelAction, handleError);
+                    return await WaitAsync(process, error, output, cancellationToken, cancel, handleError);
                 }
             }
             finally
