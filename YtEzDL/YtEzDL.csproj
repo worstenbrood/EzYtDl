@@ -133,6 +133,7 @@
     <None Include="Properties\AssemblyInfo.Template.cs" />
     <Compile Include="Interfaces\ITool.cs" />
     <Compile Include="Tools\FfMpeg.cs" />
+    <Compile Include="Tools\FfMpegStream.cs" />
     <Compile Include="UserControls\CustomLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -140,6 +141,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\AppStyle.cs" />
+    <Compile Include="Utils\Audio\WaveOutBuffer.cs" />
+    <Compile Include="Utils\Audio\WinMm.cs" />
+    <Compile Include="Utils\Audio\WinMmException.cs" />
     <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Utils\FormTools.cs" />

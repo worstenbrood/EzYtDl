@@ -33,7 +33,7 @@ namespace YtEzDL.Utils
     {
         public const int DefaultProcessWaitTime = 250;
         public const int DefaultBufferSize = 8192;
-        public readonly string FileName;
+        public string FileName { get; }
         private volatile int _processCount;
         
         public bool IsRunning => _processCount > 0;
@@ -207,14 +207,14 @@ namespace YtEzDL.Utils
                     // Copy data to output stream
                     await process.StandardOutput.BaseStream.CopyToAsync(outputStream, bufferSize, cancellationToken);
                     
-                    // Close stream
-                    outputStream.Close();
-                    
                     // Close process nicely
                     return await WaitAsync(process, error, null, cancellationToken, null, handleError);
                 }
                 finally
                 {
+                    // Close stream
+                    outputStream.Close();
+
                     Interlocked.Decrement(ref _processCount);
                 }
             }
