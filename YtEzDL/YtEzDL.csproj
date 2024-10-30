@@ -141,9 +141,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\AppStyle.cs" />
-    <Compile Include="Utils\Audio\WaveOutBuffer.cs" />
-    <Compile Include="Utils\Audio\WinMm.cs" />
-    <Compile Include="Utils\Audio\WinMmException.cs" />
     <Compile Include="Utils\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Utils\FormTools.cs" />
