@@ -195,28 +195,36 @@ namespace YtEzDL.Utils
         public async Task<int> StreamAsync(IEnumerable<string> parameters, Stream outputStream, CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
             var error = new StringBuilder();
-            using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
+            try
             {
-                process.Start();
 
-                try
-                {
-                    Interlocked.Increment(ref _processCount);
-                    process.BeginErrorReadLine();
-                    
-                    // Copy data to output stream
-                    await process.StandardOutput.BaseStream.CopyToAsync(outputStream, bufferSize, cancellationToken);
-                    
-                    // Close process nicely
-                    return await WaitAsync(process, error, null, cancellationToken, null, handleError);
-                }
-                finally
-                {
-                    // Close stream
-                    outputStream.Close();
 
-                    Interlocked.Decrement(ref _processCount);
+                using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
+                {
+                    process.Start();
+
+                    try
+                    {
+                        Interlocked.Increment(ref _processCount);
+                        process.BeginErrorReadLine();
+
+                        // Copy data to output stream
+                        await process.StandardOutput.BaseStream.CopyToAsync(outputStream, bufferSize,
+                            cancellationToken);
+
+                        // Close process nicely
+                        return await WaitAsync(process, error, null, cancellationToken, null, handleError);
+                    }
+                    finally
+                    {
+                        Interlocked.Decrement(ref _processCount);
+                    }
                 }
+            }
+            finally
+            {
+                // Close stream
+                outputStream.Close();
             }
         }
         
