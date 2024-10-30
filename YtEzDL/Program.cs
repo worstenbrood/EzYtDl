@@ -17,17 +17,6 @@ namespace YtEzDL
         [STAThread]
         public static void Main()
         {
-            const string url = "https://soundcloud.com/phobiqrecordings/1joyhauser-entropy-spartaque-remix-master";
-            var start = DateTime.Now;
-            using (var ffmpeg = new FfMpegStream(url, AudioFormat.S16Le))
-            {
-                using (var file = File.Create("output.raw"))
-                {
-                    ffmpeg.CopyTo(file);
-                }
-            }
-            Debug.WriteLine($"{(DateTime.Now - start).TotalMilliseconds} ms");
-            
             var mutexName = Assembly.GetExecutingAssembly().FullName;
 
             // Check if mutex already exists
