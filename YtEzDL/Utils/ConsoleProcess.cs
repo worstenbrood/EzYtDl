@@ -219,25 +219,7 @@ namespace YtEzDL.Utils
                 }
             }
         }
-
-        /// <summary>
-        /// Write std out to a stream
-        /// </summary>
-        /// <param name="parameters">Parameters</param>
-        /// <param name="outputStream">Output stream</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <param name="handleError">If true, throw exception in case of bad exit code or output on std error</param>
-        /// <param name="bufferSize">Buffer size to read</param>
-        /// <returns>Process exit code</returns>
-        public int Stream(IEnumerable<string> parameters, Stream outputStream,
-            CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
-        {
-            return StreamAsync(parameters, outputStream, cancellationToken, handleError, bufferSize)
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult();
-        }
-
+        
         public string GetOutput(params string[] parameters)
         {
 #if DEBUG
