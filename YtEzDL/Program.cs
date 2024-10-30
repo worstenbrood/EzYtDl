@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using YtEzDL.DownLoad;
-using YtEzDL.Tools;
 
 namespace YtEzDL
 {
