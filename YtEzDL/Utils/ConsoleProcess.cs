@@ -168,18 +168,18 @@ namespace YtEzDL.Utils
         public async Task<int> RunAsync(IEnumerable<string> parameters, StringOutput output,
             CancellationToken cancellationToken = default, CancelProcess cancel = null, bool handleError = true)
         {
-            try
+            var error = new StringBuilder();
+            using (var process = CreateProcess(parameters, output, s => error.AppendLine(s), cancellationToken))
             {
-                var error = new StringBuilder();
-                using (var process = CreateProcess(parameters, output, s => error.AppendLine(s), cancellationToken))
+                Interlocked.Increment(ref _processCount);
+                try
                 {
-                    Interlocked.Increment(ref _processCount);
                     return await WaitAsync(process, error, output, cancellationToken, cancel, handleError);
                 }
-            }
-            finally
-            {
-                Interlocked.Decrement(ref _processCount);
+                finally
+                {
+                    Interlocked.Decrement(ref _processCount);
+                }
             }
         }
         
@@ -197,15 +197,14 @@ namespace YtEzDL.Utils
             var error = new StringBuilder();
             try
             {
-
-
                 using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
                 {
                     process.Start();
+                    Interlocked.Increment(ref _processCount);
 
                     try
                     {
-                        Interlocked.Increment(ref _processCount);
+                        // Read errors
                         process.BeginErrorReadLine();
 
                         // Copy data to output stream
