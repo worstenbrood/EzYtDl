@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using YtEzDL.DownLoad;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
@@ -41,6 +43,20 @@ namespace YtEzDL.Tools
             };
 
             return CreateProcess(parameters);
+        }
+
+        public static async Task UrlToAudioStreamAsync(string url, Stream output, AudioFormat audioFormat,
+            CancellationToken cancellationToken)
+        {
+            using (var ffmpeg = new FfMpegStream(url, audioFormat, cancellationToken))
+            {
+                await ffmpeg.CopyToAsync(output, DefaultBufferSize, cancellationToken);
+            }
+        }
+
+        public static async Task UrlToAudioStreamAsync(string url, Stream output, AudioFormat audioFormat)
+        {
+            await UrlToAudioStreamAsync(url, output, audioFormat, CancellationToken.None);
         }
     }
 }

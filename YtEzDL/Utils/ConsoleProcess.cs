@@ -65,7 +65,8 @@ namespace YtEzDL.Utils
                 CreateNoWindow = true,
                 LoadUserProfile = false,
                 WindowStyle = ProcessWindowStyle.Hidden,
-                Arguments = arguments
+                Arguments = arguments,
+                WorkingDirectory = CommonTools.EzYtDlProfilePath
             };
 
             var process = new Process { StartInfo = processStartInfo, EnableRaisingEvents = true };
