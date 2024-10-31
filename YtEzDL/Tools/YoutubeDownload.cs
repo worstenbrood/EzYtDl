@@ -136,7 +136,7 @@ namespace YtEzDL.Tools
                 .GetResult();
         }
         
-        public async Task GetJsonAsync(string url, Action<TrackData> action, CancellationToken cancellationToken = default)
+        public async Task GetJsonAsync(string url, Action<TrackData> action, CancellationToken cancellationToken)
         {
             // Parameters
             var parameters = DownLoadParameters.Create
@@ -180,12 +180,22 @@ namespace YtEzDL.Tools
                 }, cancellationToken);
         }
 
-        public void GetJson(string url, Action<TrackData> action, CancellationToken cancellationToken = default)
+        public async Task GetJsonAsync(string url, Action<TrackData> action)
+        {
+            await GetJsonAsync(url, action, CancellationToken.None);
+        }
+
+        public void GetJson(string url, Action<TrackData> action, CancellationToken cancellationToken)
         {
             GetJsonAsync(url, action, cancellationToken)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
+        }
+
+        public void GetJson(string url, Action<TrackData> action)
+        {
+            GetJson(url, action, CancellationToken.None);
         }
 
         public List<TrackData> GetJson(string url)
@@ -199,20 +209,30 @@ namespace YtEzDL.Tools
             return result;
         }
       
-        public async Task<int> RunAsync(DownLoadParameters downLoadParameters, StringOutput output = null, CancellationToken cancellationToken = default)
+        public async Task<int> RunAsync(DownLoadParameters downLoadParameters, StringOutput output, CancellationToken cancellationToken)
         {
             var parameters = downLoadParameters.GetParameters();
             return await RunAsync(parameters, output, cancellationToken);
         }
 
-        public int Run(DownLoadParameters downLoadParameters, StringOutput output = null, CancellationToken cancellationToken = default)
+        public async Task<int> RunAsync(DownLoadParameters downLoadParameters, StringOutput output)
+        {
+            return await RunAsync(downLoadParameters, output, CancellationToken.None);
+        }
+
+        public int Run(DownLoadParameters downLoadParameters, StringOutput output, CancellationToken cancellationToken)
         {
             return RunAsync(downLoadParameters, output, cancellationToken)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
         }
-        
+
+        public int Run(DownLoadParameters downLoadParameters, StringOutput output)
+        {
+            return Run(downLoadParameters, output, CancellationToken.None);
+        }
+
         public void Update(StringOutput action)
         {
             // Parameters
@@ -236,7 +256,17 @@ namespace YtEzDL.Tools
 
             await StreamAsync(parameters, output, cancellationToken);
         }
-        
+
+        public async Task StreamAsync(string url, Stream output)
+        {
+            var parameters = DownLoadParameters.Create
+                .Output("-")
+                .Url(url)
+                .GetParameters();
+
+            await StreamAsync(parameters, output, CancellationToken.None);
+        }
+
         public string GetVersion()
         {
             return CommonTools.GetFileVersionInfo(Path).ProductVersion;

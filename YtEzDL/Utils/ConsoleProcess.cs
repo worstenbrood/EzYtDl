@@ -84,7 +84,7 @@ namespace YtEzDL.Utils
             return process;
         }
 
-        protected Process CreateProcess(IEnumerable<string> parameters, StringOutput data, StringOutput error, CancellationToken cancellationToken = default)
+        protected Process CreateProcess(IEnumerable<string> parameters, StringOutput data, StringOutput error, CancellationToken cancellationToken)
         {
             var process = CreateProcess(parameters, error);
             if (data != null)
@@ -167,7 +167,7 @@ namespace YtEzDL.Utils
         /// <param name="handleError"></param>
         /// <returns></returns>
         public async Task<int> RunAsync(IEnumerable<string> parameters, StringOutput output,
-            CancellationToken cancellationToken = default, CancelProcess cancel = null, bool handleError = true)
+            CancellationToken cancellationToken, CancelProcess cancel = null, bool handleError = true)
         {
             var error = new StringBuilder();
             using (var process = CreateProcess(parameters, output, s => error.AppendLine(s), cancellationToken))
@@ -183,7 +183,13 @@ namespace YtEzDL.Utils
                 }
             }
         }
-        
+
+        public async Task<int> RunAsync(IEnumerable<string> parameters, StringOutput output,
+            CancelProcess cancel = null, bool handleError = true)
+        {
+            return await RunAsync(parameters, output, CancellationToken.None, cancel, handleError);
+        }
+
         /// <summary>
         /// Write std out to a stream async
         /// </summary>
@@ -193,7 +199,7 @@ namespace YtEzDL.Utils
         /// <param name="handleError">If true, throw exception in case of bad exit code or output on std error</param>
         /// <param name="bufferSize">Buffer size to read</param>
         /// <returns>Process exit code</returns>
-        public async Task<int> StreamAsync(IEnumerable<string> parameters, Stream outputStream, CancellationToken cancellationToken = default, bool handleError = true, int bufferSize = DefaultBufferSize)
+        public async Task<int> StreamAsync(IEnumerable<string> parameters, Stream outputStream, CancellationToken cancellationToken, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
             var error = new StringBuilder();
             try
