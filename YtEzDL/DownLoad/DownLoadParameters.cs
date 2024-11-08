@@ -43,125 +43,120 @@ namespace YtEzDL.DownLoad
         Nightly
     }
 
-    public class DownLoadParameters : Parameters
+    public class DownLoadParameters : Parameters<DownLoadParameters>
     {
         public static DownLoadParameters Create => new DownLoadParameters();
         
         public DownLoadParameters RemoveCache()
         {
-            return AddParameter<DownLoadParameters>("--rm-cache-dir");
+            return AddParameter("--rm-cache-dir");
         }
 
         public DownLoadParameters ExtractAudio()
         {
-            return AddParameter<DownLoadParameters>("-x");
+            return AddParameter("-x");
         }
 
         public DownLoadParameters AddMetadata()
         {
-            return AddParameter<DownLoadParameters>("--add-metadata");
+            return AddParameter("--add-metadata");
         }
 
         public DownLoadParameters EmbedThumbnail()
         {
-            return AddParameter<DownLoadParameters>("--embed-thumbnail");
+            return AddParameter("--embed-thumbnail");
         }
 
         public DownLoadParameters AudioFormat(AudioFormat format)
         {
-            return AddParameter<DownLoadParameters>("--audio-format", format.ToString("G").ToLowerInvariant());
+            return AddParameter("--audio-format", format.ToString("G").ToLowerInvariant());
         }
 
         public DownLoadParameters AudioQuality(AudioQuality quality)
         {
-            return AddParameter<DownLoadParameters>("--audio-quality", quality.ToString("D"));
+            return AddParameter("--audio-quality", quality.ToString("D"));
         }
 
         public DownLoadParameters MetadataFromTitle(string format)
         {
-            return AddParameter<DownLoadParameters>("--metadata-from-title", format);
+            return AddParameter("--metadata-from-title", format);
         }
 
         public DownLoadParameters VideoFormat(VideoFormat format)
         {
-            return AddParameter<DownLoadParameters>("--recode-video", format.ToString("G").ToLowerInvariant());
+            return AddParameter("--recode-video", format.ToString("G").ToLowerInvariant());
         }
 
         public DownLoadParameters IgnoreErrors()
         {
-            return AddParameter<DownLoadParameters>("--ignore-errors");
+            return AddParameter("--ignore-errors");
         }
 
         public DownLoadParameters SetPath(string path)
         {
-            return AddParameter<DownLoadParameters>("-P", path);
+            return AddParameter("-P", path);
         }
 
         public DownLoadParameters GetJson()
         {
-            return AddParameter<DownLoadParameters>("-j");
+            return AddParameter("-j");
  }
 
         public DownLoadParameters Update()
         {
-            return AddParameter<DownLoadParameters>("--update");
+            return AddParameter("--update");
         }
 
         public DownLoadParameters Version()
         {
-            return AddParameter<DownLoadParameters>("--version");
+            return AddParameter("--version");
         }
 
         internal DownLoadParameters Url(string url)
         {
-            return AddParameter<DownLoadParameters>($"\"{url}\"");
+            return AddParameter($"\"{url}\"");
         }
 
         public DownLoadParameters FlatPlaylist()
         {
-            return AddParameter<DownLoadParameters>("--flat-playlist");
+            return AddParameter("--flat-playlist");
         }
 
         public DownLoadParameters LazyPlayList()
         {
-            return AddParameter<DownLoadParameters>("--lazy-playlist");
+            return AddParameter("--lazy-playlist");
         }
 
         public DownLoadParameters NoCleanInfoJson()
         {
-            return AddParameter<DownLoadParameters>("--no-clean-info-json");
+            return AddParameter("--no-clean-info-json");
         }
 
         public DownLoadParameters ParseMetadata(string expression)
         {
-            return AddParameter<DownLoadParameters>("--parse-metadata", expression);
+            return AddParameter("--parse-metadata", expression);
         }
 
         public DownLoadParameters ReplaceMetadata(params string[] arg)
         {
             return arg.Length == 0 ? this : 
-                AddParameter<DownLoadParameters>("--replace-in-metadata", 
+                AddParameter("--replace-in-metadata", 
                     string.Join(" ", arg.Select(a => $"\"{a}\"")), false);
         }
 
         internal DownLoadParameters FfMpegLocation(string path)
         {
-            return AddParameter<DownLoadParameters>("--ffmpeg-location", path);
+            return AddParameter("--ffmpeg-location", path);
         }
 
         public DownLoadParameters UpdateTo(UpdateChannel updateChannel)
         {
-            return AddParameter<DownLoadParameters>("--update-to", updateChannel.ToString("G").ToLowerInvariant());
+            return AddParameter("--update-to", updateChannel.ToString("G").ToLowerInvariant());
         }
 
         internal DownLoadParameters Output(string path)
         {
-            return AddParameter<DownLoadParameters>("-o", path);
-        }
-
-        public DownLoadParameters Reset()
-        {
-            return Reset<DownLoadParameters>();
+            return AddParameter("-o", path);
         }
     }
 }

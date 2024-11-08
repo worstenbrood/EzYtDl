@@ -2,17 +2,16 @@
 
 namespace YtEzDL.DownLoad
 {
-    public class Parameters : Dictionary<string, string>
+    public class Parameters<T> : Dictionary<string, string>
+        where T : Parameters<T>
     {
-        protected T AddParameter<T>(string key, string value = null, bool enclose = true)
-            where T: Parameters
+        protected T AddParameter(string key, string value = null, bool enclose = true)
         {
             this[key] = !string.IsNullOrEmpty(value) ? enclose ? $"\"{value}\"" : value : value;
             return (T)this;
         }
 
-        public T Reset<T>()
-            where T : Parameters
+        public T Reset()
         {
             Clear();
             return (T)this;
