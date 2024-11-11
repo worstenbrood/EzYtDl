@@ -84,16 +84,16 @@ namespace YtEzDL.Utils
             return process;
         }
 
-        protected Process CreateProcess(IEnumerable<string> parameters, StringOutput data, StringOutput error, CancellationToken cancellationToken)
+        protected Process CreateProcess(IEnumerable<string> parameters, StringOutput output, StringOutput error, CancellationToken cancellationToken)
         {
             var process = CreateProcess(parameters, error);
-            if (data != null)
+            if (output != null)
             {
                 process.OutputDataReceived += (sender, args) =>
                 {
                     if (!cancellationToken.IsCancellationRequested && !string.IsNullOrWhiteSpace(args.Data))
                     {
-                        data.Invoke(args.Data);
+                        output.Invoke(args.Data);
                     }
                 };
             }
@@ -105,7 +105,7 @@ namespace YtEzDL.Utils
                 process.BeginErrorReadLine();
             }
 
-            if (data != null)
+            if (output != null)
             {
                 process.BeginOutputReadLine();
             }
