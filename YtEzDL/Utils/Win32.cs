@@ -23,7 +23,18 @@ namespace YtEzDL.Utils
 
         [DllImport("user32", SetLastError = true)]
         public static extern bool RemoveClipboardFormatListener(IntPtr hWnd);
-        
+
+        public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern bool EnumChildWindows(IntPtr hWndParent, EnumWindowsProc lpEnumFunc, IntPtr lParam);
+
+        [DllImport("user32", SetLastError = true)]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, ref int lpdwProcessId);
+
         [DllImport("user32", SetLastError = true)]
         public static extern uint GetClipboardSequenceNumber();
 

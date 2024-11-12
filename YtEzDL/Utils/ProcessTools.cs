@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -43,7 +44,7 @@ namespace YtEzDL.Utils
             }
         }
 
-        private static void ProcessTree(int parentProcessId, Action<Process> action)
+        public static void ProcessTree(int parentProcessId, Action<Process> action)
         {
             var handle = Win32.CreateToolhelp32Snapshot(Win32.SnapshotFlags.Process | Win32.SnapshotFlags.NoHeaps, parentProcessId);
             if (handle == IntPtr.Zero)
@@ -122,6 +123,43 @@ namespace YtEzDL.Utils
 
             process.Kill();
             process.WaitForExit();
+        }
+
+        public static List<IntPtr> GetProcessWindowHandles(int processId)
+        {
+            var handles = new List<IntPtr>();
+            var result = Win32.EnumWindows((hWnd, param) =>
+            {
+                var windowProcessId = 0;
+                Win32.GetWindowThreadProcessId(hWnd, ref windowProcessId);
+                if (windowProcessId != processId)
+                {
+                    return true;
+                }
+#if DEBUG
+                Debug.WriteLine("Handle: " + hWnd);
+#endif
+                handles.Add(hWnd);
+
+                // Children
+                Win32.EnumChildWindows(hWnd, (chWnd, cParam) =>
+                {
+#if DEBUG
+                    Debug.WriteLine("Handle: " + chWnd);
+#endif
+                    handles.Add(chWnd);
+                    return true;
+                }, param);
+
+                return true;
+            }, IntPtr.Zero);
+
+            if (!result)
+            {
+                throw new Win32Exception();
+            }
+
+            return handles;
         }
     }
 }
