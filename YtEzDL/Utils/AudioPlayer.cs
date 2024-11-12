@@ -31,12 +31,12 @@ namespace YtEzDL.Utils
             };
         }
 
-        public void Play()
+        public void Play(TimeSpan start)
         {
             if (_ffMpegStream == null)
             {
                 // Create ffmpeg stream
-                _ffMpegStream = new FfMpegStream(_url, AudioFormat.Wav);
+                _ffMpegStream = new FfMpegStream(_url, start, AudioFormat.Wav);
 
                 // Init stream
                 WaveOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));

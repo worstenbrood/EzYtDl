@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace YtEzDL.DownLoad
 {
@@ -42,6 +43,11 @@ namespace YtEzDL.DownLoad
         Stable,
         Master,
         Nightly
+    }
+
+    public enum Downloader
+    {
+        Ffmpeg
     }
 
     public class DownLoadParameters : Parameters<DownLoadParameters>
@@ -158,6 +164,27 @@ namespace YtEzDL.DownLoad
         internal DownLoadParameters Output(string path)
         {
             return AddParameter("-o", path);
+        }
+
+        public DownLoadParameters DownloadSections(TimeSpan from, TimeSpan to)
+        {
+            return AddParameter("--download-sections", $"{from:g}-{to:g}");
+        }
+
+        public DownLoadParameters DownloadSections(int from, int to)
+        {
+            return AddParameter("--download-sections", $"{TimeSpan.FromSeconds(from):g}-{TimeSpan.FromSeconds(to):g}");
+        }
+
+
+        public DownLoadParameters Downloader(Downloader downloader)
+        {
+            return AddParameter("--downloader", downloader.ToString("G").ToLower());
+        }
+
+        public DownLoadParameters DownloadArgs(string args)
+        {
+            return AddParameter("--downloader-args", args);
         }
     }
 }

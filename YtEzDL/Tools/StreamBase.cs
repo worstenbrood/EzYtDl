@@ -5,11 +5,38 @@ using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
 {
+    public class ReadEventArgs : EventArgs
+    {
+        public readonly int BytesRead;
+
+        internal ReadEventArgs(int bytesRead)
+        {
+            BytesRead = bytesRead;
+        }
+    }
+
+    public delegate void ReadEventHandler(object o, ReadEventArgs args);
+
+    public class WriteEventArgs : EventArgs
+    {
+        public readonly int BytesWritten;
+
+        internal WriteEventArgs(int bytesWritten)
+        {
+            BytesWritten = bytesWritten;
+        }
+    }
+
+    public delegate void WriteEventHandler(object o, WriteEventArgs args);
+    
     public class StreamBase : Stream, IDisposable
     {
         public Stream BaseStream { get; protected set; }
         public Process Process { get; protected set; }
 
+        public event ReadEventHandler ReadEvent;
+        public event WriteEventHandler WriteEvent;
+        
         public StreamBase()
         {
         }
@@ -37,12 +64,17 @@ namespace YtEzDL.Tools
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            return BaseStream.Read(buffer, offset, count);
+            var bytesRead = BaseStream.Read(buffer, offset, count);
+            // Trigger event if any
+            ReadEvent?.Invoke(this, new ReadEventArgs(bytesRead));
+            return bytesRead;
         }
 
         public override void Write(byte[] buffer, int offset, int count)
         {
             BaseStream.Write(buffer, offset, count);
+            // Trigger event if any
+            WriteEvent?.Invoke(this, new WriteEventArgs(count));
         }
 
         public override bool CanRead => BaseStream.CanRead;
