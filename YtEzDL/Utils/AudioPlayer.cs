@@ -5,18 +5,23 @@ using YtEzDL.Tools;
 
 namespace YtEzDL.Utils
 {
+    /// <summary>
+    /// AudioPlayer that plays any yt-dlp supported url. It transfers yt-dlps output into ffmpeg, converts it to wav, and streams that
+    /// to the audio device using NAudio
+    /// </summary>
     public class AudioPlayer : IDisposable
     {
         private static readonly WaveFormat Format = new WaveFormat(48000, 16, 2);
         public readonly WaveOut WaveOut;
         private readonly FfMpegStream _ffMpegStream;
 
-        public AudioPlayer(string url, int desiredLatency = 300, int numberOfBuffers = 10)
+        public AudioPlayer(string url, int desiredLatency = 300, int numberOfBuffers = 10, int device = 0)
         {
             // Init device
             WaveOut = new WaveOut(WaveCallbackInfo.FunctionCallback());
             WaveOut.DesiredLatency = desiredLatency;
             WaveOut.NumberOfBuffers = numberOfBuffers;
+            WaveOut.DeviceNumber = device;
             WaveOut.PlaybackStopped += (sender, e) =>
             {
                 WaveOut.Stop();
