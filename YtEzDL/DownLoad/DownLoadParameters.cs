@@ -12,7 +12,8 @@ namespace YtEzDL.DownLoad
         Opus,
         Vorbis,
         Wav,
-        S16Le
+        S16Le,
+        Nut
     }
 
     public enum AudioQuality

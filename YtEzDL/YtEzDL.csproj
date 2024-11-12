@@ -132,8 +132,10 @@
     <None Include="Build\PreBuild.cmd" />
     <None Include="Properties\AssemblyInfo.Template.cs" />
     <Compile Include="Interfaces\ITool.cs" />
+    <Compile Include="Tools\FfPlay.cs" />
     <Compile Include="Tools\FfMpeg.cs" />
     <Compile Include="Tools\FfMpegStream.cs" />
+    <Compile Include="Tools\FfPlayStream.cs" />
     <Compile Include="UserControls\CustomLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>
