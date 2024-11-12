@@ -32,8 +32,8 @@ namespace YtEzDL.Tools
     
     public class StreamBase : Stream, IDisposable
     {
-        public Stream BaseStream { get; protected set; }
-        public Process Process { get; protected set; }
+        protected Stream BaseStream { get; set; }
+        protected Process Process { get; set; }
 
         private CancellationTokenSource _source;
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using YtEzDL.DownLoad;
-using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
 {
@@ -11,17 +10,17 @@ namespace YtEzDL.Tools
         private Task _writer;
         private readonly string _url;
         
-        private Task GetWriterTask(string url, TimeSpan position)
+        private void CreateWriterTask(TimeSpan position)
         {
             if (position == TimeSpan.Zero)
             {
                 // Route yt-dlp into ffmpeg asynchronously
-                return YoutubeDownload.Instance.StreamAsync(url, Process.StandardInput.BaseStream,
+                _writer = YoutubeDownload.Instance.StreamAsync(_url, Process.StandardInput.BaseStream,
                     Source.Token);
             }
 
             // Route yt-dlp into ffmpeg asynchronously, with an offset
-            return YoutubeDownload.Instance.StreamAsync(url, position, Process.StandardInput.BaseStream,
+            _writer = YoutubeDownload.Instance.StreamAsync(_url, position, Process.StandardInput.BaseStream,
                 Source.Token);
         }
         
@@ -35,44 +34,38 @@ namespace YtEzDL.Tools
             BaseStream = Process.StandardOutput.BaseStream;
 
             _url = url;
-            _writer = GetWriterTask(_url, position);
+            CreateWriterTask(position);
         }
 
         public FfMpegStream(string url, AudioFormat format) : this(url, TimeSpan.Zero, format)
         {
         }
 
-        public void SetPosition(TimeSpan position)
+        private void DisposeWriter()
         {
             Source.Cancel();
-            TryDisposeWriter();
-            _writer = GetWriterTask(_url, position);
-        }
-        
-        private void TryDisposeWriter()
-        {
+
             if (_writer != null &&
                 (_writer.Status == TaskStatus.RanToCompletion ||
-                _writer.Status == TaskStatus.Faulted ||
-                _writer.Status == TaskStatus.Canceled))
+                 _writer.Status == TaskStatus.Faulted ||
+                 _writer.Status == TaskStatus.Canceled))
             {
                 _writer.Dispose();
             }
+
+            _writer = null;
+        }
+
+        public void SetPosition(TimeSpan position)
+        {
+            DisposeWriter();
+            CreateWriterTask(position);
         }
         
         public new void Dispose()
         {
             base.Dispose();
-
-            if (Process != null && !Process.HasExited)
-            {
-                Process.KillProcessTree();
-                Process = null;
-            }
-
-            Source?.Cancel();
-            TryDisposeWriter();
-             _writer = null;
+            DisposeWriter();
         }
     }
 }

@@ -202,35 +202,34 @@ namespace YtEzDL.Utils
         public async Task<int> StreamAsync(IEnumerable<string> parameters, Stream outputStream, CancellationToken cancellationToken, bool handleError = true, int bufferSize = DefaultBufferSize)
         {
             var error = new StringBuilder();
-            try
+            using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
             {
-                using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
+                process.Start();
+                Interlocked.Increment(ref _processCount);
+
+                try
                 {
-                    process.Start();
-                    Interlocked.Increment(ref _processCount);
+                    // Read errors
+                    process.BeginErrorReadLine();
 
-                    try
-                    {
-                        // Read errors
-                        process.BeginErrorReadLine();
+                    // Copy data to output stream
+                    await process.StandardOutput.BaseStream.CopyToAsync(outputStream, bufferSize,
+                        cancellationToken);
 
-                        // Copy data to output stream
-                        await process.StandardOutput.BaseStream.CopyToAsync(outputStream, bufferSize,
-                            cancellationToken);
+                    outputStream.Close();
 
-                        // Close process nicely
-                        return await WaitAsync(process, error, null, cancellationToken, null, handleError);
-                    }
-                    finally
-                    {
-                        Interlocked.Decrement(ref _processCount);
-                    }
+                    // Close process nicely
+                    return await WaitAsync(process, error, null, cancellationToken, null, handleError);
                 }
-            }
-            finally
-            {
-                // Close stream
-                //outputStream.Close();
+                catch (TaskCanceledException)
+                {
+                    // Close process nicely
+                    return await WaitAsync(process, error, null, cancellationToken, null, handleError);
+                }
+                finally
+                {
+                    Interlocked.Decrement(ref _processCount);
+                }
             }
         }
         
