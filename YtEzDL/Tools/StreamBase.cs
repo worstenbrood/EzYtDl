@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
@@ -33,6 +34,26 @@ namespace YtEzDL.Tools
     {
         public Stream BaseStream { get; protected set; }
         public Process Process { get; protected set; }
+
+        private CancellationTokenSource _source;
+
+        protected CancellationTokenSource Source
+        {
+            get
+            {
+                if (_source == null)
+                {
+                    return _source = new CancellationTokenSource();
+                }
+
+                if (!_source.IsCancellationRequested)
+                {
+                    return _source;
+                }
+                _source.Dispose();
+                return _source = new CancellationTokenSource();
+            }
+        }
 
         public event ReadEventHandler ReadEvent;
         public event WriteEventHandler WriteEvent;
@@ -90,14 +111,13 @@ namespace YtEzDL.Tools
 
         public new void Dispose()
         {
-            base.Dispose(true);
-
             if (!Process.HasExited)
             {
                 Process.KillProcessTree();
             }
 
-            Process.Dispose();
+            BaseStream?.Dispose();
+            Process?.Dispose();
             Process = null;
         }
     }

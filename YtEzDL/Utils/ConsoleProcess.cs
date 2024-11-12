@@ -230,7 +230,7 @@ namespace YtEzDL.Utils
             finally
             {
                 // Close stream
-                outputStream.Close();
+                //outputStream.Close();
             }
         }
         

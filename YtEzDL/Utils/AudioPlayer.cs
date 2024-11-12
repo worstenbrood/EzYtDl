@@ -30,19 +30,31 @@ namespace YtEzDL.Utils
                 WaveOut.Stop();
             };
         }
-
-        public void Play(TimeSpan start)
+        
+        public void Play(TimeSpan position)
         {
             if (_ffMpegStream == null)
             {
                 // Create ffmpeg stream
-                _ffMpegStream = new FfMpegStream(_url, start, AudioFormat.Wav);
+                _ffMpegStream = new FfMpegStream(_url, position, AudioFormat.Wav);
 
                 // Init stream
                 WaveOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
-            }
 
-            WaveOut.Play();
+                // Play
+                WaveOut.Play();
+            }
+            else
+            {
+                // Pause
+                WaveOut.Pause();
+                
+                // Set position
+                _ffMpegStream.SetPosition(position);
+
+                // Play
+                WaveOut.Resume();
+            }
         }
 
         public void Pause() => WaveOut.Pause();

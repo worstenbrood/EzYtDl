@@ -48,7 +48,7 @@ namespace YtEzDL.Tools
         public static async Task UrlToAudioStreamAsync(string url, Stream output, AudioFormat audioFormat,
             CancellationToken cancellationToken)
         {
-            using (var ffmpeg = new FfMpegStream(url, audioFormat, cancellationToken))
+            using (var ffmpeg = new FfMpegStream(url, audioFormat))
             {
                 await ffmpeg.CopyToAsync(output, DefaultBufferSize, cancellationToken);
             }

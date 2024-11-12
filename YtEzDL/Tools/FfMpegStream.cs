@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using YtEzDL.DownLoad;
+using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
 {
@@ -9,8 +9,23 @@ namespace YtEzDL.Tools
     {
         private readonly FfMpeg _mpeg = new FfMpeg();
         private Task _writer;
+        private readonly string _url;
         
-        public FfMpegStream(string url, TimeSpan start, AudioFormat format, CancellationToken cancellationToken)
+        private Task GetWriterTask(string url, TimeSpan position)
+        {
+            if (position == TimeSpan.Zero)
+            {
+                // Route yt-dlp into ffmpeg asynchronously
+                return YoutubeDownload.Instance.StreamAsync(url, Process.StandardInput.BaseStream,
+                    Source.Token);
+            }
+
+            // Route yt-dlp into ffmpeg asynchronously, with an offset
+            return YoutubeDownload.Instance.StreamAsync(url, position, Process.StandardInput.BaseStream,
+                Source.Token);
+        }
+        
+        public FfMpegStream(string url, TimeSpan position, AudioFormat format)
         {
             // Start ffmpeg using stdin as input and stdout as output
             Process = _mpeg.CreateStreamProcess(format);
@@ -19,39 +34,45 @@ namespace YtEzDL.Tools
             // This is where ffmpeg's output is coming through
             BaseStream = Process.StandardOutput.BaseStream;
 
-            if (start == TimeSpan.Zero)
+            _url = url;
+            _writer = GetWriterTask(_url, position);
+        }
+
+        public FfMpegStream(string url, AudioFormat format) : this(url, TimeSpan.Zero, format)
+        {
+        }
+
+        public void SetPosition(TimeSpan position)
+        {
+            Source.Cancel();
+            TryDisposeWriter();
+            _writer = GetWriterTask(_url, position);
+        }
+        
+        private void TryDisposeWriter()
+        {
+            if (_writer != null &&
+                (_writer.Status == TaskStatus.RanToCompletion ||
+                _writer.Status == TaskStatus.Faulted ||
+                _writer.Status == TaskStatus.Canceled))
             {
-                // Route yt-dlp into ffmpeg asynchronously
-                _writer = YoutubeDownload.Instance.StreamAsync(url, Process.StandardInput.BaseStream,
-                    cancellationToken);
-            }
-            else
-            {
-                // Route yt-dlp into ffmpeg asynchronously, with an offset
-                _writer = YoutubeDownload.Instance.StreamAsync(url, start, Process.StandardInput.BaseStream,
-                    cancellationToken);
+                _writer.Dispose();
             }
         }
-
-        public FfMpegStream(string url, AudioFormat format, CancellationToken cancellationToken) : this(url, TimeSpan.Zero, format, cancellationToken)
-        {
-        }
-
-        public FfMpegStream(string url, AudioFormat format) : this(url, format, CancellationToken.None)
-        {
-
-        }
-
-        public FfMpegStream(string url, TimeSpan start, AudioFormat format) : this(url, start, format, CancellationToken.None)
-        {
-        }
-
+        
         public new void Dispose()
         {
             base.Dispose();
 
-            _writer.Dispose();
-            _writer = null;
+            if (Process != null && !Process.HasExited)
+            {
+                Process.KillProcessTree();
+                Process = null;
+            }
+
+            Source?.Cancel();
+            TryDisposeWriter();
+             _writer = null;
         }
     }
 }
