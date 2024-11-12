@@ -13,10 +13,13 @@ namespace YtEzDL.Utils
     {
         private static readonly WaveFormat Format = new WaveFormat(48000, 16, 2);
         public readonly WaveOut WaveOut;
-        private readonly FfMpegStream _ffMpegStream;
+        private FfMpegStream _ffMpegStream;
+        private readonly string _url;
 
         public AudioPlayer(string url, int desiredLatency = 300, int numberOfBuffers = 10, int device = 0)
         {
+            _url = url;
+
             // Init device
             WaveOut = new WaveOut(WaveCallbackInfo.FunctionCallback());
             WaveOut.DesiredLatency = desiredLatency;
@@ -26,15 +29,22 @@ namespace YtEzDL.Utils
             {
                 WaveOut.Stop();
             };
-
-            // Create ffmpeg stream
-            _ffMpegStream = new FfMpegStream(url, AudioFormat.Wav);
-
-            // Init stream
-            WaveOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
         }
 
-        public void Play() => WaveOut.Play();
+        public void Play()
+        {
+            if (_ffMpegStream == null)
+            {
+                // Create ffmpeg stream
+                _ffMpegStream = new FfMpegStream(_url, AudioFormat.Wav);
+
+                // Init stream
+                WaveOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
+            }
+
+            WaveOut.Play();
+        }
+
         public void Pause() => WaveOut.Pause();
         public void Resume() => WaveOut.Resume();
         public void Stop() => WaveOut.Stop();
