@@ -1,10 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
 {
-    public class StreamBase : Stream
+    public class StreamBase : Stream, IDisposable
     {
         public Stream BaseStream { get; protected set; }
         public Process Process { get; protected set; }

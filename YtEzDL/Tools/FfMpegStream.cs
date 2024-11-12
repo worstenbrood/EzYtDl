@@ -1,11 +1,10 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using YtEzDL.DownLoad;
 
 namespace YtEzDL.Tools
 {
-    public class FfMpegStream : StreamBase, IDisposable
+    public class FfMpegStream : StreamBase
     {
         private readonly FfMpeg _mpeg = new FfMpeg();
         private Task _writer;

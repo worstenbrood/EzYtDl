@@ -3,7 +3,7 @@ using YtEzDL.DownLoad;
 
 namespace YtEzDL.Tools
 {
-    public class FfPlayStream : StreamBase, IDisposable
+    public class FfPlayStream : StreamBase
     {
         private readonly FfPlay _ffPlay = new FfPlay();
 
