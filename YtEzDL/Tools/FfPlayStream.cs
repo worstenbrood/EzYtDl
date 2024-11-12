@@ -1,5 +1,4 @@
-﻿using System;
-using YtEzDL.DownLoad;
+﻿using YtEzDL.DownLoad;
 
 namespace YtEzDL.Tools
 {
