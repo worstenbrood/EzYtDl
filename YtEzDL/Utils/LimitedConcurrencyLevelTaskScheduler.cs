@@ -34,18 +34,15 @@ namespace YtEzDL.Utils
         /// <summary>Whether the scheduler is currently processing work items.</summary>
         private int _delegatesQueuedOrRunning = 0; // protected by lock(_tasks)
 
-        private Action _taskfinished;
-
         /// <summary>
         /// Initializes an instance of the LimitedConcurrencyLevelTaskScheduler class with the
         /// specified degree of parallelism.
         /// </summary>
         /// <param name="maxDegreeOfParallelism">The maximum degree of parallelism provided by this scheduler.</param>
-        public LimitedConcurrencyLevelTaskScheduler(int maxDegreeOfParallelism, Action taskFinished)
+        public LimitedConcurrencyLevelTaskScheduler(int maxDegreeOfParallelism)
         {
             if (maxDegreeOfParallelism < 1) throw new ArgumentOutOfRangeException("maxDegreeOfParallelism");
             _maxDegreeOfParallelism = maxDegreeOfParallelism;
-            _taskfinished = taskFinished;
         }
 
         /// <summary>Queues a task to the scheduler.</summary>
@@ -98,9 +95,6 @@ namespace YtEzDL.Utils
 
                         // Execute the task we pulled out of the queue
                         TryExecuteTask(item);
-
-                        // Invoke finished action
-                        _taskfinished?.Invoke();
                     }
                 }
                 // We're done processing items on the current thread

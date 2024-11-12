@@ -322,14 +322,13 @@ namespace YtEzDL.Forms
         private void StartDownloadTasks()
         {
             var path = GetPath();
-            var scheduler = new LimitedConcurrencyLevelTaskScheduler(Configuration.Default.DownloadSettings.DownloadThreads,
-                // Increase progress
-                () => ExecuteAsync(f => toolStripProgressBar.Value++));
+            var scheduler = new LimitedConcurrencyLevelTaskScheduler(Configuration.Default.DownloadSettings.DownloadThreads);
             var downloadTasks = Tracks
                 .Where(t => t.Selected)
                 .Select(t =>
                 {
                     var task = new Task(() => t.StartDownload(path, Source.Token), Source.Token);
+                    task.ContinueWith(a => ExecuteAsync(f => toolStripProgressBar.Value++));
                     task.Start(scheduler);
                     return task;
                 })
