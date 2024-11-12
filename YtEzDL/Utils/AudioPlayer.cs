@@ -11,7 +11,7 @@ namespace YtEzDL.Utils
         public readonly WaveOut WaveOut;
         private readonly FfMpegStream _ffMpegStream;
 
-        public AudioPlayer(string url, int desiredLatency = 60, int numberOfBuffers = 10)
+        public AudioPlayer(string url, int desiredLatency = 300, int numberOfBuffers = 10)
         {
             // Init device
             WaveOut = new WaveOut(WaveCallbackInfo.FunctionCallback());
