@@ -70,8 +70,8 @@ namespace YtEzDL.Utils
         
         public void Dispose()
         {
-            WaveOut?.Dispose();
-            _ffMpegStream?.Dispose();
+            WaveOut.Dispose();
+            _ffMpegStream.Dispose();
         }
     }
 }

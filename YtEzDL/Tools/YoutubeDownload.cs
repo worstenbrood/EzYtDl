@@ -11,6 +11,7 @@ using YtEzDL.Config;
 using YtEzDL.DownLoad;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
+using System.Security.Policy;
 
 namespace YtEzDL.Tools
 {
@@ -139,7 +140,7 @@ namespace YtEzDL.Tools
         public async Task GetJsonAsync(string url, Action<TrackData> action, CancellationToken cancellationToken)
         {
             // Parameters
-            var parameters = DownLoadParameters.Create
+            var parameters = DownLoadParameters.New
                 .IgnoreErrors()
                 .ReplaceMetadata("title", "(.+):(\\s+)", "")
                 .FfMpegLocation(CommonTools.ToolsPath)
@@ -236,7 +237,7 @@ namespace YtEzDL.Tools
         public void Update(StringOutput action)
         {
             // Parameters
-            var parameters = DownLoadParameters.Create
+            var parameters = DownLoadParameters.New
                 .Update()
                 .UpdateTo(Configuration.Default.AdvancedSettings.UpdateChannel)
                 .GetParameters();
@@ -247,14 +248,29 @@ namespace YtEzDL.Tools
                 .GetResult();
         }
 
-        public async Task StreamAsync(string url, TimeSpan start, Stream output, CancellationToken cancellationToken)
+        public Process CreateStreamProcess(string url, TimeSpan start)
         {
-            var parameters = DownLoadParameters.Create
+            var parameters = DownLoadParameters.New
                 .Output("-")
-                .Url(url)
+                .ExtractAudio()
+                .AudioFormat(AudioFormat.Wav)
                 .FfMpegLocation(CommonTools.ToolsPath)
                 .Downloader(Downloader.Ffmpeg)
                 .DownloadArgs($"ffmpeg_i:-ss {start:g}")
+                .Url(url)
+                .GetParameters();
+
+            return CreateProcess(parameters);
+        }
+
+        public async Task StreamAsync(string url, TimeSpan start, Stream output, CancellationToken cancellationToken)
+        {
+            var parameters = DownLoadParameters.New
+                .Output("-")
+                .FfMpegLocation(CommonTools.ToolsPath)
+                .Downloader(Downloader.Ffmpeg)
+                .DownloadArgs($"ffmpeg_i:-ss {start:g}")
+                .Url(url)
                 .GetParameters();
 
             await StreamAsync(parameters, output, cancellationToken);
@@ -262,7 +278,7 @@ namespace YtEzDL.Tools
 
         public async Task StreamAsync(string url, Stream output, CancellationToken cancellationToken)
         {
-            var parameters = DownLoadParameters.Create
+            var parameters = DownLoadParameters.New
                 .Output("-")
                 .Url(url)
                 .GetParameters();

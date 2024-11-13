@@ -188,7 +188,7 @@ namespace YtEzDL.UserControls
 
             try
             {
-                var parameters = DownLoadParameters.Create;
+                var parameters = DownLoadParameters.New;
                 if (_configuration.DownloadSettings.ExtractAudio)
                 {
                     parameters

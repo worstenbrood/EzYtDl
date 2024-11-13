@@ -153,6 +153,7 @@
     <Compile Include="Tools\FfMpegStream.cs" />
     <Compile Include="Tools\FfPlayStream.cs" />
     <Compile Include="Tools\StreamBase.cs" />
+    <Compile Include="Tools\YtDlStream.cs" />
     <Compile Include="UserControls\CustomLayoutPanel.cs">
       <SubType>Component</SubType>
     </Compile>

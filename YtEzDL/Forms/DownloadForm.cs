@@ -477,7 +477,7 @@ namespace YtEzDL.Forms
             try
             {
                 var output = new StringBuilder();
-                _youtubeDl.Run(DownLoadParameters.Create.RemoveCache(), t => output.AppendLine(t));
+                _youtubeDl.Run(DownLoadParameters.New.RemoveCache(), t => output.AppendLine(t));
                 
                 Execute(f => MetroMessageBox.Show(this, output.ToString(), Resources.YtDlp, MessageBoxButtons.OK, MessageBoxIcon.Information));
             }

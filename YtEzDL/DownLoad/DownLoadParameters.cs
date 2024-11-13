@@ -52,7 +52,7 @@ namespace YtEzDL.DownLoad
 
     public class DownLoadParameters : Parameters<DownLoadParameters>
     {
-        public static DownLoadParameters Create => new DownLoadParameters();
+        public static DownLoadParameters New => new DownLoadParameters();
         
         public DownLoadParameters RemoveCache()
         {
@@ -185,6 +185,11 @@ namespace YtEzDL.DownLoad
         public DownLoadParameters DownloadArgs(string args)
         {
             return AddParameter("--downloader-args", args);
+        }
+
+        public DownLoadParameters PostProcessorArgs(string args)
+        {
+            return AddParameter("--postprocessor-args", args);
         }
     }
 }

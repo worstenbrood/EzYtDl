@@ -44,7 +44,7 @@ namespace YtEzDL.Utils
 
         private void ClearCache()
         {
-           RunYtDlp(() => YoutubeDownload.Instance.Run(DownLoadParameters.Create.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info)));
+           RunYtDlp(() => YoutubeDownload.Instance.Run(DownLoadParameters.New.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info)));
         }
 
         private MetroContextMenu SetupContextMenu(IContainer container)

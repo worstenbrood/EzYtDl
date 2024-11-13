@@ -39,6 +39,10 @@ namespace YtEzDL.Tools
                 "pipe:0", // StdIn
                 "-f", // Format
                 format.ToString("G").ToLowerInvariant(),
+                "-ar",
+                "48000",
+                "-ac",
+                "2",
                 "pipe:1" // StdOut
             };
 
