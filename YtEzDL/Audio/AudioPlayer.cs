@@ -33,7 +33,7 @@ namespace YtEzDL.Audio
         }
 
         private static readonly string[] ExtraArguments = new[]
-            { "-ar", "48000", "-ac", "2", "-hide_banner", "-loglevel", "error" };
+            { "-ar", "48000", "-ac", "2", "-hide_banner", "-loglevel", "error"};
 
         public void Play(string url, TimeSpan position)
         {

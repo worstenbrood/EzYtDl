@@ -39,6 +39,8 @@ namespace YtEzDL.Tools
             var parameters =
                 new[]
                 {
+                    "-err_detect", 
+                    "ignore_err",
                     "-i", // Input
                     "pipe:0", // StdIn
                     "-f", // Format
