@@ -248,9 +248,10 @@
     <Content Include="External\libsharpyuv_x86.dll" />
     <Content Include="External\libwebp_x64.dll" />
     <Content Include="External\libwebp_x86.dll" />
-    <None Include="Resources\output-onlinepngtools.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>CALL "$(ProjectDir)Build\PreBuild.cmd" "$(ProjectDir)"</PreBuildEvent>

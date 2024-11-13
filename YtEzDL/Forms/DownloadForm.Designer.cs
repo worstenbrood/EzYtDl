@@ -320,7 +320,7 @@
             this.flowLayoutPanel.Location = new System.Drawing.Point(9, 99);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 284);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 296);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_ControlAdded);
@@ -341,9 +341,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.BackColor = System.Drawing.SystemColors.MenuBar;
             this.player.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.player.Location = new System.Drawing.Point(9, 398);
+            this.player.Location = new System.Drawing.Point(9, 408);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(894, 59);
+            this.player.Size = new System.Drawing.Size(894, 49);
             this.player.TabIndex = 17;
             this.player.UseCustomBackColor = true;
             this.player.UseSelectable = true;

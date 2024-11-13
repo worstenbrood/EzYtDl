@@ -25,9 +25,9 @@ namespace YtEzDL.UserControls
             this._metroTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._metroTrackBar.BackColor = System.Drawing.SystemColors.MenuBar;
-            this._metroTrackBar.Location = new System.Drawing.Point(3, 23);
+            this._metroTrackBar.Location = new System.Drawing.Point(3, 25);
             this._metroTrackBar.Name = "_metroTrackBar";
-            this._metroTrackBar.Size = new System.Drawing.Size(552, 29);
+            this._metroTrackBar.Size = new System.Drawing.Size(552, 19);
             this._metroTrackBar.TabIndex = 0;
             this._metroTrackBar.Text = "Player";
             this._metroTrackBar.Value = 0;
@@ -35,6 +35,7 @@ namespace YtEzDL.UserControls
             // toolStrip
             // 
             this.toolStrip.AutoSize = false;
+            this.toolStrip.BackColor = System.Drawing.Color.White;
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonPlay,
@@ -49,23 +50,27 @@ namespace YtEzDL.UserControls
             // 
             // toolStripButtonPlay
             // 
+            this.toolStripButtonPlay.AutoSize = false;
             this.toolStripButtonPlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonPlay.Image = global::YtEzDL.Properties.Resources.Play;
             this.toolStripButtonPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPlay.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonPlay.Name = "toolStripButtonPlay";
-            this.toolStripButtonPlay.Size = new System.Drawing.Size(23, 23);
+            this.toolStripButtonPlay.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.toolStripButtonPlay.Size = new System.Drawing.Size(22, 20);
             this.toolStripButtonPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonPlay.Click += new System.EventHandler(this.toolStripButtonPlay_Click);
             // 
             // toolStripButtonPause
             // 
+            this.toolStripButtonPause.AutoSize = false;
             this.toolStripButtonPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonPause.Image = global::YtEzDL.Properties.Resources.Pause;
             this.toolStripButtonPause.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPause.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripButtonPause.Name = "toolStripButtonPause";
-            this.toolStripButtonPause.Size = new System.Drawing.Size(23, 23);
+            this.toolStripButtonPause.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.toolStripButtonPause.Size = new System.Drawing.Size(22, 20);
             this.toolStripButtonPause.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonPause.Click += new System.EventHandler(this.toolStripButtonPause_Click);
             // 
@@ -83,7 +88,7 @@ namespace YtEzDL.UserControls
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this._metroTrackBar);
             this.Name = "Player";
-            this.Size = new System.Drawing.Size(558, 58);
+            this.Size = new System.Drawing.Size(558, 47);
             this.UseCustomBackColor = true;
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
