@@ -259,6 +259,8 @@ namespace YtEzDL.Forms
                     toolStripButtonCancel.Enabled = false;
                     metroProgressSpinner.Enabled = metroProgressSpinner.Visible = false;
                     Invalidate(ClientRectangle, false);
+
+                    player.Play(Tracks.First().TrackData);
                 });
             }
         }
@@ -272,6 +274,12 @@ namespace YtEzDL.Forms
 
             // Load data
             Task.Run(LoadData);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            player.Dispose();
+            base.OnClosed(e);
         }
 
         private string GetPath()

@@ -12,22 +12,26 @@ namespace YtEzDL.Audio
     public class AudioPlayer : IDisposable
     {
         private static readonly WaveFormat Format = new WaveFormat(44100, 16, 2);
-        private readonly WaveOut _waveOut;
+        private readonly WasapiOut _wasapiOut;
         private FfMpegStream _ffMpegStream;
         private string _url;
 
-        public AudioPlayer(int desiredLatency = 64, int numberOfBuffers = 16, int device = 0)
+        public event EventHandler<StoppedEventArgs> PlaybackStopped
+        {
+            add => _wasapiOut.PlaybackStopped += value;
+            remove => _wasapiOut.PlaybackStopped -= value;
+        }
+
+        private static readonly Lazy<AudioPlayer> Lazy = new Lazy<AudioPlayer>(() => new AudioPlayer());
+        public static AudioPlayer Instance => Lazy.Value;
+
+        private AudioPlayer()
         {
             // Init device
-            _waveOut = new WaveOut(WaveCallbackInfo.FunctionCallback())
-            {
-                DesiredLatency = desiredLatency,
-                NumberOfBuffers = numberOfBuffers,
-                DeviceNumber = device
-            };
+            _wasapiOut = new WasapiOut();
         }
         
-        public AudioPlayer(string url, int desiredLatency = 60, int numberOfBuffers = 10, int device = 0) : this(desiredLatency, numberOfBuffers, device)
+        public AudioPlayer(string url) : this()
         {
             _url = url;
         }
@@ -46,15 +50,15 @@ namespace YtEzDL.Audio
                 _url = url;
 
                 // Init stream
-                _waveOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
+                _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
 
                 // Play
-                _waveOut.Play();
+                _wasapiOut.Play();
             }
             else
             {
                 // Pause
-                _waveOut.Stop();
+                _wasapiOut.Stop();
 
                 // Dispose stream
                 _ffMpegStream.Dispose();
@@ -66,10 +70,10 @@ namespace YtEzDL.Audio
                 _url = url;
 
                 // Init stream
-                _waveOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
-                
+                _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
+
                 // Resume
-                _waveOut.Play();
+                _wasapiOut.Play();
             }
         }
 
@@ -86,10 +90,10 @@ namespace YtEzDL.Audio
                 _ffMpegStream = new FfMpegStream(_url, position, AudioFormat.S16Le, ExtraArguments);
 
                 // Init stream
-                _waveOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
+                _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
 
                 // Play
-                _waveOut.Play();
+                _wasapiOut.Play();
             }
             else
             {
@@ -110,27 +114,27 @@ namespace YtEzDL.Audio
             Play(TimeSpan.Zero);
         }
 
-        public void Pause() => _waveOut.Pause();
-        public void Resume() => _waveOut.Resume();
+        public void Pause() => _wasapiOut.Pause();
+        public void Resume() => _wasapiOut.Play();
         public void Stop()
         {
             _ffMpegStream.Dispose();
             _ffMpegStream = null;
-            _waveOut.Stop();
+            _wasapiOut.Stop();
         }
 
-        public long Position => _waveOut.GetPosition();
-        public PlaybackState PlaybackState => _waveOut.PlaybackState;
+        public long Position => _wasapiOut.GetPosition();
+        public PlaybackState PlaybackState => _wasapiOut.PlaybackState;
         public float Volume
         {
-            get => _waveOut.Volume;
-            set => _waveOut.Volume = value;
+            get => _wasapiOut.Volume;
+            set => _wasapiOut.Volume = value;
         }
         
         public void Dispose()
         {
-            _waveOut.Dispose();
-            _ffMpegStream.Dispose();
+            _wasapiOut.Dispose();
+            _ffMpegStream?.Dispose();
         }
     }
 }

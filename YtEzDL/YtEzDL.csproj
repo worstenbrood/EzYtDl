@@ -112,11 +112,8 @@
     <Reference Include="NAudio.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
       <HintPath>..\packages\NAudio.Core.2.2.1\lib\netstandard2.0\NAudio.Core.dll</HintPath>
     </Reference>
-    <Reference Include="NAudio.WinForms, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.WinForms.2.2.1\lib\net472\NAudio.WinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="NAudio.WinMM, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.WinMM.2.2.1\lib\netstandard2.0\NAudio.WinMM.dll</HintPath>
+    <Reference Include="NAudio.Wasapi, Version=2.2.1.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Wasapi.2.2.1\lib\netstandard2.0\NAudio.Wasapi.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -152,6 +149,9 @@
     <Compile Include="Tools\FfMpeg.cs" />
     <Compile Include="Tools\FfMpegStream.cs" />
     <Compile Include="Tools\FfPlayStream.cs" />
+    <Compile Include="UserControls\Player.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Utils\StreamBase.cs" />
     <Compile Include="Tools\YtDlStream.cs" />
     <Compile Include="UserControls\CustomLayoutPanel.cs">
@@ -226,6 +226,9 @@
     <None Include="README.MD" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UserControls\Player.resx">
+      <DependentUpon>Player.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="YTIcon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +248,7 @@
     <Content Include="External\libsharpyuv_x86.dll" />
     <Content Include="External\libwebp_x64.dll" />
     <Content Include="External\libwebp_x86.dll" />
+    <None Include="Resources\output-onlinepngtools.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

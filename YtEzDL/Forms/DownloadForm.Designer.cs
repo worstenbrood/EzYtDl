@@ -50,6 +50,7 @@
             this.toolStripProgressBar = new YtEzDL.UserControls.MetroToolStripProgressBar();
             this.flowLayoutPanel = new YtEzDL.UserControls.CustomLayoutPanel();
             this.metroProgressSpinner = new MetroFramework.Controls.MetroProgressSpinner();
+            this.player = new YtEzDL.UserControls.Player();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -269,7 +270,7 @@
             this.toolStripStatusLabel,
             this.toolStripProgressBar});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip.Location = new System.Drawing.Point(9, 406);
+            this.statusStrip.Location = new System.Drawing.Point(9, 460);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(872, 25);
             this.statusStrip.SizingGrip = false;
@@ -319,7 +320,7 @@
             this.flowLayoutPanel.Location = new System.Drawing.Point(9, 99);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 305);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 284);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_ControlAdded);
@@ -334,13 +335,27 @@
             this.metroProgressSpinner.UseSelectable = true;
             this.metroProgressSpinner.Value = 30;
             // 
+            // player
+            // 
+            this.player.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.player.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.player.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.player.Location = new System.Drawing.Point(9, 398);
+            this.player.Name = "player";
+            this.player.Size = new System.Drawing.Size(894, 59);
+            this.player.TabIndex = 17;
+            this.player.UseCustomBackColor = true;
+            this.player.UseSelectable = true;
+            // 
             // DownloadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(912, 432);
+            this.ClientSize = new System.Drawing.Size(912, 486);
+            this.Controls.Add(this.player);
             this.Controls.Add(this.metroProgressSpinner);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
@@ -385,5 +400,6 @@
         private System.Windows.Forms.ToolStripMenuItem resetItem;
         private YtEzDL.UserControls.MetroToolStripProgressBar toolStripProgressBar;
         private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner;
+        private UserControls.Player player;
     }
 }
