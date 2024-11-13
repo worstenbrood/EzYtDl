@@ -110,6 +110,8 @@ namespace YtEzDL.Utils
 
         public new void Dispose()
         {
+            base.Dispose();
+
             if (!Process.HasExited)
             {
                 Process.KillProcessTree();
@@ -117,8 +119,6 @@ namespace YtEzDL.Utils
 
             Process?.Dispose();
             Process = null;
-
-            base.Dispose();
         }
     }
 }

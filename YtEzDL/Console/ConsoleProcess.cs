@@ -205,11 +205,13 @@ namespace YtEzDL.Console
             var error = new StringBuilder();
             using (var process = CreateProcess(parameters, e => error.AppendLine(e)))
             {
-                process.Start();
                 Interlocked.Increment(ref _processCount);
 
                 try
                 {
+                    // Start process
+                    process.Start();
+
                     // Read errors
                     process.BeginErrorReadLine();
 
@@ -217,15 +219,21 @@ namespace YtEzDL.Console
                     await process.StandardOutput.BaseStream.CopyToAsync(outputStream, bufferSize,
                         cancellationToken);
 
+                    // Close output
                     outputStream.Close();
 
-                    // Close process nicely
+                    // Close process nicely 
                     return await WaitAsync(process, error, null, cancellationToken, null, handleError);
                 }
-                catch (TaskCanceledException)
+                catch(Exception ex)
                 {
-                    // Close process nicely
-                    return await WaitAsync(process, error, null, cancellationToken, null, handleError);
+                    if (ex is IOException || ex is OperationCanceledException)
+                    {
+                        // Close process nicely
+                        return await WaitAsync(process, error, null, cancellationToken, null, handleError);
+                    }
+
+                    return await Task.FromException<int>(ex);
                 }
                 finally
                 {

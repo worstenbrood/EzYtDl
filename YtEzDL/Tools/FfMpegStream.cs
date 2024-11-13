@@ -10,7 +10,7 @@ namespace YtEzDL.Tools
         private readonly FfMpeg _mpeg = new FfMpeg();
         private Task _writer;
 
-        private void CreateWriter(string url, TimeSpan position)
+        public void CreateWriter(string url, TimeSpan position)
         {
             if (position == TimeSpan.Zero)
             {
@@ -43,10 +43,10 @@ namespace YtEzDL.Tools
         {
         }
 
-        private void DisposeWriter()
+        public void DisposeWriter()
         {
             Source.Cancel();
-
+            
             if (_writer != null &&
                 (_writer.Status == TaskStatus.RanToCompletion ||
                  _writer.Status == TaskStatus.Faulted ||
@@ -60,8 +60,8 @@ namespace YtEzDL.Tools
         
         public new void Dispose()
         {
-            base.Dispose();
             DisposeWriter();
+            base.Dispose();
         }
     }
 }
