@@ -11,7 +11,7 @@ namespace YtEzDL.Audio
     /// </summary>
     public class AudioPlayer : IDisposable
     {
-        private static readonly WaveFormat Format = new WaveFormat(48000, 16, 2);
+        private static readonly WaveFormat Format = new WaveFormat(44100, 16, 2);
         private readonly WaveOut _waveOut;
         private FfMpegStream _ffMpegStream;
         private string _url;
@@ -27,13 +27,13 @@ namespace YtEzDL.Audio
             };
         }
         
-        public AudioPlayer(string url, int desiredLatency = 64, int numberOfBuffers = 16, int device = 0) : this(desiredLatency, numberOfBuffers, device)
+        public AudioPlayer(string url, int desiredLatency = 60, int numberOfBuffers = 10, int device = 0) : this(desiredLatency, numberOfBuffers, device)
         {
             _url = url;
         }
 
         private static readonly string[] ExtraArguments = new[]
-            { "-ar", "48000", "-ac", "2", "-hide_banner", "-loglevel", "error"};
+            { "-ar", "44100", "-ac", "2"};
 
         public void Play(string url, TimeSpan position)
         {

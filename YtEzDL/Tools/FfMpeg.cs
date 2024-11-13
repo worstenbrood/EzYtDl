@@ -41,6 +41,9 @@ namespace YtEzDL.Tools
                 {
                     "-err_detect", 
                     "ignore_err",
+                    "-hide_banner", 
+                    "-loglevel", 
+                    "error",
                     "-i", // Input
                     "pipe:0", // StdIn
                     "-f", // Format

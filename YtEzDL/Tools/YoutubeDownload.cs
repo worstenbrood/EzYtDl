@@ -278,6 +278,8 @@ namespace YtEzDL.Tools
         {
             var parameters = DownLoadParameters.New
                 .Output("-")
+                .FfMpegLocation(CommonTools.ToolsPath)
+                .Downloader(Downloader.Ffmpeg)
                 .Url(url)
                 .GetParameters();
 
