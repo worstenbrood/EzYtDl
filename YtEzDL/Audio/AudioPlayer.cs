@@ -11,7 +11,10 @@ namespace YtEzDL.Audio
     /// </summary>
     public class AudioPlayer : IDisposable
     {
-        private static readonly WaveFormat Format = new WaveFormat(44100, 16, 2);
+        private const int Rate = 44100;
+        private const int Bits = 16;
+        private const int Channels = 2;
+        private static readonly WaveFormat Format = new WaveFormat(Rate, Bits, Channels);
         private readonly WasapiOut _wasapiOut;
         private FfMpegStream _ffMpegStream;
         private string _url;
@@ -37,7 +40,7 @@ namespace YtEzDL.Audio
         }
 
         private static readonly string[] ExtraArguments = new[]
-            { "-ar", "44100", "-ac", "2"};
+            { "-ar", Rate.ToString(), "-ac", Channels.ToString()};
 
         public void Play(string url, TimeSpan position)
         {

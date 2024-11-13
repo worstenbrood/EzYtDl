@@ -380,7 +380,7 @@ namespace YtEzDL.UserControls
 
         private void ControlResize(object sender, EventArgs e)
         {
-            metroTabControl.Width = Width - 25;
+            //metroTabControl.Width = Width - 25;
         }
     }
 }

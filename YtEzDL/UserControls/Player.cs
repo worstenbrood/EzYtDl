@@ -13,11 +13,11 @@ namespace YtEzDL.UserControls
         private void InitializeComponent()
         {
             this._metroTrackBar = new MetroFramework.Controls.MetroTrackBar();
-            this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonPlay = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonPause = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStrip.SuspendLayout();
+            this._toolStrip = new System.Windows.Forms.ToolStrip();
+            this._toolStripButtonPlay = new System.Windows.Forms.ToolStripButton();
+            this._toolStripButtonPause = new System.Windows.Forms.ToolStripButton();
+            this._toolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            this._toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // _metroTrackBar
@@ -34,64 +34,64 @@ namespace YtEzDL.UserControls
             // 
             // toolStrip
             // 
-            this.toolStrip.AutoSize = false;
-            this.toolStrip.BackColor = System.Drawing.Color.White;
-            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonPlay,
-            this.toolStripButtonPause,
-            this.toolStripLabel});
-            this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.toolStrip.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(558, 22);
-            this.toolStrip.Stretch = true;
-            this.toolStrip.TabIndex = 3;
+            this._toolStrip.AutoSize = false;
+            this._toolStrip.BackColor = System.Drawing.Color.White;
+            this._toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this._toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._toolStripButtonPlay,
+            this._toolStripButtonPause,
+            this._toolStripLabel});
+            this._toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this._toolStrip.Location = new System.Drawing.Point(0, 0);
+            this._toolStrip.Name = "_toolStrip";
+            this._toolStrip.Size = new System.Drawing.Size(558, 22);
+            this._toolStrip.Stretch = true;
+            this._toolStrip.TabIndex = 3;
             // 
             // toolStripButtonPlay
             // 
-            this.toolStripButtonPlay.AutoSize = false;
-            this.toolStripButtonPlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonPlay.Image = global::YtEzDL.Properties.Resources.Play;
-            this.toolStripButtonPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonPlay.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.toolStripButtonPlay.Name = "toolStripButtonPlay";
-            this.toolStripButtonPlay.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.toolStripButtonPlay.Size = new System.Drawing.Size(22, 20);
-            this.toolStripButtonPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripButtonPlay.Click += new System.EventHandler(this.toolStripButtonPlay_Click);
+            this._toolStripButtonPlay.AutoSize = false;
+            this._toolStripButtonPlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._toolStripButtonPlay.Image = global::YtEzDL.Properties.Resources.Play;
+            this._toolStripButtonPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripButtonPlay.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this._toolStripButtonPlay.Name = "_toolStripButtonPlay";
+            this._toolStripButtonPlay.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this._toolStripButtonPlay.Size = new System.Drawing.Size(22, 20);
+            this._toolStripButtonPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this._toolStripButtonPlay.Click += new System.EventHandler(this.toolStripButtonPlay_Click);
             // 
             // toolStripButtonPause
             // 
-            this.toolStripButtonPause.AutoSize = false;
-            this.toolStripButtonPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonPause.Image = global::YtEzDL.Properties.Resources.Pause;
-            this.toolStripButtonPause.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonPause.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.toolStripButtonPause.Name = "toolStripButtonPause";
-            this.toolStripButtonPause.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.toolStripButtonPause.Size = new System.Drawing.Size(22, 20);
-            this.toolStripButtonPause.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripButtonPause.Click += new System.EventHandler(this.toolStripButtonPause_Click);
+            this._toolStripButtonPause.AutoSize = false;
+            this._toolStripButtonPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._toolStripButtonPause.Image = global::YtEzDL.Properties.Resources.Pause;
+            this._toolStripButtonPause.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripButtonPause.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this._toolStripButtonPause.Name = "_toolStripButtonPause";
+            this._toolStripButtonPause.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this._toolStripButtonPause.Size = new System.Drawing.Size(22, 20);
+            this._toolStripButtonPause.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this._toolStripButtonPause.Click += new System.EventHandler(this.toolStripButtonPause_Click);
             // 
             // toolStripLabel
             // 
-            this.toolStripLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripLabel.Name = "toolStripLabel";
-            this.toolStripLabel.Overflow = System.Windows.Forms.ToolStripItemOverflow.Always;
-            this.toolStripLabel.Size = new System.Drawing.Size(0, 0);
+            this._toolStripLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this._toolStripLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._toolStripLabel.Name = "_toolStripLabel";
+            this._toolStripLabel.Overflow = System.Windows.Forms.ToolStripItemOverflow.Always;
+            this._toolStripLabel.Size = new System.Drawing.Size(0, 0);
             // 
             // Player
             // 
-            this.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.Controls.Add(this.toolStrip);
+            this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this._toolStrip);
             this.Controls.Add(this._metroTrackBar);
             this.Name = "Player";
             this.Size = new System.Drawing.Size(558, 47);
             this.UseCustomBackColor = true;
-            this.toolStrip.ResumeLayout(false);
-            this.toolStrip.PerformLayout();
+            this._toolStrip.ResumeLayout(false);
+            this._toolStrip.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -99,11 +99,11 @@ namespace YtEzDL.UserControls
         private readonly object _lock = new object();
         private MetroTrackBar _metroTrackBar;
         private TrackData _currentTrack;
-        private ToolStrip toolStrip;
-        private ToolStripButton toolStripButtonPlay;
-        private ToolStripButton toolStripButtonPause;
-        private ToolStripLabel toolStripLabel;
-        private Timer _timer = new Timer();
+        private ToolStrip _toolStrip;
+        private ToolStripButton _toolStripButtonPlay;
+        private ToolStripButton _toolStripButtonPause;
+        private ToolStripLabel _toolStripLabel;
+        private readonly Timer _timer = new Timer();
 
         private void Execute(Action action)
         {
@@ -131,7 +131,6 @@ namespace YtEzDL.UserControls
             _timer.Tick += (o, a) => Task.Run(() => TimerTick(o, a));
             
             AudioPlayer.Instance.PlaybackStopped += PlaybackStopped;
-            _metroTrackBar.Maximum = 300;
         }
 
         private void TimerTick(object sender, EventArgs e)
@@ -145,15 +144,15 @@ namespace YtEzDL.UserControls
             {
                 case PlaybackState.Playing:
                     _timer.Enabled = true;
-                    toolStripButtonPlay.Enabled = false;
-                    toolStripButtonPause.Enabled = true;
+                    _toolStripButtonPlay.Enabled = false;
+                    _toolStripButtonPause.Enabled = true;
                     break;
 
                 case PlaybackState.Paused:
                 case PlaybackState.Stopped:
                     _timer.Enabled = false;
-                    toolStripButtonPlay.Enabled = true;
-                    toolStripButtonPause.Enabled = false;
+                    _toolStripButtonPlay.Enabled = true;
+                    _toolStripButtonPause.Enabled = false;
                     break;
 
             }
@@ -167,7 +166,8 @@ namespace YtEzDL.UserControls
                 AudioPlayer.Instance.Play(_currentTrack.WebpageUrl);
                 ExecuteAsync(() =>
                 {
-                    toolStripLabel.Text = _currentTrack.Title;
+                    _metroTrackBar.Maximum = (int)_currentTrack.Duration;
+                    _toolStripLabel.Text = $"{_currentTrack.Title} ({TimeSpan.FromSeconds(_currentTrack.Duration):h\\:mm\\:ss})";
                     Toggle();
                 });
             }
