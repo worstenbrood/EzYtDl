@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using YtEzDL.Utils;
 
-namespace YtEzDL.Utils
+namespace YtEzDL.Console
 {
     public class ConsoleProcessException : Exception
     {

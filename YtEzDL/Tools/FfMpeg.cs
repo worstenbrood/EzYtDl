@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using YtEzDL.Console;
 using YtEzDL.DownLoad;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
@@ -30,22 +32,21 @@ namespace YtEzDL.Tools
         /// Start ffmpeg using stdin as input and stdout as output
         /// </summary>
         /// <param name="format">AudioFormat</param>
+        /// <param name="args"></param>
         /// <returns></returns>
-        internal Process CreateStreamProcess(AudioFormat format)
+        internal Process CreateStreamProcess(AudioFormat format, params string[] args)
         {
-            var parameters = new[]
-            {
-                "-i", // Input
-                "pipe:0", // StdIn
-                "-f", // Format
-                format.ToString("G").ToLowerInvariant(),
-                "-ar",
-                "48000",
-                "-ac",
-                "2",
-                "pipe:1" // StdOut
-            };
-
+            var parameters =
+                new[]
+                {
+                    "-i", // Input
+                    "pipe:0", // StdIn
+                    "-f", // Format
+                    format.ToString("G").ToLowerInvariant(),
+                }
+                .Concat(args)
+                .Append("pipe:1"); // StdOut
+       
             return CreateProcess(parameters);
         }
 

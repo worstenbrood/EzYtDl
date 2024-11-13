@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using YtEzDL.Console;
 using YtEzDL.DownLoad;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;

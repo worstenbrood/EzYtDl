@@ -11,7 +11,7 @@ using YtEzDL.Config;
 using YtEzDL.DownLoad;
 using YtEzDL.Interfaces;
 using YtEzDL.Utils;
-using System.Security.Policy;
+using YtEzDL.Console;
 
 namespace YtEzDL.Tools
 {
@@ -252,8 +252,6 @@ namespace YtEzDL.Tools
         {
             var parameters = DownLoadParameters.New
                 .Output("-")
-                .ExtractAudio()
-                .AudioFormat(AudioFormat.Wav)
                 .FfMpegLocation(CommonTools.ToolsPath)
                 .Downloader(Downloader.Ffmpeg)
                 .DownloadArgs($"ffmpeg_i:-ss {start:g}")

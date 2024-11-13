@@ -1,8 +1,9 @@
 ﻿using YtEzDL.DownLoad;
+using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
 {
-    public class FfPlayStream : StreamBase
+    public class FfPlayStream : ConsoleStream
     {
         public FfPlayStream(AudioFormat format)
         {

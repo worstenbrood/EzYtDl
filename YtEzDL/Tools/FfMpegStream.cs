@@ -1,40 +1,42 @@
 ﻿using System;
 using System.Threading.Tasks;
 using YtEzDL.DownLoad;
+using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
 {
-    public class FfMpegStream : StreamBase
+    public class FfMpegStream : ConsoleStream
     {
         private readonly FfMpeg _mpeg = new FfMpeg();
         private Task _writer;
-        private readonly string _url;
-        
-        private void CreateWriterTask(TimeSpan position)
+
+        private void CreateWriter(string url, TimeSpan position)
         {
             if (position == TimeSpan.Zero)
             {
                 // Route yt-dlp into ffmpeg asynchronously
-                _writer = YoutubeDownload.Instance.StreamAsync(_url, Process.StandardInput.BaseStream,
+                _writer = YoutubeDownload.Instance.StreamAsync(url, Process.StandardInput.BaseStream,
                     Source.Token);
             }
-
-            // Route yt-dlp into ffmpeg asynchronously, with an offset
-            _writer = YoutubeDownload.Instance.StreamAsync(_url, position, Process.StandardInput.BaseStream,
-                Source.Token);
+            else
+            {
+                // Route yt-dlp into ffmpeg asynchronously, with an offset
+                _writer = YoutubeDownload.Instance.StreamAsync(url, position, Process.StandardInput.BaseStream,
+                    Source.Token);
+            }
         }
-        
-        public FfMpegStream(string url, TimeSpan position, AudioFormat format)
+
+        public FfMpegStream(string url, TimeSpan position, AudioFormat format, params string[] args)
         {
             // Start ffmpeg using stdin as input and stdout as output
-            Process = _mpeg.CreateStreamProcess(format);
+            Process = _mpeg.CreateStreamProcess(format, args);
             Process.Start();
 
             // This is where ffmpeg's output is coming through
             BaseStream = Process.StandardOutput.BaseStream;
 
-            _url = url;
-            CreateWriterTask(position);
+            // Create task
+            CreateWriter(url, position);
         }
 
         public FfMpegStream(string url, AudioFormat format) : this(url, TimeSpan.Zero, format)
@@ -54,12 +56,6 @@ namespace YtEzDL.Tools
             }
 
             _writer = null;
-        }
-
-        public void SetPosition(TimeSpan position)
-        {
-            DisposeWriter();
-            CreateWriterTask(position);
         }
         
         public new void Dispose()

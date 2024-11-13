@@ -2,9 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using YtEzDL.Utils;
 
-namespace YtEzDL.Tools
+namespace YtEzDL.Utils
 {
     public class ReadEventArgs : EventArgs
     {
@@ -30,7 +29,7 @@ namespace YtEzDL.Tools
 
     public delegate void WriteEventHandler(object o, WriteEventArgs args);
     
-    public class StreamBase : Stream, IDisposable
+    public class ConsoleStream : Stream, IDisposable
     {
         protected Stream BaseStream { get; set; }
         protected Process Process { get; set; }
@@ -58,11 +57,11 @@ namespace YtEzDL.Tools
         public event ReadEventHandler ReadEvent;
         public event WriteEventHandler WriteEvent;
         
-        public StreamBase()
+        public ConsoleStream()
         {
         }
 
-        public StreamBase(Process process, Stream stream)
+        public ConsoleStream(Process process, Stream stream)
         {
             BaseStream = stream;
             Process = process;
@@ -116,9 +115,10 @@ namespace YtEzDL.Tools
                 Process.KillProcessTree();
             }
 
-            BaseStream?.Dispose();
             Process?.Dispose();
             Process = null;
+
+            base.Dispose();
         }
     }
 }

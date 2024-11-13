@@ -8,6 +8,7 @@ using YtEzDL.Tools;
 using YtEzDL.UserControls;
 using MetroFramework.Controls;
 using YtEzDL.Config;
+using YtEzDL.Console;
 
 namespace YtEzDL.Utils
 {

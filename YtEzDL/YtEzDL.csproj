@@ -152,7 +152,7 @@
     <Compile Include="Tools\FfMpeg.cs" />
     <Compile Include="Tools\FfMpegStream.cs" />
     <Compile Include="Tools\FfPlayStream.cs" />
-    <Compile Include="Tools\StreamBase.cs" />
+    <Compile Include="Utils\StreamBase.cs" />
     <Compile Include="Tools\YtDlStream.cs" />
     <Compile Include="UserControls\CustomLayoutPanel.cs">
       <SubType>Component</SubType>
@@ -161,8 +161,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\AppStyle.cs" />
-    <Compile Include="Utils\AudioPlayer.cs" />
-    <Compile Include="Utils\ConsoleProcess.cs" />
+    <Compile Include="Audio\AudioPlayer.cs" />
+    <Compile Include="Console\ConsoleProcess.cs" />
     <Compile Include="Utils\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Utils\FormTools.cs" />
     <Compile Include="Utils\CommonTools.cs" />

@@ -1,8 +1,9 @@
 ﻿using System;
+using YtEzDL.Utils;
 
 namespace YtEzDL.Tools
 {
-    public class YtDlStream : StreamBase
+    public class YtDlStream : ConsoleStream
     {
         public YtDlStream(string url, TimeSpan position)
         {

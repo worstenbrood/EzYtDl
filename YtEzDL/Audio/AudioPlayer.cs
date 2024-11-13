@@ -3,7 +3,7 @@ using NAudio.Wave;
 using YtEzDL.DownLoad;
 using YtEzDL.Tools;
 
-namespace YtEzDL.Utils
+namespace YtEzDL.Audio
 {
     /// <summary>
     /// AudioPlayer that plays any yt-dlp supported url. It transfers yt-dlps output into ffmpeg, converts it to wav, and streams that
@@ -16,27 +16,26 @@ namespace YtEzDL.Utils
         private FfMpegStream _ffMpegStream;
         private readonly string _url;
 
-        public AudioPlayer(string url, int desiredLatency = 300, int numberOfBuffers = 10, int device = 0)
+        public AudioPlayer(int desiredLatency = 64, int numberOfBuffers = 16, int device = 0)
         {
-            _url = url;
-
             // Init device
             WaveOut = new WaveOut(WaveCallbackInfo.FunctionCallback());
             WaveOut.DesiredLatency = desiredLatency;
             WaveOut.NumberOfBuffers = numberOfBuffers;
             WaveOut.DeviceNumber = device;
-            WaveOut.PlaybackStopped += (sender, e) =>
-            {
-                WaveOut.Stop();
-            };
         }
         
-        public void Play(TimeSpan position)
+        public AudioPlayer(string url, int desiredLatency = 64, int numberOfBuffers = 16, int device = 0) : this(desiredLatency, numberOfBuffers, device)
+        {
+            _url = url;
+        }
+        
+        public void Play(string url, TimeSpan position)
         {
             if (_ffMpegStream == null)
             {
                 // Create ffmpeg stream
-                _ffMpegStream = new FfMpegStream(_url, position, AudioFormat.Wav);
+                _ffMpegStream = new FfMpegStream(url, position, AudioFormat.S16Le, "-ar", "48000", "-ac", "2");
 
                 // Init stream
                 WaveOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
@@ -47,19 +46,46 @@ namespace YtEzDL.Utils
             else
             {
                 // Pause
-                WaveOut.Pause();
-                
-                // Set position
-                _ffMpegStream.SetPosition(position);
+                WaveOut.Stop();
 
-                // Play
-                WaveOut.Resume();
+                // Dispose stream
+                _ffMpegStream.Dispose();
+
+                // Create new stream
+                _ffMpegStream = new FfMpegStream(url, position, AudioFormat.S16Le, "-ar", "48000", "-ac", "2");
+
+                // Init stream
+                WaveOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
+                
+                // Resume
+                WaveOut.Play();
             }
+        }
+
+        public void Play(string url)
+        {
+            Play(url, TimeSpan.Zero);
+        }
+
+        public void Play(TimeSpan position)
+        {
+            Play(_url, TimeSpan.Zero);
+        }
+        
+        public void Play()
+        {
+            Play(TimeSpan.Zero);
         }
 
         public void Pause() => WaveOut.Pause();
         public void Resume() => WaveOut.Resume();
-        public void Stop() => WaveOut.Stop();
+        public void Stop()
+        {
+            _ffMpegStream.Dispose();
+            _ffMpegStream = null;
+            WaveOut.Stop();
+        }
+
         public long Position => WaveOut.GetPosition();
         public PlaybackState PlaybackState => WaveOut.PlaybackState;
         public float Volume

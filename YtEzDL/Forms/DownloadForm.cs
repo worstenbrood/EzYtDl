@@ -10,6 +10,7 @@ using System.Diagnostics;
 using MetroFramework;
 using MetroFramework.Forms;
 using YtEzDL.Config;
+using YtEzDL.Console;
 using YtEzDL.DownLoad;
 using YtEzDL.Properties;
 using YtEzDL.Tools;

@@ -8,10 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YtEzDL {
-    using System;
-    
-    
+namespace YtEzDL.Forms {
     /// <summary>
     /// A strongly-typed resource class, for looking up localized strings, formatting them, etc.
     /// </summary>
