@@ -1,6 +1,7 @@
 @echo off
 set outdir=%~1%~2
 copy /Y "%~1External\*.dll" "%outdir%"
+del /F /Q %outdir%*.xml
 if not "%~3" == "Release-external" exit
 set tools=%outdir%Tools
 if not exist "%tools%" mkdir "%tools%"
