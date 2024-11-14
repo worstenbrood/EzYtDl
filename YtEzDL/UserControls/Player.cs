@@ -150,7 +150,7 @@ namespace YtEzDL.UserControls
             BeginInvoke(new MethodInvoker(action.Invoke));
         }
 
-        private double _bytesRead = 0;
+        private double _bytesRead;
 
         private void PlayerStreamRead(object o, Streams.ReadEventArgs args)
         {
@@ -223,20 +223,14 @@ namespace YtEzDL.UserControls
 
         public void Play(TimeSpan position)
         {
-            lock (_lock)
-            {
-                _player.Play(position);
-                Execute(Toggle);
-            }
+            _player.Play(position);
+            Execute(Toggle);
         }
 
         public void Pause()
         {
-            lock (_lock)
-            {
-                _player.Pause();
-                Execute(Toggle);
-            }
+            _player.Pause();
+            Execute(Toggle);
         }
         
         public new void Dispose()
