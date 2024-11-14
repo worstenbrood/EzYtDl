@@ -27,12 +27,12 @@ namespace YtEzDL.UserControls
             this._metroTrackBar.BackColor = System.Drawing.SystemColors.MenuBar;
             this._metroTrackBar.Location = new System.Drawing.Point(3, 25);
             this._metroTrackBar.Name = "_metroTrackBar";
-            this._metroTrackBar.Size = new System.Drawing.Size(552, 19);
+            this._metroTrackBar.Size = new System.Drawing.Size(552, 42);
             this._metroTrackBar.TabIndex = 0;
             this._metroTrackBar.Text = "Player";
             this._metroTrackBar.Value = 0;
             // 
-            // toolStrip
+            // _toolStrip
             // 
             this._toolStrip.AutoSize = false;
             this._toolStrip.BackColor = System.Drawing.Color.White;
@@ -48,7 +48,7 @@ namespace YtEzDL.UserControls
             this._toolStrip.Stretch = true;
             this._toolStrip.TabIndex = 3;
             // 
-            // toolStripButtonPlay
+            // _toolStripButtonPlay
             // 
             this._toolStripButtonPlay.AutoSize = false;
             this._toolStripButtonPlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -61,7 +61,7 @@ namespace YtEzDL.UserControls
             this._toolStripButtonPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this._toolStripButtonPlay.Click += new System.EventHandler(this.toolStripButtonPlay_Click);
             // 
-            // toolStripButtonPause
+            // _toolStripButtonPause
             // 
             this._toolStripButtonPause.AutoSize = false;
             this._toolStripButtonPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -74,7 +74,7 @@ namespace YtEzDL.UserControls
             this._toolStripButtonPause.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this._toolStripButtonPause.Click += new System.EventHandler(this.toolStripButtonPause_Click);
             // 
-            // toolStripLabel
+            // _toolStripLabel
             // 
             this._toolStripLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this._toolStripLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -88,7 +88,7 @@ namespace YtEzDL.UserControls
             this.Controls.Add(this._toolStrip);
             this.Controls.Add(this._metroTrackBar);
             this.Name = "Player";
-            this.Size = new System.Drawing.Size(558, 47);
+            this.Size = new System.Drawing.Size(558, 70);
             this.UseCustomBackColor = true;
             this._toolStrip.ResumeLayout(false);
             this._toolStrip.PerformLayout();
@@ -104,6 +104,7 @@ namespace YtEzDL.UserControls
         private ToolStripButton _toolStripButtonPause;
         private ToolStripLabel _toolStripLabel;
         private readonly Timer _timer = new Timer();
+        private readonly AudioPlayer _player;
 
         private void Execute(Action action)
         {
@@ -129,8 +130,9 @@ namespace YtEzDL.UserControls
 
             _timer.Interval = 1000;
             _timer.Tick += (o, a) => Task.Run(() => TimerTick(o, a));
-            
-            AudioPlayer.Instance.PlaybackStopped += PlaybackStopped;
+
+            _player = new AudioPlayer();
+            _player.PlaybackStopped += PlaybackStopped;
         }
 
         private void TimerTick(object sender, EventArgs e)
@@ -140,7 +142,7 @@ namespace YtEzDL.UserControls
 
         private void Toggle()
         {
-            switch (AudioPlayer.Instance.PlaybackState)
+            switch (_player.PlaybackState)
             {
                 case PlaybackState.Playing:
                     _timer.Enabled = true;
@@ -163,7 +165,7 @@ namespace YtEzDL.UserControls
             lock (_lock)
             {
                 _currentTrack = trackData;
-                AudioPlayer.Instance.Play(_currentTrack.WebpageUrl);
+                _player.Play(_currentTrack.WebpageUrl);
                 ExecuteAsync(() =>
                 {
                     _metroTrackBar.Maximum = (int)_currentTrack.Duration;
@@ -177,7 +179,7 @@ namespace YtEzDL.UserControls
         {
             lock (_lock)
             {
-                AudioPlayer.Instance.Play(position);
+                _player.Play(position);
                 ExecuteAsync(Toggle);
             }
         }
@@ -186,7 +188,7 @@ namespace YtEzDL.UserControls
         {
             lock (_lock)
             {
-                AudioPlayer.Instance.Pause();
+                _player.Pause();
                 ExecuteAsync(Toggle);
             }
         }
@@ -195,7 +197,8 @@ namespace YtEzDL.UserControls
         {
             lock (_lock)
             {
-                AudioPlayer.Instance.Stop();
+                _player.PlaybackStopped -= PlaybackStopped;
+                _player.Dispose();
             }
             _timer.Dispose();
             base.Dispose();
@@ -203,14 +206,14 @@ namespace YtEzDL.UserControls
         
         private void toolStripButtonPlay_Click(object sender, EventArgs e)
         {
-            switch (AudioPlayer.Instance.PlaybackState)
+            switch (_player.PlaybackState)
             {
                 case PlaybackState.Paused:
-                    AudioPlayer.Instance.Resume();
+                    _player.Resume();
                     break;
 
                 case PlaybackState.Stopped:
-                    AudioPlayer.Instance.Play();
+                    _player.Play();
                     break;
             }
 
@@ -219,9 +222,9 @@ namespace YtEzDL.UserControls
 
         private void toolStripButtonPause_Click(object sender, EventArgs e)
         {
-            if (AudioPlayer.Instance.PlaybackState == PlaybackState.Playing)
+            if (_player.PlaybackState == PlaybackState.Playing)
             {
-                AudioPlayer.Instance.Pause();
+                _player.Pause();
                 ExecuteAsync(Toggle);
             }
         }

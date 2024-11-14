@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using MetroFramework;
 using MetroFramework.Forms;
@@ -276,12 +277,12 @@ namespace YtEzDL.Forms
             Task.Run(LoadData);
         }
 
-        protected override void OnClosed(EventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
             player.Dispose();
-            base.OnClosed(e);
+            base.OnClosing(e);
         }
-
+        
         private string GetPath()
         {
             var path = Configuration.Default.FileSettings.Path;

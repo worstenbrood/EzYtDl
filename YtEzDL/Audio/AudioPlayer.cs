@@ -17,6 +17,7 @@ namespace YtEzDL.Audio
         private static readonly WaveFormat Format = new WaveFormat(Rate, Bits, Channels);
         private readonly WasapiOut _wasapiOut;
         private FfMpegStream _ffMpegStream;
+        private readonly object _lock = new object();
         private string _url;
 
         public event EventHandler<StoppedEventArgs> PlaybackStopped
@@ -25,10 +26,7 @@ namespace YtEzDL.Audio
             remove => _wasapiOut.PlaybackStopped -= value;
         }
 
-        private static readonly Lazy<AudioPlayer> Lazy = new Lazy<AudioPlayer>(() => new AudioPlayer());
-        public static AudioPlayer Instance => Lazy.Value;
-
-        private AudioPlayer()
+        public AudioPlayer()
         {
             // Init device
             _wasapiOut = new WasapiOut();
@@ -44,39 +42,42 @@ namespace YtEzDL.Audio
 
         public void Play(string url, TimeSpan position)
         {
-            if (_ffMpegStream == null)
+            lock (_lock)
             {
-                // Create ffmpeg stream
-                _ffMpegStream = new FfMpegStream(url, position, AudioFormat.S16Le, ExtraArguments);
+                if (_ffMpegStream == null)
+                {
+                    // Create ffmpeg stream
+                    _ffMpegStream = new FfMpegStream(url, position, AudioFormat.S16Le, ExtraArguments);
 
-                // Save url
-                _url = url;
+                    // Save url
+                    _url = url;
 
-                // Init stream
-                _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
+                    // Init stream
+                    _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
 
-                // Play
-                _wasapiOut.Play();
-            }
-            else
-            {
-                // Pause
-                _wasapiOut.Stop();
+                    // Play
+                    _wasapiOut.Play();
+                }
+                else
+                {
+                    // Pause
+                    _wasapiOut.Stop();
 
-                // Dispose stream
-                _ffMpegStream.Dispose();
+                    // Dispose stream
+                    _ffMpegStream.Dispose();
 
-                // Create new stream
-                _ffMpegStream = new FfMpegStream(url, position, AudioFormat.S16Le, ExtraArguments);
+                    // Create new stream
+                    _ffMpegStream = new FfMpegStream(url, position, AudioFormat.S16Le, ExtraArguments);
 
-                // Save url
-                _url = url;
+                    // Save url
+                    _url = url;
 
-                // Init stream
-                _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
+                    // Init stream
+                    _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
 
-                // Resume
-                _wasapiOut.Play();
+                    // Resume
+                    _wasapiOut.Play();
+                }
             }
         }
 
@@ -87,28 +88,31 @@ namespace YtEzDL.Audio
 
         public void Play(TimeSpan position)
         {
-            if (_ffMpegStream == null)
+            lock (_lock)
             {
-                // Create ffmpeg stream
-                _ffMpegStream = new FfMpegStream(_url, position, AudioFormat.S16Le, ExtraArguments);
+                if (_ffMpegStream == null)
+                {
+                    // Create ffmpeg stream
+                    _ffMpegStream = new FfMpegStream(_url, position, AudioFormat.S16Le, ExtraArguments);
 
-                // Init stream
-                _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
+                    // Init stream
+                    _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
 
-                // Play
-                _wasapiOut.Play();
-            }
-            else
-            {
-                // Pause
-                Pause();
+                    // Play
+                    _wasapiOut.Play();
+                }
+                else
+                {
+                    // Pause
+                    Pause();
 
-                // Create new writer
-                _ffMpegStream.DisposeWriter();
-                _ffMpegStream.CreateWriter(_url, position);
+                    // Create new writer
+                    _ffMpegStream.DisposeWriter();
+                    _ffMpegStream.CreateWriter(_url, position);
 
-                // Resume
-                Resume();
+                    // Resume
+                    Resume();
+                }
             }
         }
         
@@ -121,8 +125,12 @@ namespace YtEzDL.Audio
         public void Resume() => _wasapiOut.Play();
         public void Stop()
         {
-            _ffMpegStream.Dispose();
-            _ffMpegStream = null;
+            lock (_lock)
+            {
+                _ffMpegStream.Dispose();
+                _ffMpegStream = null;
+            }
+
             _wasapiOut.Stop();
         }
 
