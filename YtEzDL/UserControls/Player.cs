@@ -27,10 +27,13 @@ namespace YtEzDL.UserControls
             this._metroTrackBar.BackColor = System.Drawing.SystemColors.MenuBar;
             this._metroTrackBar.Location = new System.Drawing.Point(3, 25);
             this._metroTrackBar.Name = "_metroTrackBar";
-            this._metroTrackBar.Size = new System.Drawing.Size(552, 42);
+            this._metroTrackBar.Size = new System.Drawing.Size(552, 35);
             this._metroTrackBar.TabIndex = 0;
             this._metroTrackBar.Text = "Player";
             this._metroTrackBar.Value = 0;
+            this._metroTrackBar.ValueChanged += MetroTrackBarOnValueChanged;
+            this._metroTrackBar.Scroll += MetroTrackBarOnScroll;
+
             // 
             // _toolStrip
             // 
@@ -88,12 +91,22 @@ namespace YtEzDL.UserControls
             this.Controls.Add(this._toolStrip);
             this.Controls.Add(this._metroTrackBar);
             this.Name = "Player";
-            this.Size = new System.Drawing.Size(558, 70);
+            this.Size = new System.Drawing.Size(558, 63);
             this.UseCustomBackColor = true;
             this._toolStrip.ResumeLayout(false);
             this._toolStrip.PerformLayout();
             this.ResumeLayout(false);
+            return;
 
+            void MetroTrackBarOnValueChanged(object sender, EventArgs e)
+            {
+                _toolTip.SetToolTip(_metroTrackBar, $"Time: {TimeSpan.FromSeconds(_metroTrackBar.Value):h\\:mm\\:ss}");
+            }
+
+            void MetroTrackBarOnScroll(object sender, ScrollEventArgs e)
+            {
+                _toolTip.SetToolTip(_metroTrackBar, $"Time: {TimeSpan.FromSeconds(e.NewValue):h\\:mm\\:ss}");
+            }
         }
 
         private readonly object _lock = new object();
@@ -105,6 +118,7 @@ namespace YtEzDL.UserControls
         private ToolStripLabel _toolStripLabel;
         private readonly Timer _timer = new Timer();
         private readonly AudioPlayer _player;
+        private readonly ToolTip _toolTip = new ToolTip();
 
         private void Execute(Action action)
         {
@@ -121,6 +135,7 @@ namespace YtEzDL.UserControls
             ExecuteAsync(() =>
             {
                 _metroTrackBar.Value = 0;
+                Toggle();
             });
         }
 
@@ -137,7 +152,13 @@ namespace YtEzDL.UserControls
 
         private void TimerTick(object sender, EventArgs e)
         {
-            ExecuteAsync(() => _metroTrackBar.Value += 1);
+            ExecuteAsync(() =>
+            {
+                if (_metroTrackBar.Value < _metroTrackBar.Maximum)
+                {
+                    _metroTrackBar.Value++;
+                }
+            });
         }
 
         private void Toggle()
