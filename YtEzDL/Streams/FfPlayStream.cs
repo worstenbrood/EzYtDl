@@ -1,7 +1,8 @@
 ﻿using YtEzDL.DownLoad;
+using YtEzDL.Tools;
 using YtEzDL.Utils;
 
-namespace YtEzDL.Tools
+namespace YtEzDL.Streams
 {
     public class FfPlayStream : ConsoleStream
     {

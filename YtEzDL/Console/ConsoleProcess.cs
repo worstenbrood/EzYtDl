@@ -197,34 +197,26 @@ namespace YtEzDL.Console
                     // Read errors
                     process.BeginErrorReadLine();
 
-                    // Copy data to output stream
-                    await process.StandardOutput.BaseStream.CopyToAsync(outputStream, bufferSize,
-                        cancellationToken);
-
+                    try
+                    {
+                        // Copy data to output stream
+                        await process.StandardOutput.BaseStream.CopyToAsync(outputStream, bufferSize,
+                            cancellationToken);
+                    }
+                    catch (TaskCanceledException)
+                    { 
+                        // Cancelled
+                    }
+                    catch (IOException)
+                    {
+                        // Pipe ends
+                    }
+                    
                     // Close output
                     outputStream.Close();
 
                     // Close process nicely 
                     return await WaitAsync(process, error, null, cancellationToken, null, handleError);
-                }
-
-                catch(Exception outerException)
-                {
-                    try
-                    {
-                        // Close process nicely
-                        await WaitAsync(process, error, null, cancellationToken, null, handleError);
-                    }
-                    catch (TaskCanceledException)
-                    {
-                        return await Task.FromCanceled<int>(cancellationToken);
-                    }
-                    catch (Exception innerException)
-                    {
-                        outerException = new AggregateException(outerException, innerException);
-                    }
-                    
-                    return await Task.FromException<int>(outerException);
                 }
                 finally
                 {

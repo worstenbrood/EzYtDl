@@ -2,8 +2,9 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using YtEzDL.Utils;
 
-namespace YtEzDL.Utils
+namespace YtEzDL.Streams
 {
     public class ReadEventArgs : EventArgs
     {
@@ -84,7 +85,16 @@ namespace YtEzDL.Utils
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            var bytesRead = BaseStream.Read(buffer, offset, count);
+            int bytesRead;
+            try
+            {
+                bytesRead = BaseStream.Read(buffer, offset, count);
+            }
+            catch (IOException)
+            {
+                bytesRead = 0;
+            }
+            
             // Trigger event if any
             ReadEvent?.Invoke(this, new ReadEventArgs(bytesRead));
             return bytesRead;

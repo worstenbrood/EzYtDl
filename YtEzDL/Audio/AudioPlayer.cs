@@ -1,6 +1,7 @@
 ﻿using System;
 using NAudio.Wave;
 using YtEzDL.DownLoad;
+using YtEzDL.Streams;
 using YtEzDL.Tools;
 
 namespace YtEzDL.Audio

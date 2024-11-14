@@ -1,7 +1,7 @@
 ﻿using System;
-using YtEzDL.Utils;
+using YtEzDL.Tools;
 
-namespace YtEzDL.Tools
+namespace YtEzDL.Streams
 {
     public class YtDlStream : ConsoleStream
     {

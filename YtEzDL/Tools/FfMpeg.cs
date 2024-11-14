@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using YtEzDL.Console;
 using YtEzDL.DownLoad;
 using YtEzDL.Interfaces;
+using YtEzDL.Streams;
 using YtEzDL.Utils;
 
 namespace YtEzDL.Tools

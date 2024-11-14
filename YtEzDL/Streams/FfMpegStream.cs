@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using YtEzDL.DownLoad;
+using YtEzDL.Tools;
 using YtEzDL.Utils;
 
-namespace YtEzDL.Tools
+namespace YtEzDL.Streams
 {
     public class FfMpegStream : ConsoleStream
     {
@@ -46,7 +47,7 @@ namespace YtEzDL.Tools
         public void DisposeWriter()
         {
             Source.Cancel();
-            
+           
             if (_writer != null &&
                 (_writer.Status == TaskStatus.RanToCompletion ||
                  _writer.Status == TaskStatus.Faulted ||
