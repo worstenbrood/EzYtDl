@@ -164,7 +164,7 @@ namespace YtEzDL.UserControls
 
         private void PlaybackStopped(object sender, StoppedEventArgs e)
         {
-            ExecuteAsync(() =>
+            Execute(() =>
             {
                 _metroTrackBar.Value = 0;
                 _bytesRead = 0;
@@ -212,7 +212,7 @@ namespace YtEzDL.UserControls
             {
                 _currentTrack = trackData;
                 _player.Play(_currentTrack.WebpageUrl);
-                ExecuteAsync(() =>
+                Execute(() =>
                 {
                     _metroTrackBar.Maximum = (int)_currentTrack.Duration;
                     _toolStripLabel.Text = $"{_currentTrack.Title} ({TimeSpan.FromSeconds(_currentTrack.Duration):h\\:mm\\:ss})";
@@ -226,7 +226,7 @@ namespace YtEzDL.UserControls
             lock (_lock)
             {
                 _player.Play(position);
-                ExecuteAsync(Toggle);
+                Execute(Toggle);
             }
         }
 
@@ -235,7 +235,7 @@ namespace YtEzDL.UserControls
             lock (_lock)
             {
                 _player.Pause();
-                ExecuteAsync(Toggle);
+                Execute(Toggle);
             }
         }
         
@@ -271,7 +271,7 @@ namespace YtEzDL.UserControls
             if (_player.PlaybackState == PlaybackState.Playing)
             {
                 _player.Pause();
-                ExecuteAsync(Toggle);
+                Execute(Toggle);
             }
         }
 
@@ -280,7 +280,7 @@ namespace YtEzDL.UserControls
             if (_player.PlaybackState == PlaybackState.Playing)
             {
                 _player.Stop();
-                ExecuteAsync(Toggle);
+                Execute(Toggle);
             }
         }
     }
