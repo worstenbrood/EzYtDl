@@ -17,6 +17,7 @@ namespace YtEzDL.UserControls
             this._toolStripButtonPlay = new System.Windows.Forms.ToolStripButton();
             this._toolStripButtonPause = new System.Windows.Forms.ToolStripButton();
             this._toolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
             this._toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -25,29 +26,30 @@ namespace YtEzDL.UserControls
             this._metroTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._metroTrackBar.BackColor = System.Drawing.SystemColors.MenuBar;
-            this._metroTrackBar.Location = new System.Drawing.Point(3, 25);
+            this._metroTrackBar.Location = new System.Drawing.Point(3, 26);
             this._metroTrackBar.Name = "_metroTrackBar";
-            this._metroTrackBar.Size = new System.Drawing.Size(552, 35);
+            this._metroTrackBar.Size = new System.Drawing.Size(552, 25);
             this._metroTrackBar.TabIndex = 0;
             this._metroTrackBar.Text = "Player";
             this._metroTrackBar.Value = 0;
-            this._metroTrackBar.ValueChanged += MetroTrackBarOnValueChanged;
-            this._metroTrackBar.Scroll += MetroTrackBarOnScroll;
-
+            this._metroTrackBar.ValueChanged += new System.EventHandler(this.MetroTrackBarOnValueChanged);
+            this._metroTrackBar.Scroll += new ScrollEventHandler(this.MetroTrackBarOnScroll);
             // 
             // _toolStrip
             // 
             this._toolStrip.AutoSize = false;
             this._toolStrip.BackColor = System.Drawing.Color.White;
             this._toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this._toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this._toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._toolStripButtonPlay,
             this._toolStripButtonPause,
+            this.toolStripButtonStop,
             this._toolStripLabel});
             this._toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this._toolStrip.Location = new System.Drawing.Point(0, 0);
             this._toolStrip.Name = "_toolStrip";
-            this._toolStrip.Size = new System.Drawing.Size(558, 22);
+            this._toolStrip.Size = new System.Drawing.Size(558, 26);
             this._toolStrip.Stretch = true;
             this._toolStrip.TabIndex = 3;
             // 
@@ -59,9 +61,9 @@ namespace YtEzDL.UserControls
             this._toolStripButtonPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripButtonPlay.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this._toolStripButtonPlay.Name = "_toolStripButtonPlay";
-            this._toolStripButtonPlay.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this._toolStripButtonPlay.Size = new System.Drawing.Size(22, 20);
+            this._toolStripButtonPlay.Size = new System.Drawing.Size(24, 24);
             this._toolStripButtonPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this._toolStripButtonPlay.ToolTipText = "Play";
             this._toolStripButtonPlay.Click += new System.EventHandler(this.toolStripButtonPlay_Click);
             // 
             // _toolStripButtonPause
@@ -72,18 +74,30 @@ namespace YtEzDL.UserControls
             this._toolStripButtonPause.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripButtonPause.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this._toolStripButtonPause.Name = "_toolStripButtonPause";
-            this._toolStripButtonPause.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this._toolStripButtonPause.Size = new System.Drawing.Size(22, 20);
+            this._toolStripButtonPause.Size = new System.Drawing.Size(24, 24);
             this._toolStripButtonPause.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this._toolStripButtonPause.ToolTipText = "Pause";
             this._toolStripButtonPause.Click += new System.EventHandler(this.toolStripButtonPause_Click);
             // 
             // _toolStripLabel
             // 
             this._toolStripLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this._toolStripLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._toolStripLabel.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this._toolStripLabel.Name = "_toolStripLabel";
             this._toolStripLabel.Overflow = System.Windows.Forms.ToolStripItemOverflow.Always;
             this._toolStripLabel.Size = new System.Drawing.Size(0, 0);
+            // 
+            // toolStripButtonStop
+            // 
+            this.toolStripButtonStop.AutoSize = false;
+            this.toolStripButtonStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonStop.Image = global::YtEzDL.Properties.Resources.Stop;
+            this.toolStripButtonStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonStop.Name = "toolStripButtonStop";
+            this.toolStripButtonStop.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButtonStop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonStop.ToolTipText = "Stop";
             // 
             // Player
             // 
@@ -91,7 +105,7 @@ namespace YtEzDL.UserControls
             this.Controls.Add(this._toolStrip);
             this.Controls.Add(this._metroTrackBar);
             this.Name = "Player";
-            this.Size = new System.Drawing.Size(558, 63);
+            this.Size = new System.Drawing.Size(558, 55);
             this.UseCustomBackColor = true;
             this._toolStrip.ResumeLayout(false);
             this._toolStrip.PerformLayout();
@@ -118,6 +132,7 @@ namespace YtEzDL.UserControls
         private ToolStripLabel _toolStripLabel;
         private readonly Timer _timer = new Timer();
         private readonly AudioPlayer _player;
+        private ToolStripButton toolStripButtonStop;
         private readonly ToolTip _toolTip = new ToolTip();
 
         private void Execute(Action action)

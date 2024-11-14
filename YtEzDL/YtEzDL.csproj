@@ -227,6 +227,9 @@
     <None Include="README.MD" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UserControls\Player.resx">
+      <DependentUpon>Player.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="YTIcon.ico" />
   </ItemGroup>
   <ItemGroup>
