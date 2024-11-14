@@ -131,6 +131,7 @@
     <Compile Include="Config\Settings\FileSettings.cs" />
     <Compile Include="Config\Settings\LayoutSettings.cs" />
     <Compile Include="Config\LockedProperty.cs" />
+    <Compile Include="Console\ConsoleProcessException.cs" />
     <Compile Include="DownLoad\DownLoadParameters.cs" />
     <Compile Include="DownLoad\Parameters.cs" />
     <Compile Include="DownLoad\Thumbnail.cs" />
@@ -226,10 +227,6 @@
     <None Include="README.MD" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UserControls\Player.resx">
-      <DependentUpon>Player.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="YTIcon.ico" />
   </ItemGroup>
   <ItemGroup>

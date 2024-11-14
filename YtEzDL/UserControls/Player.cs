@@ -96,17 +96,17 @@ namespace YtEzDL.UserControls
             this._toolStrip.ResumeLayout(false);
             this._toolStrip.PerformLayout();
             this.ResumeLayout(false);
-            return;
 
-            void MetroTrackBarOnValueChanged(object sender, EventArgs e)
-            {
-                _toolTip.SetToolTip(_metroTrackBar, $"Time: {TimeSpan.FromSeconds(_metroTrackBar.Value):h\\:mm\\:ss}");
-            }
+        }
 
-            void MetroTrackBarOnScroll(object sender, ScrollEventArgs e)
-            {
-                _toolTip.SetToolTip(_metroTrackBar, $"Time: {TimeSpan.FromSeconds(e.NewValue):h\\:mm\\:ss}");
-            }
+        private void MetroTrackBarOnValueChanged(object sender, EventArgs e)
+        {
+            _toolTip.SetToolTip(_metroTrackBar, $"Time: {TimeSpan.FromSeconds(_metroTrackBar.Value):h\\:mm\\:ss}");
+        }
+
+        private void MetroTrackBarOnScroll(object sender, ScrollEventArgs e)
+        {
+            _toolTip.SetToolTip(_metroTrackBar, $"Time: {TimeSpan.FromSeconds(e.NewValue):h\\:mm\\:ss}");
         }
 
         private readonly object _lock = new object();
