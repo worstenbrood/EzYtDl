@@ -207,20 +207,24 @@ namespace YtEzDL.Console
                     // Close process nicely 
                     return await WaitAsync(process, error, null, cancellationToken, null, handleError);
                 }
-                catch(Exception exOne)
+
+                catch(Exception outerException)
                 {
                     try
                     {
                         // Close process nicely
                         await WaitAsync(process, error, null, cancellationToken, null, handleError);
                     }
-                    catch (Exception exTwo)
+                    catch (TaskCanceledException)
                     {
-                        // Ignore
-                        exOne = new AggregateException(exOne, exTwo);
+                        return await Task.FromCanceled<int>(cancellationToken);
+                    }
+                    catch (Exception innerException)
+                    {
+                        outerException = new AggregateException(outerException, innerException);
                     }
                     
-                    return await Task.FromException<int>(exOne);
+                    return await Task.FromException<int>(outerException);
                 }
                 finally
                 {
