@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Controls;
 using NAudio.Wave;
@@ -16,8 +15,8 @@ namespace YtEzDL.UserControls
             this._toolStrip = new System.Windows.Forms.ToolStrip();
             this._toolStripButtonPlay = new System.Windows.Forms.ToolStripButton();
             this._toolStripButtonPause = new System.Windows.Forms.ToolStripButton();
+            this._toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
             this._toolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
             this._toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -33,7 +32,7 @@ namespace YtEzDL.UserControls
             this._metroTrackBar.Text = "Player";
             this._metroTrackBar.Value = 0;
             this._metroTrackBar.ValueChanged += new System.EventHandler(this.MetroTrackBarOnValueChanged);
-            this._metroTrackBar.Scroll += new ScrollEventHandler(this.MetroTrackBarOnScroll);
+            this._metroTrackBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.MetroTrackBarOnScroll);
             // 
             // _toolStrip
             // 
@@ -44,7 +43,7 @@ namespace YtEzDL.UserControls
             this._toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._toolStripButtonPlay,
             this._toolStripButtonPause,
-            this.toolStripButtonStop,
+            this._toolStripButtonStop,
             this._toolStripLabel});
             this._toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this._toolStrip.Location = new System.Drawing.Point(0, 0);
@@ -79,6 +78,18 @@ namespace YtEzDL.UserControls
             this._toolStripButtonPause.ToolTipText = "Pause";
             this._toolStripButtonPause.Click += new System.EventHandler(this.toolStripButtonPause_Click);
             // 
+            // _toolStripButtonStop
+            // 
+            this._toolStripButtonStop.AutoSize = false;
+            this._toolStripButtonStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this._toolStripButtonStop.Image = global::YtEzDL.Properties.Resources.Stop;
+            this._toolStripButtonStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripButtonStop.Name = "_toolStripButtonStop";
+            this._toolStripButtonStop.Size = new System.Drawing.Size(24, 24);
+            this._toolStripButtonStop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this._toolStripButtonStop.ToolTipText = "Stop";
+            this._toolStripButtonStop.Click += new System.EventHandler(this.toolStripButtonStop_Click);
+            // 
             // _toolStripLabel
             // 
             this._toolStripLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -87,17 +98,6 @@ namespace YtEzDL.UserControls
             this._toolStripLabel.Name = "_toolStripLabel";
             this._toolStripLabel.Overflow = System.Windows.Forms.ToolStripItemOverflow.Always;
             this._toolStripLabel.Size = new System.Drawing.Size(0, 0);
-            // 
-            // toolStripButtonStop
-            // 
-            this.toolStripButtonStop.AutoSize = false;
-            this.toolStripButtonStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonStop.Image = global::YtEzDL.Properties.Resources.Stop;
-            this.toolStripButtonStop.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonStop.Name = "toolStripButtonStop";
-            this.toolStripButtonStop.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButtonStop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripButtonStop.ToolTipText = "Stop";
             // 
             // Player
             // 
@@ -130,10 +130,15 @@ namespace YtEzDL.UserControls
         private ToolStripButton _toolStripButtonPlay;
         private ToolStripButton _toolStripButtonPause;
         private ToolStripLabel _toolStripLabel;
-        private readonly Timer _timer = new Timer();
         private readonly AudioPlayer _player;
-        private ToolStripButton toolStripButtonStop;
+        private ToolStripButton _toolStripButtonStop;
         private readonly ToolTip _toolTip = new ToolTip();
+
+        protected override void OnLoad(EventArgs e)
+        {
+            Toggle();
+            base.OnLoad(e);
+        }
 
         private void Execute(Action action)
         {
@@ -145,11 +150,24 @@ namespace YtEzDL.UserControls
             BeginInvoke(new MethodInvoker(action.Invoke));
         }
 
+        private double _bytesRead = 0;
+
+        private void PlayerStreamRead(object o, Streams.ReadEventArgs args)
+        {
+            _bytesRead += args.BytesRead;
+            if (_bytesRead >= AudioPlayer.Format.AverageBytesPerSecond)
+            {
+                _bytesRead -= AudioPlayer.Format.AverageBytesPerSecond;
+                Execute(() => _metroTrackBar.Value++);
+            }
+        }
+
         private void PlaybackStopped(object sender, StoppedEventArgs e)
         {
             ExecuteAsync(() =>
             {
                 _metroTrackBar.Value = 0;
+                _bytesRead = 0;
                 Toggle();
             });
         }
@@ -158,41 +176,33 @@ namespace YtEzDL.UserControls
         {
             InitializeComponent();
 
-            _timer.Interval = 1000;
-            _timer.Tick += (o, a) => Task.Run(() => TimerTick(o, a));
-
             _player = new AudioPlayer();
             _player.PlaybackStopped += PlaybackStopped;
+            _player.StreamRead += PlayerStreamRead;
+            Toggle();
         }
-
-        private void TimerTick(object sender, EventArgs e)
-        {
-            ExecuteAsync(() =>
-            {
-                if (_metroTrackBar.Value < _metroTrackBar.Maximum)
-                {
-                    _metroTrackBar.Value++;
-                }
-            });
-        }
-
+        
         private void Toggle()
         {
             switch (_player.PlaybackState)
             {
                 case PlaybackState.Playing:
-                    _timer.Enabled = true;
                     _toolStripButtonPlay.Enabled = false;
                     _toolStripButtonPause.Enabled = true;
+                    _toolStripButtonStop.Enabled = true;
                     break;
 
                 case PlaybackState.Paused:
-                case PlaybackState.Stopped:
-                    _timer.Enabled = false;
                     _toolStripButtonPlay.Enabled = true;
                     _toolStripButtonPause.Enabled = false;
+                    _toolStripButtonStop.Enabled = true;
                     break;
 
+                case PlaybackState.Stopped:
+                    _toolStripButtonPlay.Enabled = true;
+                    _toolStripButtonPause.Enabled = false;
+                    _toolStripButtonStop.Enabled = false;
+                    break;
             }
         }
 
@@ -228,15 +238,15 @@ namespace YtEzDL.UserControls
                 ExecuteAsync(Toggle);
             }
         }
-
+        
         public new void Dispose()
         {
             lock (_lock)
             {
+                _player.StreamRead -= PlayerStreamRead;
                 _player.PlaybackStopped -= PlaybackStopped;
                 _player.Dispose();
             }
-            _timer.Dispose();
             base.Dispose();
         }
         
@@ -261,6 +271,15 @@ namespace YtEzDL.UserControls
             if (_player.PlaybackState == PlaybackState.Playing)
             {
                 _player.Pause();
+                ExecuteAsync(Toggle);
+            }
+        }
+
+        private void toolStripButtonStop_Click(object sender, EventArgs e)
+        {
+            if (_player.PlaybackState == PlaybackState.Playing)
+            {
+                _player.Stop();
                 ExecuteAsync(Toggle);
             }
         }

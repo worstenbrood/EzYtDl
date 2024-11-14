@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Dynamic;
 using NAudio.Wave;
 using YtEzDL.DownLoad;
 using YtEzDL.Streams;
-using YtEzDL.Tools;
 
 namespace YtEzDL.Audio
 {
@@ -12,11 +12,11 @@ namespace YtEzDL.Audio
     /// </summary>
     public class AudioPlayer : IDisposable
     {
-        private const int Rate = 44100;
-        private const int Bits = 16;
-        private const int Channels = 2;
-        private static readonly WaveFormat Format = new WaveFormat(Rate, Bits, Channels);
-        private readonly WasapiOut _wasapiOut;
+        public const int Rate = 44100;
+        public const int Bits = 16;
+        public const int Channels = 2;
+        public static readonly WaveFormat Format = new WaveFormat(Rate, Bits, Channels);
+        private WasapiOut _wasapiOut;
         private FfMpegStream _ffMpegStream;
         private readonly object _lock = new object();
         private string _url;
@@ -27,6 +27,10 @@ namespace YtEzDL.Audio
             remove => _wasapiOut.PlaybackStopped -= value;
         }
 
+        public event ReadEventHandler StreamRead;
+
+        public event WriteEventHandler StreamWrite;
+        
         public AudioPlayer()
         {
             // Init device
@@ -41,14 +45,32 @@ namespace YtEzDL.Audio
         private static readonly string[] ExtraArguments = new[]
             { "-ar", Rate.ToString(), "-ac", Channels.ToString()};
 
+        private void CreateFfMpegStream(string url, TimeSpan position)
+        {
+            // Create ffmpeg stream
+            _ffMpegStream = new FfMpegStream(url, position, AudioFormat.S16Le, ExtraArguments);
+            _ffMpegStream.ReadEvent += StreamRead;
+            _ffMpegStream.WriteEvent += StreamWrite;
+        }
+
+        private void DestroyStream()
+        {
+            _ffMpegStream.ReadEvent -= StreamRead;
+            _ffMpegStream.WriteEvent -= StreamWrite;
+
+            // Dispose stream
+            _ffMpegStream.Dispose();
+            _ffMpegStream = null;
+        }
+
         public void Play(string url, TimeSpan position)
         {
             lock (_lock)
             {
                 if (_ffMpegStream == null)
                 {
-                    // Create ffmpeg stream
-                    _ffMpegStream = new FfMpegStream(url, position, AudioFormat.S16Le, ExtraArguments);
+                    // Create stream
+                    CreateFfMpegStream(url, position);
 
                     // Save url
                     _url = url;
@@ -65,10 +87,10 @@ namespace YtEzDL.Audio
                     _wasapiOut.Stop();
 
                     // Dispose stream
-                    _ffMpegStream.Dispose();
+                    DestroyStream();
 
-                    // Create new stream
-                    _ffMpegStream = new FfMpegStream(url, position, AudioFormat.S16Le, ExtraArguments);
+                    // Create stream
+                    CreateFfMpegStream(url, position);
 
                     // Save url
                     _url = url;
@@ -94,7 +116,7 @@ namespace YtEzDL.Audio
                 if (_ffMpegStream == null)
                 {
                     // Create ffmpeg stream
-                    _ffMpegStream = new FfMpegStream(_url, position, AudioFormat.S16Le, ExtraArguments);
+                    CreateFfMpegStream(_url, position);
 
                     // Init stream
                     _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
@@ -122,27 +144,74 @@ namespace YtEzDL.Audio
             Play(TimeSpan.Zero);
         }
 
-        public void Pause() => _wasapiOut.Pause();
-        public void Resume() => _wasapiOut.Play();
+        public void Pause()
+        {
+            lock (_lock)
+            {
+                _wasapiOut.Pause();
+            }
+        }
+
+        public void Resume()
+        {
+            lock (_lock)
+            {
+                _wasapiOut.Play();
+            }
+        }
+
         public void Stop()
         {
             lock (_lock)
             {
-                _ffMpegStream.Dispose();
+                _wasapiOut.Stop();
+                DestroyStream();
                 _ffMpegStream = null;
+                _wasapiOut.Dispose();
+                _wasapiOut = new WasapiOut();
             }
-
-            _wasapiOut.Stop();
         }
 
-        public long Position => _wasapiOut.GetPosition();
-        public PlaybackState PlaybackState => _wasapiOut.PlaybackState;
+        public long Position
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _wasapiOut.GetPosition();
+                }
+            }
+        }
+
+        public PlaybackState PlaybackState
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _wasapiOut.PlaybackState;
+                }
+            }
+        }
+
         public float Volume
         {
-            get => _wasapiOut.Volume;
-            set => _wasapiOut.Volume = value;
+            get
+            {
+                lock (_lock)
+                {
+                    return _wasapiOut.Volume;
+                }
+            }
+            set
+            {
+                lock (_lock)
+                {
+                    _wasapiOut.Volume = value;
+                }
+            }
         }
-        
+
         public void Dispose()
         {
             _wasapiOut.Dispose();
