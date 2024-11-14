@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Dynamic;
 using NAudio.Wave;
 using YtEzDL.DownLoad;
 using YtEzDL.Streams;
@@ -127,14 +126,14 @@ namespace YtEzDL.Audio
                 else
                 {
                     // Pause
-                    Pause();
+                    _wasapiOut.Pause();
 
                     // Create new writer
                     _ffMpegStream.DisposeWriter();
                     _ffMpegStream.CreateWriter(_url, position);
 
                     // Resume
-                    Resume();
+                    _wasapiOut.Play();
                 }
             }
         }

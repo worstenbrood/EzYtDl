@@ -280,7 +280,7 @@ namespace YtEzDL.UserControls
             if (_player.PlaybackState == PlaybackState.Playing)
             {
                 _player.Stop();
-                Execute(Toggle);
+                // Toggle done by event
             }
         }
     }
