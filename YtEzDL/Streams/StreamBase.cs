@@ -35,17 +35,12 @@ namespace YtEzDL.Streams
         protected Stream BaseStream { get; set; }
         protected Process Process { get; set; }
 
-        private CancellationTokenSource _source;
+        private CancellationTokenSource _source = new CancellationTokenSource();
 
         protected CancellationTokenSource Source
         {
             get
             {
-                if (_source == null)
-                {
-                    return _source = new CancellationTokenSource();
-                }
-
                 if (!_source.IsCancellationRequested)
                 {
                     return _source;
@@ -68,43 +63,62 @@ namespace YtEzDL.Streams
             Process = process;
         }
 
+        private void ExecuteIfNotCancelled(Action action)
+        {
+            if (!_source.Token.IsCancellationRequested)
+            {
+                action.Invoke();
+            }
+        }
+
+        private T ExecuteIfNotCancelled<T>(Func<T> action, T fallback)
+        {
+            return !_source.Token.IsCancellationRequested ? action.Invoke() : fallback;
+        }
+
         public override void Flush()
         {
-            BaseStream.Flush();
+            ExecuteIfNotCancelled(() => BaseStream.Flush());
         }
 
         public override long Seek(long offset, SeekOrigin origin)
         {
-            return BaseStream.Seek(offset, origin);
+            return ExecuteIfNotCancelled(() => BaseStream.Seek(offset, origin), 0);
         }
 
         public override void SetLength(long value)
         {
-            BaseStream.SetLength(value);
+            ExecuteIfNotCancelled(() => BaseStream.SetLength(value));
         }
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            int bytesRead;
-            try
+            return ExecuteIfNotCancelled(() =>
             {
-                bytesRead = BaseStream.Read(buffer, offset, count);
-            }
-            catch (IOException)
-            {
-                bytesRead = 0;
-            }
-            
-            // Trigger event if any
-            ReadEvent?.Invoke(this, new ReadEventArgs(bytesRead));
-            return bytesRead;
+                int bytesRead;
+                try
+                {
+                    bytesRead = BaseStream.Read(buffer, offset, count);
+                }
+                catch (IOException)
+                {
+                    bytesRead = 0;
+                }
+
+                // Trigger event if any
+                ReadEvent?.Invoke(this, new ReadEventArgs(bytesRead));
+                return bytesRead;
+            }, 0);
         }
 
         public override void Write(byte[] buffer, int offset, int count)
         {
-            BaseStream.Write(buffer, offset, count);
-            // Trigger event if any
-            WriteEvent?.Invoke(this, new WriteEventArgs(count));
+            ExecuteIfNotCancelled(() =>
+            {
+                BaseStream.Write(buffer, offset, count);
+                // Trigger event if any
+                WriteEvent?.Invoke(this, new WriteEventArgs(count));
+            });
         }
 
         public override bool CanRead => BaseStream.CanRead;
