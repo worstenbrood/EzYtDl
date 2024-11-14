@@ -9,24 +9,6 @@ using YtEzDL.Utils;
 
 namespace YtEzDL.Console
 {
-    public class ConsoleProcessException : Exception
-    {
-        public int ExitCode;
-        public ConsoleProcessException(int exitCode, string msg) : base(msg)
-        {
-            ExitCode = exitCode;
-        }
-
-        public ConsoleProcessException(int exitCode) : this(exitCode, $"ExitCode({exitCode})")
-        {
-        }
-        
-        public ConsoleProcessException(int exitCode, string format, params object[] arg) : this(exitCode, string.Format(format, arg))
-        {
-            
-        }
-    }
-
     public delegate void StringOutput(string s);
     public delegate void CancelProcess(Process process);
 
