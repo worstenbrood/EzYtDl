@@ -10,6 +10,7 @@ namespace YtEzDL.DownLoad
         Flac,
         Mp3,
         M4A,
+        Mp4,
         Opus,
         Vorbis,
         Wav,
