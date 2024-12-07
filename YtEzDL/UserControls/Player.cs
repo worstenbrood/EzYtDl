@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Controls;
 using NAudio.Wave;
@@ -25,6 +26,7 @@ namespace YtEzDL.UserControls
             this._metroTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._metroTrackBar.BackColor = System.Drawing.SystemColors.MenuBar;
+            this._metroTrackBar.Enabled = false;
             this._metroTrackBar.Location = new System.Drawing.Point(3, 26);
             this._metroTrackBar.Name = "_metroTrackBar";
             this._metroTrackBar.Size = new System.Drawing.Size(552, 25);
@@ -137,6 +139,7 @@ namespace YtEzDL.UserControls
         protected override void OnLoad(EventArgs e)
         {
             Toggle();
+            _toolStripButtonPlay.Enabled = false;
             base.OnLoad(e);
         }
 
@@ -275,7 +278,7 @@ namespace YtEzDL.UserControls
         {
             if (_player.PlaybackState == PlaybackState.Playing)
             {
-                _player.Reset();
+                Task.Run(() => _player.Reset());
                 // Toggle done by event
             }
         }

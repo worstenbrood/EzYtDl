@@ -19,6 +19,7 @@ namespace YtEzDL.UserControls
     public partial class Track : MetroUserControl, IProgress
     {
         private readonly YoutubeDownload _youtubeDl = new YoutubeDownload();
+        private volatile Image _thumbnail;
 
         private readonly Configuration _configuration = new Configuration
         {
@@ -43,7 +44,7 @@ namespace YtEzDL.UserControls
 
         public delegate void ClickedEventHandler(object o, EventArgs args);
 
-        public event ClickedEventHandler Clicked;
+        public event ClickedEventHandler Play;
 
         public Track()
         {
@@ -129,7 +130,7 @@ namespace YtEzDL.UserControls
             var thumbnail = FetchThumbNail();
             if (thumbnail != null)
             {
-                SetProperty(c => pictureBox.Image = thumbnail);
+                SetProperty(c => _thumbnail = pictureBox.Image = thumbnail);
             }
         }
 
@@ -304,7 +305,7 @@ namespace YtEzDL.UserControls
 
         private void Track_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button.HasFlag(MouseButtons.Left))
+            if (e.Button.HasFlag(MouseButtons.Left) && pictureBox.Image != null)
             {
                 ToggleTrack();
             }
@@ -389,7 +390,23 @@ namespace YtEzDL.UserControls
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
-            Clicked?.Invoke(this, e);
+            if (pictureBox.Image == null)
+            {
+                Play?.Invoke(this, e);
+            }
+        }
+        
+        private void pictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBox.Image = null;
+        }
+
+        private void pictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            if (_thumbnail != null)
+            {
+                pictureBox.Image = _thumbnail;
+            }
         }
     }
 }

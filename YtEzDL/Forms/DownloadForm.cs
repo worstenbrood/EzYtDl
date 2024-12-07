@@ -194,14 +194,14 @@ namespace YtEzDL.Forms
                 SetTrackWidth(track);
                 FilterTrack(track, toolStripTextBoxSearch.Text);
                 track.Toggle += track_OnToggle; 
-                track.Clicked += TrackOnClicked;
+                track.Play += TrackOnPlay;
                 flowLayoutPanel.Controls.Add(track);
                 track.SelectTrack(Configuration.Default.LayoutSettings.AutoSelect);
                 _ids.Add(trackData.Id);
             });
         }
 
-        private void TrackOnClicked(object o, EventArgs args)
+        private void TrackOnPlay(object o, EventArgs args)
         {
             var track = (Track)o;
             player.Play(track.TrackData);
