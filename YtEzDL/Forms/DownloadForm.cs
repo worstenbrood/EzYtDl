@@ -194,7 +194,7 @@ namespace YtEzDL.Forms
                 SetTrackWidth(track);
                 FilterTrack(track, toolStripTextBoxSearch.Text);
                 track.Toggle += track_OnToggle; 
-                track.Play += TrackOnPlay;
+                track.Play += (o, args) => Task.Run(() => TrackOnPlay(o, args));
                 flowLayoutPanel.Controls.Add(track);
                 track.SelectTrack(Configuration.Default.LayoutSettings.AutoSelect);
                 _ids.Add(trackData.Id);
@@ -282,10 +282,9 @@ namespace YtEzDL.Forms
             Task.Run(LoadData);
         }
 
-        protected override void OnClosing(CancelEventArgs e)
+        protected override void OnClosed(EventArgs e)
         {
             player.Dispose();
-            base.OnClosing(e);
         }
         
         private string GetPath()
