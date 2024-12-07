@@ -194,10 +194,17 @@ namespace YtEzDL.Forms
                 SetTrackWidth(track);
                 FilterTrack(track, toolStripTextBoxSearch.Text);
                 track.Toggle += track_OnToggle; 
+                track.Clicked += TrackOnClicked;
                 flowLayoutPanel.Controls.Add(track);
                 track.SelectTrack(Configuration.Default.LayoutSettings.AutoSelect);
                 _ids.Add(trackData.Id);
             });
+        }
+
+        private void TrackOnClicked(object o, EventArgs args)
+        {
+            var track = (Track)o;
+            player.Play(track.TrackData);
         }
 
         private static string SafeString(string str)
@@ -260,8 +267,6 @@ namespace YtEzDL.Forms
                     toolStripButtonCancel.Enabled = false;
                     metroProgressSpinner.Enabled = metroProgressSpinner.Visible = false;
                     Invalidate(ClientRectangle, false);
-
-                    player.Play(Tracks.First().TrackData);
                 });
             }
         }

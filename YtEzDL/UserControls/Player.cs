@@ -215,6 +215,7 @@ namespace YtEzDL.UserControls
                 _player.Play(_currentTrack.WebpageUrl);
                 Execute(() =>
                 {
+                    _metroTrackBar.Value = 0;
                     _metroTrackBar.Maximum = (int)_currentTrack.Duration;
                     _toolStripLabel.Text = $"{_currentTrack.Title} ({TimeSpan.FromSeconds(_currentTrack.Duration):h\\:mm\\:ss})";
                     Toggle();

@@ -40,7 +40,11 @@ namespace YtEzDL.UserControls
         /// Json returned from yt-dlp
         /// </summary>
         public TrackData TrackData { get; }
-        
+
+        public delegate void ClickedEventHandler(object o, EventArgs args);
+
+        public event ClickedEventHandler Clicked;
+
         public Track()
         {
             InitializeComponent();
@@ -381,6 +385,11 @@ namespace YtEzDL.UserControls
         private void ControlResize(object sender, EventArgs e)
         {
             //metroTabControl.Width = Width - 25;
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            Clicked?.Invoke(this, e);
         }
     }
 }

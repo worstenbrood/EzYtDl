@@ -104,6 +104,7 @@
             this.pictureBox.Size = new System.Drawing.Size(284, 138);
             this.pictureBox.TabIndex = 11;
             this.pictureBox.TabStop = false;
+            this.pictureBox.DoubleClick += new System.EventHandler(this.pictureBox_Click);
             this.pictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);
             // 
             // textBoxTitle
