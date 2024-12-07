@@ -344,7 +344,7 @@
             this.player.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.player.Location = new System.Drawing.Point(9, 382);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(872, 62);
+            this.player.Size = new System.Drawing.Size(891, 62);
             this.player.TabIndex = 17;
             this.player.UseCustomBackColor = true;
             this.player.UseSelectable = true;

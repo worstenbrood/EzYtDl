@@ -169,6 +169,7 @@ namespace YtEzDL.UserControls
                 _metroTrackBar.Value = 0;
                 _bytesRead = 0;
                 Toggle();
+                _player.Reset();
             });
         }
 
@@ -273,7 +274,7 @@ namespace YtEzDL.UserControls
         {
             if (_player.PlaybackState == PlaybackState.Playing)
             {
-                _player.Stop();
+                _player.Reset();
                 // Toggle done by event
             }
         }
