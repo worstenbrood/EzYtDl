@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using MetroFramework;
 using MetroFramework.Forms;
@@ -194,7 +193,7 @@ namespace YtEzDL.Forms
                 SetTrackWidth(track);
                 FilterTrack(track, toolStripTextBoxSearch.Text);
                 track.Toggle += track_OnToggle; 
-                track.Play += (o, args) => Task.Run(() => TrackOnPlay(o, args));
+                track.Play += TrackOnPlay;
                 flowLayoutPanel.Controls.Add(track);
                 track.SelectTrack(Configuration.Default.LayoutSettings.AutoSelect);
                 _ids.Add(trackData.Id);

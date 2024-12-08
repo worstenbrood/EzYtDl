@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using YtEzDL.DownLoad;
 using YtEzDL.Tools;
-using YtEzDL.Utils;
 
 namespace YtEzDL.Streams
 {

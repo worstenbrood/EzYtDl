@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Controls;
 using NAudio.Wave;
@@ -172,7 +171,6 @@ namespace YtEzDL.UserControls
                 _metroTrackBar.Value = 0;
                 _bytesRead = 0;
                 Toggle();
-                _player.Reset();
             });
         }
 
@@ -278,7 +276,7 @@ namespace YtEzDL.UserControls
         {
             if (_player.PlaybackState == PlaybackState.Playing)
             {
-                Task.Run(() => _player.Reset());
+                _player.Reset();
                 // Toggle done by event
             }
         }
