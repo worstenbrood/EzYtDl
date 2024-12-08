@@ -67,12 +67,20 @@ namespace YtEzDL.Audio
             _wasapiOut.PlaybackStopped += PlaybackStopped;
         }
 
-        private void DestroyWasapiOut()
+        private void DestroyWasapiOut(bool triggerEvent = true)
         {
              if (_wasapiOut != null)
              {
-                 _wasapiOut.Dispose();
-                 _wasapiOut.PlaybackStopped -= PlaybackStopped;
+                 if (triggerEvent)
+                 { 
+                     _wasapiOut.Dispose();
+                     _wasapiOut.PlaybackStopped -= PlaybackStopped;
+                 }
+                 else
+                 {
+                     _wasapiOut.PlaybackStopped -= PlaybackStopped;
+                     _wasapiOut.Dispose();
+                 }
                  _wasapiOut = null;
              }
         }
@@ -146,12 +154,12 @@ namespace YtEzDL.Audio
             }
         }
 
-        public void Reset()
+        public void Reset(bool triggerEvent = true)
         {
             lock (_lock)
             {
                 DestroyStream();
-                DestroyWasapiOut();
+                DestroyWasapiOut(triggerEvent);
             }
         }
 
@@ -197,7 +205,7 @@ namespace YtEzDL.Audio
 
         public void Dispose()
         {
-            Reset();
+            Reset(false);
         }
     }
 }

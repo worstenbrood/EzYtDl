@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using MetroFramework;
 using MetroFramework.Forms;
@@ -280,11 +281,7 @@ namespace YtEzDL.Forms
             // Load data
             Task.Run(LoadData);
         }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            player.Dispose();
-        }
+        
         
         private string GetPath()
         {
@@ -400,6 +397,10 @@ namespace YtEzDL.Forms
         private void DownloadForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning || Tracks.Any(t => t.DownLoading);
+            if (!e.Cancel)
+            {
+                player.Dispose();
+            }
         }
 
         private void toolStripButtonNone_Click(object sender, EventArgs e)
