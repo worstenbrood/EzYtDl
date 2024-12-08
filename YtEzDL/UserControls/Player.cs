@@ -166,12 +166,19 @@ namespace YtEzDL.UserControls
 
         private void PlaybackStopped(object sender, StoppedEventArgs e)
         {
-            Execute(() =>
+            try
             {
-                _metroTrackBar.Value = 0;
-                _bytesRead = 0;
-                Toggle();
-            });
+                Execute(() =>
+                {
+                    _metroTrackBar.Value = 0;
+                    _bytesRead = 0;
+                    Toggle();
+                });
+            }
+            catch (Exception)
+            {
+                //  Ignore
+            }
         }
 
         public Player()

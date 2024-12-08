@@ -399,7 +399,7 @@ namespace YtEzDL.Forms
             e.Cancel = e.CloseReason == CloseReason.WindowsShutDown || _youtubeDl.IsRunning || Tracks.Any(t => t.DownLoading);
             if (!e.Cancel)
             {
-                player.Dispose();
+               player.Dispose();
             }
         }
 
