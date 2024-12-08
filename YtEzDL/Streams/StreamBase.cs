@@ -63,37 +63,36 @@ namespace YtEzDL.Streams
             Process = process;
         }
 
-        private void ExecuteIfNotCancelled(Action action)
+        private void CheckForCancelled(Action action)
         {
-            if (!_source.Token.IsCancellationRequested)
-            {
-                action.Invoke();
-            }
+            _source.Token.ThrowIfCancellationRequested();
+            action.Invoke();
         }
 
-        private T ExecuteIfNotCancelled<T>(Func<T> action, T fallback)
+        private T CheckForCancelled<T>(Func<T> action)
         {
-            return !_source.Token.IsCancellationRequested ? action.Invoke() : fallback;
+            _source.Token.ThrowIfCancellationRequested();
+            return action.Invoke();
         }
 
         public override void Flush()
         {
-            ExecuteIfNotCancelled(() => BaseStream.Flush());
+            CheckForCancelled(() => BaseStream.Flush());
         }
 
         public override long Seek(long offset, SeekOrigin origin)
         {
-            return ExecuteIfNotCancelled(() => BaseStream.Seek(offset, origin), 0);
+            return CheckForCancelled(() => BaseStream.Seek(offset, origin));
         }
 
         public override void SetLength(long value)
         {
-            ExecuteIfNotCancelled(() => BaseStream.SetLength(value));
+            CheckForCancelled(() => BaseStream.SetLength(value));
         }
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            return ExecuteIfNotCancelled(() =>
+            return CheckForCancelled(() =>
             {
                 int bytesRead;
                 try
@@ -108,12 +107,12 @@ namespace YtEzDL.Streams
                 // Trigger event if any
                 ReadEvent?.Invoke(this, new ReadEventArgs(bytesRead));
                 return bytesRead;
-            }, 0);
+            });
         }
 
         public override void Write(byte[] buffer, int offset, int count)
         {
-            ExecuteIfNotCancelled(() =>
+            CheckForCancelled(() =>
             {
                 BaseStream.Write(buffer, offset, count);
                 // Trigger event if any
