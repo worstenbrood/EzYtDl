@@ -168,12 +168,15 @@ namespace YtEzDL.UserControls
         {
             try
             {
-                Execute(() =>
+                if (!IsDisposed)
                 {
-                    _metroTrackBar.Value = 0;
-                    _bytesRead = 0;
-                    Toggle();
-                });
+                    Execute(() =>
+                    {
+                        _metroTrackBar.Value = 0;
+                        _bytesRead = 0;
+                        Toggle();
+                    });
+                }
             }
             catch (Exception)
             {
