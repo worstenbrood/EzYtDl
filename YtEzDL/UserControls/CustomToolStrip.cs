@@ -9,6 +9,7 @@ namespace YtEzDL.UserControls
         {
             base.OnPaint(e);
 
+            // Disable shade
             using (var pen = new Pen(Color.White, 2))
             {
                 e.Graphics.DrawRectangle(pen, ClientRectangle);
