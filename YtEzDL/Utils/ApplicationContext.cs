@@ -55,7 +55,10 @@ namespace YtEzDL.Utils
             {
                 History.Default.Clear();
                 History.Default.Save();
-            });
+            })
+            {
+                Enabled = History.Default.Count > 0
+            };
         }
 
         private static ToolStripMenuItem SetupHistoryMenu()
