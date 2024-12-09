@@ -21,29 +21,25 @@ namespace YtEzDL.Config
         }
     }
 
-    public class LockedList<T> : List<T>
+    public class HistoryList : List<HistoryItem>
     {
-        public new void Add(T item)
+        public void Add(string title, string url)
         {
             lock (this)
             {
-                base.Add(item);
-            }
-        }
 
-        public new void Insert(int index, T item)
-        {
-            lock (this)
-            {
-                base.Insert(index, item);
-            }
-        }
+                var item = Find(i => i.Url == url);
+                if (item != null)
+                {
+                    Remove(item);
+                    item.Title = title;
+                }
+                else
+                {
+                    item = new HistoryItem(title, url);
+                }
 
-        public new void Remove(T item)
-        {
-            lock (this)
-            {
-                base.Remove(item);
+                Insert(0, item);
             }
         }
     }
@@ -53,7 +49,7 @@ namespace YtEzDL.Config
         // Config
 
         [JsonProperty(PropertyName = "items")]
-        public LockedList<HistoryItem> Items { get; set; } = new LockedList<HistoryItem>();
+        public HistoryList Items { get; set; } = new HistoryList();
 
         private const string DefaultFilename = "history.json";
 

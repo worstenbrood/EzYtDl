@@ -79,6 +79,7 @@ namespace YtEzDL.Utils
                             var url = new Uri(historyItem.Url);
                             Task.Run(() => ShowDownLoadForm(url));
                         };
+                        toolStripMenuItem.ToolTipText = i.Url;
                         return toolStripMenuItem;
                     })
                     .Cast<ToolStripItem>()
