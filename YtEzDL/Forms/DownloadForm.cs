@@ -262,6 +262,10 @@ namespace YtEzDL.Forms
                             return;
                     }
 
+                    // Add to history
+                    History.Default.Add(Text, _url.ToString());
+                    History.Default.Save();
+                    
                     dropDownButtonSort.Enabled = true;
                     toolStripButtonDownload.Enabled = true;
                     toolStripButtonCancel.Enabled = false;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using YtEzDL.DownLoad;
@@ -48,6 +49,45 @@ namespace YtEzDL.Utils
            RunYtDlp(() => YoutubeDownload.Instance.Run(DownLoadParameters.New.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info)));
         }
 
+        private ToolStripMenuItem SetupHistoryMenu()
+        {
+            var historyMenu = new ToolStripMenuItem
+            {
+                Text = Resources.History,
+            };
+            historyMenu.DropDownItems.Add(new ToolStripMenuItem("None") { Enabled = false });
+            historyMenu.DropDownOpening += (o, e) =>
+            {
+                historyMenu.DropDownItems.Clear();
+                historyMenu.DropDownItems.AddRange(History.Default.Items
+                    .Select(i =>
+                    {
+                        var toolStripMenuItem = new ToolStripMenuItem(i.Title);
+                        toolStripMenuItem.Tag = i;
+                        toolStripMenuItem.Click += (sender, args) =>
+                        {
+                            if (!(sender is ToolStripMenuItem item))
+                            {
+                                return;
+                            }
+
+                            if (!(item.Tag is HistoryItem historyItem))
+                            {
+                                return;
+                            }
+
+                            var url = new Uri(historyItem.Url);
+                            Task.Run(() => ShowDownLoadForm(url));
+                        };
+                        return toolStripMenuItem;
+                    })
+                    .Cast<ToolStripItem>()
+                    .ToArray());
+            };
+
+            return historyMenu;
+        }
+
         private MetroContextMenu SetupContextMenu(IContainer container)
         {
             var contextMenu = new MetroContextMenu(container);
@@ -55,12 +95,9 @@ namespace YtEzDL.Utils
             {
                 Text = Resources.ContextCaptureClipboard,
                 Checked = Configuration.Default.ApplicationSettings.CaptureClipboard,
+                CheckOnClick = true
             };
-            captureClipboard.Click += (o, e) =>
-            {
-                // Change checked status
-                captureClipboard.Checked = !captureClipboard.Checked;
-            };
+           
             captureClipboard.CheckedChanged += (o, e) =>
             {
                 // Change and save config
@@ -74,6 +111,7 @@ namespace YtEzDL.Utils
             contextMenu.Items[0].Enabled = false;
             contextMenu.Items.Add("-");
             contextMenu.Items.Add(captureClipboard);
+            contextMenu.Items.Add(SetupHistoryMenu());
             contextMenu.Items.Add(Resources.ContextAbout, null, (sender, args) => FormTools.ShowFormDialog<Forms.About>());
             contextMenu.Items.Add(Resources.ContextSettings, null, (sender, args) => FormTools.ShowFormDialog<Forms.Settings>());
             contextMenu.Items.Add(Resources.ContextClearCache, null, (sender, args) => ClearCache());

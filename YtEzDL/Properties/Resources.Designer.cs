@@ -160,6 +160,15 @@ namespace YtEzDL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to History.
+        /// </summary>
+        internal static string History {
+            get {
+                return ResourceManager.GetString("History", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://github.com/thielj/MetroFramework.
         /// </summary>
         internal static string MetroFrameworkUrl {

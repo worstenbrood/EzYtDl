@@ -7,7 +7,7 @@ using YtEzDL.Utils;
 
 namespace YtEzDL.Config
 {
-    public class ConfigurationFile
+    public class JsonFile
     {
         private readonly string _filename;
         private readonly object _lock = new object();
@@ -20,15 +20,15 @@ namespace YtEzDL.Config
             Converters = { new StringEnumConverter() }
         };
 
-        public ConfigurationFile() : this(null, false)
+        public JsonFile() : this(null, false)
         {
         }
 
-        public ConfigurationFile(string filename, string subfolder) : this(filename, true, subfolder)
+        public JsonFile(string filename, string subfolder) : this(filename, true, subfolder)
         {
         }
 
-        public ConfigurationFile(string filename, bool load = true, string subfolder = null)
+        public JsonFile(string filename, bool load = true, string subfolder = null)
         {
             if (string.IsNullOrEmpty(filename))
             {

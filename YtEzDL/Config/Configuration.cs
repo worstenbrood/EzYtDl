@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using YtEzDL.Utils;
 using YtEzDL.Config.Settings;
 
 namespace YtEzDL.Config
 {
-    public class Configuration : ConfigurationFile
+    public class Configuration : JsonFile
     {
         // Config
 
@@ -26,19 +27,11 @@ namespace YtEzDL.Config
         // Logic
 
         private const string DefaultFilename = "ezytdl.json";
-        private static readonly object Lock = new object();
-        private static Configuration _configuration;
+        
+        private static readonly Lazy<Configuration> Lazy = new Lazy<Configuration>
+            (() => new Configuration(DefaultFilename, CommonTools.ApplicationName));
 
-        public static Configuration Default
-        {
-            get
-            {
-                lock (Lock)
-                {
-                    return _configuration ?? (_configuration = new Configuration(DefaultFilename, CommonTools.ApplicationName));
-                }
-            }
-        }
+        public static Configuration Default => Lazy.Value;
 
         public Configuration()
         {

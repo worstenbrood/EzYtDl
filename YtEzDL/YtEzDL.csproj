@@ -126,7 +126,7 @@
     <Compile Include="Config\Settings\AdvancedSettings.cs" />
     <Compile Include="Config\Settings\ApplicationSettings.cs" />
     <Compile Include="Config\Configuration.cs" />
-    <Compile Include="Config\ConfigurationFile.cs" />
+    <Compile Include="Config\JsonFile.cs" />
     <Compile Include="Config\Settings\DownloadSettings.cs" />
     <Compile Include="Config\Settings\FileSettings.cs" />
     <Compile Include="Config\Settings\LayoutSettings.cs" />
@@ -145,6 +145,7 @@
     <None Include="Build\PostBuild.cmd" />
     <None Include="Build\PreBuild.cmd" />
     <None Include="Properties\AssemblyInfo.Template.cs" />
+    <Compile Include="Config\History.cs" />
     <Compile Include="Interfaces\ITool.cs" />
     <Compile Include="Tools\FfPlay.cs" />
     <Compile Include="Tools\FfMpeg.cs" />
