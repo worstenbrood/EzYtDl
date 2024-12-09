@@ -64,18 +64,7 @@ namespace YtEzDL.Config
 
         public void Add(string title, string url)
         {
-            var item = Items.FirstOrDefault(i => i.Url == url);
-            if (item != null)
-            {
-                Items.Remove(item);
-                item.Title = title;
-            }
-            else
-            {
-                item = new HistoryItem(title, url);
-            }
-
-            Items.Insert(0, item);
+            Items.Add(title, url);
         }
     }
 }

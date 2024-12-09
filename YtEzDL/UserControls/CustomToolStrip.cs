@@ -12,7 +12,7 @@ namespace YtEzDL.UserControls
             // Disable shade
             using (var pen = new Pen(Color.White, 2))
             {
-                e.Graphics.DrawRectangle(pen, ClientRectangle);
+                e.Graphics.DrawLine(pen, ClientRectangle.X + Width - 1, ClientRectangle.Y, ClientRectangle.X + Width, ClientRectangle.Y + Height);
             }
         }
     }

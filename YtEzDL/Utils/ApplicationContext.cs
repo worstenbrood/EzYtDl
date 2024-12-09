@@ -63,6 +63,7 @@ namespace YtEzDL.Utils
                     .Select(i =>
                     {
                         var toolStripMenuItem = new ToolStripMenuItem(i.Title);
+                        toolStripMenuItem.ToolTipText = i.Url;
                         toolStripMenuItem.Tag = i;
                         toolStripMenuItem.Click += (sender, args) =>
                         {
@@ -79,7 +80,6 @@ namespace YtEzDL.Utils
                             var url = new Uri(historyItem.Url);
                             Task.Run(() => ShowDownLoadForm(url));
                         };
-                        toolStripMenuItem.ToolTipText = i.Url;
                         return toolStripMenuItem;
                     })
                     .Cast<ToolStripItem>()

@@ -285,8 +285,13 @@ namespace YtEzDL.Forms
             // Load data
             Task.Run(LoadData);
         }
-        
-        
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            base.OnMouseEnter(e);
+            Focus();
+        }
+
         private string GetPath()
         {
             var path = Configuration.Default.FileSettings.Path;
