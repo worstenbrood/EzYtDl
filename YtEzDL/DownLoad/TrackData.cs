@@ -19,6 +19,9 @@ namespace YtEzDL.DownLoad
         [JsonProperty(PropertyName = "playlist")]
         public string Playlist { get; set; }
 
+        [JsonProperty(PropertyName = "playlist_id")]
+        public string PlaylistId { get; set; }
+
         [JsonProperty(PropertyName = "duration")]
         public double Duration { get; set; }
 

@@ -212,6 +212,57 @@ namespace YtEzDL.Forms
             return str.Replace("&", "&&");
         }
 
+        private void PostLoadData(Form form)
+        {
+            var count = Tracks.Count();
+
+            if (count >= 1)
+            {
+                var firstTrack = Tracks.First();
+
+                // Single track
+                if (count == 1)
+                {
+                    Text = SafeString(string.Format(Resources.Track, Tracks.First().TrackData.Title,
+                        Tracks.First().TrackData.WebpageUrlDomain));
+
+                    // Disable tools
+                    toolStripButtonAll.Enabled = false;
+                    toolStripButtonNone.Enabled = false;
+                    toolStripButtonToggle.Enabled = false;
+                    toolStripTextBoxSearch.Enabled = false;
+                    toolStripButtonReset.Enabled = false;
+                    dropDownButtonSort.Enabled = false;
+
+                    // Add to history
+                    History.Default.Add(Text, _url.ToString(), firstTrack.TrackData.Id);
+                }
+                // Playlist
+                else
+                {
+                    Text = SafeString(string.Format(Resources.Playlist, firstTrack.TrackData.Playlist,
+                        firstTrack.TrackData.WebpageUrlDomain));
+
+                    // Add to history
+                    History.Default.Add(Text, _url.ToString(), firstTrack.TrackData.PlaylistId);
+                }
+
+                // Save history
+                History.Default.Save();
+            }
+            else
+            {
+                Close();
+                return;
+            }
+
+            dropDownButtonSort.Enabled = true;
+            toolStripButtonDownload.Enabled = true;
+            toolStripButtonCancel.Enabled = false;
+            metroProgressSpinner.Enabled = metroProgressSpinner.Visible = false;
+            Invalidate(ClientRectangle, false);
+        }
+
         private void LoadData()
         {
             try
@@ -232,46 +283,12 @@ namespace YtEzDL.Forms
             }
             catch (Exception exception)
             {
-                Execute(f => MetroMessageBox.Show(this, exception.Message, Resources.SystemException, MessageBoxButtons.OK, MessageBoxIcon.Error));
+                Execute(f => MetroMessageBox.Show(this, exception.Message, Resources.SystemException,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error));
             }
             finally
             {
-                ExecuteAsync(f =>
-                {
-                    var count = Tracks.Count();
-
-                    if (count > 1)
-                    {
-                        Text = SafeString(string.Format(Resources.Playlist, Tracks.First().TrackData.Playlist,
-                            Tracks.First().TrackData.WebpageUrlDomain));
-                    }
-                    else switch (count)
-                    {
-                        case 1:
-                            Text = SafeString(string.Format(Resources.Track, Tracks.First().TrackData.Title, 
-                                Tracks.First().TrackData.WebpageUrlDomain));
-                            toolStripButtonAll.Enabled = false;
-                            toolStripButtonNone.Enabled = false;
-                            toolStripButtonToggle.Enabled = false;
-                            toolStripTextBoxSearch.Enabled = false;
-                            toolStripButtonReset.Enabled = false;
-                            dropDownButtonSort.Enabled = false;
-                            break;
-                        case 0:
-                            Close();
-                            return;
-                    }
-
-                    // Add to history
-                    History.Default.Add(Text, _url.ToString());
-                    History.Default.Save();
-                    
-                    dropDownButtonSort.Enabled = true;
-                    toolStripButtonDownload.Enabled = true;
-                    toolStripButtonCancel.Enabled = false;
-                    metroProgressSpinner.Enabled = metroProgressSpinner.Visible = false;
-                    Invalidate(ClientRectangle, false);
-                });
+                ExecuteAsync(PostLoadData);
             }
         }
 

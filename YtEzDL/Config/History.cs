@@ -11,31 +11,36 @@ namespace YtEzDL.Config
         public string Title;
 
         [JsonProperty(PropertyName = "url")] 
-        public string Url { get; }
+        public string Url;
         
-        public HistoryItem(string title, string url)
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; }
+
+        public HistoryItem(string title, string url, string id)
         {
             Title = title;
             Url = url;
+            Id = id;
         }
     }
 
     public class HistoryList : List<HistoryItem>
     {
-        public void Add(string title, string url)
+        public void Add(string title, string url, string id)
         {
             lock (this)
             {
 
-                var item = Find(i => i.Url == url);
+                var item = Find(i => i.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
                 if (item != null)
                 {
                     Remove(item);
+                    item.Url = url;
                     item.Title = title;
                 }
                 else
                 {
-                    item = new HistoryItem(title, url);
+                    item = new HistoryItem(title, url, id);
                 }
 
                 Insert(0, item);
@@ -81,9 +86,9 @@ namespace YtEzDL.Config
         {
         }
 
-        public void Add(string title, string url)
+        public void Add(string title, string url, string id)
         {
-            Items.Add(title, url);
+            Items.Add(title, url, id);
         }
 
         public void Clear()
@@ -91,6 +96,7 @@ namespace YtEzDL.Config
             Items.Clear();
         }
 
+        [JsonProperty(PropertyName = "count")]
         public int Count => Items.Count;
     }
 }
