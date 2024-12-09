@@ -150,6 +150,9 @@
     <Compile Include="Tools\FfMpeg.cs" />
     <Compile Include="Streams\FfMpegStream.cs" />
     <Compile Include="Streams\FfPlayStream.cs" />
+    <Compile Include="UserControls\CustomToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UserControls\Player.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -12,7 +12,7 @@ namespace YtEzDL.UserControls
         private void InitializeComponent()
         {
             this._metroTrackBar = new MetroFramework.Controls.MetroTrackBar();
-            this._toolStrip = new System.Windows.Forms.ToolStrip();
+            this._toolStrip = new YtEzDL.UserControls.CustomToolStrip();
             this._toolStripButtonPlay = new System.Windows.Forms.ToolStripButton();
             this._toolStripButtonPause = new System.Windows.Forms.ToolStripButton();
             this._toolStripButtonStop = new System.Windows.Forms.ToolStripButton();
@@ -127,7 +127,7 @@ namespace YtEzDL.UserControls
         private readonly object _lock = new object();
         private MetroTrackBar _metroTrackBar;
         private TrackData _currentTrack;
-        private ToolStrip _toolStrip;
+        private CustomToolStrip _toolStrip;
         private ToolStripButton _toolStripButtonPlay;
         private ToolStripButton _toolStripButtonPause;
         private ToolStripLabel _toolStripLabel;

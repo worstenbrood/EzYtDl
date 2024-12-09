@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadForm));
-            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStrip = new YtEzDL.UserControls.CustomToolStrip();
             this.toolStripButtonNone = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonToggle = new System.Windows.Forms.ToolStripButton();
@@ -384,7 +384,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonNone;
         private System.Windows.Forms.ToolStripButton toolStripButtonAll;
         private System.Windows.Forms.ToolStripButton toolStripButtonToggle;
-        private System.Windows.Forms.ToolStrip toolStrip;
+        private YtEzDL.UserControls.CustomToolStrip toolStrip;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxSearch;
         private System.Windows.Forms.ToolStripButton toolStripButtonReset;
         private System.Windows.Forms.ToolStripButton toolStripButtonDownload;
