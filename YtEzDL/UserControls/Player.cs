@@ -64,6 +64,7 @@ namespace YtEzDL.UserControls
             this._toolStripButtonPlay.AutoSize = false;
             this._toolStripButtonPlay.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this._toolStripButtonPlay.Image = global::YtEzDL.Properties.Resources.Play;
+            this._toolStripButtonPlay.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this._toolStripButtonPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripButtonPlay.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this._toolStripButtonPlay.Name = "_toolStripButtonPlay";
@@ -77,6 +78,7 @@ namespace YtEzDL.UserControls
             this._toolStripButtonPause.AutoSize = false;
             this._toolStripButtonPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this._toolStripButtonPause.Image = global::YtEzDL.Properties.Resources.Pause;
+            this._toolStripButtonPause.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this._toolStripButtonPause.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripButtonPause.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this._toolStripButtonPause.Name = "_toolStripButtonPause";
@@ -90,6 +92,7 @@ namespace YtEzDL.UserControls
             this._toolStripButtonStop.AutoSize = false;
             this._toolStripButtonStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this._toolStripButtonStop.Image = global::YtEzDL.Properties.Resources.Stop;
+            this._toolStripButtonStop.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this._toolStripButtonStop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._toolStripButtonStop.Name = "_toolStripButtonStop";
             this._toolStripButtonStop.Size = new System.Drawing.Size(24, 24);
