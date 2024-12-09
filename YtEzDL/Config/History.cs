@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using YtEzDL.Utils;
@@ -42,7 +41,27 @@ namespace YtEzDL.Config
                 Insert(0, item);
             }
         }
+
+        public new void Clear()
+        {
+            lock (this)
+            {
+                base.Clear();
+            }
+        }
+
+        public new int Count
+        {
+            get
+            {
+                lock (this)
+                {
+                    return base.Count;
+                }
+            }
+        }
     }
+
 
     public class History : JsonFile
     {
@@ -66,5 +85,12 @@ namespace YtEzDL.Config
         {
             Items.Add(title, url);
         }
+
+        public void Clear()
+        {
+            Items.Clear();
+        }
+
+        public int Count => Items.Count;
     }
 }

@@ -49,34 +49,47 @@ namespace YtEzDL.Utils
            RunYtDlp(() => YoutubeDownload.Instance.Run(DownLoadParameters.New.RemoveCache(), t => _notifyIcon.ShowBalloonTip(2000, "yt-dlp", t, ToolTipIcon.Info)));
         }
 
-        private ToolStripMenuItem SetupHistoryMenu()
+        private static ToolStripMenuItem SetupClearHistory()
+        {
+            return new ToolStripMenuItem("Clear history", null, (o, args) =>
+            {
+                History.Default.Clear();
+                History.Default.Save();
+            });
+        }
+
+        private static ToolStripMenuItem SetupHistoryMenu()
         {
             var historyMenu = new ToolStripMenuItem
             {
                 Text = Resources.History,
             };
-            historyMenu.DropDownItems.Add(new ToolStripMenuItem("None") { Enabled = false });
+
+            // Clear history
+            historyMenu.DropDownItems.Add(SetupClearHistory());
+
+            // Rebuild menu on dropdown opening
             historyMenu.DropDownOpening += (o, e) =>
             {
                 historyMenu.DropDownItems.Clear();
+                
+                // Clear history
+                historyMenu.DropDownItems.Add(SetupClearHistory());
+
+                if (History.Default.Count > 0)
+                {
+                    // Spacer
+                    historyMenu.DropDownItems.Add("-");
+                }
+
+                // Items
                 historyMenu.DropDownItems.AddRange(History.Default.Items
-                    .Select(i =>
+                    .Select(historyItem =>
                     {
-                        var toolStripMenuItem = new ToolStripMenuItem(i.Title);
-                        toolStripMenuItem.ToolTipText = i.Url;
-                        toolStripMenuItem.Tag = i;
+                        var toolStripMenuItem = new ToolStripMenuItem(historyItem.Title);
+                        toolStripMenuItem.ToolTipText = historyItem.Url;
                         toolStripMenuItem.Click += (sender, args) =>
                         {
-                            if (!(sender is ToolStripMenuItem item))
-                            {
-                                return;
-                            }
-
-                            if (!(item.Tag is HistoryItem historyItem))
-                            {
-                                return;
-                            }
-
                             var url = new Uri(historyItem.Url);
                             Task.Run(() => ShowDownLoadForm(url));
                         };
