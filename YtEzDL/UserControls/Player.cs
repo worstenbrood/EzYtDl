@@ -29,9 +29,9 @@ namespace YtEzDL.UserControls
             | System.Windows.Forms.AnchorStyles.Right)));
             this._metroTrackBar.BackColor = System.Drawing.SystemColors.MenuBar;
             this._metroTrackBar.Enabled = false;
-            this._metroTrackBar.Location = new System.Drawing.Point(8, 37);
+            this._metroTrackBar.Location = new System.Drawing.Point(13, 39);
             this._metroTrackBar.Name = "_metroTrackBar";
-            this._metroTrackBar.Size = new System.Drawing.Size(536, 24);
+            this._metroTrackBar.Size = new System.Drawing.Size(518, 24);
             this._metroTrackBar.TabIndex = 0;
             this._metroTrackBar.Text = "Player";
             this._metroTrackBar.Value = 0;
@@ -55,7 +55,7 @@ namespace YtEzDL.UserControls
             this._toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this._toolStrip.Location = new System.Drawing.Point(8, 8);
             this._toolStrip.Name = "_toolStrip";
-            this._toolStrip.Size = new System.Drawing.Size(536, 26);
+            this._toolStrip.Size = new System.Drawing.Size(534, 26);
             this._toolStrip.Stretch = true;
             this._toolStrip.TabIndex = 3;
             // 
@@ -115,7 +115,7 @@ namespace YtEzDL.UserControls
             this.Controls.Add(this._toolStrip);
             this.Controls.Add(this._metroTrackBar);
             this.Name = "Player";
-            this.Size = new System.Drawing.Size(553, 71);
+            this.Size = new System.Drawing.Size(551, 72);
             this.UseCustomBackColor = true;
             this._toolStrip.ResumeLayout(false);
             this._toolStrip.PerformLayout();
@@ -293,7 +293,7 @@ namespace YtEzDL.UserControls
 
         private void toolStripButtonStop_Click(object sender, EventArgs e)
         {
-            if (_player.PlaybackState == PlaybackState.Playing)
+            if (_player.PlaybackState != PlaybackState.Stopped)
             {
                 _player.Reset();
                 // Toggle done by event

@@ -343,7 +343,7 @@
             this.player.BackColor = System.Drawing.Color.White;
             this.player.Location = new System.Drawing.Point(9, 382);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(891, 67);
+            this.player.Size = new System.Drawing.Size(872, 67);
             this.player.TabIndex = 17;
             this.player.UseCustomBackColor = true;
             this.player.UseSelectable = true;
