@@ -60,6 +60,7 @@ namespace YtEzDL.Forms
             this.comboBoxColorStyle = new MetroFramework.Controls.MetroComboBox();
             this.checkBoxYoutubeFastFetch = new MetroFramework.Controls.MetroCheckBox();
             this.tabPageApplication = new MetroFramework.Controls.MetroTabPage();
+            this.checkBoxHistory = new MetroFramework.Controls.MetroCheckBox();
             this.checkBoxAdvanced = new MetroFramework.Controls.MetroCheckBox();
             this.checkBoxAutostart = new MetroFramework.Controls.MetroCheckBox();
             this.tabPageAdvanced = new MetroFramework.Controls.MetroTabPage();
@@ -345,7 +346,7 @@ namespace YtEzDL.Forms
             this.tabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular;
             this.tabControl.Location = new System.Drawing.Point(23, 63);
             this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
+            this.tabControl.SelectedIndex = 3;
             this.tabControl.Size = new System.Drawing.Size(651, 260);
             this.tabControl.TabIndex = 20;
             this.tabControl.UseSelectable = true;
@@ -484,6 +485,7 @@ namespace YtEzDL.Forms
             // tabPageApplication
             // 
             this.tabPageApplication.BackColor = System.Drawing.Color.White;
+            this.tabPageApplication.Controls.Add(this.checkBoxHistory);
             this.tabPageApplication.Controls.Add(this.checkBoxAdvanced);
             this.tabPageApplication.Controls.Add(this.checkBoxAutostart);
             this.tabPageApplication.ForeColor = System.Drawing.Color.Black;
@@ -498,6 +500,17 @@ namespace YtEzDL.Forms
             this.tabPageApplication.VerticalScrollbarBarColor = true;
             this.tabPageApplication.VerticalScrollbarHighlightOnWheel = false;
             this.tabPageApplication.VerticalScrollbarSize = 10;
+            // 
+            // checkBoxHistory
+            // 
+            this.checkBoxHistory.AutoSize = true;
+            this.checkBoxHistory.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.checkBoxHistory.Location = new System.Drawing.Point(7, 75);
+            this.checkBoxHistory.Name = "checkBoxHistory";
+            this.checkBoxHistory.Size = new System.Drawing.Size(139, 25);
+            this.checkBoxHistory.TabIndex = 28;
+            this.checkBoxHistory.Text = "Enable history";
+            this.checkBoxHistory.UseSelectable = true;
             // 
             // checkBoxAdvanced
             // 
@@ -625,5 +638,6 @@ namespace YtEzDL.Forms
         private MetroFramework.Controls.MetroTabPage tabPageAdvanced;
         private MetroFramework.Controls.MetroLabel labelUpdateChannel;
         private MetroFramework.Controls.MetroComboBox comboBoxUpdateChannel;
+        private MetroFramework.Controls.MetroCheckBox checkBoxHistory;
     }
 }

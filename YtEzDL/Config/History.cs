@@ -88,7 +88,10 @@ namespace YtEzDL.Config
 
         public void Add(string title, string url, string id)
         {
-            Items.Add(title, url, id);
+            if (Configuration.Default.ApplicationSettings.EnableHistory)
+            {
+                Items.Add(title, url, id);
+            }
         }
 
         public void Clear()

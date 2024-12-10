@@ -55,6 +55,7 @@ namespace YtEzDL.Forms
             comboBoxSelectionWidth.AddRangeBinding(_configuration.LayoutSettings, p => p.SelectionWidth, 1, 10);
             comboBoxUpdateChannel.AddEnumBinding(_configuration.AdvancedSettings, p => p.UpdateChannel);
             checkBoxAdvanced.AddCheckedBinding(_configuration.ApplicationSettings, p => p.AdvancedSettings);
+            checkBoxHistory.AddCheckedBinding(_configuration.ApplicationSettings, p => p.EnableHistory);
 
             // Path selector
             textBoxPath.CustomButton.Click += (sender, args) =>

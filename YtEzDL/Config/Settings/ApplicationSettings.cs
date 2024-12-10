@@ -30,5 +30,14 @@ namespace YtEzDL.Config.Settings
             get => _captureClipboard;
             set => _captureClipboard = value;
         }
+
+        private volatile bool _enableHistory = true;
+
+        [JsonProperty(PropertyName = "enableHistory")]
+        public bool EnableHistory
+        {
+            get => _enableHistory;
+            set => _enableHistory = value;
+        }
     }
 }

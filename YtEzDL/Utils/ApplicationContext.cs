@@ -128,7 +128,12 @@ namespace YtEzDL.Utils
             contextMenu.Items[0].Enabled = false;
             contextMenu.Items.Add("-");
             contextMenu.Items.Add(captureClipboard);
-            contextMenu.Items.Add(SetupHistoryMenu());
+            
+            if (Configuration.Default.ApplicationSettings.EnableHistory)
+            {
+                contextMenu.Items.Add(SetupHistoryMenu());
+            }
+
             contextMenu.Items.Add(Resources.ContextAbout, null, (sender, args) => FormTools.ShowFormDialog<Forms.About>());
             contextMenu.Items.Add(Resources.ContextSettings, null, (sender, args) => FormTools.ShowFormDialog<Forms.Settings>());
             contextMenu.Items.Add(Resources.ContextClearCache, null, (sender, args) => ClearCache());
