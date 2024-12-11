@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using YtEzDL.DownLoad;
 using YtEzDL.Tools;
@@ -9,6 +10,7 @@ namespace YtEzDL.Streams
     {
         private readonly FfMpeg _mpeg = new FfMpeg();
         private Task _writer;
+        private CancellationTokenSource _source;
 
         public void CreateWriter(string url, TimeSpan position)
         {
@@ -46,15 +48,6 @@ namespace YtEzDL.Streams
         public void DisposeWriter()
         {
             Source.Cancel();
-           
-            if (_writer != null &&
-                (_writer.Status == TaskStatus.RanToCompletion ||
-                 _writer.Status == TaskStatus.Faulted ||
-                 _writer.Status == TaskStatus.Canceled))
-            {
-                _writer.Dispose();
-            }
-
             _writer = null;
         }
         

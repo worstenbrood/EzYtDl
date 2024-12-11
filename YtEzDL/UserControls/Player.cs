@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using MetroFramework.Controls;
@@ -28,7 +29,6 @@ namespace YtEzDL.UserControls
             this._metroTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._metroTrackBar.BackColor = System.Drawing.SystemColors.MenuBar;
-            this._metroTrackBar.Enabled = false;
             this._metroTrackBar.Location = new System.Drawing.Point(13, 39);
             this._metroTrackBar.Name = "_metroTrackBar";
             this._metroTrackBar.Size = new System.Drawing.Size(518, 24);
@@ -66,7 +66,7 @@ namespace YtEzDL.UserControls
             this._toolStripButtonPlay.Image = global::YtEzDL.Properties.Resources.Play;
             this._toolStripButtonPlay.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this._toolStripButtonPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._toolStripButtonPlay.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this._toolStripButtonPlay.Margin = new System.Windows.Forms.Padding(0, 1, 1, 2);
             this._toolStripButtonPlay.Name = "_toolStripButtonPlay";
             this._toolStripButtonPlay.Size = new System.Drawing.Size(24, 24);
             this._toolStripButtonPlay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -80,7 +80,7 @@ namespace YtEzDL.UserControls
             this._toolStripButtonPause.Image = global::YtEzDL.Properties.Resources.Pause;
             this._toolStripButtonPause.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this._toolStripButtonPause.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this._toolStripButtonPause.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this._toolStripButtonPause.Margin = new System.Windows.Forms.Padding(0, 1, 1, 2);
             this._toolStripButtonPause.Name = "_toolStripButtonPause";
             this._toolStripButtonPause.Size = new System.Drawing.Size(24, 24);
             this._toolStripButtonPause.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -94,6 +94,7 @@ namespace YtEzDL.UserControls
             this._toolStripButtonStop.Image = global::YtEzDL.Properties.Resources.Stop;
             this._toolStripButtonStop.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this._toolStripButtonStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this._toolStripButtonStop.Margin = new System.Windows.Forms.Padding(0, 1, 1, 2);
             this._toolStripButtonStop.Name = "_toolStripButtonStop";
             this._toolStripButtonStop.Size = new System.Drawing.Size(24, 24);
             this._toolStripButtonStop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -104,7 +105,7 @@ namespace YtEzDL.UserControls
             // 
             this._toolStripLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this._toolStripLabel.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._toolStripLabel.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this._toolStripLabel.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this._toolStripLabel.Name = "_toolStripLabel";
             this._toolStripLabel.Overflow = System.Windows.Forms.ToolStripItemOverflow.Always;
             this._toolStripLabel.Size = new System.Drawing.Size(0, 0);
@@ -128,9 +129,25 @@ namespace YtEzDL.UserControls
             _toolTip.SetToolTip(_metroTrackBar, $"Time: {TimeSpan.FromSeconds(_metroTrackBar.Value):h\\:mm\\:ss}");
         }
 
+        private int _trackPosition;
+
         private void MetroTrackBarOnScroll(object sender, ScrollEventArgs e)
         {
             _toolTip.SetToolTip(_metroTrackBar, $"Time: {TimeSpan.FromSeconds(e.NewValue):h\\:mm\\:ss}");
+            switch (e.Type)
+            {
+                case ScrollEventType.ThumbTrack:
+                    _trackPosition = e.NewValue;
+                    break;
+
+                case ScrollEventType.ThumbPosition:
+                    if (_trackPosition != e.NewValue)
+                    {
+                        _trackPosition = e.NewValue;
+                        Play(TimeSpan.FromSeconds(e.NewValue));
+                    }
+                    break;
+            }
         }
 
         private readonly object _lock = new object();
@@ -245,14 +262,21 @@ namespace YtEzDL.UserControls
 
         public void Play(TimeSpan position)
         {
-            _player.Play(position);
-            Execute(Toggle);
+            lock (_lock)
+            {
+                _bytesRead = 0;
+                _player.Play(position);
+                Execute(Toggle);
+            }
         }
 
         public void Pause()
         {
-            _player.Pause();
-            Execute(Toggle);
+            lock (_lock)
+            {
+                _player.Pause();
+                Execute(Toggle);
+            }
         }
         
         public new void Dispose()

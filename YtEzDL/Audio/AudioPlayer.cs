@@ -63,8 +63,11 @@ namespace YtEzDL.Audio
 
         private void CreateWasapiOut()
         {
-            _wasapiOut = new WasapiOut();
-            _wasapiOut.PlaybackStopped += PlaybackStopped;
+            if (_wasapiOut == null)
+            {
+                _wasapiOut = new WasapiOut();
+                _wasapiOut.PlaybackStopped += PlaybackStopped;
+            }
         }
 
         private void DestroyWasapiOut(bool triggerEvent = true)
@@ -110,7 +113,7 @@ namespace YtEzDL.Audio
             lock (_lock)
             {
                 CreateWasapiOut();
-
+                
                 if (_ffMpegStream == null)
                 {
                     // Create ffmpeg stream

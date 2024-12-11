@@ -213,7 +213,7 @@ namespace YtEzDL.Console
                     }
                     
                     // Close output
-                    outputStream.Close();
+                    //outputStream.Close();
 
                     // Close process nicely 
                     return await WaitAsync(process, error, null, cancellationToken, null, handleError);

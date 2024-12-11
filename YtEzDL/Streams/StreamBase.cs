@@ -41,12 +41,16 @@ namespace YtEzDL.Streams
         {
             get
             {
-                if (!_source.IsCancellationRequested)
+                lock (this)
                 {
-                    return _source;
+                    if (!_source.IsCancellationRequested)
+                    {
+                        return _source;
+                    }
+
+                    _source.Dispose();
+                    return _source = new CancellationTokenSource();
                 }
-                _source.Dispose();
-                return _source = new CancellationTokenSource();
             }
         }
 
@@ -65,13 +69,13 @@ namespace YtEzDL.Streams
 
         private void CheckForCancelled(Action action)
         {
-            _source.Token.ThrowIfCancellationRequested();
+            Source.Token.ThrowIfCancellationRequested();
             action.Invoke();
         }
 
         private T CheckForCancelled<T>(Func<T> action)
         {
-            _source.Token.ThrowIfCancellationRequested();
+            Source.Token.ThrowIfCancellationRequested();
             return action.Invoke();
         }
 
