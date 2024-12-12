@@ -263,7 +263,7 @@
             this.Controls.Add(this.metroProgressBar);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(0);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Track";
             this.Size = new System.Drawing.Size(659, 283);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Track_MouseClick);

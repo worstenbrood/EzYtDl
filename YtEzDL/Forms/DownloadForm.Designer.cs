@@ -320,6 +320,7 @@
             this.flowLayoutPanel.Location = new System.Drawing.Point(9, 87);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Padding = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel.Size = new System.Drawing.Size(894, 300);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;

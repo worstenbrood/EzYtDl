@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using YtEzDL.DownLoad;
 using YtEzDL.Tools;
@@ -10,8 +9,7 @@ namespace YtEzDL.Streams
     {
         private readonly FfMpeg _mpeg = new FfMpeg();
         private Task _writer;
-        private CancellationTokenSource _source;
-
+        
         public void CreateWriter(string url, TimeSpan position)
         {
             if (position == TimeSpan.Zero)
