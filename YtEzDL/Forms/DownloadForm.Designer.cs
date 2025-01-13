@@ -279,9 +279,9 @@
             this.toolStripStatusLabel,
             this.toolStripProgressBar});
             this.statusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.statusStrip.Location = new System.Drawing.Point(9, 460);
+            this.statusStrip.Location = new System.Drawing.Point(9, 509);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(872, 25);
+            this.statusStrip.Size = new System.Drawing.Size(872, 26);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 15;
             // 
@@ -293,7 +293,7 @@
             this.toolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripStatusLabel.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(150, 23);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(150, 24);
             this.toolStripStatusLabel.Text = "Total: 0 / Selected: 0";
             this.toolStripStatusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -330,7 +330,7 @@
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
             this.flowLayoutPanel.Padding = new System.Windows.Forms.Padding(2);
-            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 280);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 296);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_ControlAdded);
@@ -351,9 +351,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.player.BackColor = System.Drawing.Color.White;
-            this.player.Location = new System.Drawing.Point(9, 390);
+            this.player.Location = new System.Drawing.Point(9, 419);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(894, 67);
+            this.player.Size = new System.Drawing.Size(894, 74);
             this.player.TabIndex = 17;
             this.player.UseCustomBackColor = true;
             this.player.UseSelectable = true;
@@ -364,7 +364,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(912, 486);
+            this.ClientSize = new System.Drawing.Size(912, 540);
             this.Controls.Add(this.player);
             this.Controls.Add(this.metroProgressSpinner);
             this.Controls.Add(this.statusStrip);
