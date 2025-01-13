@@ -125,7 +125,7 @@ namespace YtEzDL.Audio
                 else
                 {
                     // Pause
-                    _wasapiOut.Stop();
+                    _wasapiOut.Pause();
 
                     // Create new writer
                     _ffMpegStream.DisposeWriter();
