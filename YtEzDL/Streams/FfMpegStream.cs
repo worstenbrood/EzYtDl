@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using YtEzDL.DownLoad;
 using YtEzDL.Tools;
 
@@ -8,20 +7,19 @@ namespace YtEzDL.Streams
     public class FfMpegStream : ConsoleStream
     {
         private readonly FfMpeg _mpeg = new FfMpeg();
-        private Task _writer;
         
         public void CreateWriter(string url, TimeSpan position)
         {
             if (position == TimeSpan.Zero)
             {
                 // Route yt-dlp into ffmpeg asynchronously
-                _writer = YoutubeDownload.Instance.StreamAsync(url, Process.StandardInput.BaseStream,
+                _ = YoutubeDownload.Instance.StreamAsync(url, Process.StandardInput.BaseStream,
                     Source.Token);
             }
             else
             {
                 // Route yt-dlp into ffmpeg asynchronously, with an offset
-                _writer = YoutubeDownload.Instance.StreamAsync(url, position, Process.StandardInput.BaseStream,
+                _ = YoutubeDownload.Instance.StreamAsync(url, position, Process.StandardInput.BaseStream,
                     Source.Token);
             }
         }
@@ -46,7 +44,6 @@ namespace YtEzDL.Streams
         public void DisposeWriter()
         {
             Source.Cancel();
-            _writer = null;
         }
         
         public new void Dispose()

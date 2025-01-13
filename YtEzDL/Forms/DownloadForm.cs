@@ -51,6 +51,8 @@ namespace YtEzDL.Forms
 
             InitializeComponent();
 
+            player.Enabled = Configuration.Default.DownloadSettings.ExtractAudio;
+
             // Layout
             Icon = Resources.YTIcon;
             

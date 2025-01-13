@@ -390,6 +390,11 @@ namespace YtEzDL.UserControls
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
+            if (!Configuration.Default.DownloadSettings.ExtractAudio)
+            {
+                return;
+            }
+
             if (pictureBox.Image == null)
             {
                 Play?.Invoke(this, e);
@@ -398,11 +403,19 @@ namespace YtEzDL.UserControls
         
         private void pictureBox_MouseEnter(object sender, EventArgs e)
         {
-            pictureBox.Image = null;
+            if (Configuration.Default.DownloadSettings.ExtractAudio)
+            {
+                pictureBox.Image = null;
+            }
         }
 
         private void pictureBox_MouseLeave(object sender, EventArgs e)
         {
+            if (!Configuration.Default.DownloadSettings.ExtractAudio)
+            {
+                return;
+            }
+
             if (_thumbnail != null)
             {
                 pictureBox.Image = _thumbnail;
