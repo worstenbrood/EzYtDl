@@ -1,4 +1,5 @@
-﻿using Resources = YtEzDL.Properties.Resources;
+﻿using MetroFramework;
+using Resources = YtEzDL.Properties.Resources;
 
 namespace YtEzDL.Forms
 {
@@ -81,7 +82,7 @@ namespace YtEzDL.Forms
             // 
             // 
             this.textBoxPath.CustomButton.Image = null;
-            this.textBoxPath.CustomButton.Location = new System.Drawing.Point(448, 2);
+            this.textBoxPath.CustomButton.Location = new System.Drawing.Point(527, 2);
             this.textBoxPath.CustomButton.Name = "";
             this.textBoxPath.CustomButton.Size = new System.Drawing.Size(25, 25);
             this.textBoxPath.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -92,7 +93,8 @@ namespace YtEzDL.Forms
             this.textBoxPath.FontWeight = MetroFramework.MetroTextBoxWeight.Light;
             this.textBoxPath.ForeColor = System.Drawing.Color.Black;
             this.textBoxPath.Lines = new string[0];
-            this.textBoxPath.Location = new System.Drawing.Point(58, 15);
+            this.textBoxPath.Location = new System.Drawing.Point(68, 15);
+            this.textBoxPath.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxPath.MaxLength = 32767;
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.PasswordChar = '\0';
@@ -103,7 +105,7 @@ namespace YtEzDL.Forms
             this.textBoxPath.SelectionStart = 0;
             this.textBoxPath.ShortcutsEnabled = true;
             this.textBoxPath.ShowButton = true;
-            this.textBoxPath.Size = new System.Drawing.Size(476, 30);
+            this.textBoxPath.Size = new System.Drawing.Size(555, 30);
             this.textBoxPath.TabIndex = 0;
             this.textBoxPath.UseSelectable = true;
             this.textBoxPath.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -114,11 +116,11 @@ namespace YtEzDL.Forms
             this.labelPath.AutoSize = true;
             this.labelPath.BackColor = System.Drawing.Color.White;
             this.labelPath.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelPath.FontWeight = MetroFramework.MetroLabelWeight.Regular;
             this.labelPath.ForeColor = System.Drawing.Color.Black;
-            this.labelPath.Location = new System.Drawing.Point(3, 16);
+            this.labelPath.Location = new System.Drawing.Point(4, 16);
+            this.labelPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(50, 25);
+            this.labelPath.Size = new System.Drawing.Size(49, 25);
             this.labelPath.TabIndex = 1;
             this.labelPath.Text = "Path:";
             // 
@@ -126,10 +128,12 @@ namespace YtEzDL.Forms
             // 
             this.checkBoxExtractAudio.AutoSize = true;
             this.checkBoxExtractAudio.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.checkBoxExtractAudio.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxExtractAudio.ForeColor = System.Drawing.Color.Black;
-            this.checkBoxExtractAudio.Location = new System.Drawing.Point(7, 13);
+            this.checkBoxExtractAudio.Location = new System.Drawing.Point(8, 13);
+            this.checkBoxExtractAudio.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxExtractAudio.Name = "checkBoxExtractAudio";
-            this.checkBoxExtractAudio.Size = new System.Drawing.Size(130, 25);
+            this.checkBoxExtractAudio.Size = new System.Drawing.Size(126, 25);
             this.checkBoxExtractAudio.TabIndex = 2;
             this.checkBoxExtractAudio.Text = "Extract audio";
             this.checkBoxExtractAudio.UseSelectable = true;
@@ -140,10 +144,12 @@ namespace YtEzDL.Forms
             this.checkBoxCreatePlaylistFolder.AutoSize = true;
             this.checkBoxCreatePlaylistFolder.BackColor = System.Drawing.Color.White;
             this.checkBoxCreatePlaylistFolder.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
+            this.checkBoxCreatePlaylistFolder.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
             this.checkBoxCreatePlaylistFolder.ForeColor = System.Drawing.Color.Black;
-            this.checkBoxCreatePlaylistFolder.Location = new System.Drawing.Point(8, 58);
+            this.checkBoxCreatePlaylistFolder.Location = new System.Drawing.Point(9, 58);
+            this.checkBoxCreatePlaylistFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxCreatePlaylistFolder.Name = "checkBoxCreatePlaylistFolder";
-            this.checkBoxCreatePlaylistFolder.Size = new System.Drawing.Size(190, 25);
+            this.checkBoxCreatePlaylistFolder.Size = new System.Drawing.Size(182, 25);
             this.checkBoxCreatePlaylistFolder.TabIndex = 3;
             this.checkBoxCreatePlaylistFolder.Text = "Create playlist folder";
             this.checkBoxCreatePlaylistFolder.UseSelectable = true;
@@ -152,9 +158,11 @@ namespace YtEzDL.Forms
             // 
             this.checkBoxAddMetadata.AutoSize = true;
             this.checkBoxAddMetadata.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxAddMetadata.Location = new System.Drawing.Point(7, 44);
+            this.checkBoxAddMetadata.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxAddMetadata.Location = new System.Drawing.Point(8, 44);
+            this.checkBoxAddMetadata.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxAddMetadata.Name = "checkBoxAddMetadata";
-            this.checkBoxAddMetadata.Size = new System.Drawing.Size(142, 25);
+            this.checkBoxAddMetadata.Size = new System.Drawing.Size(135, 25);
             this.checkBoxAddMetadata.TabIndex = 4;
             this.checkBoxAddMetadata.Text = "Add metadata";
             this.checkBoxAddMetadata.UseSelectable = true;
@@ -163,9 +171,11 @@ namespace YtEzDL.Forms
             // 
             this.checkBoxEmbedThumbnail.AutoSize = true;
             this.checkBoxEmbedThumbnail.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxEmbedThumbnail.Location = new System.Drawing.Point(7, 75);
+            this.checkBoxEmbedThumbnail.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxEmbedThumbnail.Location = new System.Drawing.Point(8, 75);
+            this.checkBoxEmbedThumbnail.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxEmbedThumbnail.Name = "checkBoxEmbedThumbnail";
-            this.checkBoxEmbedThumbnail.Size = new System.Drawing.Size(169, 25);
+            this.checkBoxEmbedThumbnail.Size = new System.Drawing.Size(163, 25);
             this.checkBoxEmbedThumbnail.TabIndex = 5;
             this.checkBoxEmbedThumbnail.Text = "Embed thumbnail";
             this.checkBoxEmbedThumbnail.UseSelectable = true;
@@ -174,12 +184,14 @@ namespace YtEzDL.Forms
             // 
             this.comboBoxAudioFormat.BackColor = System.Drawing.Color.White;
             this.comboBoxAudioFormat.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxAudioFormat.FontWeight = MetroFramework.MetroComboBoxWeight.Light;
             this.comboBoxAudioFormat.ForeColor = System.Drawing.Color.Black;
             this.comboBoxAudioFormat.FormattingEnabled = true;
             this.comboBoxAudioFormat.ItemHeight = 29;
-            this.comboBoxAudioFormat.Location = new System.Drawing.Point(344, 13);
+            this.comboBoxAudioFormat.Location = new System.Drawing.Point(401, 13);
+            this.comboBoxAudioFormat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxAudioFormat.Name = "comboBoxAudioFormat";
-            this.comboBoxAudioFormat.Size = new System.Drawing.Size(121, 35);
+            this.comboBoxAudioFormat.Size = new System.Drawing.Size(140, 35);
             this.comboBoxAudioFormat.TabIndex = 6;
             this.comboBoxAudioFormat.UseSelectable = true;
             // 
@@ -187,10 +199,10 @@ namespace YtEzDL.Forms
             // 
             this.labelAudioFormat.AutoSize = true;
             this.labelAudioFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelAudioFormat.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.labelAudioFormat.Location = new System.Drawing.Point(196, 16);
+            this.labelAudioFormat.Location = new System.Drawing.Point(229, 16);
+            this.labelAudioFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAudioFormat.Name = "labelAudioFormat";
-            this.labelAudioFormat.Size = new System.Drawing.Size(123, 25);
+            this.labelAudioFormat.Size = new System.Drawing.Size(116, 25);
             this.labelAudioFormat.TabIndex = 7;
             this.labelAudioFormat.Text = "Audio format:";
             // 
@@ -198,10 +210,10 @@ namespace YtEzDL.Forms
             // 
             this.labelAudioQuality.AutoSize = true;
             this.labelAudioQuality.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelAudioQuality.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.labelAudioQuality.Location = new System.Drawing.Point(196, 50);
+            this.labelAudioQuality.Location = new System.Drawing.Point(229, 50);
+            this.labelAudioQuality.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelAudioQuality.Name = "labelAudioQuality";
-            this.labelAudioQuality.Size = new System.Drawing.Size(122, 25);
+            this.labelAudioQuality.Size = new System.Drawing.Size(116, 25);
             this.labelAudioQuality.TabIndex = 9;
             this.labelAudioQuality.Text = "Audio quality:";
             // 
@@ -209,12 +221,14 @@ namespace YtEzDL.Forms
             // 
             this.comboBoxAudioQuality.BackColor = System.Drawing.Color.White;
             this.comboBoxAudioQuality.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxAudioQuality.FontWeight = MetroFramework.MetroComboBoxWeight.Light;
             this.comboBoxAudioQuality.ForeColor = System.Drawing.Color.White;
             this.comboBoxAudioQuality.FormattingEnabled = true;
             this.comboBoxAudioQuality.ItemHeight = 29;
-            this.comboBoxAudioQuality.Location = new System.Drawing.Point(344, 46);
+            this.comboBoxAudioQuality.Location = new System.Drawing.Point(401, 46);
+            this.comboBoxAudioQuality.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxAudioQuality.Name = "comboBoxAudioQuality";
-            this.comboBoxAudioQuality.Size = new System.Drawing.Size(121, 35);
+            this.comboBoxAudioQuality.Size = new System.Drawing.Size(140, 35);
             this.comboBoxAudioQuality.TabIndex = 8;
             this.comboBoxAudioQuality.UseSelectable = true;
             // 
@@ -222,10 +236,10 @@ namespace YtEzDL.Forms
             // 
             this.labelVideoFormat.AutoSize = true;
             this.labelVideoFormat.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelVideoFormat.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.labelVideoFormat.Location = new System.Drawing.Point(196, 84);
+            this.labelVideoFormat.Location = new System.Drawing.Point(229, 84);
+            this.labelVideoFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelVideoFormat.Name = "labelVideoFormat";
-            this.labelVideoFormat.Size = new System.Drawing.Size(121, 25);
+            this.labelVideoFormat.Size = new System.Drawing.Size(115, 25);
             this.labelVideoFormat.TabIndex = 11;
             this.labelVideoFormat.Text = "Video format:";
             // 
@@ -233,12 +247,14 @@ namespace YtEzDL.Forms
             // 
             this.comboBoxVideoFormat.BackColor = System.Drawing.Color.White;
             this.comboBoxVideoFormat.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxVideoFormat.FontWeight = MetroFramework.MetroComboBoxWeight.Light;
             this.comboBoxVideoFormat.ForeColor = System.Drawing.Color.Black;
             this.comboBoxVideoFormat.FormattingEnabled = true;
             this.comboBoxVideoFormat.ItemHeight = 29;
-            this.comboBoxVideoFormat.Location = new System.Drawing.Point(344, 79);
+            this.comboBoxVideoFormat.Location = new System.Drawing.Point(401, 79);
+            this.comboBoxVideoFormat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxVideoFormat.Name = "comboBoxVideoFormat";
-            this.comboBoxVideoFormat.Size = new System.Drawing.Size(121, 35);
+            this.comboBoxVideoFormat.Size = new System.Drawing.Size(140, 35);
             this.comboBoxVideoFormat.TabIndex = 10;
             this.comboBoxVideoFormat.UseSelectable = true;
             // 
@@ -246,7 +262,9 @@ namespace YtEzDL.Forms
             // 
             this.checkBoxFetchThumbnail.AutoSize = true;
             this.checkBoxFetchThumbnail.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxFetchThumbnail.Location = new System.Drawing.Point(7, 13);
+            this.checkBoxFetchThumbnail.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxFetchThumbnail.Location = new System.Drawing.Point(8, 13);
+            this.checkBoxFetchThumbnail.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxFetchThumbnail.Name = "checkBoxFetchThumbnail";
             this.checkBoxFetchThumbnail.Size = new System.Drawing.Size(155, 25);
             this.checkBoxFetchThumbnail.TabIndex = 12;
@@ -258,7 +276,9 @@ namespace YtEzDL.Forms
             // 
             this.checkBoxFetchBestThumbnail.AutoSize = true;
             this.checkBoxFetchBestThumbnail.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxFetchBestThumbnail.Location = new System.Drawing.Point(7, 44);
+            this.checkBoxFetchBestThumbnail.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxFetchBestThumbnail.Location = new System.Drawing.Point(8, 44);
+            this.checkBoxFetchBestThumbnail.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxFetchBestThumbnail.Name = "checkBoxFetchBestThumbnail";
             this.checkBoxFetchBestThumbnail.Size = new System.Drawing.Size(194, 25);
             this.checkBoxFetchBestThumbnail.TabIndex = 13;
@@ -269,7 +289,9 @@ namespace YtEzDL.Forms
             // 
             this.checkBoxAutoSelect.AutoSize = true;
             this.checkBoxAutoSelect.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxAutoSelect.Location = new System.Drawing.Point(7, 75);
+            this.checkBoxAutoSelect.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxAutoSelect.Location = new System.Drawing.Point(8, 75);
+            this.checkBoxAutoSelect.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxAutoSelect.Name = "checkBoxAutoSelect";
             this.checkBoxAutoSelect.Size = new System.Drawing.Size(116, 25);
             this.checkBoxAutoSelect.TabIndex = 14;
@@ -279,10 +301,11 @@ namespace YtEzDL.Forms
             // buttonCancel
             // 
             this.buttonCancel.FontSize = MetroFramework.MetroButtonSize.Tall;
-            this.buttonCancel.FontWeight = MetroFramework.MetroButtonWeight.Regular;
-            this.buttonCancel.Location = new System.Drawing.Point(147, 336);
+            this.buttonCancel.FontWeight = MetroFramework.MetroButtonWeight.Light;
+            this.buttonCancel.Location = new System.Drawing.Point(172, 337);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(118, 28);
+            this.buttonCancel.Size = new System.Drawing.Size(138, 28);
             this.buttonCancel.TabIndex = 15;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseSelectable = true;
@@ -291,10 +314,11 @@ namespace YtEzDL.Forms
             // buttonSave
             // 
             this.buttonSave.FontSize = MetroFramework.MetroButtonSize.Tall;
-            this.buttonSave.FontWeight = MetroFramework.MetroButtonWeight.Regular;
-            this.buttonSave.Location = new System.Drawing.Point(23, 336);
+            this.buttonSave.FontWeight = MetroFramework.MetroButtonWeight.Light;
+            this.buttonSave.Location = new System.Drawing.Point(27, 337);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(118, 28);
+            this.buttonSave.Size = new System.Drawing.Size(138, 28);
             this.buttonSave.TabIndex = 16;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseSelectable = true;
@@ -304,10 +328,10 @@ namespace YtEzDL.Forms
             // 
             this.labelThreads.AutoSize = true;
             this.labelThreads.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelThreads.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.labelThreads.Location = new System.Drawing.Point(196, 118);
+            this.labelThreads.Location = new System.Drawing.Point(229, 118);
+            this.labelThreads.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelThreads.Name = "labelThreads";
-            this.labelThreads.Size = new System.Drawing.Size(78, 25);
+            this.labelThreads.Size = new System.Drawing.Size(76, 25);
             this.labelThreads.TabIndex = 18;
             this.labelThreads.Text = "Threads:";
             // 
@@ -315,12 +339,14 @@ namespace YtEzDL.Forms
             // 
             this.comboBoxThreads.BackColor = System.Drawing.Color.White;
             this.comboBoxThreads.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxThreads.FontWeight = MetroFramework.MetroComboBoxWeight.Light;
             this.comboBoxThreads.ForeColor = System.Drawing.Color.Black;
             this.comboBoxThreads.FormattingEnabled = true;
             this.comboBoxThreads.ItemHeight = 29;
-            this.comboBoxThreads.Location = new System.Drawing.Point(344, 112);
+            this.comboBoxThreads.Location = new System.Drawing.Point(401, 112);
+            this.comboBoxThreads.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxThreads.Name = "comboBoxThreads";
-            this.comboBoxThreads.Size = new System.Drawing.Size(121, 35);
+            this.comboBoxThreads.Size = new System.Drawing.Size(140, 35);
             this.comboBoxThreads.TabIndex = 17;
             this.comboBoxThreads.UseSelectable = true;
             // 
@@ -328,9 +354,11 @@ namespace YtEzDL.Forms
             // 
             this.checkBoxPerTrackSettings.AutoSize = true;
             this.checkBoxPerTrackSettings.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxPerTrackSettings.Location = new System.Drawing.Point(7, 106);
+            this.checkBoxPerTrackSettings.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxPerTrackSettings.Location = new System.Drawing.Point(8, 106);
+            this.checkBoxPerTrackSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxPerTrackSettings.Name = "checkBoxPerTrackSettings";
-            this.checkBoxPerTrackSettings.Size = new System.Drawing.Size(162, 25);
+            this.checkBoxPerTrackSettings.Size = new System.Drawing.Size(155, 25);
             this.checkBoxPerTrackSettings.TabIndex = 19;
             this.checkBoxPerTrackSettings.Text = "Per track settings";
             this.checkBoxPerTrackSettings.UseSelectable = true;
@@ -343,11 +371,11 @@ namespace YtEzDL.Forms
             this.tabControl.Controls.Add(this.tabPageApplication);
             this.tabControl.Controls.Add(this.tabPageAdvanced);
             this.tabControl.FontSize = MetroFramework.MetroTabControlSize.Tall;
-            this.tabControl.FontWeight = MetroFramework.MetroTabControlWeight.Regular;
-            this.tabControl.Location = new System.Drawing.Point(23, 63);
+            this.tabControl.Location = new System.Drawing.Point(27, 63);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 3;
-            this.tabControl.Size = new System.Drawing.Size(651, 260);
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(760, 260);
             this.tabControl.TabIndex = 20;
             this.tabControl.UseSelectable = true;
             // 
@@ -362,13 +390,14 @@ namespace YtEzDL.Forms
             this.tabPageFileSettings.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageFileSettings.HorizontalScrollbarSize = 10;
             this.tabPageFileSettings.Location = new System.Drawing.Point(4, 44);
+            this.tabPageFileSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPageFileSettings.Name = "tabPageFileSettings";
-            this.tabPageFileSettings.Size = new System.Drawing.Size(643, 212);
+            this.tabPageFileSettings.Size = new System.Drawing.Size(752, 212);
             this.tabPageFileSettings.TabIndex = 0;
             this.tabPageFileSettings.Text = "File";
             this.tabPageFileSettings.VerticalScrollbarBarColor = true;
             this.tabPageFileSettings.VerticalScrollbarHighlightOnWheel = false;
-            this.tabPageFileSettings.VerticalScrollbarSize = 10;
+            this.tabPageFileSettings.VerticalScrollbarSize = 8;
             // 
             // tabPageDownloadSettings
             // 
@@ -389,13 +418,14 @@ namespace YtEzDL.Forms
             this.tabPageDownloadSettings.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageDownloadSettings.HorizontalScrollbarSize = 10;
             this.tabPageDownloadSettings.Location = new System.Drawing.Point(4, 44);
+            this.tabPageDownloadSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPageDownloadSettings.Name = "tabPageDownloadSettings";
-            this.tabPageDownloadSettings.Size = new System.Drawing.Size(643, 212);
+            this.tabPageDownloadSettings.Size = new System.Drawing.Size(752, 212);
             this.tabPageDownloadSettings.TabIndex = 1;
             this.tabPageDownloadSettings.Text = "Download";
             this.tabPageDownloadSettings.VerticalScrollbarBarColor = true;
             this.tabPageDownloadSettings.VerticalScrollbarHighlightOnWheel = false;
-            this.tabPageDownloadSettings.VerticalScrollbarSize = 10;
+            this.tabPageDownloadSettings.VerticalScrollbarSize = 8;
             // 
             // tabPageLayoutSettings
             // 
@@ -414,20 +444,21 @@ namespace YtEzDL.Forms
             this.tabPageLayoutSettings.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageLayoutSettings.HorizontalScrollbarSize = 10;
             this.tabPageLayoutSettings.Location = new System.Drawing.Point(4, 44);
+            this.tabPageLayoutSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPageLayoutSettings.Name = "tabPageLayoutSettings";
-            this.tabPageLayoutSettings.Size = new System.Drawing.Size(643, 212);
+            this.tabPageLayoutSettings.Size = new System.Drawing.Size(752, 212);
             this.tabPageLayoutSettings.TabIndex = 2;
             this.tabPageLayoutSettings.Text = "Layout";
             this.tabPageLayoutSettings.VerticalScrollbarBarColor = true;
             this.tabPageLayoutSettings.VerticalScrollbarHighlightOnWheel = false;
-            this.tabPageLayoutSettings.VerticalScrollbarSize = 10;
+            this.tabPageLayoutSettings.VerticalScrollbarSize = 8;
             // 
             // labelSelectionWidth
             // 
             this.labelSelectionWidth.AutoSize = true;
             this.labelSelectionWidth.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelSelectionWidth.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.labelSelectionWidth.Location = new System.Drawing.Point(222, 50);
+            this.labelSelectionWidth.Location = new System.Drawing.Point(259, 50);
+            this.labelSelectionWidth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSelectionWidth.Name = "labelSelectionWidth";
             this.labelSelectionWidth.Size = new System.Drawing.Size(136, 25);
             this.labelSelectionWidth.TabIndex = 24;
@@ -437,12 +468,14 @@ namespace YtEzDL.Forms
             // 
             this.comboBoxSelectionWidth.BackColor = System.Drawing.Color.White;
             this.comboBoxSelectionWidth.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxSelectionWidth.FontWeight = MetroFramework.MetroComboBoxWeight.Light;
             this.comboBoxSelectionWidth.ForeColor = System.Drawing.Color.Black;
             this.comboBoxSelectionWidth.FormattingEnabled = true;
             this.comboBoxSelectionWidth.ItemHeight = 29;
-            this.comboBoxSelectionWidth.Location = new System.Drawing.Point(359, 47);
+            this.comboBoxSelectionWidth.Location = new System.Drawing.Point(419, 47);
+            this.comboBoxSelectionWidth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxSelectionWidth.Name = "comboBoxSelectionWidth";
-            this.comboBoxSelectionWidth.Size = new System.Drawing.Size(121, 35);
+            this.comboBoxSelectionWidth.Size = new System.Drawing.Size(140, 35);
             this.comboBoxSelectionWidth.TabIndex = 23;
             this.comboBoxSelectionWidth.UseSelectable = true;
             // 
@@ -450,8 +483,8 @@ namespace YtEzDL.Forms
             // 
             this.labelColorStyle.AutoSize = true;
             this.labelColorStyle.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelColorStyle.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.labelColorStyle.Location = new System.Drawing.Point(222, 16);
+            this.labelColorStyle.Location = new System.Drawing.Point(259, 16);
+            this.labelColorStyle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelColorStyle.Name = "labelColorStyle";
             this.labelColorStyle.Size = new System.Drawing.Size(100, 25);
             this.labelColorStyle.TabIndex = 22;
@@ -461,12 +494,14 @@ namespace YtEzDL.Forms
             // 
             this.comboBoxColorStyle.BackColor = System.Drawing.Color.White;
             this.comboBoxColorStyle.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxColorStyle.FontWeight = MetroFramework.MetroComboBoxWeight.Light;
             this.comboBoxColorStyle.ForeColor = System.Drawing.Color.Black;
             this.comboBoxColorStyle.FormattingEnabled = true;
             this.comboBoxColorStyle.ItemHeight = 29;
-            this.comboBoxColorStyle.Location = new System.Drawing.Point(359, 13);
+            this.comboBoxColorStyle.Location = new System.Drawing.Point(419, 13);
+            this.comboBoxColorStyle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxColorStyle.Name = "comboBoxColorStyle";
-            this.comboBoxColorStyle.Size = new System.Drawing.Size(121, 35);
+            this.comboBoxColorStyle.Size = new System.Drawing.Size(140, 35);
             this.comboBoxColorStyle.TabIndex = 21;
             this.comboBoxColorStyle.UseSelectable = true;
             this.comboBoxColorStyle.SelectedIndexChanged += new System.EventHandler(this.ComboBoxColorStyle_SelectedIndexChanged);
@@ -475,7 +510,9 @@ namespace YtEzDL.Forms
             // 
             this.checkBoxYoutubeFastFetch.AutoSize = true;
             this.checkBoxYoutubeFastFetch.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxYoutubeFastFetch.Location = new System.Drawing.Point(7, 137);
+            this.checkBoxYoutubeFastFetch.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxYoutubeFastFetch.Location = new System.Drawing.Point(8, 137);
+            this.checkBoxYoutubeFastFetch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxYoutubeFastFetch.Name = "checkBoxYoutubeFastFetch";
             this.checkBoxYoutubeFastFetch.Size = new System.Drawing.Size(171, 25);
             this.checkBoxYoutubeFastFetch.TabIndex = 20;
@@ -493,19 +530,22 @@ namespace YtEzDL.Forms
             this.tabPageApplication.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageApplication.HorizontalScrollbarSize = 10;
             this.tabPageApplication.Location = new System.Drawing.Point(4, 44);
+            this.tabPageApplication.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPageApplication.Name = "tabPageApplication";
-            this.tabPageApplication.Size = new System.Drawing.Size(643, 212);
+            this.tabPageApplication.Size = new System.Drawing.Size(752, 212);
             this.tabPageApplication.TabIndex = 3;
             this.tabPageApplication.Text = "Application";
             this.tabPageApplication.VerticalScrollbarBarColor = true;
             this.tabPageApplication.VerticalScrollbarHighlightOnWheel = false;
-            this.tabPageApplication.VerticalScrollbarSize = 10;
+            this.tabPageApplication.VerticalScrollbarSize = 8;
             // 
             // checkBoxHistory
             // 
             this.checkBoxHistory.AutoSize = true;
             this.checkBoxHistory.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxHistory.Location = new System.Drawing.Point(7, 75);
+            this.checkBoxHistory.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxHistory.Location = new System.Drawing.Point(8, 75);
+            this.checkBoxHistory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxHistory.Name = "checkBoxHistory";
             this.checkBoxHistory.Size = new System.Drawing.Size(139, 25);
             this.checkBoxHistory.TabIndex = 28;
@@ -516,7 +556,9 @@ namespace YtEzDL.Forms
             // 
             this.checkBoxAdvanced.AutoSize = true;
             this.checkBoxAdvanced.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxAdvanced.Location = new System.Drawing.Point(7, 44);
+            this.checkBoxAdvanced.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxAdvanced.Location = new System.Drawing.Point(8, 44);
+            this.checkBoxAdvanced.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxAdvanced.Name = "checkBoxAdvanced";
             this.checkBoxAdvanced.Size = new System.Drawing.Size(174, 25);
             this.checkBoxAdvanced.TabIndex = 27;
@@ -528,7 +570,9 @@ namespace YtEzDL.Forms
             // 
             this.checkBoxAutostart.AutoSize = true;
             this.checkBoxAutostart.FontSize = MetroFramework.MetroCheckBoxSize.Tall;
-            this.checkBoxAutostart.Location = new System.Drawing.Point(7, 13);
+            this.checkBoxAutostart.FontWeight = MetroFramework.MetroCheckBoxWeight.Light;
+            this.checkBoxAutostart.Location = new System.Drawing.Point(8, 13);
+            this.checkBoxAutostart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxAutostart.Name = "checkBoxAutostart";
             this.checkBoxAutostart.Size = new System.Drawing.Size(102, 25);
             this.checkBoxAutostart.TabIndex = 13;
@@ -543,22 +587,23 @@ namespace YtEzDL.Forms
             this.tabPageAdvanced.HorizontalScrollbarHighlightOnWheel = false;
             this.tabPageAdvanced.HorizontalScrollbarSize = 10;
             this.tabPageAdvanced.Location = new System.Drawing.Point(4, 44);
+            this.tabPageAdvanced.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
-            this.tabPageAdvanced.Size = new System.Drawing.Size(643, 212);
+            this.tabPageAdvanced.Size = new System.Drawing.Size(752, 212);
             this.tabPageAdvanced.TabIndex = 4;
             this.tabPageAdvanced.Text = "Advanced";
             this.tabPageAdvanced.VerticalScrollbarBarColor = true;
             this.tabPageAdvanced.VerticalScrollbarHighlightOnWheel = false;
-            this.tabPageAdvanced.VerticalScrollbarSize = 10;
+            this.tabPageAdvanced.VerticalScrollbarSize = 8;
             // 
             // labelUpdateChannel
             // 
             this.labelUpdateChannel.AutoSize = true;
             this.labelUpdateChannel.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.labelUpdateChannel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.labelUpdateChannel.Location = new System.Drawing.Point(3, 11);
+            this.labelUpdateChannel.Location = new System.Drawing.Point(4, 11);
+            this.labelUpdateChannel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelUpdateChannel.Name = "labelUpdateChannel";
-            this.labelUpdateChannel.Size = new System.Drawing.Size(139, 25);
+            this.labelUpdateChannel.Size = new System.Drawing.Size(136, 25);
             this.labelUpdateChannel.TabIndex = 28;
             this.labelUpdateChannel.Text = "Update channel:";
             // 
@@ -566,24 +611,29 @@ namespace YtEzDL.Forms
             // 
             this.comboBoxUpdateChannel.BackColor = System.Drawing.Color.White;
             this.comboBoxUpdateChannel.FontSize = MetroFramework.MetroComboBoxSize.Tall;
+            this.comboBoxUpdateChannel.FontWeight = MetroFramework.MetroComboBoxWeight.Light;
             this.comboBoxUpdateChannel.ForeColor = System.Drawing.Color.Black;
             this.comboBoxUpdateChannel.FormattingEnabled = true;
             this.comboBoxUpdateChannel.ItemHeight = 29;
-            this.comboBoxUpdateChannel.Location = new System.Drawing.Point(143, 7);
+            this.comboBoxUpdateChannel.Location = new System.Drawing.Point(167, 7);
+            this.comboBoxUpdateChannel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.comboBoxUpdateChannel.Name = "comboBoxUpdateChannel";
-            this.comboBoxUpdateChannel.Size = new System.Drawing.Size(121, 35);
+            this.comboBoxUpdateChannel.Size = new System.Drawing.Size(140, 35);
             this.comboBoxUpdateChannel.TabIndex = 27;
             this.comboBoxUpdateChannel.UseSelectable = true;
             // 
             // Settings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(695, 381);
+            this.ClientSize = new System.Drawing.Size(811, 381);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Settings";
+            this.Padding = new System.Windows.Forms.Padding(23, 60, 23, 20);
             this.Resizable = false;
             this.Text = "Settings";
             this.tabControl.ResumeLayout(false);
