@@ -327,7 +327,7 @@ namespace YtEzDL.UserControls
         protected override void OnPaint(PaintEventArgs e)
         {
             var color = FormTools.ColorMapping[Configuration.Default.LayoutSettings.ColorStyle];
-            using (var pen = new Pen(color, 2))
+            using (var pen = new Pen(color, 4))
             {
                 e.Graphics.DrawRectangle(pen, ClientRectangle);
             }
