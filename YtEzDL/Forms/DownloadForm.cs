@@ -256,8 +256,7 @@ namespace YtEzDL.Forms
                 Close();
                 return;
             }
-
-            dropDownButtonSort.Enabled = true;
+            
             toolStripButtonDownload.Enabled = true;
             toolStripButtonCancel.Enabled = false;
             metroProgressSpinner.Enabled = metroProgressSpinner.Visible = false;

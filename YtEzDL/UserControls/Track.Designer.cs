@@ -100,7 +100,7 @@
             this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox.BackgroundImage = global::YtEzDL.Properties.Resources.Play;
-            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox.Location = new System.Drawing.Point(16, 21);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(284, 138);

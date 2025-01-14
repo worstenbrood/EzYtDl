@@ -74,9 +74,11 @@
             this.toolStripButtonCancel,
             this.toolStripButtonClearCache,
             this.toolStripButtonAbout});
-            this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip.Location = new System.Drawing.Point(9, 60);
+            this.toolStrip.Margin = new System.Windows.Forms.Padding(2);
             this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStrip.Size = new System.Drawing.Size(894, 35);
             this.toolStrip.Stretch = true;
@@ -91,9 +93,9 @@
             this.toolStripButtonNone.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonNone.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNone.Image")));
             this.toolStripButtonNone.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonNone.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.toolStripButtonNone.Margin = new System.Windows.Forms.Padding(0);
             this.toolStripButtonNone.Name = "toolStripButtonNone";
-            this.toolStripButtonNone.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.toolStripButtonNone.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.toolStripButtonNone.Size = new System.Drawing.Size(32, 32);
             this.toolStripButtonNone.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.toolStripButtonNone.ToolTipText = "Select none";
@@ -107,9 +109,9 @@
             this.toolStripButtonAll.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAll.Image")));
             this.toolStripButtonAll.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonAll.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.toolStripButtonAll.Margin = new System.Windows.Forms.Padding(0);
             this.toolStripButtonAll.Name = "toolStripButtonAll";
-            this.toolStripButtonAll.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.toolStripButtonAll.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.toolStripButtonAll.Size = new System.Drawing.Size(32, 32);
             this.toolStripButtonAll.ToolTipText = "Select all";
             this.toolStripButtonAll.Click += new System.EventHandler(this.toolStripButtonAll_Click);
@@ -122,8 +124,9 @@
             this.toolStripButtonToggle.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonToggle.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonToggle.Image")));
             this.toolStripButtonToggle.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonToggle.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.toolStripButtonToggle.Margin = new System.Windows.Forms.Padding(0);
             this.toolStripButtonToggle.Name = "toolStripButtonToggle";
+            this.toolStripButtonToggle.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.toolStripButtonToggle.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.toolStripButtonToggle.Size = new System.Drawing.Size(32, 32);
             this.toolStripButtonToggle.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
@@ -139,6 +142,7 @@
             this.toolStripTextBoxSearch.ForeColor = System.Drawing.Color.Black;
             this.toolStripTextBoxSearch.Margin = new System.Windows.Forms.Padding(2, 5, 1, 0);
             this.toolStripTextBoxSearch.Name = "toolStripTextBoxSearch";
+            this.toolStripTextBoxSearch.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.toolStripTextBoxSearch.Size = new System.Drawing.Size(200, 23);
             this.toolStripTextBoxSearch.ToolTipText = "Filter";
             this.toolStripTextBoxSearch.TextChanged += new System.EventHandler(this.toolStripTextBoxSearch_TextChanged);
@@ -149,8 +153,9 @@
             this.toolStripButtonReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonReset.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonReset.Image")));
             this.toolStripButtonReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonReset.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.toolStripButtonReset.Margin = new System.Windows.Forms.Padding(0);
             this.toolStripButtonReset.Name = "toolStripButtonReset";
+            this.toolStripButtonReset.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.toolStripButtonReset.Size = new System.Drawing.Size(32, 32);
             this.toolStripButtonReset.Text = "Reset filter";
             this.toolStripButtonReset.Click += new System.EventHandler(this.toolStripButtonReset_Click);
@@ -165,11 +170,12 @@
             this.sortByLengthItem,
             this.sortByLengthDescendingItem,
             this.resetItem});
-            this.dropDownButtonSort.Enabled = false;
             this.dropDownButtonSort.ForeColor = System.Drawing.Color.Black;
             this.dropDownButtonSort.Image = ((System.Drawing.Image)(resources.GetObject("dropDownButtonSort.Image")));
             this.dropDownButtonSort.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.dropDownButtonSort.Margin = new System.Windows.Forms.Padding(0);
             this.dropDownButtonSort.Name = "dropDownButtonSort";
+            this.dropDownButtonSort.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.dropDownButtonSort.Size = new System.Drawing.Size(32, 32);
             this.dropDownButtonSort.Text = "Sort";
             this.dropDownButtonSort.ToolTipText = "Sort";
@@ -226,8 +232,9 @@
             this.toolStripButtonDownload.Enabled = false;
             this.toolStripButtonDownload.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonDownload.Image")));
             this.toolStripButtonDownload.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonDownload.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.toolStripButtonDownload.Margin = new System.Windows.Forms.Padding(0);
             this.toolStripButtonDownload.Name = "toolStripButtonDownload";
+            this.toolStripButtonDownload.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.toolStripButtonDownload.Size = new System.Drawing.Size(32, 32);
             this.toolStripButtonDownload.ToolTipText = "Download";
             this.toolStripButtonDownload.Click += new System.EventHandler(this.toolStripButtonDownload_Click);
@@ -238,8 +245,9 @@
             this.toolStripButtonCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonCancel.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCancel.Image")));
             this.toolStripButtonCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonCancel.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.toolStripButtonCancel.Margin = new System.Windows.Forms.Padding(0);
             this.toolStripButtonCancel.Name = "toolStripButtonCancel";
+            this.toolStripButtonCancel.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.toolStripButtonCancel.Size = new System.Drawing.Size(32, 32);
             this.toolStripButtonCancel.ToolTipText = "Cancel";
             this.toolStripButtonCancel.Click += new System.EventHandler(this.toolStripButtonCancel_Click);
@@ -250,8 +258,9 @@
             this.toolStripButtonClearCache.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonClearCache.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonClearCache.Image")));
             this.toolStripButtonClearCache.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonClearCache.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.toolStripButtonClearCache.Margin = new System.Windows.Forms.Padding(0);
             this.toolStripButtonClearCache.Name = "toolStripButtonClearCache";
+            this.toolStripButtonClearCache.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.toolStripButtonClearCache.Size = new System.Drawing.Size(32, 32);
             this.toolStripButtonClearCache.ToolTipText = "Clear yt-dlp cache";
             this.toolStripButtonClearCache.Click += new System.EventHandler(this.ToolStripButtonClearCache_Click);
@@ -262,7 +271,9 @@
             this.toolStripButtonAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButtonAbout.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAbout.Image")));
             this.toolStripButtonAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAbout.Margin = new System.Windows.Forms.Padding(0);
             this.toolStripButtonAbout.Name = "toolStripButtonAbout";
+            this.toolStripButtonAbout.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.toolStripButtonAbout.Size = new System.Drawing.Size(32, 32);
             this.toolStripButtonAbout.ToolTipText = "About";
             this.toolStripButtonAbout.Click += new System.EventHandler(this.ToolStripButtonAbout_Click);
