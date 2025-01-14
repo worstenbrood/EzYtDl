@@ -217,6 +217,11 @@ namespace YtEzDL.UserControls
             _player = new AudioPlayer();
             _player.PlaybackStopped += PlaybackStopped;
             _player.StreamRead += PlayerStreamRead;
+            Toggle();
+        }
+
+        private void Toggle()
+        {
             Toggle(_player.PlaybackState);
         }
         
@@ -255,7 +260,7 @@ namespace YtEzDL.UserControls
                     _metroTrackBar.Value = 0;
                     _metroTrackBar.Maximum = (int)_currentTrack.Duration;
                     _toolStripLabel.Text = $"{_currentTrack.Title} ({TimeSpan.FromSeconds(_currentTrack.Duration):h\\:mm\\:ss})";
-                    Toggle(_player.PlaybackState);
+                    Toggle();
                 });
             }
         }
@@ -266,7 +271,7 @@ namespace YtEzDL.UserControls
             {
                 _bytesRead = 0;
                 _player.Play(position);
-                Execute(() => Toggle(_player.PlaybackState));
+                Execute(Toggle);
             }
         }
 
@@ -275,7 +280,7 @@ namespace YtEzDL.UserControls
             lock (_lock)
             {
                 _player.Pause();
-                Execute(() => Toggle(_player.PlaybackState));
+                Execute(Toggle);
             }
         }
         
@@ -303,7 +308,7 @@ namespace YtEzDL.UserControls
                     break;
             }
 
-            ExecuteAsync(() => Toggle(_player.PlaybackState));
+            ExecuteAsync(Toggle);
         }
 
         private void toolStripButtonPause_Click(object sender, EventArgs e)
@@ -311,7 +316,7 @@ namespace YtEzDL.UserControls
             if (_player.PlaybackState == PlaybackState.Playing)
             {
                 _player.Pause();
-                Execute(() => Toggle(_player.PlaybackState));
+                Execute(Toggle);
             }
         }
 
