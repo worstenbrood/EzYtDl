@@ -31,7 +31,7 @@ namespace YtEzDL.UserControls
             this._metroTrackBar.BackColor = System.Drawing.SystemColors.MenuBar;
             this._metroTrackBar.Location = new System.Drawing.Point(8, 44);
             this._metroTrackBar.Name = "_metroTrackBar";
-            this._metroTrackBar.Size = new System.Drawing.Size(518, 24);
+            this._metroTrackBar.Size = new System.Drawing.Size(534, 24);
             this._metroTrackBar.TabIndex = 0;
             this._metroTrackBar.Text = "Player";
             this._metroTrackBar.Value = 0;
@@ -40,11 +40,9 @@ namespace YtEzDL.UserControls
             // 
             // _toolStrip
             // 
-            this._toolStrip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._toolStrip.AutoSize = false;
             this._toolStrip.BackColor = System.Drawing.Color.White;
-            this._toolStrip.Dock = System.Windows.Forms.DockStyle.None;
+            this._toolStrip.CanOverflow = false;
             this._toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this._toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this._toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -53,9 +51,11 @@ namespace YtEzDL.UserControls
             this._toolStripButtonStop,
             this._toolStripLabel});
             this._toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this._toolStrip.Location = new System.Drawing.Point(8, 8);
+            this._toolStrip.Location = new System.Drawing.Point(0, 0);
             this._toolStrip.Name = "_toolStrip";
-            this._toolStrip.Size = new System.Drawing.Size(534, 33);
+            this._toolStrip.Padding = new System.Windows.Forms.Padding(0);
+            this._toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this._toolStrip.Size = new System.Drawing.Size(556, 33);
             this._toolStrip.Stretch = true;
             this._toolStrip.TabIndex = 3;
             // 
@@ -116,7 +116,7 @@ namespace YtEzDL.UserControls
             this.Controls.Add(this._toolStrip);
             this.Controls.Add(this._metroTrackBar);
             this.Name = "Player";
-            this.Size = new System.Drawing.Size(551, 76);
+            this.Size = new System.Drawing.Size(556, 76);
             this.UseCustomBackColor = true;
             this._toolStrip.ResumeLayout(false);
             this._toolStrip.PerformLayout();
@@ -331,8 +331,8 @@ namespace YtEzDL.UserControls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            var color = FormTools.ColorMapping[Configuration.Default.LayoutSettings.ColorStyle];
-            using (var pen = new Pen(color, 4))
+            //var color = FormTools.ColorMapping[Configuration.Default.LayoutSettings.ColorStyle];
+            using (var pen = new Pen(Color.Black, 2))
             {
                 e.Graphics.DrawRectangle(pen, ClientRectangle);
             }
