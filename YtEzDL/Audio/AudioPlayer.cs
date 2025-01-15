@@ -15,6 +15,7 @@ namespace YtEzDL.Audio
         public const int Bits = 16;
         public const int Channels = 2;
         public static readonly WaveFormat Format = new WaveFormat(Rate, Bits, Channels);
+        private RawSourceWaveStream _waveStream;
         private WasapiOut _wasapiOut;
         private FfMpegStream _ffMpegStream;
         private readonly object _lock = new object();
@@ -98,7 +99,10 @@ namespace YtEzDL.Audio
                 CreateFfMpegStream(url, position);
 
                 _url = url;
-                _wasapiOut.Init(new RawSourceWaveStream(_ffMpegStream, Format));
+
+                _waveStream?.Dispose();
+                _waveStream = new RawSourceWaveStream(_ffMpegStream, Format);
+                _wasapiOut.Init(_waveStream);
                 _wasapiOut.Play();
             }
         }
