@@ -60,6 +60,7 @@
             this.toolStrip.AutoSize = false;
             this.toolStrip.BackColor = System.Drawing.Color.White;
             this.toolStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.toolStrip.BorderSize = 0;
             this.toolStrip.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -80,6 +81,7 @@
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.toolStrip.ShowBorder = false;
             this.toolStrip.Size = new System.Drawing.Size(894, 35);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 13;
@@ -362,7 +364,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.player.BackColor = System.Drawing.Color.White;
-            this.player.Location = new System.Drawing.Point(9, 434);
+            this.player.Location = new System.Drawing.Point(9, 443);
             this.player.Name = "player";
             this.player.Size = new System.Drawing.Size(894, 63);
             this.player.TabIndex = 17;

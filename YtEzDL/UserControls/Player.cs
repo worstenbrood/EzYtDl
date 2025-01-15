@@ -43,6 +43,7 @@ namespace YtEzDL.UserControls
             // 
             this._toolStrip.AutoSize = false;
             this._toolStrip.BackColor = System.Drawing.Color.White;
+            this._toolStrip.BorderSize = 2;
             this._toolStrip.CanOverflow = false;
             this._toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this._toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -56,6 +57,7 @@ namespace YtEzDL.UserControls
             this._toolStrip.Name = "_toolStrip";
             this._toolStrip.Padding = new System.Windows.Forms.Padding(0);
             this._toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this._toolStrip.ShowBorder = true;
             this._toolStrip.Size = new System.Drawing.Size(556, 33);
             this._toolStrip.Stretch = true;
             this._toolStrip.TabIndex = 3;
