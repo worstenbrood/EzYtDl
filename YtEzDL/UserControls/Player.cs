@@ -29,9 +29,10 @@ namespace YtEzDL.UserControls
             this._metroTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._metroTrackBar.BackColor = System.Drawing.SystemColors.MenuBar;
-            this._metroTrackBar.Location = new System.Drawing.Point(8, 44);
+            this._metroTrackBar.Location = new System.Drawing.Point(10, 35);
+            this._metroTrackBar.Margin = new System.Windows.Forms.Padding(0);
             this._metroTrackBar.Name = "_metroTrackBar";
-            this._metroTrackBar.Size = new System.Drawing.Size(534, 24);
+            this._metroTrackBar.Size = new System.Drawing.Size(532, 24);
             this._metroTrackBar.TabIndex = 0;
             this._metroTrackBar.Text = "Player";
             this._metroTrackBar.Value = 0;
@@ -116,7 +117,7 @@ namespace YtEzDL.UserControls
             this.Controls.Add(this._toolStrip);
             this.Controls.Add(this._metroTrackBar);
             this.Name = "Player";
-            this.Size = new System.Drawing.Size(556, 76);
+            this.Size = new System.Drawing.Size(556, 62);
             this.UseCustomBackColor = true;
             this._toolStrip.ResumeLayout(false);
             this._toolStrip.PerformLayout();
@@ -288,9 +289,9 @@ namespace YtEzDL.UserControls
         {
             lock (_lock)
             {
+                _player.Dispose();
                 _player.StreamRead -= PlayerStreamRead;
                 _player.PlaybackStopped -= PlaybackStopped;
-                _player.Dispose();
             }
             base.Dispose();
         }

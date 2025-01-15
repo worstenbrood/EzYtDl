@@ -337,11 +337,11 @@
             this.flowLayoutPanel.AutoScroll = true;
             this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(9, 107);
+            this.flowLayoutPanel.Location = new System.Drawing.Point(9, 97);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
             this.flowLayoutPanel.Padding = new System.Windows.Forms.Padding(2);
-            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 296);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(894, 334);
             this.flowLayoutPanel.TabIndex = 12;
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlowLayoutPanel_ControlAdded);
@@ -362,9 +362,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.player.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.player.BackColor = System.Drawing.Color.White;
-            this.player.Location = new System.Drawing.Point(9, 419);
+            this.player.Location = new System.Drawing.Point(9, 434);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(894, 74);
+            this.player.Size = new System.Drawing.Size(894, 63);
             this.player.TabIndex = 17;
             this.player.UseCustomBackColor = true;
             this.player.UseSelectable = true;
