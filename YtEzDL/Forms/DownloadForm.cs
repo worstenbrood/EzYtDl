@@ -45,17 +45,15 @@ namespace YtEzDL.Forms
             }
         }
 
-        public DownloadForm(Uri url)
+        private void Initialize()
         {
-            _url = url;
-
             InitializeComponent();
 
             player.Enabled = Configuration.Default.DownloadSettings.ExtractAudio;
 
             // Layout
             Icon = Resources.YTIcon;
-            
+
             flowLayoutPanel.AutoScroll = false;
             flowLayoutPanel.HorizontalScroll.Minimum = int.MaxValue;
             flowLayoutPanel.HorizontalScroll.Maximum = int.MaxValue;
@@ -68,6 +66,12 @@ namespace YtEzDL.Forms
 
             // Set style manager
             AppStyle.SetManager(this);
+        }
+
+        public DownloadForm(Uri url)
+        {
+            _url = url;
+            Initialize();
         }
 
         private void ExecuteAsync(Action<Form> action)

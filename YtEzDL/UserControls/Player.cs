@@ -334,13 +334,12 @@ namespace YtEzDL.UserControls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            //var color = FormTools.ColorMapping[Configuration.Default.LayoutSettings.ColorStyle];
+            base.OnPaint(e);
+
             using (var pen = new Pen(Color.Black, 2))
             {
                 e.Graphics.DrawRectangle(pen, ClientRectangle);
             }
-
-            base.OnPaint(e);
         }
 
         protected override void OnResize(EventArgs e)
