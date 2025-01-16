@@ -115,7 +115,7 @@ namespace YtEzDL.UserControls
             {
                 using (var image = ImageTools.Download(thumbnail))
                 {
-                    return ImageTools.Resize(image, pictureBox.Size, tabPageInfo.BackColor);
+                    return ImageTools.Resize(image, pictureBox.ClientSize, tabPageInfo.BackColor);
                 }
             }
             catch (Exception ex)
