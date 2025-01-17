@@ -43,7 +43,7 @@ namespace YtEzDL.Audio
             return (short)Math.Round(tempo);
         }
 
-        public IOrderedEnumerable<IGrouping<short, short>> GetBpmGroups(float minBpm = 90.0F, float maxBpm = 180.0F)
+        public IOrderedEnumerable<IGrouping<short, short>> GetBpmGroups(float minBpm = 90.0F, float maxBpm = 180.0F, int width = 10)
         {
             // Load the file
             using (var reader = new MediaFoundationReader(_audioFile))
@@ -130,7 +130,7 @@ namespace YtEzDL.Audio
                 var bpm = new List<short>();
                 for (var peak = 0; peak < peaks.Length; peak++)
                 {
-                    for (var index = 1; peak + index < peaks.Length && index < 10; index++)
+                    for (var index = 1; peak + index < peaks.Length && index < width; index++)
                     {
                         bpm.Add(GetTempo(peaks, peak, index, minBpm, maxBpm));
                     }
@@ -144,9 +144,9 @@ namespace YtEzDL.Audio
             }
         }
 
-        public short GetBpm(float minBpm = 90.0F, float maxBpm = 180.0F)
+        public short GetBpm(float minBpm = 90.0F, float maxBpm = 180.0F, int width = 10)
         {
-            var groups = GetBpmGroups(minBpm, maxBpm);
+            var groups = GetBpmGroups(minBpm, maxBpm, width);
             return groups
                 .Select(s => s.Key)
                 // Return first group
