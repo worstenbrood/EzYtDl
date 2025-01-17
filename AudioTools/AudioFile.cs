@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace YtEzDL.Audio
+namespace AudioTools
 {
     public class AudioFile
     {
@@ -14,31 +14,20 @@ namespace YtEzDL.Audio
         public const int DefaultPeakCount = 10;
         public const float DefaultLowPassCutoff = 150.0F;
         public const float DefaultHighPassCutoff = 100.0F;
-        public const float DefaultTimeInSeconds = 0.5F; // Half a second
+        public const float DefaultTimeInSeconds = 2.0F; // Half a second
         
         private readonly string _audioFile;
-
-        private WaveFormat _waveFormat;
-        public WaveFormat WaveFormat {
-            get
-            {
-                if (_waveFormat == null)
-                {
-                    using (var reader = new MediaFoundationReader(_audioFile))
-                    {
-                        _waveFormat = reader.WaveFormat;
-                    }
-                }
-
-                return _waveFormat;
-            }
-
-            private set => _waveFormat = value;
-        }
+        
+        public WaveFormat WaveFormat { get; private set; }
 
         public AudioFile(string audioFile)
         {
             _audioFile = audioFile;
+
+            using (var reader = new MediaFoundationReader(_audioFile))
+            {
+                WaveFormat = reader.WaveFormat;
+            }
         }
 
         private struct Peak
@@ -67,7 +56,7 @@ namespace YtEzDL.Audio
 
             return (short)Math.Round(tempo);
         }
-
+        
         /// <summary>
         /// Get BPM for the current AudioFile.
         /// </summary>
@@ -89,24 +78,23 @@ namespace YtEzDL.Audio
             // Load the file
             using (var reader = new MediaFoundationReader(_audioFile))
             {
-                // Store waveFormat
-                _waveFormat = reader.WaveFormat;
+                WaveFormat = reader.WaveFormat;
 
                 // First a lowpass to remove most of the song.
-                var lowPass = BiQuadFilter.LowPassFilter(_waveFormat.SampleRate, lowPassCutoff, 1.0F);
+                var lowPass = BiQuadFilter.LowPassFilter(WaveFormat.SampleRate, lowPassCutoff, 1.0F);
 
                 // Now a highpass to remove the bassline.
-                var highPass = BiQuadFilter.HighPassFilter(_waveFormat.SampleRate, highPassCutoff, 1.0F);
+                var highPass = BiQuadFilter.HighPassFilter(WaveFormat.SampleRate, highPassCutoff, 1.0F);
 
                 // Calculate bytes per sample
-                var bytesPerSample = (uint)_waveFormat.BitsPerSample / 8;
+                var bytesPerSample = (uint)WaveFormat.BitsPerSample / 8;
                 if (bytesPerSample == 0)
                 {
                     bytesPerSample = 2;
                 }
 
                 var totalSamples = (ulong)(reader.Length / bytesPerSample);
-                var timeInSamples = (uint)(_waveFormat.SampleRate * timeInSeconds); // Half a second
+                var timeInSamples = (uint)(WaveFormat.SampleRate * timeInSeconds); // Half a second
                 var peaks = new Peak[totalSamples / timeInSamples + 1];
                 var samples = new float[timeInSamples];
                 var sampleProvider = reader.ToSampleProvider();
@@ -133,12 +121,12 @@ namespace YtEzDL.Audio
                     var samplesRead = sampleProvider.Read(samples, 0, (int)timeInSamples);
 
                     // Enumerate samples of 0.5 second
-                    for (uint index = 0; index < samplesRead; index += (uint)_waveFormat.Channels)
+                    for (uint index = 0; index < samplesRead; index += (uint)WaveFormat.Channels)
                     {
                         var vol = 0.0F;
 
                         // Check volume on every channel
-                        for (var channel = 0; channel < _waveFormat.Channels; channel++)
+                        for (var channel = 0; channel < WaveFormat.Channels; channel++)
                         {
                             var value = highPass.Transform(lowPass.Transform(samples[index + channel]));
                             if (vol < value)
@@ -176,7 +164,7 @@ namespace YtEzDL.Audio
                         bpm.Add(GetTempo(peaks, peak, index, minBpm, maxBpm));
                     }
                 }
-
+                
                 return bpm
                     // Group by bpm
                     .GroupBy(t => t)
@@ -208,6 +196,43 @@ namespace YtEzDL.Audio
                 .Select(s => s.Key)
                 // Return first group
                 .FirstOrDefault();
+        }
+
+        public short GetBpmByEnergy(uint sampleCount = 1024)
+        {
+            // Load the file
+            using (var reader = new MediaFoundationReader(_audioFile))
+            {
+                WaveFormat = reader.WaveFormat;
+                var totalSampleCount = sampleCount * (uint)WaveFormat.Channels;
+                
+                // Calculate bytes per sample
+                var bytesPerSample = (uint)WaveFormat.BitsPerSample / 8;
+                if (bytesPerSample == 0)
+                {
+                    bytesPerSample = 2;
+                }
+                
+                var totalSamples = (ulong)(reader.Length / bytesPerSample);
+                var samples = new float[totalSampleCount];
+                var sampleProvider = reader.ToSampleProvider();
+                
+                for (ulong offset = 0; offset < totalSamples; offset += totalSampleCount)
+                {
+                    var samplesRead = sampleProvider.Read(samples, 0, (int)totalSampleCount);
+                    for (var sample = 0; sample < samplesRead; sample++)
+                    {
+                        if (sample % 2 != 0)
+                        {
+                            continue;
+                        }
+
+
+                    }
+                }
+            }
+
+            return 0;
         }
     }
 }

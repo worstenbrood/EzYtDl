@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using AudioTools;
 
 namespace YtEzDL
 {
@@ -14,6 +15,10 @@ namespace YtEzDL
         [STAThread]
         public static void Main()
         {
+            var test = new AudioFile(
+                @"C:\Users\tim.horemans\Music\Various\Monism [vA9iMBw0OW4].mp3");
+            var bpm = test.GetBpmGroups(90.0F, 180.0F, 10);
+
             var mutexName = Assembly.GetExecutingAssembly().FullName;
 
             // Check if mutex already exists

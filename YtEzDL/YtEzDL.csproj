@@ -125,7 +125,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\AudioFile.cs" />
     <Compile Include="Config\Settings\AdvancedSettings.cs" />
     <Compile Include="Config\Settings\ApplicationSettings.cs" />
     <Compile Include="Config\Configuration.cs" />
@@ -261,7 +260,12 @@
     <Content Include="External\libwebp_x86.dll" />
     <Content Include="Resources\YTIcon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\AudioTools\AudioTools.csproj">
+      <Project>{f7304a6b-e15d-4194-9c5e-779801fd620f}</Project>
+      <Name>AudioTools</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>CALL "$(ProjectDir)Build\PreBuild.cmd" "$(ProjectDir)"</PreBuildEvent>
