@@ -43,12 +43,12 @@ namespace YtEzDL.Audio
 
         private struct Peak
         {
-            public int Position;
+            public ulong Position;
             public float Volume;
 
             public void Reset()
             {
-                Position = -1;
+                Position = 0;
                 Volume = 0.0F;
             }
         }
@@ -99,14 +99,14 @@ namespace YtEzDL.Audio
                 var highPass = BiQuadFilter.HighPassFilter(_waveFormat.SampleRate, highPassCutoff, 1.0F);
 
                 // Calculate bytes per sample
-                var bytesPerSample = _waveFormat.BitsPerSample / 8;
+                var bytesPerSample = (uint)_waveFormat.BitsPerSample / 8;
                 if (bytesPerSample == 0)
                 {
                     bytesPerSample = 2;
                 }
 
-                var totalSamples = reader.Length / bytesPerSample;
-                var timeInSamples = (int)(_waveFormat.SampleRate * timeInSeconds); // Half a second
+                var totalSamples = (ulong)(reader.Length / bytesPerSample);
+                var timeInSamples = (uint)(_waveFormat.SampleRate * timeInSeconds); // Half a second
                 var peaks = new Peak[totalSamples / timeInSamples + 1];
                 var samples = new float[timeInSamples];
                 var sampleProvider = reader.ToSampleProvider();
@@ -125,15 +125,15 @@ namespace YtEzDL.Audio
                 var maxPeak = new Peak();
 
                 // Read samples of every 0.5 second
-                for (var offset = 0; offset < totalSamples; offset += timeInSamples)
+                for (ulong offset = 0; offset < totalSamples; offset += timeInSamples)
                 {
                     // Reset to defaults
                     maxPeak.Reset();
 
-                    var samplesRead = sampleProvider.Read(samples, 0, timeInSamples);
+                    var samplesRead = sampleProvider.Read(samples, 0, (int)timeInSamples);
 
                     // Enumerate samples of 0.5 second
-                    for (var index = 0; index < samplesRead; index += _waveFormat.Channels)
+                    for (uint index = 0; index < samplesRead; index += (uint)_waveFormat.Channels)
                     {
                         var vol = 0.0F;
 
@@ -147,7 +147,7 @@ namespace YtEzDL.Audio
                             }
                         }
 
-                        if (maxPeak.Position != -1 && maxPeak.Volume >= vol)
+                        if (maxPeak.Position != 0 && maxPeak.Volume >= vol)
                         {
                             continue;
                         }
