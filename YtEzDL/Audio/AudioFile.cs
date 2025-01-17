@@ -14,6 +14,7 @@ namespace YtEzDL.Audio
         public const int DefaultPeakCount = 10;
         public const float DefaultLowPassCutoff = 150.0F;
         public const float DefaultHighPassCutoff = 100.0F;
+        public const float DefaultTimeInSeconds = 0.5F; // Half a second
         
         private readonly string _audioFile;
 
@@ -68,21 +69,22 @@ namespace YtEzDL.Audio
         }
 
         /// <summary>
-        /// Get BPM for the current AudioFile
+        /// Get BPM for the current AudioFile.
         /// </summary>
         /// <param name="minBpm">Minimum BPM (Used for correcting)</param>
         /// <param name="maxBpm">Maximum BPM (Used for correcting)</param>
         /// <param name="peakCount">Number of Peak objects </param>
         /// <param name="lowPassCutoff">Low pass filter cutoff frequency</param>
         /// <param name="highPassCutoff">High pass filter cutoff frequency</param>
+        /// <param name="timeInSeconds">Time in seconds for every part</param>
         /// <returns>BPM groups ordered by count</returns>
-
         public IOrderedEnumerable<IGrouping<short, short>> GetBpmGroups(
             float minBpm = DefaultMinBpm, 
             float maxBpm = DefaultMaxBpm, 
             int peakCount = DefaultPeakCount, 
             float lowPassCutoff = DefaultLowPassCutoff,
-            float highPassCutoff = DefaultHighPassCutoff)
+            float highPassCutoff = DefaultHighPassCutoff,
+            float timeInSeconds = DefaultTimeInSeconds)
         {
             // Load the file
             using (var reader = new MediaFoundationReader(_audioFile))
@@ -104,7 +106,6 @@ namespace YtEzDL.Audio
                 }
 
                 var totalSamples = reader.Length / bytesPerSample;
-                const float timeInSeconds = 0.5F;
                 var timeInSamples = (int)(_waveFormat.SampleRate * timeInSeconds); // Half a second
                 var peaks = new Peak[totalSamples / timeInSamples + 1];
                 var samples = new float[timeInSamples];
@@ -185,22 +186,24 @@ namespace YtEzDL.Audio
         }
 
         /// <summary>
-        /// Get BPM for the current AudioFile
+        /// Get BPM for the current AudioFile.
         /// </summary>
         /// <param name="minBpm">Minimum BPM (Used for correcting)</param>
         /// <param name="maxBpm">Maximum BPM (Used for correcting)</param>
         /// <param name="peakCount">Number of Peak objects </param>
         /// <param name="lowPassCutoff">Low pass filter cutoff frequency</param>
         /// <param name="highPassCutoff">High pass filter cutoff frequency</param>
+        /// <param name="timeInSeconds">Time in seconds for every part</param>
         /// <returns>BPM</returns>
         public short GetBpm(
             float minBpm = DefaultMinBpm,
             float maxBpm = DefaultMaxBpm,
             int peakCount = DefaultPeakCount,
             float lowPassCutoff = DefaultLowPassCutoff,
-            float highPassCutoff = DefaultHighPassCutoff)
+            float highPassCutoff = DefaultHighPassCutoff,
+            float timeInSeconds = DefaultTimeInSeconds)
         {
-            var groups = GetBpmGroups(minBpm, maxBpm, peakCount, lowPassCutoff, highPassCutoff);
+            var groups = GetBpmGroups(minBpm, maxBpm, peakCount, lowPassCutoff, highPassCutoff, timeInSeconds);
             return groups
                 .Select(s => s.Key)
                 // Return first group
