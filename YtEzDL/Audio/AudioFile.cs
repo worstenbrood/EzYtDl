@@ -43,7 +43,22 @@ namespace YtEzDL.Audio
             return (short)Math.Round(tempo);
         }
 
-        public IOrderedEnumerable<IGrouping<short, short>> GetBpmGroups(float minBpm = 90.0F, float maxBpm = 180.0F, int width = 10)
+        /// <summary>
+        /// Get BPM for the current AudioFile
+        /// </summary>
+        /// <param name="minBpm">Minimum BPM (Used for correcting)</param>
+        /// <param name="maxBpm">Maximum BPM (Used for correcting)</param>
+        /// <param name="peakCount">Number of Peak objects </param>
+        /// <param name="lowPassCutoff">Low pass filter cutoff frequency</param>
+        /// <param name="highPassCutoff">High pass filter cutoff frequency</param>
+        /// <returns>BPM groups ordered by count</returns>
+
+        public IOrderedEnumerable<IGrouping<short, short>> GetBpmGroups(
+            float minBpm = 90.0F, 
+            float maxBpm = 180.0F, 
+            int peakCount = 10, 
+            float lowPassCutoff = 150.0F,
+            float highPassCutoff = 100.0F)
         {
             // Load the file
             using (var reader = new MediaFoundationReader(_audioFile))
@@ -52,10 +67,10 @@ namespace YtEzDL.Audio
                 WaveFormat = reader.WaveFormat;
 
                 // First a lowpass to remove most of the song.
-                var lowPass = BiQuadFilter.LowPassFilter(WaveFormat.SampleRate, 150.0F, 1.0F);
+                var lowPass = BiQuadFilter.LowPassFilter(WaveFormat.SampleRate, lowPassCutoff, 1.0F);
 
                 // Now a highpass to remove the bassline.
-                var highPass = BiQuadFilter.HighPassFilter(WaveFormat.SampleRate, 100.0F, 1.0F);
+                var highPass = BiQuadFilter.HighPassFilter(WaveFormat.SampleRate, highPassCutoff, 1.0F);
 
                 // Calculate bytes per sample
                 var bytesPerSample = WaveFormat.BitsPerSample / 8;
@@ -65,7 +80,8 @@ namespace YtEzDL.Audio
                 }
 
                 var totalSamples = reader.Length / bytesPerSample;
-                var timeInSamples = WaveFormat.SampleRate / 2; // Half a second
+                var timeInSeconds = 0.5F;
+                var timeInSamples = (int)(WaveFormat.SampleRate * timeInSeconds); // Half a second
                 var peaks = new Peak[totalSamples / timeInSamples + 1];
                 var samples = new float[timeInSamples];
                 var sampleProvider = reader.ToSampleProvider();
@@ -130,7 +146,7 @@ namespace YtEzDL.Audio
                 var bpm = new List<short>();
                 for (var peak = 0; peak < peaks.Length; peak++)
                 {
-                    for (var index = 1; peak + index < peaks.Length && index < width; index++)
+                    for (var index = 1; peak + index < peaks.Length && index < peakCount; index++)
                     {
                         bpm.Add(GetTempo(peaks, peak, index, minBpm, maxBpm));
                     }
@@ -144,9 +160,23 @@ namespace YtEzDL.Audio
             }
         }
 
-        public short GetBpm(float minBpm = 90.0F, float maxBpm = 180.0F, int width = 10)
+        /// <summary>
+        /// Get BPM for the current AudioFile
+        /// </summary>
+        /// <param name="minBpm">Minimum BPM (Used for correcting)</param>
+        /// <param name="maxBpm">Maximum BPM (Used for correcting)</param>
+        /// <param name="peakCount">Number of Peak objects </param>
+        /// <param name="lowPassCutoff">Low pass filter cutoff frequency</param>
+        /// <param name="highPassCutoff">High pass filter cutoff frequency</param>
+        /// <returns>BPM</returns>
+        public short GetBpm(
+            float minBpm = 90.0F,
+            float maxBpm = 180.0F,
+            int peakCount = 10,
+            float lowPassCutoff = 150.0F,
+            float highPassCutoff = 100.0F)
         {
-            var groups = GetBpmGroups(minBpm, maxBpm, width);
+            var groups = GetBpmGroups(minBpm, maxBpm, peakCount, lowPassCutoff, highPassCutoff);
             return groups
                 .Select(s => s.Key)
                 // Return first group
