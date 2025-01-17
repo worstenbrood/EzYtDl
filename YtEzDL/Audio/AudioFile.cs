@@ -8,8 +8,32 @@ namespace YtEzDL.Audio
 {
     public class AudioFile
     {
+        // GetBpmX defaults
+        public const float DefaultMinBpm = 90.0F;
+        public const float DefaultMaxBpm = 180.0F;
+        public const int DefaultPeakCount = 10;
+        public const float DefaultLowPassCutoff = 150.0F;
+        public const float DefaultHighPassCutoff = 100.0F;
+        
         private readonly string _audioFile;
-        public WaveFormat WaveFormat { get; private set; }
+
+        private WaveFormat _waveFormat;
+        public WaveFormat WaveFormat {
+            get
+            {
+                if (_waveFormat == null)
+                {
+                    using (var reader = new MediaFoundationReader(_audioFile))
+                    {
+                        _waveFormat = reader.WaveFormat;
+                    }
+                }
+
+                return _waveFormat;
+            }
+
+            private set => _waveFormat = value;
+        }
 
         public AudioFile(string audioFile)
         {
@@ -54,34 +78,34 @@ namespace YtEzDL.Audio
         /// <returns>BPM groups ordered by count</returns>
 
         public IOrderedEnumerable<IGrouping<short, short>> GetBpmGroups(
-            float minBpm = 90.0F, 
-            float maxBpm = 180.0F, 
-            int peakCount = 10, 
-            float lowPassCutoff = 150.0F,
-            float highPassCutoff = 100.0F)
+            float minBpm = DefaultMinBpm, 
+            float maxBpm = DefaultMaxBpm, 
+            int peakCount = DefaultPeakCount, 
+            float lowPassCutoff = DefaultLowPassCutoff,
+            float highPassCutoff = DefaultHighPassCutoff)
         {
             // Load the file
             using (var reader = new MediaFoundationReader(_audioFile))
             {
                 // Store waveFormat
-                WaveFormat = reader.WaveFormat;
+                _waveFormat = reader.WaveFormat;
 
                 // First a lowpass to remove most of the song.
-                var lowPass = BiQuadFilter.LowPassFilter(WaveFormat.SampleRate, lowPassCutoff, 1.0F);
+                var lowPass = BiQuadFilter.LowPassFilter(_waveFormat.SampleRate, lowPassCutoff, 1.0F);
 
                 // Now a highpass to remove the bassline.
-                var highPass = BiQuadFilter.HighPassFilter(WaveFormat.SampleRate, highPassCutoff, 1.0F);
+                var highPass = BiQuadFilter.HighPassFilter(_waveFormat.SampleRate, highPassCutoff, 1.0F);
 
                 // Calculate bytes per sample
-                var bytesPerSample = WaveFormat.BitsPerSample / 8;
+                var bytesPerSample = _waveFormat.BitsPerSample / 8;
                 if (bytesPerSample == 0)
                 {
                     bytesPerSample = 2;
                 }
 
                 var totalSamples = reader.Length / bytesPerSample;
-                var timeInSeconds = 0.5F;
-                var timeInSamples = (int)(WaveFormat.SampleRate * timeInSeconds); // Half a second
+                const float timeInSeconds = 0.5F;
+                var timeInSamples = (int)(_waveFormat.SampleRate * timeInSeconds); // Half a second
                 var peaks = new Peak[totalSamples / timeInSamples + 1];
                 var samples = new float[timeInSamples];
                 var sampleProvider = reader.ToSampleProvider();
@@ -108,12 +132,12 @@ namespace YtEzDL.Audio
                     var samplesRead = sampleProvider.Read(samples, 0, timeInSamples);
 
                     // Enumerate samples of 0.5 second
-                    for (var index = 0; index < samplesRead; index += WaveFormat.Channels)
+                    for (var index = 0; index < samplesRead; index += _waveFormat.Channels)
                     {
                         var vol = 0.0F;
 
                         // Check volume on every channel
-                        for (var channel = 0; channel < WaveFormat.Channels; channel++)
+                        for (var channel = 0; channel < _waveFormat.Channels; channel++)
                         {
                             var value = highPass.Transform(lowPass.Transform(samples[index + channel]));
                             if (vol < value)
@@ -170,11 +194,11 @@ namespace YtEzDL.Audio
         /// <param name="highPassCutoff">High pass filter cutoff frequency</param>
         /// <returns>BPM</returns>
         public short GetBpm(
-            float minBpm = 90.0F,
-            float maxBpm = 180.0F,
-            int peakCount = 10,
-            float lowPassCutoff = 150.0F,
-            float highPassCutoff = 100.0F)
+            float minBpm = DefaultMinBpm,
+            float maxBpm = DefaultMaxBpm,
+            int peakCount = DefaultPeakCount,
+            float lowPassCutoff = DefaultLowPassCutoff,
+            float highPassCutoff = DefaultHighPassCutoff)
         {
             var groups = GetBpmGroups(minBpm, maxBpm, peakCount, lowPassCutoff, highPassCutoff);
             return groups
