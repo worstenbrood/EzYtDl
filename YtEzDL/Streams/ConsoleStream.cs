@@ -6,41 +6,8 @@ using YtEzDL.Utils;
 
 namespace YtEzDL.Streams
 {
-    public class ReadEventArgs : EventArgs
+    public class ConsoleStream : EventStream, IDisposable
     {
-        public readonly int BytesRead;
-        public readonly int Offset;
-        public readonly byte[] Data;
-
-        internal ReadEventArgs(int bytesRead, byte[] data, int offset)
-        {
-            BytesRead = bytesRead;
-            Data = data;
-            Offset = offset;
-        }
-    }
-
-    public delegate void ReadEventHandler(object o, ReadEventArgs args);
-
-    public class WriteEventArgs : EventArgs
-    {
-        public readonly int BytesWritten;
-        public readonly int Offset;
-        public readonly byte[] Data;
-
-        internal WriteEventArgs(int bytesWritten, byte[] data, int offset)
-        {
-            BytesWritten = bytesWritten;
-            Data = data;    
-            Offset = offset;
-        }
-    }
-
-    public delegate void WriteEventHandler(object o, WriteEventArgs args);
-    
-    public class ConsoleStream : Stream, IDisposable
-    {
-        protected Stream BaseStream { get; set; }
         protected Process Process { get; set; }
 
         private CancellationTokenSource _source = new CancellationTokenSource();
@@ -62,14 +29,11 @@ namespace YtEzDL.Streams
             }
         }
 
-        public event ReadEventHandler ReadEvent;
-        public event WriteEventHandler WriteEvent;
-        
         public ConsoleStream()
         {
         }
-
-        public ConsoleStream(Process process, Stream stream)
+        
+        public ConsoleStream(Process process, Stream stream) : base(stream) 
         {
             BaseStream = stream;
             Process = process;
@@ -89,17 +53,17 @@ namespace YtEzDL.Streams
 
         public override void Flush()
         {
-            CheckForCancelled(() => BaseStream.Flush());
+            CheckForCancelled(() => base.Flush());
         }
 
         public override long Seek(long offset, SeekOrigin origin)
         {
-            return CheckForCancelled(() => BaseStream.Seek(offset, origin));
+            return CheckForCancelled(() => base.Seek(offset, origin));
         }
 
         public override void SetLength(long value)
         {
-            CheckForCancelled(() => BaseStream.SetLength(value));
+            CheckForCancelled(() => base.SetLength(value));
         }
 
         public override int Read(byte[] buffer, int offset, int count)
@@ -109,15 +73,13 @@ namespace YtEzDL.Streams
                 int bytesRead;
                 try
                 {
-                    bytesRead = BaseStream.Read(buffer, offset, count);
+                    bytesRead = base.Read(buffer, offset, count);
                 }
                 catch (IOException)
                 {
                     bytesRead = 0;
                 }
 
-                // Trigger event if any
-                ReadEvent?.Invoke(this, new ReadEventArgs(bytesRead, buffer, offset));
                 return bytesRead;
             });
         }
@@ -126,23 +88,10 @@ namespace YtEzDL.Streams
         {
             CheckForCancelled(() =>
             {
-                BaseStream.Write(buffer, offset, count);
-                // Trigger event if any
-                WriteEvent?.Invoke(this, new WriteEventArgs(count, buffer, offset));
+                base.Write(buffer, offset, count);
             });
         }
-
-        public override bool CanRead => BaseStream.CanRead;
-        public override bool CanSeek => BaseStream.CanSeek;
-        public override bool CanWrite => BaseStream.CanWrite;
-        public override long Length => BaseStream.Length;
-
-        public override long Position
-        {
-            get => BaseStream.Position;
-            set => BaseStream.Position = value;
-        }
-
+        
         public new void Dispose()
         {
             base.Dispose();
