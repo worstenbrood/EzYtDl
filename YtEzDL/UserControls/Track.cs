@@ -46,6 +46,149 @@ namespace YtEzDL.UserControls
 
         public event ClickedEventHandler Play;
 
+        private MetroTabPage _tabPageSettings;
+        private MetroCheckBox _checkBoxExtractAudio;
+        private MetroComboBox _comboBoxAudioFormat;
+        private MetroLabel _labelAudioFormat;
+        private MetroLabel _labelAudioQuality;
+        private MetroComboBox _comboBoxAudioQuality;
+        private MetroLabel _labelVideoFormat;
+        private MetroComboBox _comboBoxVideoFormat;
+
+        private void AddPerTrackSettings()
+        {
+            _tabPageSettings = new MetroTabPage();
+            _checkBoxExtractAudio = new MetroCheckBox();
+            _comboBoxAudioFormat = new MetroComboBox();
+            _comboBoxVideoFormat = new MetroComboBox();
+            _labelAudioFormat = new MetroLabel();
+            _labelAudioQuality = new MetroLabel();
+            _comboBoxAudioQuality = new MetroComboBox();
+            _labelVideoFormat = new MetroLabel();
+            
+            // 
+            // tabPageSettings
+            // 
+            _tabPageSettings.BackColor = Color.White;
+            _tabPageSettings.Controls.Add(_labelVideoFormat);
+            _tabPageSettings.Controls.Add(_comboBoxVideoFormat);
+            _tabPageSettings.Controls.Add(_labelAudioQuality);
+            _tabPageSettings.Controls.Add(_comboBoxAudioQuality);
+            _tabPageSettings.Controls.Add(_labelAudioFormat);
+            _tabPageSettings.Controls.Add(_comboBoxAudioFormat);
+            _tabPageSettings.Controls.Add(_checkBoxExtractAudio);
+            _tabPageSettings.HorizontalScrollbarBarColor = false;
+            _tabPageSettings.HorizontalScrollbarHighlightOnWheel = false;
+            _tabPageSettings.HorizontalScrollbarSize = 10;
+            _tabPageSettings.Location = new Point(4, 44);
+            _tabPageSettings.Name = "tabPageSettings";
+            _tabPageSettings.Size = new Size(620, 159);
+            _tabPageSettings.TabIndex = 1;
+            _tabPageSettings.Text = "Settings";
+            _tabPageSettings.VerticalScrollbarBarColor = false;
+            _tabPageSettings.VerticalScrollbarHighlightOnWheel = false;
+            _tabPageSettings.VerticalScrollbarSize = 10;
+            _tabPageSettings.MouseClick += Track_MouseClick;
+            _tabPageSettings.SuspendLayout();
+
+            // 
+            // labelVideoFormat
+            // 
+            _labelVideoFormat.AutoSize = true;
+            _labelVideoFormat.FontSize = MetroLabelSize.Tall;
+            _labelVideoFormat.FontWeight = MetroLabelWeight.Regular;
+            _labelVideoFormat.ForeColor = Color.Black;
+            _labelVideoFormat.Location = new Point(4, 114);
+            _labelVideoFormat.Name = "labelVideoFormat";
+            _labelVideoFormat.Size = new Size(121, 25);
+            _labelVideoFormat.TabIndex = 8;
+            _labelVideoFormat.Text = "Video format:";
+            // 
+            // comboBoxVideoFormat
+            // 
+            _comboBoxVideoFormat.BackColor = Color.White;
+            _comboBoxVideoFormat.FontSize = MetroComboBoxSize.Tall;
+            _comboBoxVideoFormat.ForeColor = Color.Black;
+            _comboBoxVideoFormat.FormattingEnabled = true;
+            _comboBoxVideoFormat.ItemHeight = 29;
+            _comboBoxVideoFormat.Location = new Point(127, 110);
+            _comboBoxVideoFormat.Name = "comboBoxVideoFormat";
+            _comboBoxVideoFormat.Size = new Size(121, 35);
+            _comboBoxVideoFormat.TabIndex = 7;
+            _comboBoxVideoFormat.UseSelectable = true;
+            // 
+            // labelAudioQuality
+            // 
+            _labelAudioQuality.AutoSize = true;
+            _labelAudioQuality.FontSize = MetroLabelSize.Tall;
+            _labelAudioQuality.FontWeight = MetroLabelWeight.Regular;
+            _labelAudioQuality.ForeColor = Color.Black;
+            _labelAudioQuality.Location = new Point(4, 80);
+            _labelAudioQuality.Name = "labelAudioQuality";
+            _labelAudioQuality.Size = new Size(122, 25);
+            _labelAudioQuality.TabIndex = 6;
+            _labelAudioQuality.Text = "Audio quality:";
+            // 
+            // comboBoxAudioQuality
+            // 
+            _comboBoxAudioQuality.BackColor = Color.White;
+            _comboBoxAudioQuality.FontSize = MetroComboBoxSize.Tall;
+            _comboBoxAudioQuality.ForeColor = Color.Black;
+            _comboBoxAudioQuality.FormattingEnabled = true;
+            _comboBoxAudioQuality.ItemHeight = 29;
+            _comboBoxAudioQuality.Location = new Point(127, 76);
+            _comboBoxAudioQuality.Name = "comboBoxAudioQuality";
+            _comboBoxAudioQuality.Size = new Size(121, 35);
+            _comboBoxAudioQuality.TabIndex = 5;
+            _comboBoxAudioQuality.UseSelectable = true;
+            // 
+            // labelAudioFormat
+            // 
+            _labelAudioFormat.AutoSize = true;
+            _labelAudioFormat.FontSize = MetroLabelSize.Tall;
+            _labelAudioFormat.FontWeight = MetroLabelWeight.Regular;
+            _labelAudioFormat.ForeColor = Color.Black;
+            _labelAudioFormat.Location = new Point(4, 45);
+            _labelAudioFormat.Name = "labelAudioFormat";
+            _labelAudioFormat.Size = new Size(123, 25);
+            _labelAudioFormat.TabIndex = 4;
+            _labelAudioFormat.Text = "Audio format:";
+            // 
+            // comboBoxAudioFormat
+            // 
+            _comboBoxAudioFormat.BackColor = Color.White;
+            _comboBoxAudioFormat.FontSize = MetroComboBoxSize.Tall;
+            _comboBoxAudioFormat.ForeColor = Color.Black;
+            _comboBoxAudioFormat.FormattingEnabled = true;
+            _comboBoxAudioFormat.ItemHeight = 29;
+            _comboBoxAudioFormat.Location = new Point(127, 42);
+            _comboBoxAudioFormat.Name = "comboBoxAudioFormat";
+            _comboBoxAudioFormat.Size = new Size(121, 35);
+            _comboBoxAudioFormat.TabIndex = 3;
+            _comboBoxAudioFormat.UseSelectable = true;
+            
+            // 
+            // checkBoxExtractAudio
+            // 
+            _checkBoxExtractAudio.AutoSize = true;
+            _checkBoxExtractAudio.FontSize = MetroCheckBoxSize.Tall;
+            _checkBoxExtractAudio.ForeColor = Color.Black;
+            _checkBoxExtractAudio.Location = new Point(3, 14);
+            _checkBoxExtractAudio.Name = "checkBoxExtractAudio";
+            _checkBoxExtractAudio.Size = new Size(130, 25);
+            _checkBoxExtractAudio.TabIndex = 2;
+            _checkBoxExtractAudio.Text = "Extract audio";
+            _checkBoxExtractAudio.UseSelectable = true;
+            _checkBoxExtractAudio.CheckedChanged += CheckBoxExtractAudio_CheckedChanged;
+            _tabPageSettings.ResumeLayout(false);
+            _tabPageSettings.PerformLayout();
+            
+            metroTabControl.SuspendLayout();
+            metroTabControl.Controls.Add(_tabPageSettings);
+            metroTabControl.ResumeLayout(false);
+            metroTabControl.PerformLayout();
+        }
+
         public Track()
         {
             InitializeComponent();
@@ -63,11 +206,9 @@ namespace YtEzDL.UserControls
                 textBoxTitle.Location = pictureBox.Location;
             }
 
-            if (!Configuration.Default.LayoutSettings.PerTrackSettings)
+            if (Configuration.Default.LayoutSettings.PerTrackSettings)
             {
-                tabPageSettings.Enabled = tabPageSettings.Visible = false;
-                metroTabControl.Controls.Remove(tabPageSettings);
-                tabPageSettings.Dispose();
+                AddPerTrackSettings();
             }
         }
 
@@ -166,10 +307,10 @@ namespace YtEzDL.UserControls
             
             if (Configuration.Default.LayoutSettings.PerTrackSettings)
             {
-                checkBoxExtractAudio.AddCheckedBinding(_configuration.DownloadSettings, p => p.ExtractAudio);
-                comboBoxAudioFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioFormat);
-                comboBoxAudioQuality.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioQuality);
-                comboBoxVideoFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.VideoFormat);
+                _checkBoxExtractAudio.AddCheckedBinding(_configuration.DownloadSettings, p => p.ExtractAudio);
+                _comboBoxAudioFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioFormat);
+                _comboBoxAudioQuality.AddEnumBinding(_configuration.DownloadSettings, p => p.AudioQuality);
+                _comboBoxVideoFormat.AddEnumBinding(_configuration.DownloadSettings, p => p.VideoFormat);
             }
 
             base.OnLoad(e);
@@ -334,9 +475,9 @@ namespace YtEzDL.UserControls
         
         private void CheckBoxExtractAudio_CheckedChanged(object sender, EventArgs e)
         {
-            comboBoxAudioFormat.Enabled = checkBoxExtractAudio.Checked;
-            comboBoxAudioQuality.Enabled = checkBoxExtractAudio.Checked;
-            comboBoxVideoFormat.Enabled = !checkBoxExtractAudio.Checked;
+            _comboBoxAudioFormat.Enabled = _checkBoxExtractAudio.Checked;
+            _comboBoxAudioQuality.Enabled = _checkBoxExtractAudio.Checked;
+            _comboBoxVideoFormat.Enabled = !_checkBoxExtractAudio.Checked;
         }
 
         // IProgress
