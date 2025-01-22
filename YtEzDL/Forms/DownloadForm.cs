@@ -95,9 +95,18 @@ namespace YtEzDL.Forms
             toolStripStatusLabel.Text = string.Format(Resources.StatusLabelText, Tracks.Count(), Tracks.Count(t => t.Selected));
         }
 
+        private void SetDownloadButton()
+        {
+            toolStripButtonDownload.Enabled = Tracks.Any(t => t.Selected);
+        }
+
         private void track_OnToggle(object o, Track.ToggleEventArgs e)
         {
-            Execute(f => SetStatusLabel());
+            Execute(f =>
+            {
+                SetDownloadButton();
+                SetStatusLabel();
+            });
         }
 
         private void SetTrackWidth(Track track)
@@ -230,15 +239,7 @@ namespace YtEzDL.Forms
                 {
                     Text = SafeString(string.Format(Resources.Track, Tracks.First().TrackData.Title,
                         Tracks.First().TrackData.WebpageUrlDomain));
-
-                    // Disable tools
-                    toolStripButtonAll.Enabled = false;
-                    toolStripButtonNone.Enabled = false;
-                    toolStripButtonToggle.Enabled = false;
-                    toolStripTextBoxSearch.Enabled = false;
-                    toolStripButtonReset.Enabled = false;
-                    dropDownButtonSort.Enabled = false;
-
+                    
                     // Add to history
                     History.Default.Add(Text, _url.ToString(), firstTrack.TrackData.Id);
                 }
@@ -247,6 +248,14 @@ namespace YtEzDL.Forms
                 {
                     Text = SafeString(string.Format(Resources.Playlist, firstTrack.TrackData.Playlist,
                         firstTrack.TrackData.WebpageUrlDomain));
+
+                    // Enable tools
+                    toolStripButtonAll.Enabled = true;
+                    toolStripButtonNone.Enabled = true;
+                    toolStripButtonToggle.Enabled = true;
+                    toolStripTextBoxSearch.Enabled = true;
+                    toolStripButtonReset.Enabled = true;
+                    dropDownButtonSort.Enabled = true;
 
                     // Add to history
                     History.Default.Add(Text, _url.ToString(), firstTrack.TrackData.PlaylistId);
@@ -261,7 +270,6 @@ namespace YtEzDL.Forms
                 return;
             }
             
-            toolStripButtonDownload.Enabled = true;
             toolStripButtonCancel.Enabled = false;
             metroProgressSpinner.Enabled = metroProgressSpinner.Visible = false;
             Invalidate(ClientRectangle, false);

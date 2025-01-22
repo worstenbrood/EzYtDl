@@ -91,6 +91,7 @@
             // 
             this.toolStripButtonNone.AutoSize = false;
             this.toolStripButtonNone.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonNone.Enabled = false;
             this.toolStripButtonNone.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripButtonNone.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonNone.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonNone.Image")));
@@ -107,6 +108,7 @@
             // 
             this.toolStripButtonAll.AutoSize = false;
             this.toolStripButtonAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonAll.Enabled = false;
             this.toolStripButtonAll.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripButtonAll.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonAll.Image")));
@@ -122,6 +124,7 @@
             // 
             this.toolStripButtonToggle.AutoSize = false;
             this.toolStripButtonToggle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonToggle.Enabled = false;
             this.toolStripButtonToggle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
             this.toolStripButtonToggle.ForeColor = System.Drawing.Color.Black;
             this.toolStripButtonToggle.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonToggle.Image")));
@@ -153,6 +156,7 @@
             // 
             this.toolStripButtonReset.AutoSize = false;
             this.toolStripButtonReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonReset.Enabled = false;
             this.toolStripButtonReset.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonReset.Image")));
             this.toolStripButtonReset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonReset.Margin = new System.Windows.Forms.Padding(0);
@@ -172,6 +176,7 @@
             this.sortByLengthItem,
             this.sortByLengthDescendingItem,
             this.resetItem});
+            this.dropDownButtonSort.Enabled = false;
             this.dropDownButtonSort.ForeColor = System.Drawing.Color.Black;
             this.dropDownButtonSort.Image = ((System.Drawing.Image)(resources.GetObject("dropDownButtonSort.Image")));
             this.dropDownButtonSort.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -245,6 +250,7 @@
             // 
             this.toolStripButtonCancel.AutoSize = false;
             this.toolStripButtonCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonCancel.Enabled = false;
             this.toolStripButtonCancel.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCancel.Image")));
             this.toolStripButtonCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonCancel.Margin = new System.Windows.Forms.Padding(0);
