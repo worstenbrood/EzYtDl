@@ -9,10 +9,14 @@ namespace YtEzDL.Streams
     public class ReadEventArgs : EventArgs
     {
         public readonly int BytesRead;
+        public readonly int Offset;
+        public readonly byte[] Data;
 
-        internal ReadEventArgs(int bytesRead)
+        internal ReadEventArgs(int bytesRead, byte[] data, int offset)
         {
             BytesRead = bytesRead;
+            Data = data;
+            Offset = offset;
         }
     }
 
@@ -21,10 +25,14 @@ namespace YtEzDL.Streams
     public class WriteEventArgs : EventArgs
     {
         public readonly int BytesWritten;
+        public readonly int Offset;
+        public readonly byte[] Data;
 
-        internal WriteEventArgs(int bytesWritten)
+        internal WriteEventArgs(int bytesWritten, byte[] data, int offset)
         {
             BytesWritten = bytesWritten;
+            Data = data;    
+            Offset = offset;
         }
     }
 
@@ -109,7 +117,7 @@ namespace YtEzDL.Streams
                 }
 
                 // Trigger event if any
-                ReadEvent?.Invoke(this, new ReadEventArgs(bytesRead));
+                ReadEvent?.Invoke(this, new ReadEventArgs(bytesRead, buffer, offset));
                 return bytesRead;
             });
         }
@@ -120,7 +128,7 @@ namespace YtEzDL.Streams
             {
                 BaseStream.Write(buffer, offset, count);
                 // Trigger event if any
-                WriteEvent?.Invoke(this, new WriteEventArgs(count));
+                WriteEvent?.Invoke(this, new WriteEventArgs(count, buffer, offset));
             });
         }
 
