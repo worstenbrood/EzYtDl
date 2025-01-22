@@ -192,10 +192,7 @@ namespace YtEzDL.UserControls
         public Track()
         {
             InitializeComponent();
-
-            // Set style manager
-            AppStyle.SetManager(this);
-
+            
             // Select first page
             metroTabControl.SelectedIndex = 0;
 
@@ -210,6 +207,9 @@ namespace YtEzDL.UserControls
             {
                 AddPerTrackSettings();
             }
+
+            // Set style manager
+            AppStyle.SetManager(this);
         }
 
         public Track(TrackData trackData) : this()
