@@ -2,7 +2,7 @@
 using System.IO;
 using NAudio.Wave;
 using System.Threading;
-using AudioTools.Tools;
+using AudioTools.Dsp;
 
 namespace AudioTools
 {
@@ -21,11 +21,11 @@ namespace AudioTools
             }
         }
 
-        protected readonly string AudioFile;
+        public readonly string AudioFile;
         private WasapiOut _wasapiOut;
         private MediaFoundationReader _reader;
 
-        public DspProvider Dsp { get; private set; }
+        public DspProvider Dsp { get; private set; } = new DspProvider();
 
         private long? _lengthInBytes;
 
@@ -85,7 +85,6 @@ namespace AudioTools
         public AudioPlayer(string audioFile)
         {
             AudioFile = audioFile;
-            Dsp = new DspProvider();
         }
         
         public void Play()
