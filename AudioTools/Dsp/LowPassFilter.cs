@@ -1,6 +1,6 @@
 ﻿using NAudio.Dsp;
 
-namespace AudioTools.Tools
+namespace AudioTools.Dsp
 {
     public class LowPassFilter : IDsp
     {

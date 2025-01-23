@@ -1,5 +1,4 @@
-﻿using AudioTools.Tools;
-using NAudio.Dsp;
+﻿using NAudio.Dsp;
 
 namespace AudioTools.Dsp
 {

@@ -2,7 +2,7 @@
 using System.Linq;
 using NAudio.Wave;
 
-namespace AudioTools.Tools
+namespace AudioTools.Dsp
 {
     public interface IDsp
     {
