@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
-using NAudio.Wave;
 using System.Threading;
 using AudioTools.Dsp;
+using NAudio.CoreAudioApi;
+using NAudio.Wave;
+using SoundTouch;
 
 namespace AudioTools
 {
@@ -22,11 +24,14 @@ namespace AudioTools
         }
 
         public readonly string AudioFile;
-        private WasapiOut _wasapiOut;
-        private MediaFoundationReader _reader;
-
+        public int Latency;
         public DspProvider Dsp { get; private set; } = new DspProvider();
 
+        private WasapiOut _wasapiOut;
+        private MediaFoundationReader _reader;
+        private SoundTouchWaveProvider _waveStream;
+        private SoundTouchProcessor _processor;
+        
         private long? _lengthInBytes;
 
         public long LengthInBytes
@@ -82,12 +87,61 @@ namespace AudioTools
             }
         }
 
-        public AudioPlayer(string audioFile)
+        public AudioPlayer(string audioFile, int latency = 200)
         {
             AudioFile = audioFile;
+            Latency = latency;
         }
         
-        public void Play()
+        public double TempoChange
+        {
+            get => _processor?.TempoChange ?? 0;
+            set
+            {
+                if (_processor != null)
+                {
+                    _processor.TempoChange = value;
+                }
+            }
+        }
+
+        public double RateChange
+        {
+            get => _processor?.RateChange ?? 0.0D;
+            set
+            {
+                if (_processor != null)
+                {
+                    _processor.RateChange = value;
+                }
+            }
+        }
+
+        public double PitchOctaves
+        {
+            get => _processor?.PitchOctaves ?? 0.0D;
+            set
+            {
+                if (_processor != null)
+                {
+                    _processor.PitchOctaves = value;
+                }
+            }
+        }
+
+        public double PitchSemiTones
+        {
+            get => _processor?.PitchSemiTones ?? 0.0D;
+            set
+            {
+                if (_waveStream != null)
+                {
+                    _processor.PitchSemiTones = value;
+                }
+            }
+        }
+
+        public void Play(double tempoChange = 0.0F)
         {
             if (_wasapiOut != null)
             {
@@ -107,9 +161,19 @@ namespace AudioTools
             }
             else
             {
+                // Open file
                 _reader = new MediaFoundationReader(AudioFile);
-                _wasapiOut = new WasapiOut();
-                Dsp.SetBaseProvider(_reader.ToSampleProvider());
+
+                // Init processor
+                _processor = SoundTouchWaveProvider.CreateDefaultProcessor(_reader);
+                _processor.TempoChange = tempoChange;
+                
+                // Create SoundTouch stream
+                _waveStream = new SoundTouchWaveProvider(_reader, _processor);
+                Dsp.SetBaseProvider(_waveStream.ToSampleProvider());
+
+                // Open audio device
+                _wasapiOut = new WasapiOut(AudioClientShareMode.Exclusive, true, Latency);
                 _wasapiOut.Init(Dsp);
                 _wasapiOut.Play();
             }
@@ -139,14 +203,6 @@ namespace AudioTools
 
         public void Stop()
         {
-            if (_wasapiOut?.PlaybackState == PlaybackState.Stopped)
-            {
-                return;
-            }
-
-            // Stop playing
-            _wasapiOut?.Stop();
-            
             // Cleanup
             _wasapiOut?.Dispose();
             _wasapiOut = null;
