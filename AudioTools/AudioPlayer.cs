@@ -2,6 +2,7 @@
 using System.IO;
 using NAudio.Wave;
 using System.Threading;
+using AudioTools.Tools;
 
 namespace AudioTools
 {
@@ -22,10 +23,12 @@ namespace AudioTools
 
         private WasapiOut _wasapiOut;
         private readonly MediaFoundationReader _reader;
+        public DspProvider Dsp { get; private set; }
 
         public AudioPlayer(string audioFile)
         {
             _reader = new MediaFoundationReader(audioFile);
+            Dsp = new DspProvider(_reader.ToSampleProvider());
         }
         
         public void Play()
@@ -49,7 +52,7 @@ namespace AudioTools
             else
             {
                 _wasapiOut = new WasapiOut();
-                _wasapiOut.Init(_reader.ToSampleProvider());
+                _wasapiOut.Init(Dsp);
                 _wasapiOut.Play();
             }
         }
