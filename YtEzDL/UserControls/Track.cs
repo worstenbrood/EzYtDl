@@ -96,7 +96,7 @@ namespace YtEzDL.UserControls
             // 
             _labelVideoFormat.AutoSize = true;
             _labelVideoFormat.FontSize = MetroLabelSize.Tall;
-            _labelVideoFormat.FontWeight = MetroLabelWeight.Regular;
+            _labelVideoFormat.FontWeight = MetroLabelWeight.Light;
             _labelVideoFormat.ForeColor = Color.Black;
             _labelVideoFormat.Location = new Point(4, 114);
             _labelVideoFormat.Name = "labelVideoFormat";
@@ -108,6 +108,7 @@ namespace YtEzDL.UserControls
             // 
             _comboBoxVideoFormat.BackColor = Color.White;
             _comboBoxVideoFormat.FontSize = MetroComboBoxSize.Tall;
+            _comboBoxVideoFormat.FontWeight = MetroComboBoxWeight.Light;
             _comboBoxVideoFormat.ForeColor = Color.Black;
             _comboBoxVideoFormat.FormattingEnabled = true;
             _comboBoxVideoFormat.ItemHeight = 29;
@@ -121,7 +122,7 @@ namespace YtEzDL.UserControls
             // 
             _labelAudioQuality.AutoSize = true;
             _labelAudioQuality.FontSize = MetroLabelSize.Tall;
-            _labelAudioQuality.FontWeight = MetroLabelWeight.Regular;
+            _labelAudioQuality.FontWeight = MetroLabelWeight.Light;
             _labelAudioQuality.ForeColor = Color.Black;
             _labelAudioQuality.Location = new Point(4, 80);
             _labelAudioQuality.Name = "labelAudioQuality";
@@ -133,6 +134,7 @@ namespace YtEzDL.UserControls
             // 
             _comboBoxAudioQuality.BackColor = Color.White;
             _comboBoxAudioQuality.FontSize = MetroComboBoxSize.Tall;
+            _comboBoxAudioQuality.FontWeight = MetroComboBoxWeight.Light;
             _comboBoxAudioQuality.ForeColor = Color.Black;
             _comboBoxAudioQuality.FormattingEnabled = true;
             _comboBoxAudioQuality.ItemHeight = 29;
@@ -146,7 +148,7 @@ namespace YtEzDL.UserControls
             // 
             _labelAudioFormat.AutoSize = true;
             _labelAudioFormat.FontSize = MetroLabelSize.Tall;
-            _labelAudioFormat.FontWeight = MetroLabelWeight.Regular;
+            _labelAudioFormat.FontWeight = MetroLabelWeight.Light;
             _labelAudioFormat.ForeColor = Color.Black;
             _labelAudioFormat.Location = new Point(4, 45);
             _labelAudioFormat.Name = "labelAudioFormat";
@@ -158,6 +160,7 @@ namespace YtEzDL.UserControls
             // 
             _comboBoxAudioFormat.BackColor = Color.White;
             _comboBoxAudioFormat.FontSize = MetroComboBoxSize.Tall;
+            _comboBoxAudioFormat.FontWeight = MetroComboBoxWeight.Light;
             _comboBoxAudioFormat.ForeColor = Color.Black;
             _comboBoxAudioFormat.FormattingEnabled = true;
             _comboBoxAudioFormat.ItemHeight = 29;
@@ -172,6 +175,7 @@ namespace YtEzDL.UserControls
             // 
             _checkBoxExtractAudio.AutoSize = true;
             _checkBoxExtractAudio.FontSize = MetroCheckBoxSize.Tall;
+            _checkBoxExtractAudio.FontWeight = MetroCheckBoxWeight.Light;
             _checkBoxExtractAudio.ForeColor = Color.Black;
             _checkBoxExtractAudio.Location = new Point(3, 14);
             _checkBoxExtractAudio.Name = "checkBoxExtractAudio";
