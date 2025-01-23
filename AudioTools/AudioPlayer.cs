@@ -30,8 +30,8 @@ namespace AudioTools
         private WasapiOut _wasapiOut;
         private MediaFoundationReader _reader;
         private SoundTouchWaveProvider _waveStream;
-        private SoundTouchProcessor _processor;
-        private readonly AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
+        private SoundTouchProcessor _processor = SoundTouchWaveProvider.CreateDefaultProcessor();
+        private AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
         
         private long? _lengthInBytes;
 
@@ -161,8 +161,7 @@ namespace AudioTools
                 // Open file
                 _reader = new MediaFoundationReader(AudioFile);
 
-                // Init processor
-                _processor = SoundTouchWaveProvider.CreateDefaultProcessor(_reader.WaveFormat);
+                // Init soundtouch processor
                 _processor.TempoChange = tempoChange;
                 
                 // Create SoundTouch stream
@@ -221,6 +220,13 @@ namespace AudioTools
         public void Dispose()
         {
             Stop();
+
+            _processor?.Dispose();
+            _processor = null;
+
+            _autoResetEvent?.Dispose();
+            _autoResetEvent = null;
+
         }
     }
 }

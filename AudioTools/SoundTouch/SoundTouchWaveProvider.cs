@@ -12,19 +12,23 @@ namespace AudioTools
         private readonly IWaveProvider _input;
         private readonly SoundTouchProcessor _processor;
 
-        private const int BufferSize = 16384;
+        private const int BufferSize = 4096;
         private readonly byte[] _bytebuffer = new byte[BufferSize];
         private float[] _floatBuffer = new float[BufferSize / sizeof(float)];
         private bool _endReached = false;
-
-        public static SoundTouchProcessor CreateDefaultProcessor(WaveFormat format)
+        private int _floatsPerSample;
+        
+        public static SoundTouchProcessor CreateDefaultProcessor(WaveFormat format = null)
         {
+            format = format ?? new WaveFormat();
             var soundTouch = new SoundTouchProcessor();
             soundTouch.Channels = (uint)format.Channels;
             soundTouch.SampleRate = (uint)format.SampleRate;
+
             soundTouch[SoundTouchProcessor.Setting.SequenceMilliseconds] = 100;
-            soundTouch[SoundTouchProcessor.Setting.OverlapMilliseconds] = 45;
-            soundTouch[SoundTouchProcessor.Setting.UseQuickSeek] = 0;
+            soundTouch[SoundTouchProcessor.Setting.OverlapMilliseconds] = 50;
+            soundTouch[SoundTouchProcessor.Setting.UseQuickSeek] = 1;
+            
             return soundTouch;
         }
 
@@ -44,8 +48,8 @@ namespace AudioTools
             {
                 _input = input;
             }
-
-            _processor = processor ?? CreateDefaultProcessor(input.WaveFormat);
+            _floatsPerSample = _input.WaveFormat.BitsPerSample / sizeof(float);
+            _processor = processor ?? CreateDefaultProcessor();
             _processor.Channels = (uint)input.WaveFormat.Channels;
             _processor.SampleRate = (uint)input.WaveFormat.SampleRate;
         }
@@ -103,21 +107,21 @@ namespace AudioTools
 
                     // binary copy data from "byte[]" to "float[]" buffer
                     Buffer.BlockCopy(_bytebuffer, 0, _floatBuffer, 0, bytesRead);
-                    _processor.PutSamples(_floatBuffer, (uint)bytesRead / 8);
+                    _processor.PutSamples(_floatBuffer, (uint)(bytesRead / _floatsPerSample));
                 }
 
                 // ensure that buffer is large enough to receive desired amount of data out
-                if (_floatBuffer.Length < count / 4)
+                if (_floatBuffer.Length < count / sizeof(float))
                 {
-                    _floatBuffer = new float[count / 4];
+                    _floatBuffer = new float[count / sizeof(float)];
                 }
                 
                 // get processed output samples from SoundTouch
-                int numSamples = (int)_processor.ReceiveSamples(_floatBuffer, (uint)count / 8);
+                int numSamples = (int)_processor.ReceiveSamples(_floatBuffer, (uint)(count / _floatsPerSample));
                 
                 // binary copy data from "float[]" to "byte[]" buffer
-                Buffer.BlockCopy(_floatBuffer, 0, buffer, offset, numSamples * 8);
-                return numSamples * 8;  // number of bytes
+                Buffer.BlockCopy(_floatBuffer, 0, buffer, offset, numSamples * _floatsPerSample);
+                return numSamples * _floatsPerSample;  // number of bytes
             }
             catch (Exception)
             {
