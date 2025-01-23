@@ -7,7 +7,7 @@ using TagLib;
 
 namespace AudioTools
 {
-    public class AudioFile : IDisposable
+    public class AudioFile : AudioPlayer
     {
         // GetBpmX defaults
         public const float DefaultMinBpm = 95.0F;
@@ -17,53 +17,6 @@ namespace AudioTools
         public const float DefaultHighPassCutoff = 90.0F;
         public const float DefaultTimeInSeconds = 0.5F; // Half a second
         
-        private readonly string _audioFile;
-
-        private long? _lengthInBytes;
-
-        public long LengthInBytes 
-        { 
-            get
-            {
-              if (_lengthInBytes == null)
-              {
-                  SetMediaProperties();
-              }
-
-              return _lengthInBytes.GetValueOrDefault();
-            }
-        }
-
-        private WaveFormat _waveFormat;
-        
-        public WaveFormat WaveFormat
-        {
-            get
-            {
-                if (_waveFormat == null)
-                {
-                    SetMediaProperties();
-                }
-
-                return _waveFormat;
-            }
-        }
-
-        private TimeSpan _time;
-
-        public TimeSpan Time
-        {
-            get
-            {
-                if (_time == TimeSpan.Zero)
-                {
-                    SetMediaProperties();
-                }
-
-                return _time;
-            }
-        }
-
         private Tag _tag;
         
         public Tag Tag
@@ -79,27 +32,16 @@ namespace AudioTools
             }
         }
 
-        private void SetMediaProperties()
-        {
-            using (var reader = new MediaFoundationReader(_audioFile))
-            {
-                _waveFormat = reader.WaveFormat;
-                _lengthInBytes = reader.Length;
-                _time = TimeSpan.FromSeconds((double)_lengthInBytes / _waveFormat.AverageBytesPerSecond);
-            }
-        }
-
         private void SetTagProperty()
         {
-            using (var file = File.Create(_audioFile))
+            using (var file = File.Create(AudioFile))
             {
                 _tag = file.Tag;
             }
         }
 
-        public AudioFile(string audioFile)
+        public AudioFile(string audioFile) : base(audioFile)
         {
-            _audioFile = audioFile;
         }
 
         private struct Peak
@@ -155,10 +97,8 @@ namespace AudioTools
             float timeInSeconds = DefaultTimeInSeconds)
         {
             // Load the file
-            using (var reader = new MediaFoundationReader(_audioFile))
+            using (var reader = new MediaFoundationReader(AudioFile))
             {
-                _waveFormat = reader.WaveFormat;
-
                 // First a lowpass to remove most of the song.
                 var lowPass = BiQuadFilter.LowPassFilter(WaveFormat.SampleRate, lowPassCutoff, 1.0F);
 
@@ -274,17 +214,6 @@ namespace AudioTools
             return GetBpmGroups(minBpm, maxBpm, peakCount, lowPassCutoff, highPassCutoff, timeInSeconds)
                 .Select(g => g.Key)
                 .FirstOrDefault();
-        }
-
-        public AudioPlayer CreateAudioPlayer()
-        {
-            var player = new AudioPlayer(_audioFile);
-            return player;
-        }
-
-        public void Dispose()
-        {
-            // TODO release managed resources here
         }
     }
 }

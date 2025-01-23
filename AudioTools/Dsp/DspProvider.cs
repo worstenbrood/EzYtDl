@@ -11,9 +11,18 @@ namespace AudioTools.Tools
 
     public class DspProvider : ISampleProvider
     {
-        private readonly ISampleProvider _baseProvider;
-        private readonly List<IDsp> _dsps = new List<IDsp>();
+        private ISampleProvider _baseProvider;
+        private readonly List<IDsp> _dsp = new List<IDsp>();
         private readonly object _lock = new object();
+
+        public DspProvider()
+        {
+        }
+
+        public void SetBaseProvider(ISampleProvider baseProvider)
+        {
+            _baseProvider = baseProvider;
+        }
 
         public DspProvider(ISampleProvider baseProvider)
         {
@@ -24,7 +33,15 @@ namespace AudioTools.Tools
         {
             lock (_lock)
             {
-                _dsps.Add(dsp);
+                _dsp.Add(dsp);
+            }
+        }
+
+        public void Add(int index, IDsp dsp)
+        {
+            lock (_lock)
+            {
+                _dsp.Insert(index, dsp);
             }
         }
 
@@ -32,7 +49,34 @@ namespace AudioTools.Tools
         {
             lock (_lock)
             {
-                _dsps.Remove(dsp);
+                _dsp.Remove(dsp);
+            }
+        }
+
+        public void Remove(int index)
+        {
+            lock (_lock)
+            {
+                _dsp.RemoveAt(index);
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _dsp.Count;
+                }
+            }
+        }
+
+        public IDsp GetDsp(int index)
+        {
+            lock (_lock)
+            {
+                return _dsp[index];
             }
         }
 
@@ -43,7 +87,7 @@ namespace AudioTools.Tools
             {
                 lock (_lock)
                 {
-                    buffer[index] = _dsps.Aggregate(buffer[index], (current, transform) => transform.Transform(current));
+                    buffer[index] = _dsp.Aggregate(buffer[index], (current, transform) => transform.Transform(current));
                 }
             }
 

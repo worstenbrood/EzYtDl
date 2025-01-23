@@ -21,14 +21,71 @@ namespace AudioTools
             }
         }
 
+        protected readonly string AudioFile;
         private WasapiOut _wasapiOut;
-        private readonly MediaFoundationReader _reader;
+        private MediaFoundationReader _reader;
+
         public DspProvider Dsp { get; private set; }
+
+        private long? _lengthInBytes;
+
+        public long LengthInBytes
+        {
+            get
+            {
+                if (_lengthInBytes == null)
+                {
+                    SetMediaProperties();
+                }
+
+                return _lengthInBytes.GetValueOrDefault();
+            }
+        }
+
+        private WaveFormat _waveFormat;
+
+        public WaveFormat WaveFormat
+        {
+            get
+            {
+                if (_waveFormat == null)
+                {
+                    SetMediaProperties();
+                }
+
+                return _waveFormat;
+            }
+        }
+
+        private TimeSpan _time;
+
+        public TimeSpan Time
+        {
+            get
+            {
+                if (_time == TimeSpan.Zero)
+                {
+                    SetMediaProperties();
+                }
+
+                return _time;
+            }
+        }
+
+        private void SetMediaProperties()
+        {
+            using (var reader = new MediaFoundationReader(AudioFile))
+            {
+                _waveFormat = reader.WaveFormat;
+                _lengthInBytes = reader.Length;
+                _time = TimeSpan.FromSeconds((double)_lengthInBytes / _waveFormat.AverageBytesPerSecond);
+            }
+        }
 
         public AudioPlayer(string audioFile)
         {
-            _reader = new MediaFoundationReader(audioFile);
-            Dsp = new DspProvider(_reader.ToSampleProvider());
+            AudioFile = audioFile;
+            Dsp = new DspProvider();
         }
         
         public void Play()
@@ -51,7 +108,9 @@ namespace AudioTools
             }
             else
             {
+                _reader = new MediaFoundationReader(AudioFile);
                 _wasapiOut = new WasapiOut();
+                Dsp.SetBaseProvider(_reader.ToSampleProvider());
                 _wasapiOut.Init(Dsp);
                 _wasapiOut.Play();
             }
@@ -94,13 +153,13 @@ namespace AudioTools
             _wasapiOut = null;
 
             // Reset stream
-            _reader.Seek(0, SeekOrigin.Begin);
+            _reader?.Dispose();
+            _reader = null;
         }
 
         public void Dispose()
         {
             Stop();
-            _reader?.Dispose();
         }
     }
 }
