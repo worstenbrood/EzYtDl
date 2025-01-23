@@ -3,18 +3,19 @@ using NAudio.Wave;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace AudioTools
 {
     public class AudioFile
     {
         // GetBpmX defaults
-        public const float DefaultMinBpm = 90.0F;
+        public const float DefaultMinBpm = 95.0F;
         public const float DefaultMaxBpm = 180.0F;
         public const int DefaultPeakCount = 10;
-        public const float DefaultLowPassCutoff = 150.0F;
-        public const float DefaultHighPassCutoff = 100.0F;
-        public const float DefaultTimeInSeconds = 2.0F; // Half a second
+        public const float DefaultLowPassCutoff = 175.0F;
+        public const float DefaultHighPassCutoff = 90.0F;
+        public const float DefaultTimeInSeconds = 0.5F; // Half a second
         
         private readonly string _audioFile;
         
@@ -45,13 +46,20 @@ namespace AudioTools
         private short GetTempo(Peak[] peaks, int peak, int index, float minBpm, float maxBpm)
         {
             var tempo = 60.0F * WaveFormat.SampleRate / (peaks[peak + index].Position - peaks[peak].Position);
-            while (tempo < minBpm)
+
+            if (tempo < minBpm)
             {
-                tempo *= 2.0F;
+                while (tempo < minBpm)
+                {
+                    tempo *= 2.0F;
+                }
             }
-            while (tempo > maxBpm)
+            else if (tempo > maxBpm)
             {
-                tempo /= 2.0F;
+                while (tempo > maxBpm)
+                {
+                    tempo /= 2.0F;
+                }
             }
 
             return (short)Math.Round(tempo);
@@ -128,10 +136,11 @@ namespace AudioTools
                         // Check volume on every channel
                         for (var channel = 0; channel < WaveFormat.Channels; channel++)
                         {
-                            var value = highPass.Transform(lowPass.Transform(samples[index + channel]));
-                            if (vol < value)
+                            var sample = samples[index + channel];
+                            var filtered = highPass.Transform(lowPass.Transform(sample));
+                            if (vol < filtered)
                             {
-                                vol = value;
+                                vol = filtered;
                             }
                         }
 
@@ -182,8 +191,8 @@ namespace AudioTools
         /// <param name="lowPassCutoff">Low pass filter cutoff frequency</param>
         /// <param name="highPassCutoff">High pass filter cutoff frequency</param>
         /// <param name="timeInSeconds">Time in seconds for every part</param>
-        /// <returns>BPM</returns>
-        public short GetBpm(
+        /// <returns>BPM groups ordered by count</returns>
+        public int GetBpm(
             float minBpm = DefaultMinBpm,
             float maxBpm = DefaultMaxBpm,
             int peakCount = DefaultPeakCount,
@@ -191,48 +200,14 @@ namespace AudioTools
             float highPassCutoff = DefaultHighPassCutoff,
             float timeInSeconds = DefaultTimeInSeconds)
         {
-            var groups = GetBpmGroups(minBpm, maxBpm, peakCount, lowPassCutoff, highPassCutoff, timeInSeconds);
-            return groups
-                .Select(s => s.Key)
-                // Return first group
+            return GetBpmGroups(minBpm, maxBpm, peakCount, lowPassCutoff, highPassCutoff, timeInSeconds)
+                .Select(g => g.Key)
                 .FirstOrDefault();
         }
 
-        public short GetBpmByEnergy(uint sampleCount = 1024)
+        public void Play()
         {
-            // Load the file
-            using (var reader = new MediaFoundationReader(_audioFile))
-            {
-                WaveFormat = reader.WaveFormat;
-                var totalSampleCount = sampleCount * (uint)WaveFormat.Channels;
-                
-                // Calculate bytes per sample
-                var bytesPerSample = (uint)WaveFormat.BitsPerSample / 8;
-                if (bytesPerSample == 0)
-                {
-                    bytesPerSample = 2;
-                }
-                
-                var totalSamples = (ulong)(reader.Length / bytesPerSample);
-                var samples = new float[totalSampleCount];
-                var sampleProvider = reader.ToSampleProvider();
-                
-                for (ulong offset = 0; offset < totalSamples; offset += totalSampleCount)
-                {
-                    var samplesRead = sampleProvider.Read(samples, 0, (int)totalSampleCount);
-                    for (var sample = 0; sample < samplesRead; sample++)
-                    {
-                        if (sample % 2 != 0)
-                        {
-                            continue;
-                        }
-
-
-                    }
-                }
-            }
-
-            return 0;
+            
         }
     }
 }
