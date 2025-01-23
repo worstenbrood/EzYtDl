@@ -7,13 +7,6 @@ namespace AudioTools
 {
     public class AudioPlayer : IDisposable
     {
-        private readonly string _audioFile;
-
-        public AudioPlayer(string audioFile)
-        {
-            _audioFile = audioFile;
-        }
-
         public static void Play(string audioFile)
         {
             using (var reader = new MediaFoundationReader(audioFile))
@@ -28,8 +21,13 @@ namespace AudioTools
         }
 
         private WasapiOut _wasapiOut;
-        private MediaFoundationReader _reader;
+        private readonly MediaFoundationReader _reader;
 
+        public AudioPlayer(string audioFile)
+        {
+            _reader = new MediaFoundationReader(audioFile);
+        }
+        
         public void Play()
         {
             if (_wasapiOut != null)
@@ -50,7 +48,6 @@ namespace AudioTools
             }
             else
             {
-                _reader = new MediaFoundationReader(_audioFile);
                 _wasapiOut = new WasapiOut();
                 _wasapiOut.Init(_reader.ToSampleProvider());
                 _wasapiOut.Play();
@@ -73,7 +70,7 @@ namespace AudioTools
             }
 
             var offset = _reader.WaveFormat.AverageBytesPerSecond * (int)Math.Floor(time.TotalSeconds);
-            if (offset < _reader.Length)
+            if (offset > 0 && offset < _reader.Length)
             {
                 _reader.Seek(offset, SeekOrigin.Begin);
             }
@@ -93,13 +90,14 @@ namespace AudioTools
             _wasapiOut?.Dispose();
             _wasapiOut = null;
 
-            _reader?.Dispose();
-            _reader = null;
+            // Reset stream
+            _reader.Seek(0, SeekOrigin.Begin);
         }
 
         public void Dispose()
         {
             Stop();
+            _reader?.Dispose();
         }
     }
 }

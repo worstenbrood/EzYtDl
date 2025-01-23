@@ -1,13 +1,13 @@
-﻿using NAudio.Dsp;
-using NAudio.Wave;
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Threading;
+using NAudio.Dsp;
+using NAudio.Wave;
+using TagLib;
 
 namespace AudioTools
 {
-    public class AudioFile
+    public class AudioFile : IDisposable
     {
         // GetBpmX defaults
         public const float DefaultMinBpm = 95.0F;
@@ -18,17 +18,88 @@ namespace AudioTools
         public const float DefaultTimeInSeconds = 0.5F; // Half a second
         
         private readonly string _audioFile;
+
+        private long? _lengthInBytes;
+
+        public long LengthInBytes 
+        { 
+            get
+            {
+              if (_lengthInBytes == null)
+              {
+                  SetMediaProperties();
+              }
+
+              return _lengthInBytes.GetValueOrDefault();
+            }
+        }
+
+        private WaveFormat _waveFormat;
         
-        public WaveFormat WaveFormat { get; private set; }
+        public WaveFormat WaveFormat
+        {
+            get
+            {
+                if (_waveFormat == null)
+                {
+                    SetMediaProperties();
+                }
+
+                return _waveFormat;
+            }
+        }
+
+        private TimeSpan _time;
+
+        public TimeSpan Time
+        {
+            get
+            {
+                if (_time == TimeSpan.Zero)
+                {
+                    SetMediaProperties();
+                }
+
+                return _time;
+            }
+        }
+
+        private Tag _tag;
+        
+        public Tag Tag
+        {
+            get
+            {
+                if (_tag == null)
+                {
+                    SetTagProperty();
+                }
+
+                return _tag;
+            }
+        }
+
+        private void SetMediaProperties()
+        {
+            using (var reader = new MediaFoundationReader(_audioFile))
+            {
+                _waveFormat = reader.WaveFormat;
+                _lengthInBytes = reader.Length;
+                _time = TimeSpan.FromSeconds((double)_lengthInBytes / _waveFormat.AverageBytesPerSecond);
+            }
+        }
+
+        private void SetTagProperty()
+        {
+            using (var file = File.Create(_audioFile))
+            {
+                _tag = file.Tag;
+            }
+        }
 
         public AudioFile(string audioFile)
         {
             _audioFile = audioFile;
-
-            using (var reader = new MediaFoundationReader(_audioFile))
-            {
-                WaveFormat = reader.WaveFormat;
-            }
         }
 
         private struct Peak
@@ -86,7 +157,7 @@ namespace AudioTools
             // Load the file
             using (var reader = new MediaFoundationReader(_audioFile))
             {
-                WaveFormat = reader.WaveFormat;
+                _waveFormat = reader.WaveFormat;
 
                 // First a lowpass to remove most of the song.
                 var lowPass = BiQuadFilter.LowPassFilter(WaveFormat.SampleRate, lowPassCutoff, 1.0F);
@@ -205,9 +276,15 @@ namespace AudioTools
                 .FirstOrDefault();
         }
 
-        public void Play()
+        public AudioPlayer CreateAudioPlayer()
         {
-            
+            var player = new AudioPlayer(_audioFile);
+            return player;
+        }
+
+        public void Dispose()
+        {
+            // TODO release managed resources here
         }
     }
 }

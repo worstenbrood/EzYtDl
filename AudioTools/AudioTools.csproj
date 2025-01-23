@@ -52,6 +52,9 @@
     <PackageReference Include="NAudio.Wasapi">
       <Version>2.2.1</Version>
     </PackageReference>
+    <PackageReference Include="TagLibSharp">
+      <Version>2.3.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
