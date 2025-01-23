@@ -31,6 +31,7 @@ namespace AudioTools
         private MediaFoundationReader _reader;
         private SoundTouchWaveProvider _waveStream;
         private SoundTouchProcessor _processor;
+        private readonly AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
         
         private long? _lengthInBytes;
 
@@ -87,15 +88,14 @@ namespace AudioTools
             }
         }
 
-        public AudioPlayer(string audioFile, int latency = 200)
+        public AudioPlayer(string audioFile, int latency = 400)
         {
             AudioFile = audioFile;
             Latency = latency;
         }
         
-        public double TempoChange
+        public float TempoChange
         {
-            get => _processor?.TempoChange ?? 0;
             set
             {
                 if (_processor != null)
@@ -105,9 +105,8 @@ namespace AudioTools
             }
         }
 
-        public double RateChange
+        public float RateChange
         {
-            get => _processor?.RateChange ?? 0.0D;
             set
             {
                 if (_processor != null)
@@ -117,9 +116,8 @@ namespace AudioTools
             }
         }
 
-        public double PitchOctaves
+        public float PitchOctaves
         {
-            get => _processor?.PitchOctaves ?? 0.0D;
             set
             {
                 if (_processor != null)
@@ -129,9 +127,8 @@ namespace AudioTools
             }
         }
 
-        public double PitchSemiTones
+        public float PitchSemiTones
         {
-            get => _processor?.PitchSemiTones ?? 0.0D;
             set
             {
                 if (_waveStream != null)
@@ -141,7 +138,7 @@ namespace AudioTools
             }
         }
 
-        public void Play(double tempoChange = 0.0F)
+        public void Play(float tempoChange = 0.0F)
         {
             if (_wasapiOut != null)
             {
@@ -165,7 +162,7 @@ namespace AudioTools
                 _reader = new MediaFoundationReader(AudioFile);
 
                 // Init processor
-                _processor = SoundTouchWaveProvider.CreateDefaultProcessor(_reader);
+                _processor = SoundTouchWaveProvider.CreateDefaultProcessor(_reader.WaveFormat);
                 _processor.TempoChange = tempoChange;
                 
                 // Create SoundTouch stream
@@ -174,8 +171,17 @@ namespace AudioTools
 
                 // Open audio device
                 _wasapiOut = new WasapiOut(AudioClientShareMode.Exclusive, true, Latency);
+                _wasapiOut.PlaybackStopped += (o, e) => _autoResetEvent.Set();
                 _wasapiOut.Init(Dsp);
                 _wasapiOut.Play();
+            }
+        }
+
+        public void Wait()
+        {
+            if (_wasapiOut?.PlaybackState == PlaybackState.Playing)
+            {
+                _autoResetEvent.WaitOne();
             }
         }
 
