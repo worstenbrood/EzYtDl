@@ -30,8 +30,8 @@ namespace AudioTools
         private WasapiOut _wasapiOut;
         private MediaFoundationReader _reader;
         private SoundTouchWaveProvider _waveStream;
-        private SoundTouchProcessor _processor = SoundTouchWaveProvider.CreateDefaultProcessor();
-        private AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
+        private SoundTouchProcessor _soundTouchProcessor = SoundTouchWaveProvider.CreateDefaultProcessor();
+        private ManualResetEvent _resetEvent = new ManualResetEvent(false);
         
         private long? _lengthInBytes;
 
@@ -63,18 +63,31 @@ namespace AudioTools
             }
         }
 
-        private TimeSpan _time;
+        private TimeSpan _totalTime;
 
-        public TimeSpan Time
+        public TimeSpan TotalTime
         {
             get
             {
-                if (_time == TimeSpan.Zero)
+                if (_totalTime == TimeSpan.Zero)
                 {
                     SetMediaProperties();
                 }
 
-                return _time;
+                return _totalTime;
+            }
+        }
+
+        public TimeSpan CurrentTime
+        {
+            get 
+            {
+                if (_wasapiOut?.PlaybackState == PlaybackState.Playing)
+                {
+                    return TimeSpan.FromSeconds((double)_reader.Position / _waveFormat.AverageBytesPerSecond);
+                }
+
+                return TimeSpan.Zero;
             }
         }
 
@@ -84,7 +97,7 @@ namespace AudioTools
             {
                 _waveFormat = reader.WaveFormat;
                 _lengthInBytes = reader.Length;
-                _time = TimeSpan.FromSeconds((double)_lengthInBytes / _waveFormat.AverageBytesPerSecond);
+                _totalTime = TimeSpan.FromSeconds((double)_lengthInBytes / _waveFormat.AverageBytesPerSecond);
             }
         }
 
@@ -96,49 +109,46 @@ namespace AudioTools
         
         public float TempoChange
         {
-            set
-            {
-                if (_processor != null)
-                {
-                    _processor.TempoChange = value;
-                }
-            }
+            set => _soundTouchProcessor.TempoChange = value;
         }
 
         public float RateChange
         {
-            set
-            {
-                if (_processor != null)
-                {
-                    _processor.RateChange = value;
-                }
-            }
+            set => _soundTouchProcessor.RateChange = value;
         }
 
         public float PitchOctaves
         {
-            set
-            {
-                if (_processor != null)
-                {
-                    _processor.PitchOctaves = value;
-                }
-            }
+            set => _soundTouchProcessor.PitchOctaves = value;
         }
 
         public float PitchSemiTones
         {
+            set => _soundTouchProcessor.PitchSemiTones = value;
+        }
+
+        public float Volume
+        {
+            get => _wasapiOut?.Volume ?? 0;
             set
             {
-                if (_waveStream != null)
+                if (_wasapiOut != null)
                 {
-                    _processor.PitchSemiTones = value;
+                    _wasapiOut.Volume = value;
                 }
             }
         }
 
-        public void Play(float tempoChange = 0.0F)
+        public float Bpm => _waveStream?.Bpm ?? 0;
+
+        private static readonly MediaFoundationReader.MediaFoundationReaderSettings Settings = new
+            MediaFoundationReader.MediaFoundationReaderSettings
+            {
+                RequestFloatOutput = true,
+                RepositionInRead = true,
+            };
+
+        public void Play(float tempoChange = 0.0F, float rateChange = 0.0F, TimeSpan? time = null)
         {
             if (_wasapiOut != null)
             {
@@ -159,29 +169,36 @@ namespace AudioTools
             else
             {
                 // Open file
-                _reader = new MediaFoundationReader(AudioFile);
+                _reader = new MediaFoundationReader(AudioFile, Settings);
+                if (time != null)
+                {
+                    Seek(time.Value);
+                }
 
                 // Init soundtouch processor
-                _processor.TempoChange = tempoChange;
+                _soundTouchProcessor.TempoChange = tempoChange;
+                _soundTouchProcessor.RateChange = rateChange;
                 
                 // Create SoundTouch stream
-                _waveStream = new SoundTouchWaveProvider(_reader, _processor);
+                _waveStream = new SoundTouchWaveProvider(_reader, _soundTouchProcessor, true);
                 Dsp.SetBaseProvider(_waveStream.ToSampleProvider());
 
                 // Open audio device
-                _wasapiOut = new WasapiOut(AudioClientShareMode.Exclusive, true, Latency);
-                _wasapiOut.PlaybackStopped += (o, e) => _autoResetEvent.Set();
+                _wasapiOut = new WasapiOut(AudioClientShareMode.Exclusive, 200);
+                _wasapiOut.PlaybackStopped += (o, e) => _resetEvent.Set();
                 _wasapiOut.Init(Dsp);
                 _wasapiOut.Play();
             }
         }
 
-        public void Wait()
+        public bool Wait(int milliseconds = -1)
         {
             if (_wasapiOut?.PlaybackState == PlaybackState.Playing)
             {
-                _autoResetEvent.WaitOne();
+                return _resetEvent.WaitOne(milliseconds);
             }
+
+            return true;
         }
 
         public void Pause()
@@ -199,6 +216,9 @@ namespace AudioTools
                 return;
             }
 
+            // Clear data
+            _soundTouchProcessor.Clear();
+            
             var offset = _reader.WaveFormat.AverageBytesPerSecond * (int)Math.Floor(time.TotalSeconds);
             if (offset > 0 && offset < _reader.Length)
             {
@@ -206,8 +226,10 @@ namespace AudioTools
             }
         }
 
-        public void Stop()
+        private void Cleanup()
         {
+            _soundTouchProcessor?.Flush();
+
             // Cleanup
             _wasapiOut?.Dispose();
             _wasapiOut = null;
@@ -217,16 +239,20 @@ namespace AudioTools
             _reader = null;
         }
 
+        public void Stop()
+        {
+            Cleanup();
+        }
+
         public void Dispose()
         {
-            Stop();
+            Cleanup();
 
-            _processor?.Dispose();
-            _processor = null;
+            _soundTouchProcessor?.Dispose();
+            _soundTouchProcessor = null;
 
-            _autoResetEvent?.Dispose();
-            _autoResetEvent = null;
-
+            _resetEvent?.Dispose();
+            _resetEvent = null;
         }
     }
 }

@@ -7,13 +7,13 @@ namespace AudioTools.Dsp
         private volatile BiQuadFilter _filter;
         private readonly int _sampleRate;
 
-        public HighPassFilter(int sampleRate, float cutoffFrequency, float q)
+        public HighPassFilter(int sampleRate, float cutoffFrequency, float q = 1.0F)
         {
             _sampleRate = sampleRate;
             _filter = BiQuadFilter.HighPassFilter(_sampleRate, cutoffFrequency, q);
         }
 
-        public void SetParameters(float cutoffFrequency, float q)
+        public void SetParameters(float cutoffFrequency, float q = 1.0F)
         {
             _filter.SetHighPassFilter(_sampleRate, cutoffFrequency, q);
         }

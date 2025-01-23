@@ -7,7 +7,7 @@ namespace AudioTools
     /// <summary>
     /// NAudio WaveStream class for processing audio stream with SoundTouch effects
     /// </summary>
-    public class SoundTouchWaveProvider : IWaveProvider
+    public class SoundTouchWaveProvider : IWaveProvider, IDisposable
     {
         private readonly IWaveProvider _input;
         private readonly SoundTouchProcessor _processor;
@@ -16,17 +16,21 @@ namespace AudioTools
         private readonly byte[] _bytebuffer = new byte[BufferSize];
         private float[] _floatBuffer = new float[BufferSize / sizeof(float)];
         private bool _endReached = false;
-        private int _floatsPerSample;
-        
+        private readonly int _floatsPerSample;
+        private readonly BpmDetect _bpmDetect;
+
         public static SoundTouchProcessor CreateDefaultProcessor(WaveFormat format = null)
         {
-            format = format ?? new WaveFormat();
             var soundTouch = new SoundTouchProcessor();
-            soundTouch.Channels = (uint)format.Channels;
-            soundTouch.SampleRate = (uint)format.SampleRate;
 
-            soundTouch[SoundTouchProcessor.Setting.SequenceMilliseconds] = 100;
-            soundTouch[SoundTouchProcessor.Setting.OverlapMilliseconds] = 50;
+            if (format != null)
+            {
+                soundTouch.Channels = (uint)format.Channels;
+                soundTouch.SampleRate = (uint)format.SampleRate;
+            }
+
+            soundTouch[SoundTouchProcessor.Setting.SequenceMilliseconds] = 0;
+            soundTouch[SoundTouchProcessor.Setting.OverlapMilliseconds] = 0;
             soundTouch[SoundTouchProcessor.Setting.UseQuickSeek] = 1;
             
             return soundTouch;
@@ -37,7 +41,8 @@ namespace AudioTools
         /// </summary>
         /// <param name="input">WaveProvider</param>
         /// <param name="processor">SoundTouchProcessor (optional)</param>
-        public SoundTouchWaveProvider(IWaveProvider input, SoundTouchProcessor processor = null)
+        /// <param name="detectBpm"></param>
+        public SoundTouchWaveProvider(IWaveProvider input, SoundTouchProcessor processor, bool detectBpm = false)
         {
             // Resample if necessary
             if (input.WaveFormat.Encoding != WaveFormatEncoding.IeeeFloat || input.WaveFormat.BitsPerSample != 32)
@@ -48,10 +53,18 @@ namespace AudioTools
             {
                 _input = input;
             }
+
             _floatsPerSample = _input.WaveFormat.BitsPerSample / sizeof(float);
-            _processor = processor ?? CreateDefaultProcessor();
-            _processor.Channels = (uint)input.WaveFormat.Channels;
-            _processor.SampleRate = (uint)input.WaveFormat.SampleRate;
+
+            // Init SoundTouch processor
+            _processor = processor;
+            _processor.Channels = (uint)_input.WaveFormat.Channels;
+            _processor.SampleRate = (uint)_input.WaveFormat.SampleRate;
+
+            if (detectBpm)
+            {
+                _bpmDetect = new BpmDetect(_input.WaveFormat.Channels, _input.WaveFormat.SampleRate);
+            }
         }
         
         public WaveFormat WaveFormat => _input.WaveFormat;
@@ -74,6 +87,19 @@ namespace AudioTools
         public float RateChange
         {
             set => _processor.RateChange = value;
+        }
+
+        public float Bpm
+        {
+            get
+            {
+                if (_bpmDetect != null)
+                {
+                    return _bpmDetect.Bpm;
+                }
+
+                return 0.0F;
+            }
         }
 
         /// <summary>
@@ -118,7 +144,10 @@ namespace AudioTools
                 
                 // get processed output samples from SoundTouch
                 int numSamples = (int)_processor.ReceiveSamples(_floatBuffer, (uint)(count / _floatsPerSample));
-                
+
+                // Feed bpm detect
+                _bpmDetect?.PutSamples(_floatBuffer, (uint)(count / _floatsPerSample));
+
                 // binary copy data from "float[]" to "byte[]" buffer
                 Buffer.BlockCopy(_floatBuffer, 0, buffer, offset, numSamples * _floatsPerSample);
                 return numSamples * _floatsPerSample;  // number of bytes
@@ -136,6 +165,11 @@ namespace AudioTools
         {
             _processor.Clear();
             _endReached = false;
+        }
+
+        public void Dispose()
+        {
+            _bpmDetect?.Dispose();
         }
     }
 }

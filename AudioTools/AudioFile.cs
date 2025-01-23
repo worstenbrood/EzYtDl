@@ -100,10 +100,10 @@ namespace AudioTools
             using (var reader = new MediaFoundationReader(AudioFile))
             {
                 // First a lowpass to remove most of the song.
-                var lowPass = BiQuadFilter.LowPassFilter(WaveFormat.SampleRate, lowPassCutoff, 1.0F);
+                var lowPass = BiQuadFilter.LowPassFilter(reader.WaveFormat.SampleRate, lowPassCutoff, 1.0F);
 
                 // Now a highpass to remove the bassline.
-                var highPass = BiQuadFilter.HighPassFilter(WaveFormat.SampleRate, highPassCutoff, 1.0F);
+                var highPass = BiQuadFilter.HighPassFilter(reader.WaveFormat.SampleRate, highPassCutoff, 1.0F);
 
                 // Calculate bytes per sample
                 var bytesPerSample = (uint)WaveFormat.BitsPerSample / 8;
