@@ -84,7 +84,12 @@ namespace AudioTools
             {
                 if (_wavePlayer?.PlaybackState == PlaybackState.Playing)
                 {
-                    return TimeSpan.FromSeconds((double)_reader.Position / _waveFormat.AverageBytesPerSecond);
+                    double position = _reader.Position;
+                    var waveFormat = _waveStream.WaveFormat;
+                    var averageBytesPerSecond = waveFormat.AverageBytesPerSecond;
+                    double latency = waveFormat.ConvertLatencyToByteSize(Latency);
+                    
+                    return TimeSpan.FromSeconds(position  / averageBytesPerSecond - latency / averageBytesPerSecond);
                 }
 
                 return TimeSpan.Zero;
@@ -101,7 +106,7 @@ namespace AudioTools
             }
         }
 
-        public AudioPlayer(string audioFile, int latency = 400)
+        public AudioPlayer(string audioFile, int latency = 20)
         {
             AudioFile = audioFile;
             Latency = latency;
@@ -194,7 +199,7 @@ namespace AudioTools
                 Dsp.SetBaseProvider(_waveStream.ToSampleProvider());
 
                 // Open audio device
-                _wavePlayer = wavePlayer ?? new WasapiOut(AudioClientShareMode.Exclusive, 20);
+                _wavePlayer = wavePlayer ?? new WasapiOut(AudioClientShareMode.Exclusive, Latency);
                 _wavePlayer.PlaybackStopped += (o, e) => _resetEvent.Set();
                 _wavePlayer.Init(Dsp);
                 _wavePlayer.Play();

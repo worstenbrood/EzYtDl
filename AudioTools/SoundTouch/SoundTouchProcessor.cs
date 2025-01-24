@@ -73,7 +73,7 @@ namespace SoundTouch
 
             soundTouch[Setting.SequenceMilliseconds] = 0;
             soundTouch[Setting.OverlapMilliseconds] = 0;
-            soundTouch[Setting.UseQuickSeek] = 0;
+            soundTouch[Setting.UseQuickSeek] = 1;
             soundTouch[Setting.UseAntiAliasFilter] = 1;
             soundTouch[Setting.AntiAliasFilterLength] = 32;
 
