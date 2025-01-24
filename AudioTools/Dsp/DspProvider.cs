@@ -83,11 +83,15 @@ namespace AudioTools.Dsp
         public int Read(float[] buffer, int offset, int count)
         {
             var result = _baseProvider.Read(buffer, offset, count);
-            for (int index = offset; index < offset + count; index++)
+            if (Count > 0)
             {
-                lock (_lock)
+                for (int index = offset; index < offset + count; index++)
                 {
-                    buffer[index] = _dsp.Aggregate(buffer[index], (current, transform) => transform.Transform(current));
+                    lock (_lock)
+                    {
+                        buffer[index] = _dsp.Aggregate(buffer[index],
+                            (current, transform) => transform.Transform(current));
+                    }
                 }
             }
 

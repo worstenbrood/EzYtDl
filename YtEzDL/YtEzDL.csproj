@@ -123,7 +123,6 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="TagLibSharp, Version=2.3.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Settings\AdvancedSettings.cs" />
@@ -261,12 +260,6 @@
     <Content Include="External\libwebp_x64.dll" />
     <Content Include="External\libwebp_x86.dll" />
     <Content Include="Resources\YTIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AudioTools\AudioTools.csproj">
-      <Project>{f7304a6b-e15d-4194-9c5e-779801fd620f}</Project>
-      <Name>AudioTools</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
