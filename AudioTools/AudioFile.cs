@@ -229,11 +229,13 @@ namespace AudioTools
                     do
                     {
                         bytesRead = reader.Read(byteBuffer, 0, bufferSize);
-                        if (bytesRead > 0)
+                        if (bytesRead <= 0)
                         {
-                            byteBuffer.BlockCopy(0, floatBuffer, 0, bytesRead);
-                            bpmDetect.PutSamples(floatBuffer, (uint)(bytesRead / (reader.WaveFormat.BitsPerSample / sizeof(float))));
+                            continue;
                         }
+
+                        byteBuffer.BlockCopy(0, floatBuffer, 0, bytesRead);
+                        bpmDetect.PutSamples(floatBuffer, (uint)(bytesRead / reader.WaveFormat.BitsPerSample / sizeof(float)));
                     } while (bytesRead > 0);
 
                     return bpmDetect.Bpm;
