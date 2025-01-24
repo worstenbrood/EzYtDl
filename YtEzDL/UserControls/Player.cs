@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using MetroFramework.Controls;
 using NAudio.Wave;
 using YtEzDL.Audio;
-using YtEzDL.Config;
 using YtEzDL.DownLoad;
-using YtEzDL.Utils;
 
 namespace YtEzDL.UserControls
 {
@@ -181,16 +178,14 @@ namespace YtEzDL.UserControls
             BeginInvoke(new MethodInvoker(action.Invoke));
         }
 
-        private double _bytesRead;
-
+        private long _bytesRead;
+        
         private void PlayerStreamRead(object o, Streams.ReadEventArgs args)
         {
             _bytesRead += args.BytesRead;
-            if (_bytesRead >= AudioPlayer.Format.AverageBytesPerSecond)
-            {
-                _bytesRead -= AudioPlayer.Format.AverageBytesPerSecond;
-                Execute(() => _metroTrackBar.Value++);
-            }
+            Execute(() => _metroTrackBar.Value = (int)
+                (_bytesRead / AudioPlayer.Format.AverageBytesPerSecond -
+                 AudioPlayer.Format.ConvertLatencyToByteSize(200) / AudioPlayer.Format.AverageBytesPerSecond));
         }
 
         private void PlaybackStopped(object sender, StoppedEventArgs e)
@@ -272,7 +267,7 @@ namespace YtEzDL.UserControls
         {
             lock (_lock)
             {
-                _bytesRead = 0;
+                _bytesRead = (int)position.TotalSeconds * AudioPlayer.Format.AverageBytesPerSecond;
                 _player.Play(position);
                 Execute(Toggle);
             }

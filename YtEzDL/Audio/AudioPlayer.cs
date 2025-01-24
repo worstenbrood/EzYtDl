@@ -176,7 +176,7 @@ namespace YtEzDL.Audio
             {
                 lock (_lock)
                 {
-                    return _wasapiOut.GetPosition();
+                    return _waveStream.Position;
                 }
             }
         }
