@@ -200,6 +200,8 @@ namespace AudioTools
                 // Append DSP
                 Dsp.SetBaseProvider(_waveStream.ToSampleProvider());
 
+                // MediaFoundationReader ==> SoundTouchWaveProvider ==> DspProvider
+
                 // Open audio device
                 _wavePlayer = wavePlayer ?? new WasapiOut(AudioClientShareMode.Exclusive, Latency);
                 _wavePlayer.PlaybackStopped += (o, e) => _resetEvent.Set();
