@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using SoundTouch;
 using System;
+using AudioTools.Extensions;
 
 namespace AudioTools
 {
@@ -12,7 +13,7 @@ namespace AudioTools
         private readonly IWaveProvider _input;
         private readonly SoundTouchProcessor _processor;
 
-        private const int BufferSize = 16384;
+        private const int BufferSize = 2048;
         private readonly byte[] _bytebuffer = new byte[BufferSize];
         private float[] _floatBuffer = new float[BufferSize / sizeof(float)];
         private bool _endReached = false;
@@ -109,35 +110,39 @@ namespace AudioTools
                     int bytesRead = _input.Read(_bytebuffer, 0, _bytebuffer.Length);
                     if (bytesRead == 0)
                     {
-                        // end of stream. flush final samples from SoundTouch buffers to output
+                        // End of stream. flush final samples from SoundTouch buffers to output
                         if (_endReached == false)
                         {
-                            _endReached = true;  // do only once to avoid continuous flushing
+                            _endReached = true;  // Do only once to avoid continuous flushing
                             _processor.Flush();
                         }
                         break;
                     }
 
-                    // binary copy data from "byte[]" to "float[]" buffer
-                    Buffer.BlockCopy(_bytebuffer, 0, _floatBuffer, 0, bytesRead);
+                    // Binary copy data from "byte[]" to "float[]" buffer
+                    _bytebuffer.ToFloatBuffer(0, _floatBuffer, 0, bytesRead);
+
+                    // Process samples
                     _processor.PutSamples(_floatBuffer, (uint)(bytesRead / _floatsPerSample));
                 }
 
-                // ensure that buffer is large enough to receive desired amount of data out
-                if (_floatBuffer.Length < count / sizeof(float))
-                {
-                    _floatBuffer = new float[count / sizeof(float)];
-                }
+                // Ensure that buffer is large enough to receive desired amount of data out
+                _floatBuffer = _floatBuffer.EnsureBufferSize(count / sizeof(float));
                 
-                // get processed output samples from SoundTouch
+                // Get processed output samples from SoundTouch
                 int numSamples = (int)_processor.ReceiveSamples(_floatBuffer, (uint)(count / _floatsPerSample));
 
                 // Feed bpm detect
                 _bpmDetect?.PutSamples(_floatBuffer, (uint)(count / _floatsPerSample));
 
-                // binary copy data from "float[]" to "byte[]" buffer
-                Buffer.BlockCopy(_floatBuffer, 0, buffer, offset, numSamples * _floatsPerSample);
-                return numSamples * _floatsPerSample;  // number of bytes
+                // Calculate total bytes
+                var totalBytes = numSamples * _floatsPerSample;
+
+                // Binary copy data from "float[]" to "byte[]" buffer
+                _floatBuffer.ToByteBuffer(0, buffer, offset, totalBytes);
+
+                // Number of bytes
+                return totalBytes;  
             }
             catch (Exception)
             {
