@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YtEzDL", "YtEzDL\YtEzDL.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioTools", "AudioTools\AudioTools.csproj", "{F7304A6B-E15D-4194-9C5E-779801FD620F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioConsoleTest", "AudioConsoleTest\AudioConsoleTest.csproj", "{63D00CBC-0B9D-4CC2-8804-C72CFB9D21B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,12 @@ Global
 		{F7304A6B-E15D-4194-9C5E-779801FD620F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7304A6B-E15D-4194-9C5E-779801FD620F}.Release-external|Any CPU.ActiveCfg = Release|Any CPU
 		{F7304A6B-E15D-4194-9C5E-779801FD620F}.Release-external|Any CPU.Build.0 = Release|Any CPU
+		{63D00CBC-0B9D-4CC2-8804-C72CFB9D21B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63D00CBC-0B9D-4CC2-8804-C72CFB9D21B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63D00CBC-0B9D-4CC2-8804-C72CFB9D21B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63D00CBC-0B9D-4CC2-8804-C72CFB9D21B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63D00CBC-0B9D-4CC2-8804-C72CFB9D21B5}.Release-external|Any CPU.ActiveCfg = Release|Any CPU
+		{63D00CBC-0B9D-4CC2-8804-C72CFB9D21B5}.Release-external|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

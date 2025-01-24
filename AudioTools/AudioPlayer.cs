@@ -105,7 +105,12 @@ namespace AudioTools
             AudioFile = audioFile;
             Latency = latency;
         }
-        
+
+        public float Tempo
+        {
+            set => _soundTouchProcessor.Tempo = value;
+        }
+
         public float TempoChange
         {
             set => _soundTouchProcessor.TempoChange = value;
