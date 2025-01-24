@@ -33,6 +33,7 @@
 
 using NAudio.Wave;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace SoundTouch
@@ -484,6 +485,18 @@ namespace SoundTouch
         /// </summary>
         private static class NativeMethods
         {
+            static NativeMethods()
+            {
+                var myPath = new Uri(typeof(NativeMethods).Assembly.CodeBase).LocalPath;
+                var myFolder = Path.GetDirectoryName(myPath);
+                var subfolder = IntPtr.Size == 8 ? @"\win64\" : @"\win32\";
+
+                LoadLibrary(myFolder + subfolder + SoundTouchLibrary);
+            }
+
+            [DllImport("kernel32.dll")]
+            private static extern IntPtr LoadLibrary(string dllToLoad);
+
             [DllImport(SoundTouchLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "soundtouch_getVersionId")]
             public static extern int GetVersionId();
 
@@ -559,8 +572,7 @@ namespace SoundTouch
 
         #endregion
     }
-
-
+    
     public sealed class BpmDetect : IDisposable
     {
         #region Private Members
@@ -674,6 +686,18 @@ namespace SoundTouch
         /// </summary>
         private static class NativeMethods
         {
+            static NativeMethods()
+            {
+                var myPath = new Uri(typeof(NativeMethods).Assembly.CodeBase).LocalPath;
+                var myFolder = Path.GetDirectoryName(myPath);
+                var subfolder = IntPtr.Size == 8 ? @"\win64\" : @"\win32\";
+
+                LoadLibrary(myFolder + subfolder + SoundTouchProcessor.SoundTouchLibrary);
+            }
+
+            [DllImport("kernel32.dll")]
+            private static extern IntPtr LoadLibrary(string dllToLoad);
+
             [DllImport(SoundTouchProcessor.SoundTouchLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "bpm_createInstance")]
             public static extern IntPtr BpmCreateInstance(int numChannels, int sampleRate);
 
