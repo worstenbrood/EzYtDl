@@ -33,6 +33,7 @@
 
 using NAudio.Wave;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -491,10 +492,13 @@ namespace SoundTouch
                 var myFolder = Path.GetDirectoryName(myPath);
                 var subfolder = IntPtr.Size == 8 ? @"\win64\" : @"\win32\";
 
-                LoadLibrary(myFolder + subfolder + SoundTouchLibrary);
+                if (LoadLibrary(myFolder + subfolder + SoundTouchLibrary) == IntPtr.Zero)
+                {
+                    throw new Win32Exception();
+                }
             }
 
-            [DllImport("kernel32.dll")]
+            [DllImport("kernel32.dll", SetLastError = true)]
             private static extern IntPtr LoadLibrary(string dllToLoad);
 
             [DllImport(SoundTouchLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "soundtouch_getVersionId")]
@@ -692,10 +696,13 @@ namespace SoundTouch
                 var myFolder = Path.GetDirectoryName(myPath);
                 var subfolder = IntPtr.Size == 8 ? @"\win64\" : @"\win32\";
 
-                LoadLibrary(myFolder + subfolder + SoundTouchProcessor.SoundTouchLibrary);
+                if (LoadLibrary(myFolder + subfolder + SoundTouchProcessor.SoundTouchLibrary) == IntPtr.Zero)
+                {
+                    throw new Win32Exception();
+                }
             }
 
-            [DllImport("kernel32.dll")]
+            [DllImport("kernel32.dll", SetLastError = true)]
             private static extern IntPtr LoadLibrary(string dllToLoad);
 
             [DllImport(SoundTouchProcessor.SoundTouchLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "bpm_createInstance")]
