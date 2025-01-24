@@ -45,9 +45,9 @@ namespace SoundTouch
 
         #region Private Members // hahaha what a curious region
 
-        private readonly object SyncRoot = new object();
-        private bool IsDisposed = false;
-        private IntPtr handle;
+        private readonly object _syncRoot = new object();
+        private bool _isDisposed = false;
+        private IntPtr _handle;
 
         #endregion
 
@@ -58,7 +58,7 @@ namespace SoundTouch
         /// </summary>
         public SoundTouchProcessor()
         {
-            handle = NativeMethods.CreateInstance();
+            _handle = NativeMethods.CreateInstance();
         }
 
         public static SoundTouchProcessor CreateDefault(WaveFormat format = null)
@@ -229,7 +229,7 @@ namespace SoundTouch
         /// </summary>
         public uint AvailableSampleCount
         {
-            get { lock (SyncRoot) { return NativeMethods.NumSamples(handle); } }
+            get { lock (_syncRoot) { return NativeMethods.NumSamples(_handle); } }
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace SoundTouch
         /// <returns>Number of sample frames</returns>
         public uint UnprocessedSampleCount
         {
-            get { lock (SyncRoot) { return NativeMethods.NumUnprocessedSamples(handle); } }
+            get { lock (_syncRoot) { return NativeMethods.NumUnprocessedSamples(_handle); } }
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace SoundTouch
         /// <returns>nonzero if there aren't any samples available for outputting</returns>
         public int IsEmpty
         {
-            get { lock (SyncRoot) { return NativeMethods.IsEmpty(handle); } }
+            get { lock (_syncRoot) { return NativeMethods.IsEmpty(_handle); } }
         }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace SoundTouch
         /// </summary>
         public uint Channels
         {
-            set { lock (SyncRoot) { NativeMethods.SetChannels(handle, value); } }
+            set { lock (_syncRoot) { NativeMethods.SetChannels(_handle, value); } }
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace SoundTouch
         /// </summary>
         public uint SampleRate
         {
-            set { lock (SyncRoot) { NativeMethods.SetSampleRate(handle, value); } }
+            set { lock (_syncRoot) { NativeMethods.SetSampleRate(_handle, value); } }
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace SoundTouch
         /// </summary>
         public float Tempo
         {
-            set { lock (SyncRoot) { NativeMethods.SetTempo(handle, value); } }
+            set { lock (_syncRoot) { NativeMethods.SetTempo(_handle, value); } }
         }
 
         /// <summary>
@@ -286,7 +286,7 @@ namespace SoundTouch
         /// </summary>
         public float TempoChange
         {
-            set { lock (SyncRoot) { NativeMethods.SetTempoChange(handle, value); } }
+            set { lock (_syncRoot) { NativeMethods.SetTempoChange(_handle, value); } }
         }
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace SoundTouch
         /// </summary>
         public float Rate
         {
-            set { lock (SyncRoot) { NativeMethods.SetTempo(handle, value); } }
+            set { lock (_syncRoot) { NativeMethods.SetTempo(_handle, value); } }
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace SoundTouch
         /// </summary>
         public float RateChange
         {
-            set { lock (SyncRoot) { NativeMethods.SetRateChange(handle, value); } }
+            set { lock (_syncRoot) { NativeMethods.SetRateChange(_handle, value); } }
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace SoundTouch
         /// </summary>
         public float Pitch
         {
-            set { lock (SyncRoot) { NativeMethods.SetPitch(handle, value); } }
+            set { lock (_syncRoot) { NativeMethods.SetPitch(_handle, value); } }
         }
 
         /// <summary>
@@ -329,7 +329,7 @@ namespace SoundTouch
         /// </summary>
         public float PitchOctaves
         {
-            set { lock (SyncRoot) { NativeMethods.SetPitchOctaves(handle, value); } }
+            set { lock (_syncRoot) { NativeMethods.SetPitchOctaves(_handle, value); } }
         }
 
         /// <summary>
@@ -340,7 +340,7 @@ namespace SoundTouch
         /// </summary>
         public float PitchSemiTones
         {
-            set { lock (SyncRoot) { NativeMethods.SetPitchSemiTones(handle, value); } }
+            set { lock (_syncRoot) { NativeMethods.SetPitchSemiTones(_handle, value); } }
         }
 
         /// <summary>
@@ -356,11 +356,11 @@ namespace SoundTouch
         {
             get
             {
-                lock (SyncRoot) { return NativeMethods.GetSetting(handle, (int)settingId); }
+                lock (_syncRoot) { return NativeMethods.GetSetting(_handle, (int)settingId); }
             }
             set
             {
-                lock (SyncRoot) { NativeMethods.SetSetting(handle, (int)settingId, value); }
+                lock (_syncRoot) { NativeMethods.SetSetting(_handle, (int)settingId, value); }
             }
         }
 
@@ -379,7 +379,7 @@ namespace SoundTouch
         /// </summary>
         public void Flush()
         {
-            lock (SyncRoot) { NativeMethods.Flush(handle); }
+            lock (_syncRoot) { NativeMethods.Flush(_handle); }
         }
 
         /// <summary>
@@ -388,7 +388,7 @@ namespace SoundTouch
         /// </summary>
         public void Clear()
         {
-            lock (SyncRoot) { NativeMethods.Clear(handle); }
+            lock (_syncRoot) { NativeMethods.Clear(_handle); }
         }
 
         /// <summary>
@@ -398,11 +398,11 @@ namespace SoundTouch
         /// </summary>
         /// <param name="samples">Sample buffer to input</param>
         /// <param name="numSamples">Number of sample frames in buffer. Notice
-        /// that in case of multi-channel sound a single sample frame contains 
+        /// that in case of multichannel sound a single sample frame contains 
         /// data for all channels</param>
         public void PutSamples(float[] samples, uint numSamples)
         {
-            lock (SyncRoot) { NativeMethods.PutSamples(handle, samples, numSamples); }
+            lock (_syncRoot) { NativeMethods.PutSamples(_handle, samples, numSamples); }
         }
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace SoundTouch
         /// sample frame contains data for all channels.</param>
         public void PutSamplesI16(short[] samples, uint numSamples)
         {
-            lock (SyncRoot) { NativeMethods.PutSamples_i16(handle, samples, numSamples); }
+            lock (_syncRoot) { NativeMethods.PutSamples_i16(_handle, samples, numSamples); }
         }
 
         /// <summary>
@@ -426,7 +426,7 @@ namespace SoundTouch
         /// <returns>The number of samples received</returns>
         public uint ReceiveSamples(float[] outBuffer, uint maxSamples)
         {
-            lock (SyncRoot) { return NativeMethods.ReceiveSamples(handle, outBuffer, maxSamples); }
+            lock (_syncRoot) { return NativeMethods.ReceiveSamples(_handle, outBuffer, maxSamples); }
         }
 
         /// <summary>
@@ -438,7 +438,7 @@ namespace SoundTouch
         /// <returns>Number of received sample frames</returns>
         public uint ReceiveSamplesI16(short[] outBuffer, uint maxSamples)
         {
-            lock (SyncRoot) { return NativeMethods.ReceiveSamples_i16(handle, outBuffer, maxSamples); }
+            lock (_syncRoot) { return NativeMethods.ReceiveSamples_i16(_handle, outBuffer, maxSamples); }
         }
 
         #endregion
@@ -460,7 +460,7 @@ namespace SoundTouch
         /// <param name="alsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         private void Dispose(bool alsoManaged)
         {
-            if (!IsDisposed)
+            if (!_isDisposed)
             {
                 if (alsoManaged)
                 {
@@ -468,10 +468,10 @@ namespace SoundTouch
                     // At this point, nothing managed to dispose
                 }
 
-                NativeMethods.DestroyInstance(handle);
-                handle = IntPtr.Zero;
+                NativeMethods.DestroyInstance(_handle);
+                _handle = IntPtr.Zero;
 
-                IsDisposed = true;
+                _isDisposed = true;
             }
         }
 
@@ -565,24 +565,24 @@ namespace SoundTouch
     {
         #region Private Members
 
-        private readonly object SyncRoot = new object();
-        private bool IsDisposed = false;
-        private IntPtr handle;
+        private readonly object _syncRoot = new object();
+        private bool _isDisposed = false;
+        private IntPtr _handle;
 
         #endregion
 
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BPMDetect"/> class.
+        /// Initializes a new instance of the <see cref="BpmDetect"/> class.
         /// </summary>
         public BpmDetect(int numChannels, int sampleRate)
         {
-            handle = NativeMethods.BpmCreateInstance(numChannels, sampleRate);
+            _handle = NativeMethods.BpmCreateInstance(numChannels, sampleRate);
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="BPMDetect"/> class.
+        /// Finalizes an instance of the <see cref="BpmDetect"/> class.
         /// </summary>
         ~BpmDetect()
         {
@@ -599,7 +599,7 @@ namespace SoundTouch
         /// </summary>
         public float Bpm
         {
-            get { lock (SyncRoot) { return NativeMethods.BpmGet(handle); } }
+            get { lock (_syncRoot) { return NativeMethods.BpmGet(_handle); } }
         }
 
         #endregion
@@ -611,24 +611,24 @@ namespace SoundTouch
         /// </summary>
         /// <param name="samples">Sample buffer to input</param>
         /// <param name="numSamples">Number of sample frames in buffer. Notice
-        /// that in case of multi-channel sound a single sample frame contains 
+        /// that in case of multichannel sound a single sample frame contains 
         /// data for all channels</param>
         public void PutSamples(float[] samples, uint numSamples)
         {
-            lock (SyncRoot) { NativeMethods.BpmPutSamples(handle, samples, numSamples); }
+            lock (_syncRoot) { NativeMethods.BpmPutSamples(_handle, samples, numSamples); }
         }
 
         /// <summary>
-        /// int16 version of putSamples(): This accept int16 (short) sample data
+        /// int16 version of putSamples(): This accepts int16 (short) sample data
         /// and internally converts it to float format before processing
         /// </summary>
         /// <param name="samples">Sample input buffer.</param>
         /// <param name="numSamples">Number of sample frames in buffer. Notice
-        /// that in case of multi-channel sound a single 
+        /// that in case of multichannel sound a single 
         /// sample frame contains data for all channels.</param>
         public void PutSamplesI16(short[] samples, uint numSamples)
         {
-            lock (SyncRoot) { NativeMethods.BpmPutSamples_i16(handle, samples, numSamples); }
+            lock (_syncRoot) { NativeMethods.BpmPutSamples_i16(_handle, samples, numSamples); }
         }
 
         #endregion
@@ -650,7 +650,7 @@ namespace SoundTouch
         /// <param name="alsoManaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         private void Dispose(bool alsoManaged)
         {
-            if (!IsDisposed)
+            if (!_isDisposed)
             {
                 if (alsoManaged)
                 {
@@ -658,10 +658,10 @@ namespace SoundTouch
                     // At this point, nothing managed to dispose
                 }
 
-                NativeMethods.BpmDestroyInstance(handle);
-                handle = IntPtr.Zero;
+                NativeMethods.BpmDestroyInstance(_handle);
+                _handle = IntPtr.Zero;
 
-                IsDisposed = true;
+                _isDisposed = true;
             }
         }
 
