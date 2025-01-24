@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq.Expressions;
 using AudioTools;
 using AudioTools.Dsp;
 
@@ -16,8 +14,8 @@ namespace AudioConsoleTest
                 var currentCutoffFrequency = 500F;
                 var hpf = new HighPassFilter(audioFile.WaveFormat.SampleRate, currentCutoffFrequency);
                 audioFile.Dsp.Add(hpf);
-
-                audioFile.Play(tempoChange: 4, time: TimeSpan.FromMinutes(2));
+                audioFile.Play(time: TimeSpan.FromMinutes(2));
+                audioFile.Tempo = 1.12F;
                 
                 ConsoleKeyInfo keyInfo;
 
@@ -36,7 +34,11 @@ namespace AudioConsoleTest
                             break;
 
                         case ConsoleKey.R:
-                            frequency = -currentCutoffFrequency + 15;
+                            for (float i = currentCutoffFrequency; i > 15; i--)
+                            {
+                                currentCutoffFrequency--;
+                                hpf.SetParameters(currentCutoffFrequency);
+                            }
                             break;
                     }
 
@@ -52,7 +54,6 @@ namespace AudioConsoleTest
                 } while (keyInfo.Key != ConsoleKey.X);
                 
                 Console.WriteLine($"Calculated SoundTouch BPM (on the fly during play): {audioFile.CalculatedBpm}");
-
             }
         }
     }

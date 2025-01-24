@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using AudioTools.Dsp;
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using SoundTouch;
 
@@ -193,7 +194,7 @@ namespace AudioTools
                 Dsp.SetBaseProvider(_waveStream.ToSampleProvider());
 
                 // Open audio device
-                _wavePlayer = wavePlayer ?? new WasapiOut();
+                _wavePlayer = wavePlayer ?? new WasapiOut(AudioClientShareMode.Exclusive, 20);
                 _wavePlayer.PlaybackStopped += (o, e) => _resetEvent.Set();
                 _wavePlayer.Init(Dsp);
                 _wavePlayer.Play();
