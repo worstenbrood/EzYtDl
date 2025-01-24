@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading;
 using AudioTools.Dsp;
-using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using SoundTouch;
 
@@ -27,10 +26,10 @@ namespace AudioTools
         public int Latency;
         public DspProvider Dsp { get; private set; } = new DspProvider();
 
-        private WasapiOut _wasapiOut;
+        private IWavePlayer _wavePlayer;
         private MediaFoundationReader _reader;
         private SoundTouchWaveProvider _waveStream;
-        private SoundTouchProcessor _soundTouchProcessor = SoundTouchWaveProvider.CreateDefaultProcessor();
+        private SoundTouchProcessor _soundTouchProcessor = SoundTouchProcessor.CreateDefault();
         private ManualResetEvent _resetEvent = new ManualResetEvent(false);
         
         private long? _lengthInBytes;
@@ -82,7 +81,7 @@ namespace AudioTools
         {
             get 
             {
-                if (_wasapiOut?.PlaybackState == PlaybackState.Playing)
+                if (_wavePlayer?.PlaybackState == PlaybackState.Playing)
                 {
                     return TimeSpan.FromSeconds((double)_reader.Position / _waveFormat.AverageBytesPerSecond);
                 }
@@ -129,19 +128,19 @@ namespace AudioTools
 
         public float Volume
         {
-            get => _wasapiOut?.Volume ?? 0;
+            get => _wavePlayer?.Volume ?? 0;
             set
             {
-                if (_wasapiOut != null)
+                if (_wavePlayer != null)
                 {
-                    _wasapiOut.Volume = value;
+                    _wavePlayer.Volume = value;
                 }
             }
         }
 
-        public float Bpm => _waveStream?.Bpm ?? 0;
+        public float CalculatedBpm => _waveStream?.Bpm ?? 0;
 
-        private static readonly MediaFoundationReader.MediaFoundationReaderSettings Settings = new
+        protected static readonly MediaFoundationReader.MediaFoundationReaderSettings Settings = new
             MediaFoundationReader.MediaFoundationReaderSettings
             {
                 RequestFloatOutput = true,
@@ -150,12 +149,12 @@ namespace AudioTools
 
         public void Play(float tempoChange = 0.0F, float rateChange = 0.0F, TimeSpan? time = null, IWavePlayer wavePlayer = null)
         {
-            if (_wasapiOut != null)
+            if (_wavePlayer != null)
             {
-                switch (_wasapiOut.PlaybackState)
+                switch (_wavePlayer.PlaybackState)
                 {
                     case PlaybackState.Paused:
-                        _wasapiOut.Play();
+                        _wavePlayer.Play();
                         break;
 
                     case PlaybackState.Stopped:
@@ -184,16 +183,16 @@ namespace AudioTools
                 Dsp.SetBaseProvider(_waveStream.ToSampleProvider());
 
                 // Open audio device
-                _wasapiOut = wavePlayer ?? new WasapiOut();
-                _wasapiOut.PlaybackStopped += (o, e) => _resetEvent.Set();
-                _wasapiOut.Init(Dsp);
-                _wasapiOut.Play();
+                _wavePlayer = wavePlayer ?? new WasapiOut();
+                _wavePlayer.PlaybackStopped += (o, e) => _resetEvent.Set();
+                _wavePlayer.Init(Dsp);
+                _wavePlayer.Play();
             }
         }
 
         public bool Wait(int milliseconds = -1)
         {
-            if (_wasapiOut?.PlaybackState == PlaybackState.Playing)
+            if (_wavePlayer?.PlaybackState == PlaybackState.Playing)
             {
                 return _resetEvent.WaitOne(milliseconds);
             }
@@ -203,9 +202,9 @@ namespace AudioTools
 
         public void Pause()
         {
-            if (_wasapiOut?.PlaybackState == PlaybackState.Playing)
+            if (_wavePlayer?.PlaybackState == PlaybackState.Playing)
             {
-                _wasapiOut?.Pause();
+                _wavePlayer?.Pause();
             }
         }
         
@@ -231,8 +230,8 @@ namespace AudioTools
             _soundTouchProcessor?.Flush();
 
             // Cleanup
-            _wasapiOut?.Dispose();
-            _wasapiOut = null;
+            _wavePlayer?.Dispose();
+            _wavePlayer = null;
 
             // Reset stream
             _reader?.Dispose();

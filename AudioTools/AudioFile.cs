@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using NAudio.Dsp;
 using NAudio.Wave;
+using SoundTouch;
 using TagLib;
 
 namespace AudioTools
@@ -23,12 +24,14 @@ namespace AudioTools
         {
             get
             {
-                if (_tag == null)
+                if (_tag != null)
                 {
-                    using (var file = File.Create(AudioFile))
-                    {
-                        _tag = file.Tag;
-                    }
+                    return _tag;
+                }
+
+                using (var file = File.Create(AudioFile))
+                {
+                    _tag = file.Tag;
                 }
 
                 return _tag;
@@ -210,5 +213,28 @@ namespace AudioTools
                 .Select(g => g.Key)
                 .FirstOrDefault();
         }
+
+        public int Bpm => GetBpm();
+
+        private float GetSoundTouchBpm()
+        {
+            // Load the file
+            using (var reader = new MediaFoundationReader(AudioFile))
+            {
+                using (var processor = SoundTouchProcessor.CreateDefault(reader.WaveFormat))
+                {
+                    using (var provider = new SoundTouchWaveProvider(reader, processor, true))
+                    {
+                        var buffer = new byte[4096];
+                        while (provider.Read(buffer, 0, 4096) > 0)
+                        {
+                        }
+                        return provider.Bpm;
+                    }
+                }
+            }
+        }
+
+        public float SoundTouchBpm => GetSoundTouchBpm();
     }
 }

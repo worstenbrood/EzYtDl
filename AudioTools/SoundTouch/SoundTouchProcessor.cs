@@ -31,6 +31,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+using NAudio.Wave;
 using System;
 using System.Runtime.InteropServices;
 
@@ -58,6 +59,25 @@ namespace SoundTouch
         public SoundTouchProcessor()
         {
             handle = NativeMethods.CreateInstance();
+        }
+
+        public static SoundTouchProcessor CreateDefault(WaveFormat format = null)
+        {
+            var soundTouch = new SoundTouchProcessor();
+
+            if (format != null)
+            {
+                soundTouch.Channels = (uint)format.Channels;
+                soundTouch.SampleRate = (uint)format.SampleRate;
+            }
+
+            soundTouch[Setting.SequenceMilliseconds] = 0;
+            soundTouch[Setting.OverlapMilliseconds] = 0;
+            soundTouch[Setting.UseQuickSeek] = 0;
+            soundTouch[Setting.UseAntiAliasFilter] = 1;
+            soundTouch[Setting.AntiAliasFilterLength] = 32;
+
+            return soundTouch;
         }
 
         /// <summary>
@@ -181,14 +201,9 @@ namespace SoundTouch
         /// <summary>
         /// Get SoundTouch version string
         /// </summary>
-        public static string Version
-        {
-            get
-            {
-                // convert "char *" data to c# string
-                return Marshal.PtrToStringAnsi(NativeMethods.GetVersionString());
-            }
-        }
+        public static string Version =>
+            // convert "char *" data to c# string
+            Marshal.PtrToStringAnsi(NativeMethods.GetVersionString());
 
         /// <summary>
         /// Gets a value indicating whether the SoundTouch Library (dll) is available

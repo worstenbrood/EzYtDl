@@ -18,24 +18,7 @@ namespace AudioTools
         private bool _endReached = false;
         private readonly int _floatsPerSample;
         private readonly BpmDetect _bpmDetect;
-
-        public static SoundTouchProcessor CreateDefaultProcessor(WaveFormat format = null)
-        {
-            var soundTouch = new SoundTouchProcessor();
-
-            if (format != null)
-            {
-                soundTouch.Channels = (uint)format.Channels;
-                soundTouch.SampleRate = (uint)format.SampleRate;
-            }
-
-            soundTouch[SoundTouchProcessor.Setting.SequenceMilliseconds] = 0;
-            soundTouch[SoundTouchProcessor.Setting.OverlapMilliseconds] = 0;
-            soundTouch[SoundTouchProcessor.Setting.UseQuickSeek] = 1;
-            
-            return soundTouch;
-        }
-
+        
         /// <summary>
         /// Constructor
         /// </summary>
