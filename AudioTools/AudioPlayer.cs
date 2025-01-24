@@ -148,7 +148,7 @@ namespace AudioTools
                 RepositionInRead = true,
             };
 
-        public void Play(float tempoChange = 0.0F, float rateChange = 0.0F, TimeSpan? time = null)
+        public void Play(float tempoChange = 0.0F, float rateChange = 0.0F, TimeSpan? time = null, IWavePlayer wavePlayer = null)
         {
             if (_wasapiOut != null)
             {
@@ -184,7 +184,7 @@ namespace AudioTools
                 Dsp.SetBaseProvider(_waveStream.ToSampleProvider());
 
                 // Open audio device
-                _wasapiOut = new WasapiOut(AudioClientShareMode.Exclusive, 200);
+                _wasapiOut = wavePlayer ?? new WasapiOut();
                 _wasapiOut.PlaybackStopped += (o, e) => _resetEvent.Set();
                 _wasapiOut.Init(Dsp);
                 _wasapiOut.Play();
