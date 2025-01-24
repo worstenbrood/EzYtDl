@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioFile.cs" />
-    <Compile Include="AudioPlayer.cs" />
+    <Compile Include="AudioTrack.cs" />
     <Compile Include="Dsp\BitCrusher.cs" />
     <Compile Include="Dsp\HighPassFilter.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />

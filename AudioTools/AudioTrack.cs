@@ -8,7 +8,7 @@ using SoundTouch;
 
 namespace AudioTools
 {
-    public class AudioPlayer : IDisposable
+    public class AudioTrack : IDisposable
     {
         public static void Play(string audioFile)
         {
@@ -106,7 +106,7 @@ namespace AudioTools
             }
         }
 
-        public AudioPlayer(string audioFile, int latency = 20)
+        public AudioTrack(string audioFile, int latency = 20)
         {
             AudioFile = audioFile;
             Latency = latency;

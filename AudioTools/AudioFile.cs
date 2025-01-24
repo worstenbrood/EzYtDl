@@ -9,7 +9,7 @@ using TagLib;
 
 namespace AudioTools
 {
-    public class AudioFile : AudioPlayer
+    public class AudioFile : AudioTrack
     {
         // GetBpmX defaults
         public const float DefaultMinBpm = 95.0F;
