@@ -72,6 +72,21 @@ namespace AudioTools
             set => _processor.RateChange = value;
         }
 
+        public float Pitch
+        {
+            set => _processor.Pitch = value;
+        }
+
+        public float PitchOctaves
+        {
+            set => _processor.PitchOctaves = value;
+        }
+
+        public float PitchSemiTones
+        {
+            set => _processor.PitchSemiTones = value;
+        }
+        
         public float Bpm => _bpmDetect?.Bpm ?? 0.0F;
 
         /// <summary>

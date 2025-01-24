@@ -116,6 +116,11 @@ namespace AudioTools
             set => _soundTouchProcessor.RateChange = value;
         }
 
+        public float Pitch
+        {
+            set => _soundTouchProcessor.Pitch = value;
+        }
+
         public float PitchOctaves
         {
             set => _soundTouchProcessor.PitchOctaves = value;
@@ -243,7 +248,7 @@ namespace AudioTools
             Cleanup();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             Cleanup();
 

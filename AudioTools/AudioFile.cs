@@ -31,10 +31,8 @@ namespace AudioTools
 
                 using (var file = File.Create(AudioFile))
                 {
-                    _tag = file.Tag;
+                    return _tag = file.Tag;
                 }
-
-                return _tag;
             }
         }
         
