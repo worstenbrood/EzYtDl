@@ -57,7 +57,10 @@ namespace AudioTools.Dsp
         {
             lock (_lock)
             {
-                _dsp.RemoveAt(index);
+                if (index < _dsp.Count)
+                {
+                    _dsp.RemoveAt(index);
+                }
             }
         }
 
