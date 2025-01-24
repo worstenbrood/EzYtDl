@@ -25,21 +25,16 @@ namespace AudioTools
             {
                 if (_tag == null)
                 {
-                    SetTagProperty();
+                    using (var file = File.Create(AudioFile))
+                    {
+                        _tag = file.Tag;
+                    }
                 }
 
                 return _tag;
             }
         }
-
-        private void SetTagProperty()
-        {
-            using (var file = File.Create(AudioFile))
-            {
-                _tag = file.Tag;
-            }
-        }
-
+        
         public AudioFile(string audioFile) : base(audioFile)
         {
         }
