@@ -213,8 +213,16 @@ namespace AudioTools
                 .FirstOrDefault();
         }
 
+        /// <summary>
+        /// Returns the bpm for the current file
+        /// </summary>
         public int Bpm => GetBpm();
 
+        /// <summary>
+        /// Returns the calculated bpm using SoundTouch
+        /// </summary>
+        /// <param name="bufferSize">Buffer size used for reading the media</param>
+        /// <returns></returns>
         private float GetSoundTouchBpm(int bufferSize = 16384)
         {
             // Load the file
@@ -251,6 +259,9 @@ namespace AudioTools
             }
         }
 
+        /// <summary>
+        /// Returns the calculated bpm using SoundTouch
+        /// </summary>
         public float SoundTouchBpm => GetSoundTouchBpm();
     }
 }
