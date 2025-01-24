@@ -220,6 +220,14 @@ namespace AudioTools
             // Load the file
             using (var reader = new MediaFoundationReader(AudioFile, Settings))
             {
+                MediaFoundationResampler sampler = null;
+                if (reader.WaveFormat.Encoding != WaveFormatEncoding.IeeeFloat || reader.WaveFormat.BitsPerSample != 32)
+                {
+                    // Save to dispose
+                    sampler = new MediaFoundationResampler(reader, WaveFormat.CreateIeeeFloatWaveFormat(reader.WaveFormat.SampleRate, reader.WaveFormat.Channels));
+                }
+                
+                using (sampler)
                 using (var bpmDetect = new BpmDetect(reader.WaveFormat.Channels, reader.WaveFormat.SampleRate))
                 {
                     var byteBuffer = new byte[bufferSize];
@@ -235,7 +243,7 @@ namespace AudioTools
                         }
 
                         byteBuffer.BlockCopy(0, floatBuffer, 0, bytesRead);
-                        bpmDetect.PutSamples(floatBuffer, (uint)(bytesRead / reader.WaveFormat.BitsPerSample / sizeof(float)));
+                        bpmDetect.PutSamples(floatBuffer, (uint)(bytesRead / (reader.WaveFormat.BitsPerSample / sizeof(float))));
                     } while (bytesRead > 0);
 
                     return bpmDetect.Bpm;
