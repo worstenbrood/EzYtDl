@@ -12,7 +12,7 @@ namespace AudioTools
         private readonly IWaveProvider _input;
         private readonly SoundTouchProcessor _processor;
 
-        private const int BufferSize = 4096;
+        private const int BufferSize = 16384;
         private readonly byte[] _bytebuffer = new byte[BufferSize];
         private float[] _floatBuffer = new float[BufferSize / sizeof(float)];
         private bool _endReached = false;
