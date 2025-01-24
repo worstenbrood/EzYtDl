@@ -8,9 +8,7 @@
         private readonly int _sampleRate;
         private float _normFreq;
         private int _bits;
-        private float _phaser;
-        private float _last;
-
+        
         public BitCrusher(int sampleRate, int frequency, int bits)
         {
             _sampleRate = sampleRate;
@@ -26,7 +24,10 @@
                 _bits = bits;
             }
         }
-        
+
+        private float _phaser;
+        private float _last;
+
         public float Transform(float sample)
         {
             lock (this)
@@ -39,8 +40,7 @@
                 }
 
                 _phaser -= 1.0f;
-                _last = step * sample / step + 0.5f;
-                return _last;
+                return _last = step * sample / step + 0.5f;
             }
         }
     }
