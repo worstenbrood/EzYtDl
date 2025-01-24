@@ -75,7 +75,7 @@ namespace SoundTouch
             soundTouch[Setting.OverlapMilliseconds] = 0;
             soundTouch[Setting.UseQuickSeek] = 1;
             soundTouch[Setting.UseAntiAliasFilter] = 1;
-            soundTouch[Setting.AntiAliasFilterLength] = 32;
+            soundTouch[Setting.AntiAliasFilterLength] = 128;
 
             return soundTouch;
         }
@@ -95,12 +95,12 @@ namespace SoundTouch
         public enum Setting
         {
             /// <summary>
-            /// Enable/disable anti-alias filter in pitch transposer (0 = disable)
+            /// Enable/disable anti-alias filter in pitch transpose (0 = disable)
             /// </summary>
             UseAntiAliasFilter = 0,
 
             /// <summary>
-            /// Pitch transposer anti-alias filter length (8 .. 128 taps, default = 32)
+            /// Pitch transpose anti-alias filter length (8 ... 128 taps, default = 32)
             /// </summary>
             AntiAliasFilterLength = 1,
 
@@ -146,19 +146,19 @@ namespace SoundTouch
             /// Notices: 
             /// - This is read-only parameter, i.e. setSetting ignores this parameter
             /// - This parameter value is not constant but change depending on 
-            ///   tempo/pitch/rate/samplerate settings.
+            ///   tempo/pitch/rate/sample rate settings.
             /// </summary>
             NominalInputSequence = 6,
 
             /// <summary>
             /// Call "getSetting" with this ID to query nominal average processing output 
-            /// size in samples. This value tells approcimate value how many output samples 
+            /// size in samples. This value tells approximate value how many output samples 
             /// SoundTouch outputs once it does DSP processing run for a batch of input samples.
             ///
             /// Notices: 
             /// - This is read-only parameter, i.e. setSetting ignores this parameter
             /// - This parameter value is not constant but change depending on 
-            ///   tempo/pitch/rate/samplerate settings.
+            ///   tempo/pitch/rate/sample rate settings.
             /// </summary>
             NominalOutputSequence = 7,
 
@@ -189,7 +189,7 @@ namespace SoundTouch
             /// Notices: 
             /// - This is read-only parameter, i.e. setSetting ignores this parameter
             /// - This parameter value is not constant but change depending on 
-            ///   tempo/pitch/rate/samplerate settings.
+            ///   tempo/pitch/rate/sample rate settings.
             /// </summary>
             InitialLatency = 8,
         }
@@ -282,7 +282,7 @@ namespace SoundTouch
 
         /// <summary>
         /// Sets new tempo control value as a difference in percents compared
-        /// to the original tempo (-50 .. +100 %);
+        /// to the original tempo (-50 ... +100 %);
         /// </summary>
         public float TempoChange
         {

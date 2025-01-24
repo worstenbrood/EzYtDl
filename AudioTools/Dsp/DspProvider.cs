@@ -89,7 +89,6 @@ namespace AudioTools.Dsp
                 {
                     for (int index = offset; index < offset + count; index++)
                     {
-                   
                         buffer[index] = _dsp.Aggregate(buffer[index],
                             (current, transform) => transform.Transform(current));
                     }
