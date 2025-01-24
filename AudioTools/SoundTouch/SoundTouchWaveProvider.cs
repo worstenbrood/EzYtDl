@@ -89,18 +89,7 @@ namespace AudioTools
             set => _processor.RateChange = value;
         }
 
-        public float Bpm
-        {
-            get
-            {
-                if (_bpmDetect != null)
-                {
-                    return _bpmDetect.Bpm;
-                }
-
-                return 0.0F;
-            }
-        }
+        public float Bpm => _bpmDetect?.Bpm ?? 0.0F;
 
         /// <summary>
         /// Overridden Read function that returns samples processed with SoundTouch. Returns data in same format as
