@@ -5,21 +5,40 @@ using AudioTools.Extensions;
 
 namespace AudioTools
 {
+    public class ReadEventArgs : EventArgs
+    {
+        public readonly byte[] Buffer;
+        public readonly int Offset;
+        public readonly int BytesRead;
+
+        public ReadEventArgs(byte[] buffer, int offset, int bytesRead)
+        {
+            Buffer = buffer;
+            Offset = offset;
+            BytesRead = bytesRead;
+        }
+    }
+    
+    public delegate void ReadEventHandler(object sender, ReadEventArgs args);
+
     /// <summary>
     /// NAudio WaveStream class for processing audio stream with SoundTouch effects
     /// </summary>
     public class SoundTouchWaveProvider : IWaveProvider, IDisposable
     {
+        private const int BufferSize = 2048;
         private readonly IWaveProvider _input;
         private readonly SoundTouchProcessor _processor;
-
-        private const int BufferSize = 2048;
         private readonly byte[] _bytebuffer = new byte[BufferSize];
+        private readonly int _floatsPerSample;
+        private MediaFoundationResampler _sampler;
         private float[] _floatBuffer = new float[BufferSize / sizeof(float)];
         private bool _endReached = false;
-        private readonly int _floatsPerSample;
-        private readonly BpmDetect _bpmDetect;
-        
+        private BpmDetect _bpmDetect;
+
+        // Events
+        public event ReadEventHandler OnRead;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -31,7 +50,9 @@ namespace AudioTools
             // Resample if necessary
             if (input.WaveFormat.Encoding != WaveFormatEncoding.IeeeFloat || input.WaveFormat.BitsPerSample != 32)
             {
-                _input = new MediaFoundationResampler(input, WaveFormat.CreateIeeeFloatWaveFormat(input.WaveFormat.SampleRate, input.WaveFormat.Channels));
+                // Save to dispose
+                _sampler = new MediaFoundationResampler(input, WaveFormat.CreateIeeeFloatWaveFormat(input.WaveFormat.SampleRate, input.WaveFormat.Channels));
+                _input = _sampler;
             }
             else
             {
@@ -45,6 +66,7 @@ namespace AudioTools
             _processor.Channels = (uint)_input.WaveFormat.Channels;
             _processor.SampleRate = (uint)_input.WaveFormat.SampleRate;
 
+            // Enable bpm detection
             if (detectBpm)
             {
                 _bpmDetect = new BpmDetect(_input.WaveFormat.Channels, _input.WaveFormat.SampleRate);
@@ -120,7 +142,7 @@ namespace AudioTools
                     }
 
                     // Binary copy data from "byte[]" to "float[]" buffer
-                    _bytebuffer.ToFloatBuffer(0, _floatBuffer, 0, bytesRead);
+                    _bytebuffer.BlockCopy(0, _floatBuffer, 0, bytesRead);
 
                     // Process samples
                     _processor.PutSamples(_floatBuffer, (uint)(bytesRead / _floatsPerSample));
@@ -139,7 +161,10 @@ namespace AudioTools
                 var totalBytes = numSamples * _floatsPerSample;
 
                 // Binary copy data from "float[]" to "byte[]" buffer
-                _floatBuffer.ToByteBuffer(0, buffer, offset, totalBytes);
+                _floatBuffer.BlockCopy(0, buffer, offset, totalBytes);
+
+                // Invoke on read
+                OnRead?.Invoke(this, new ReadEventArgs(buffer, offset, totalBytes));
 
                 // Number of bytes
                 return totalBytes;  
@@ -162,6 +187,10 @@ namespace AudioTools
         public void Dispose()
         {
             _bpmDetect?.Dispose();
+            _bpmDetect = null;
+
+            _sampler?.Dispose();
+            _sampler = null;
         }
     }
 }

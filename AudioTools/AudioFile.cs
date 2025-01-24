@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using AudioTools.Extensions;
 using NAudio.Dsp;
 using NAudio.Wave;
 using SoundTouch;
@@ -214,21 +215,28 @@ namespace AudioTools
 
         public int Bpm => GetBpm();
 
-        private float GetSoundTouchBpm()
+        private float GetSoundTouchBpm(int bufferSize = 16384)
         {
             // Load the file
-            using (var reader = new MediaFoundationReader(AudioFile))
+            using (var reader = new MediaFoundationReader(AudioFile, Settings))
             {
-                using (var processor = SoundTouchProcessor.CreateDefault(reader.WaveFormat))
+                using (var bpmDetect = new BpmDetect(reader.WaveFormat.Channels, reader.WaveFormat.SampleRate))
                 {
-                    using (var provider = new SoundTouchWaveProvider(reader, processor, true))
+                    var byteBuffer = new byte[bufferSize];
+                    var floatBuffer = new float[bufferSize / sizeof(float)];
+                    int bytesRead;
+
+                    do
                     {
-                        var buffer = new byte[4096];
-                        while (provider.Read(buffer, 0, 4096) > 0)
+                        bytesRead = reader.Read(byteBuffer, 0, bufferSize);
+                        if (bytesRead > 0)
                         {
+                            byteBuffer.BlockCopy(0, floatBuffer, 0, bytesRead);
+                            bpmDetect.PutSamples(floatBuffer, (uint)(bytesRead / (reader.WaveFormat.BitsPerSample / sizeof(float))));
                         }
-                        return provider.Bpm;
-                    }
+                    } while (bytesRead > 0);
+
+                    return bpmDetect.Bpm;
                 }
             }
         }
