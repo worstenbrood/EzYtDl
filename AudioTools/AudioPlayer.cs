@@ -190,18 +190,19 @@ namespace AudioTools
                     Seek(time.Value);
                 }
 
+                Dsp.SetBaseProvider(_reader.ToSampleProvider());
+
                 // Init soundtouch processor
                 _soundTouchProcessor.TempoChange = tempoChange;
                 _soundTouchProcessor.RateChange = rateChange;
-                
-                // Create SoundTouch stream
-                _waveStream = new SoundTouchWaveProvider(_reader, _soundTouchProcessor, true);
-                Dsp.SetBaseProvider(_waveStream.ToSampleProvider());
 
+                // Create SoundTouch stream
+                _waveStream = new SoundTouchWaveProvider(Dsp.ToWaveProvider(), _soundTouchProcessor, true);
+               
                 // Open audio device
                 _wavePlayer = wavePlayer ?? new WasapiOut(AudioClientShareMode.Exclusive, Latency);
                 _wavePlayer.PlaybackStopped += (o, e) => _resetEvent.Set();
-                _wavePlayer.Init(Dsp);
+                _wavePlayer.Init(_waveStream);
                 _wavePlayer.Play();
             }
         }
