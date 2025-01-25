@@ -240,7 +240,7 @@ namespace AudioTools
             // Clear data
             _soundTouchProcessor.Clear();
             
-            var offset = (int)Math.Round(_reader.WaveFormat.AverageBytesPerSecond * time.TotalSeconds);
+            var offset = (long)Math.Round(_reader.WaveFormat.AverageBytesPerSecond * time.TotalSeconds);
             if (offset > 0 && offset < _reader.Length)
             {
                 _reader.Seek(offset, SeekOrigin.Begin);
