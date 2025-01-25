@@ -144,7 +144,7 @@ namespace AudioTools
                         // Check volume on every channel
                         for (var channel = 0; channel < WaveFormat.Channels; channel++)
                         {
-                            var sample = Math.Abs(samples[index + channel]);
+                            var sample = samples[index + channel];
                             var filtered = highPass.Transform(lowPass.Transform(sample));
                             if (vol < filtered)
                             {
