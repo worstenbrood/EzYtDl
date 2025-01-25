@@ -11,17 +11,21 @@ namespace AudioTools.Dsp
         private volatile float _normFreq;
         private volatile float _step;
 
-        public BitCrusher(int sampleRate, int frequency, int bits)
+        public BitCrusher(int sampleRate, float frequency, float bits)
         {
             _sampleRate = sampleRate;
-            _normFreq = (float)frequency / sampleRate;
+            _normFreq = frequency / sampleRate;
             _step = 1 / (float)Math.Pow(bits, 2);
         }
 
-        public void SetParameters(int frequency, int bits)
+        public float Frequency
         {
-            _normFreq = (float)frequency / _sampleRate;
-            _step = 1 / (float)Math.Pow(bits, 2);
+            set => _normFreq = (float)value / _sampleRate;
+        }
+
+        public float Bits
+        {
+            set => _step = 1 / (float)Math.Pow(value, 2);
         }
 
         private float _phaser;

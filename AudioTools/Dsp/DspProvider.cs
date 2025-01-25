@@ -4,11 +4,6 @@ using NAudio.Wave;
 
 namespace AudioTools.Dsp
 {
-    public interface IDsp
-    {
-        float Transform(float sample);
-    }
-
     public class DspProvider : ISampleProvider
     {
         private ISampleProvider _baseProvider;

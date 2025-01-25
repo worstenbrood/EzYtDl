@@ -10,7 +10,32 @@ namespace AudioTools.Dsp
         public HighPassFilter(int sampleRate, float cutoffFrequency, float q = 1.0F)
         {
             _sampleRate = sampleRate;
-            _filter = BiQuadFilter.HighPassFilter(_sampleRate, cutoffFrequency, q);
+            _cutoffFrequency = cutoffFrequency;
+            _q = q;
+            _filter = BiQuadFilter.HighPassFilter(_sampleRate, _cutoffFrequency, _q);
+        }
+
+        private volatile float _cutoffFrequency;
+
+        public float CutoffFrequency
+        {
+            set
+            {
+                _cutoffFrequency = value;
+                _filter.SetHighPassFilter(_sampleRate, _cutoffFrequency, _q);
+
+            }
+        }
+
+        private volatile float _q;
+
+        public float Q
+        {
+            set
+            {
+                _q = value;
+                _filter.SetHighPassFilter(_sampleRate, _cutoffFrequency, _q);
+            }
         }
 
         public void SetParameters(float cutoffFrequency, float q = 1.0F)
