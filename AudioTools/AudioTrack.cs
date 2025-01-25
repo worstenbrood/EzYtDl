@@ -193,6 +193,7 @@ namespace AudioTools
                 }
                 
                 // Init soundtouch processor
+                _soundTouchProcessor.Init(_reader.WaveFormat);
                 _soundTouchProcessor.TempoChange = tempoChange;
                 _soundTouchProcessor.RateChange = rateChange;
 
