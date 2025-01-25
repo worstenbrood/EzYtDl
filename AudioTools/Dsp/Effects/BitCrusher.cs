@@ -1,24 +1,25 @@
-﻿using System;
+﻿using AudioTools.Dsp.Interfaces;
+using System;
 
 namespace AudioTools.Dsp
 {
     /// <summary>
     /// Bitcrusher based on https://github.com/bdejong/musicdsp/blob/master/source/Effects/139-lo-fi-crusher.rst
     /// </summary>
-    public class BitCrusher : IDsp
+    public class BitCrusher : ISampleDsp
     {
         private readonly int _sampleRate;
         private volatile float _normFreq;
         private volatile float _step;
-
+        
         public float Frequency
         {
             set => _normFreq = value / _sampleRate;
         }
-
+        
         public float Bits
         {
-            set => _step = 1f / (float)Math.Pow(value, 2f);
+            set => _step = 1.0f / (float)Math.Pow(2.0f, value);
         }
 
         public BitCrusher(int sampleRate, float frequency, float bits)
@@ -31,18 +32,24 @@ namespace AudioTools.Dsp
             Bits = bits;
         }
         
-        private float _phaser;
-        private float _last;
+        private volatile float _phaser;
+        private volatile float _last;
 
         public float Transform(float sample)
         {
-            _phaser += _normFreq;
+            _phaser = _phaser + _normFreq;
             if (_phaser < 1.0f)
             {
                 return _last;
             }
-            _phaser -= 1.0f;
+            _phaser = _phaser - 1.0f;
             return _last = _step * (float)Math.Floor(sample / _step + 0.5f);
+        }
+
+        public void Reset()
+        {
+            _phaser = 0.0f;
+            _last = 0.0f;
         }
     }
 }

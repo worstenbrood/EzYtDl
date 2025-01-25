@@ -25,7 +25,7 @@ namespace AudioTools
 
         public readonly string AudioFile;
         public int Latency;
-        public DspProvider Dsp { get; private set; } = new DspProvider();
+        public DspSampleProvider Dsp { get; private set; } = new DspSampleProvider();
 
         private IWavePlayer _wavePlayer;
         private MediaFoundationReader _reader;
@@ -241,7 +241,7 @@ namespace AudioTools
             // Clear data
             _soundTouchProcessor.Clear();
             
-            var offset = (long)Math.Round(_reader.WaveFormat.AverageBytesPerSecond * time.TotalSeconds);
+            var offset = _reader.WaveFormat.AverageBytesPerSecond * (long)time.TotalSeconds;
             if (offset > 0 && offset < _reader.Length)
             {
                 _reader.Seek(offset, SeekOrigin.Begin);

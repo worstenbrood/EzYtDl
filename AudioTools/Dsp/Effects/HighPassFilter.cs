@@ -1,8 +1,9 @@
-﻿using NAudio.Dsp;
+﻿using AudioTools.Dsp.Interfaces;
+using NAudio.Dsp;
 
 namespace AudioTools.Dsp
 {
-    public class HighPassFilter : IDsp
+    public class HighPassFilter : ISampleDsp
     {
         private volatile BiQuadFilter _filter;
         private readonly int _sampleRate;

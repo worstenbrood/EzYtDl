@@ -1,6 +1,6 @@
-﻿namespace AudioTools.Dsp
+﻿namespace AudioTools.Dsp.Interfaces
 {
-    public interface IDsp
+    public interface ISampleDsp
     {
         float Transform(float sample);
         
