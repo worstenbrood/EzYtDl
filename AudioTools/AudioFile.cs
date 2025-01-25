@@ -96,10 +96,10 @@ namespace AudioTools
             // Load the file
             using (var reader = new MediaFoundationReader(AudioFile))
             {
-                // First a lowpass to remove most of the song.
+                // First a low pass to remove most of the song.
                 var lowPass = BiQuadFilter.LowPassFilter(reader.WaveFormat.SampleRate, lowPassCutoff, 1.0F);
 
-                // Now a highpass to remove the bassline.
+                // Now a high pass to remove the bass line.
                 var highPass = BiQuadFilter.HighPassFilter(reader.WaveFormat.SampleRate, highPassCutoff, 1.0F);
 
                 // Calculate bytes per sample
@@ -240,19 +240,23 @@ namespace AudioTools
                 using (var bpmDetect = new BpmDetect(input.WaveFormat.Channels, input.WaveFormat.SampleRate))
                 {
                     var byteBuffer = new byte[bufferSize];
-                    var floatBuffer = new float[bufferSize / sizeof(float)];
+                    var sampleBuffer = new float[bufferSize / sizeof(float)];
                     int bytesRead;
 
                     do
                     {
+                        // Read data
                         bytesRead = input.Read(byteBuffer, 0, bufferSize);
                         if (bytesRead <= 0)
                         {
                             continue;
                         }
 
-                        byteBuffer.BlockCopy(0, floatBuffer, 0, bytesRead);
-                        bpmDetect.PutSamples(floatBuffer, (uint)(bytesRead / (input.WaveFormat.BitsPerSample / sizeof(float))));
+                        // Copy to sample buffer
+                        byteBuffer.BlockCopy(0, sampleBuffer, 0, bytesRead);
+
+                        // Input into BpmDetector
+                        bpmDetect.PutSamples(sampleBuffer, (uint)(bytesRead / (input.WaveFormat.BitsPerSample / sizeof(float))));
                     } while (bytesRead > 0);
 
                     return bpmDetect.Bpm;
