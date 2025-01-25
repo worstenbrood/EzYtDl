@@ -30,13 +30,12 @@ namespace AudioTools.Dsp
         public float Transform(float sample)
         {
             _phaser += _normFreq;
-            if (_phaser >= 1.0f)
+            if (_phaser < 1.0f)
             {
-                _phaser -= 1.0f;
-                _last = _step * (float)Math.Floor(sample / _step + 0.5f);
+                return _last;
             }
-            
-            return _last;
+            _phaser -= 1.0f;
+            return _last = _step * (float)Math.Floor(sample / _step + 0.5f);
         }
     }
 }
