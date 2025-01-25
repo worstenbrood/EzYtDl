@@ -106,7 +106,7 @@ namespace AudioTools
             }
         }
 
-        public AudioTrack(string audioFile, int latency = 20)
+        public AudioTrack(string audioFile, int latency = 50)
         {
             AudioFile = audioFile;
             Latency = latency;
@@ -154,6 +154,8 @@ namespace AudioTools
             }
         }
 
+        public PlaybackState PlaybackState => _wavePlayer?.PlaybackState ?? PlaybackState.Stopped;
+
         public float CalculatedBpm => _waveStream?.Bpm ?? 0;
 
         protected static readonly MediaFoundationReader.MediaFoundationReaderSettings Settings = new
@@ -200,7 +202,7 @@ namespace AudioTools
                 // Append DSP
                 Dsp.SetBaseProvider(_waveStream.ToSampleProvider());
 
-                // MediaFoundationReader ==> SoundTouchWaveProvider ==> DspProvider
+                // MediaFoundationReader ==> SoundTouchWaveProvider ==> DspProvider ==> Mixer?
 
                 // Open audio device
                 _wavePlayer = wavePlayer ?? new WasapiOut(AudioClientShareMode.Exclusive, Latency);

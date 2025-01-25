@@ -66,20 +66,25 @@ namespace SoundTouch
         public static SoundTouchProcessor CreateDefault(WaveFormat format = null)
         {
             var soundTouch = new SoundTouchProcessor();
+            soundTouch.Init(format);
+            return soundTouch;
+        }
+
+        public void Init(WaveFormat format = null)
+        {
+            Clear();
 
             if (format != null)
             {
-                soundTouch.Channels = (uint)format.Channels;
-                soundTouch.SampleRate = (uint)format.SampleRate;
+                Channels = (uint)format.Channels;
+                SampleRate = (uint)format.SampleRate;
             }
 
-            soundTouch[Setting.SequenceMilliseconds] = 0;
-            soundTouch[Setting.OverlapMilliseconds] = 0;
-            soundTouch[Setting.UseQuickSeek] = 1;
-            soundTouch[Setting.UseAntiAliasFilter] = 1;
-            soundTouch[Setting.AntiAliasFilterLength] = 64;
-
-            return soundTouch;
+            this[Setting.SequenceMilliseconds] = 0;
+            this[Setting.OverlapMilliseconds] = 0;
+            this[Setting.UseQuickSeek] = 0;
+            this[Setting.UseAntiAliasFilter] = 1;
+            this[Setting.AntiAliasFilterLength] = 128;
         }
 
         /// <summary>

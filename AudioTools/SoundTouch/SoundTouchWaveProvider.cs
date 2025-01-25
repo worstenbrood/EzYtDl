@@ -59,13 +59,13 @@ namespace AudioTools
                 _input = input;
             }
 
+            // Save floats per sample
             _floatsPerSample = _input.WaveFormat.BitsPerSample / sizeof(float);
 
             // Init SoundTouch processor
             _processor = processor;
-            _processor.Channels = (uint)_input.WaveFormat.Channels;
-            _processor.SampleRate = (uint)_input.WaveFormat.SampleRate;
-
+            _processor.Init(WaveFormat);
+            
             // Enable bpm detection
             if (detectBpm)
             {
