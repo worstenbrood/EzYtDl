@@ -234,9 +234,10 @@ namespace AudioTools
                     // Save to dispose
                     sampler = new MediaFoundationResampler(reader, WaveFormat.CreateIeeeFloatWaveFormat(reader.WaveFormat.SampleRate, reader.WaveFormat.Channels));
                 }
-                
+
+                var input = (IWaveProvider)sampler ?? reader;
                 using (sampler)
-                using (var bpmDetect = new BpmDetect(reader.WaveFormat.Channels, reader.WaveFormat.SampleRate))
+                using (var bpmDetect = new BpmDetect(input.WaveFormat.Channels, input.WaveFormat.SampleRate))
                 {
                     var byteBuffer = new byte[bufferSize];
                     var floatBuffer = new float[bufferSize / sizeof(float)];
@@ -244,14 +245,14 @@ namespace AudioTools
 
                     do
                     {
-                        bytesRead = reader.Read(byteBuffer, 0, bufferSize);
+                        bytesRead = input.Read(byteBuffer, 0, bufferSize);
                         if (bytesRead <= 0)
                         {
                             continue;
                         }
 
                         byteBuffer.BlockCopy(0, floatBuffer, 0, bytesRead);
-                        bpmDetect.PutSamples(floatBuffer, (uint)(bytesRead / (reader.WaveFormat.BitsPerSample / sizeof(float))));
+                        bpmDetect.PutSamples(floatBuffer, (uint)(bytesRead / (input.WaveFormat.BitsPerSample / sizeof(float))));
                     } while (bytesRead > 0);
 
                     return bpmDetect.Bpm;
