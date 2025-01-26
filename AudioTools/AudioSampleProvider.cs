@@ -55,7 +55,7 @@ namespace AudioTools
         
         public WaveFormat WaveFormat => _soundTouchStream.WaveFormat;
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _reader?.Dispose();
             _soundTouchStream?.Dispose();

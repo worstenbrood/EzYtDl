@@ -14,9 +14,8 @@ namespace AudioTools
         private readonly float[] _buffer = new float[BufferSize];
         private readonly ISampleProvider _input;
         private readonly SoundTouchProcessor _processor;
-        
-        private MediaFoundationResampler _sampler;
-        private BpmDetect _bpmDetect;
+        private readonly MediaFoundationResampler _sampler;
+        private readonly BpmDetect _bpmDetect;
         private bool _endReached;
         
         /// <summary>
@@ -149,13 +148,10 @@ namespace AudioTools
             _endReached = false;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _bpmDetect?.Dispose();
-            _bpmDetect = null;
-
             _sampler?.Dispose();
-            _sampler = null;
         }
     }
 }

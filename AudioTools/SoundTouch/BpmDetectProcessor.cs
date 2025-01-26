@@ -34,7 +34,7 @@ namespace AudioTools.SoundTouch
 
         public WaveFormat WaveFormat => _input.WaveFormat;
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _bpmDetect?.Dispose();
         }
