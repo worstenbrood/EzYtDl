@@ -3,6 +3,8 @@
     public interface ISampleDsp
     {
         bool Enabled { get; set; }
+        float Wet { get; set; }
+        float Dry { get; set; }
 
         float Transform(float sample);
         

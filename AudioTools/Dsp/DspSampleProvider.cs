@@ -8,7 +8,11 @@ namespace AudioTools.Dsp
     public class DspSampleProvider : LockedList<ISampleDsp>, ISampleProvider
     {
         private ISampleProvider _baseProvider;
-       
+        public DspSampleProvider(ISampleProvider baseProvider)
+        {
+            _baseProvider = baseProvider;
+        }
+        
         public DspSampleProvider()
         {
         }
@@ -17,12 +21,7 @@ namespace AudioTools.Dsp
         {
             _baseProvider = baseProvider;
         }
-
-        public DspSampleProvider(ISampleProvider baseProvider)
-        {
-            _baseProvider = baseProvider;
-        }
-
+        
         public int Read(float[] buffer, int offset, int count)
         {
             var result = _baseProvider.Read(buffer, offset, count);

@@ -14,11 +14,11 @@ namespace AudioTools
         private readonly float[] _buffer = new float[BufferSize];
         private readonly ISampleProvider _input;
         private readonly SoundTouchProcessor _processor;
-        private MediaFoundationResampler _sampler;
         
-        private bool _endReached;
+        private MediaFoundationResampler _sampler;
         private BpmDetect _bpmDetect;
-
+        private bool _endReached;
+        
         /// <summary>
         /// Constructor
         /// </summary>
