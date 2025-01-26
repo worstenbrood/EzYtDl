@@ -1,5 +1,4 @@
-﻿using AudioTools.Dsp.Interfaces;
-using System;
+﻿using System;
 
 namespace AudioTools.Dsp
 {
