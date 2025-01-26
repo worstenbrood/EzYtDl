@@ -3,7 +3,7 @@
 namespace AudioTools.Dsp
 {
     /// <summary>
-    /// Bitcrusher based on https://github.com/bdejong/musicdsp/blob/master/source/Effects/139-lo-fi-crusher.rst
+    /// Bit crusher based on https://github.com/bdejong/musicdsp/blob/master/source/Effects/139-lo-fi-crusher.rst
     /// </summary>
     public class BitCrusher : DspBase
     {
@@ -36,7 +36,7 @@ namespace AudioTools.Dsp
 
         public override float TransformSample(float sample)
         {
-            _phaser = _phaser + _normFreq;
+            _phaser = _phaser +_normFreq;
             if (_phaser < 1.0f)
             {
                 return _last;

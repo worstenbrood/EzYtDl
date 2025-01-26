@@ -82,7 +82,7 @@ namespace SoundTouch
 
             this[Setting.SequenceMilliseconds] = 0;
             this[Setting.OverlapMilliseconds] = 0;
-            this[Setting.UseQuickSeek] = 0;
+            this[Setting.UseQuickSeek] = 1;
             this[Setting.UseAntiAliasFilter] = 1;
             this[Setting.AntiAliasFilterLength] = 128;
         }
