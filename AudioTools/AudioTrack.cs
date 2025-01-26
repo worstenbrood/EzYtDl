@@ -214,12 +214,7 @@ namespace AudioTools
 
         public bool Wait(int milliseconds = -1)
         {
-            if (PlaybackState == PlaybackState.Playing)
-            {
-                return _resetEvent.WaitOne(milliseconds);
-            }
-
-            return true;
+            return PlaybackState != PlaybackState.Playing || _resetEvent.WaitOne(milliseconds);
         }
 
         public void Pause()
