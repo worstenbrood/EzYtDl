@@ -3,7 +3,7 @@ using NAudio.Dsp;
 
 namespace AudioTools.Dsp
 {
-    public class HighPassFilter : ISampleDsp
+    public class HighPassFilter : DspBase
     {
         private volatile BiQuadFilter _filter;
         private readonly int _sampleRate;
@@ -39,12 +39,7 @@ namespace AudioTools.Dsp
             }
         }
 
-        public void SetParameters(float cutoffFrequency, float q = 1.0F)
-        {
-            _filter.SetHighPassFilter(_sampleRate, cutoffFrequency, q);
-        }
-
-        public float Transform(float sample)
+        public override float TransformSample(float sample)
         {
             return _filter.Transform(sample);
         }

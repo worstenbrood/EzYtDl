@@ -200,7 +200,7 @@ namespace AudioTools
                 _soundTouchStream = new SoundTouchSampleProvider(_reader, _soundTouchProcessor, true);
 
                 // Append DSP
-                Dsp.SetBaseProvider(_soundTouchStream);
+                Dsp.SetInput(_soundTouchStream);
 
                 // MediaFoundationReader ==> SoundTouchSampleProvider ==> DspProvider ==> Mixer?
 

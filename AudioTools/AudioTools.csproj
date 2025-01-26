@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AudioFile.cs" />
     <Compile Include="AudioTrack.cs" />
+    <Compile Include="Dsp\DspBase.cs" />
     <Compile Include="Dsp\Effects\BitCrusher.cs" />
     <Compile Include="Dsp\Effects\HighPassFilter.cs" />
     <Compile Include="Dsp\Interfaces\ISampleDsp.cs" />

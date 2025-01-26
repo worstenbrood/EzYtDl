@@ -2,6 +2,8 @@
 {
     public interface ISampleDsp
     {
+        bool Enabled { get; set; }
+
         float Transform(float sample);
         
         /*

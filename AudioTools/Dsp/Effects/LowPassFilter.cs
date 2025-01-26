@@ -1,9 +1,8 @@
-﻿using AudioTools.Dsp.Interfaces;
-using NAudio.Dsp;
+﻿using NAudio.Dsp;
 
 namespace AudioTools.Dsp
 {
-    public class LowPassFilter : ISampleDsp
+    public class LowPassFilter : DspBase
     {
         private volatile BiQuadFilter _filter;
         private readonly int _sampleRate;
@@ -19,7 +18,7 @@ namespace AudioTools.Dsp
             _filter.SetLowPassFilter(_sampleRate, cutoffFrequency, q);
         }
 
-        public float Transform(float sample)
+        public override float TransformSample(float sample)
         {
             return _filter.Transform(sample);
         }

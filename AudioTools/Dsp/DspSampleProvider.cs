@@ -13,7 +13,7 @@ namespace AudioTools.Dsp
         {
         }
 
-        public void SetBaseProvider(ISampleProvider baseProvider)
+        public void SetInput(ISampleProvider baseProvider)
         {
             _baseProvider = baseProvider;
         }
@@ -33,7 +33,9 @@ namespace AudioTools.Dsp
                     for (int index = offset; index < offset + count; index++)
                     {
                         // Apply all DSP 
-                        buffer[index] = List.Aggregate(buffer[index], (current, transform) => transform.Transform(current));
+                        buffer[index] = List
+                            .Where(t => t.Enabled)
+                            .Aggregate(buffer[index], (current, transform) => transform.Transform(current));
                     }
                 }
             }
