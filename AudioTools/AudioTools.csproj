@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioFile.cs" />
+    <Compile Include="AudioSampleProvider.cs" />
     <Compile Include="AudioTrack.cs" />
     <Compile Include="Dsp\DspBase.cs" />
     <Compile Include="Dsp\Effects\BitCrusher.cs" />

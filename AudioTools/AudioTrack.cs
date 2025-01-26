@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using AudioTools.Dsp;
 using NAudio.CoreAudioApi;
@@ -27,11 +26,10 @@ namespace AudioTools
         public int Latency;
         public DspSampleProvider Dsp { get; private set; } = new DspSampleProvider();
 
+        private readonly SoundTouchProcessor _soundTouchProcessor = SoundTouchProcessor.CreateDefault();
+        private readonly ManualResetEvent _resetEvent = new ManualResetEvent(false);
         private IWavePlayer _wavePlayer;
-        private MediaFoundationReader _reader;
-        private SoundTouchSampleProvider _soundTouchStream;
-        private SoundTouchProcessor _soundTouchProcessor = SoundTouchProcessor.CreateDefault();
-        private ManualResetEvent _resetEvent = new ManualResetEvent(false);
+        private AudioSampleProvider _audioSampleProvider;
         
         private long? _lengthInBytes;
 
@@ -84,8 +82,8 @@ namespace AudioTools
             {
                 if (_wavePlayer?.PlaybackState == PlaybackState.Playing)
                 {
-                    double position = _reader.Position;
-                    var waveFormat = _soundTouchStream.WaveFormat;
+                    double position = _audioSampleProvider.Position;
+                    var waveFormat = _audioSampleProvider.WaveFormat;
                     var averageBytesPerSecond = waveFormat.AverageBytesPerSecond;
                     double latency = waveFormat.ConvertLatencyToByteSize(Latency);
                     
@@ -156,15 +154,8 @@ namespace AudioTools
 
         public PlaybackState PlaybackState => _wavePlayer?.PlaybackState ?? PlaybackState.Stopped;
 
-        public float CalculatedBpm => _soundTouchStream?.Bpm ?? 0;
-
-        protected static readonly MediaFoundationReader.MediaFoundationReaderSettings Settings = new
-            MediaFoundationReader.MediaFoundationReaderSettings
-            {
-                RequestFloatOutput = true,
-                RepositionInRead = true,
-            };
-
+        public float CalculatedBpm => _audioSampleProvider?.Bpm ?? 0f;
+        
         public void Play(float tempoChange = 0.0F, float rateChange = 0.0F, TimeSpan? time = null, IWavePlayer wavePlayer = null)
         {
             if (_wavePlayer != null)
@@ -185,24 +176,21 @@ namespace AudioTools
             }
             else
             {
-                // Open file
-                _reader = new MediaFoundationReader(AudioFile); //, Settings);
-                if (time != null)
-                {
-                    Seek(time.Value);
-                }
-                
-                // Init soundtouch processor
+                // Init SoundTouch processor
                 _soundTouchProcessor.TempoChange = tempoChange;
                 _soundTouchProcessor.RateChange = rateChange;
 
                 // Create SoundTouch stream
-                _soundTouchStream = new SoundTouchSampleProvider(_reader, _soundTouchProcessor, true);
+                _audioSampleProvider = new AudioSampleProvider(AudioFile, _soundTouchProcessor, true);
+                if (time != null)
+                {
+                    Seek(time.Value);
+                }
 
                 // Append DSP
-                Dsp.SetInput(_soundTouchStream);
+                Dsp.SetInput(_audioSampleProvider);
 
-                // MediaFoundationReader ==> SoundTouchSampleProvider ==> DspProvider ==> Mixer?
+                // MediaFoundationReader ==> AudioSampleProvider ==> DspProvider ==> Mixer?
 
                 // Open audio device
                 _wavePlayer = wavePlayer ?? new WasapiOut(AudioClientShareMode.Exclusive, Latency);
@@ -227,19 +215,13 @@ namespace AudioTools
         
         public void Seek(TimeSpan time)
         {
-            if (_reader == null)
+            if (_audioSampleProvider == null)
             {
                 return;
             }
 
-            // Clear data
-            _soundTouchProcessor.Clear();
-            
-            var offset = _reader.WaveFormat.AverageBytesPerSecond * (long)time.TotalSeconds;
-            if (offset > 0 && offset < _reader.Length)
-            {
-                _reader.Seek(offset, SeekOrigin.Begin);
-            }
+            // Set position
+            _audioSampleProvider.Position = (long)time.TotalSeconds;
         }
 
         private void Cleanup()
@@ -247,14 +229,10 @@ namespace AudioTools
             lock (this)
             {
                 _soundTouchProcessor?.Flush();
-
                 // Cleanup
                 _wavePlayer?.Dispose();
-                _wavePlayer = null;
-
                 // Reset stream
-                _reader?.Dispose();
-                _reader = null;
+                _audioSampleProvider?.Dispose();
             }
         }
 
@@ -268,10 +246,7 @@ namespace AudioTools
             Cleanup();
 
             _soundTouchProcessor?.Dispose();
-            _soundTouchProcessor = null;
-
             _resetEvent?.Dispose();
-            _resetEvent = null;
         }
     }
 }

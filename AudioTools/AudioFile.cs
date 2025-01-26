@@ -226,7 +226,7 @@ namespace AudioTools
         private float GetSoundTouchBpm()
         {
             // Load the file
-            using (var reader = new MediaFoundationReader(AudioFile, Settings))
+            using (var reader = new MediaFoundationReader(AudioFile, AudioSampleProvider.Settings))
             {
                 MediaFoundationResampler sampler = null;
                 if (reader.WaveFormat.Encoding != WaveFormatEncoding.IeeeFloat || reader.WaveFormat.BitsPerSample != 32)
