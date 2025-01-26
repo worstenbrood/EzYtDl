@@ -256,7 +256,7 @@ namespace AudioTools
                         byteBuffer.BlockCopy(0, sampleBuffer, 0, bytesRead);
 
                         // Input into BpmDetector
-                        bpmDetect.PutSamples(sampleBuffer, (uint)(bytesRead / (input.WaveFormat.BitsPerSample / sizeof(float))));
+                        bpmDetect.PutSamples(sampleBuffer, (uint)(bytesRead / (input.WaveFormat.Channels * sizeof(float))));
                     } while (bytesRead > 0);
 
                     return bpmDetect.Bpm;

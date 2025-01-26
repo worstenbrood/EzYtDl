@@ -29,7 +29,7 @@ namespace AudioTools
 
         private IWavePlayer _wavePlayer;
         private MediaFoundationReader _reader;
-        private SoundTouchWaveProvider _waveStream;
+        private SoundTouchSampleProvider _soundTouchStream;
         private SoundTouchProcessor _soundTouchProcessor = SoundTouchProcessor.CreateDefault();
         private ManualResetEvent _resetEvent = new ManualResetEvent(false);
         
@@ -85,7 +85,7 @@ namespace AudioTools
                 if (_wavePlayer?.PlaybackState == PlaybackState.Playing)
                 {
                     double position = _reader.Position;
-                    var waveFormat = _waveStream.WaveFormat;
+                    var waveFormat = _soundTouchStream.WaveFormat;
                     var averageBytesPerSecond = waveFormat.AverageBytesPerSecond;
                     double latency = waveFormat.ConvertLatencyToByteSize(Latency);
                     
@@ -156,7 +156,7 @@ namespace AudioTools
 
         public PlaybackState PlaybackState => _wavePlayer?.PlaybackState ?? PlaybackState.Stopped;
 
-        public float CalculatedBpm => _waveStream?.Bpm ?? 0;
+        public float CalculatedBpm => _soundTouchStream?.Bpm ?? 0;
 
         protected static readonly MediaFoundationReader.MediaFoundationReaderSettings Settings = new
             MediaFoundationReader.MediaFoundationReaderSettings
@@ -186,24 +186,23 @@ namespace AudioTools
             else
             {
                 // Open file
-                _reader = new MediaFoundationReader(AudioFile, Settings);
+                _reader = new MediaFoundationReader(AudioFile); //, Settings);
                 if (time != null)
                 {
                     Seek(time.Value);
                 }
                 
                 // Init soundtouch processor
-                _soundTouchProcessor.Init(_reader.WaveFormat);
                 _soundTouchProcessor.TempoChange = tempoChange;
                 _soundTouchProcessor.RateChange = rateChange;
 
                 // Create SoundTouch stream
-                _waveStream = new SoundTouchWaveProvider(_reader, _soundTouchProcessor, true);
+                _soundTouchStream = new SoundTouchSampleProvider(_reader, _soundTouchProcessor, true);
 
                 // Append DSP
-                Dsp.SetBaseProvider(_waveStream.ToSampleProvider());
+                Dsp.SetBaseProvider(_soundTouchStream);
 
-                // MediaFoundationReader ==> SoundTouchWaveProvider ==> DspProvider ==> Mixer?
+                // MediaFoundationReader ==> SoundTouchSampleProvider ==> DspProvider ==> Mixer?
 
                 // Open audio device
                 _wavePlayer = wavePlayer ?? new WasapiOut(AudioClientShareMode.Exclusive, Latency);
@@ -215,7 +214,7 @@ namespace AudioTools
 
         public bool Wait(int milliseconds = -1)
         {
-            if (_wavePlayer?.PlaybackState == PlaybackState.Playing)
+            if (PlaybackState == PlaybackState.Playing)
             {
                 return _resetEvent.WaitOne(milliseconds);
             }
@@ -225,7 +224,7 @@ namespace AudioTools
 
         public void Pause()
         {
-            if (_wavePlayer?.PlaybackState == PlaybackState.Playing)
+            if (PlaybackState == PlaybackState.Playing)
             {
                 _wavePlayer?.Pause();
             }
@@ -250,15 +249,18 @@ namespace AudioTools
 
         private void Cleanup()
         {
-            _soundTouchProcessor?.Flush();
+            lock (this)
+            {
+                _soundTouchProcessor?.Flush();
 
-            // Cleanup
-            _wavePlayer?.Dispose();
-            _wavePlayer = null;
+                // Cleanup
+                _wavePlayer?.Dispose();
+                _wavePlayer = null;
 
-            // Reset stream
-            _reader?.Dispose();
-            _reader = null;
+                // Reset stream
+                _reader?.Dispose();
+                _reader = null;
+            }
         }
 
         public void Stop()
