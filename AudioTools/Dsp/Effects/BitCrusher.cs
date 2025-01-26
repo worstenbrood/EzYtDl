@@ -19,7 +19,7 @@ namespace AudioTools.Dsp
         
         public float Bits
         {
-            set => _step = 1.0f / (float)Math.Pow(2.0f, value);
+            set => _step = 1.0f / (float)Math.Pow(2, value);
         }
 
         public BitCrusher(int sampleRate, float frequency, float bits)
