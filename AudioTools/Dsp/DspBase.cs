@@ -40,8 +40,8 @@ namespace AudioTools.Dsp
         protected DspBase()
         {
             Enabled = true;
-            Dry = 1.0F;
-            Wet = 1.0F;
+            Dry = 0.5F;
+            Wet = 0.5F;
         }
 
         public abstract float TransformSample(float sample);
