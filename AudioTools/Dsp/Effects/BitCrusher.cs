@@ -42,7 +42,7 @@ namespace AudioTools.Dsp
                 return _last;
             }
             _phaser = _phaser - 1.0f;
-            return _last = _step * (float)Math.Floor(sample / _step);
+            return _last = _step * (float)Math.Floor(sample / _step + 0.5f);
         }
 
         public void Reset()
