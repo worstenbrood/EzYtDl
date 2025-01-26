@@ -7,24 +7,25 @@ namespace AudioTools.Dsp
 {
     public class DspSampleProvider : LockedList<ISampleDsp>, ISampleProvider
     {
-        private ISampleProvider _baseProvider;
-        public DspSampleProvider(ISampleProvider baseProvider)
+        private ISampleProvider _input;
+
+        public DspSampleProvider(ISampleProvider input)
         {
-            _baseProvider = baseProvider;
+            _input = input;
         }
         
         public DspSampleProvider()
         {
         }
 
-        public void SetInput(ISampleProvider baseProvider)
+        public void SetInput(ISampleProvider input)
         {
-            _baseProvider = baseProvider;
+            _input = input;
         }
         
         public int Read(float[] buffer, int offset, int count)
         {
-            var result = _baseProvider.Read(buffer, offset, count);
+            var result = _input.Read(buffer, offset, count);
             if (Count > 0)
             {
                 lock (ListLock)
@@ -42,6 +43,6 @@ namespace AudioTools.Dsp
             return result;
         }
 
-        public WaveFormat WaveFormat => _baseProvider.WaveFormat;
+        public WaveFormat WaveFormat => _input.WaveFormat;
     }
 }
