@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dsp\Effects\LowPassFilter.cs" />
     <Compile Include="Dsp\DspSampleProvider.cs" />
+    <Compile Include="SoundTouch\BpmDetectProcessor.cs" />
     <Compile Include="SoundTouch\SoundTouchProcessor.cs" />
     <Compile Include="SoundTouch\SoundTouchSampleProvider.cs" />
     <Compile Include="Utils\LockedList.cs" />
