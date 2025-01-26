@@ -15,40 +15,43 @@ namespace AudioTools.Dsp
             set => _enabled = value;
         }
 
-        private volatile float _wet;
-
-        /// <summary>
-        /// Wet percentage (0 to 1)
-        /// </summary>
-        public float Wet
-        {
-            get => _wet;
-            set => _wet = value;
-        }
-
         private volatile float _dry;
-
+        private volatile float _wet;
+        
         /// <summary>
-        /// Dry percentage (0 to 1)
+        /// Dry/Wet percentage (0.0 to 1.0)
         /// </summary>
-        public float Dry
+        public float DryWet
         {
-            get => _dry;
-            set => _dry = value;
+            set
+            {
+                if (value >= 0f && value <= 1f)
+                {
+                    if (value < 0.5f)
+                    {
+                        _dry = 1f - value;
+                        _wet = 1f - _dry;
+                    }
+                    else if (value >= 0.5f)
+                    {
+                        _wet = value;
+                        _dry = 1f - _wet;
+                    }
+                }
+            }
         }
 
         protected DspBase()
         {
             Enabled = true;
-            Dry = 0.5F;
-            Wet = 0.5F;
+            DryWet = 0.5f;
         }
 
         public abstract float TransformSample(float sample);
 
         public float Transform(float sample)
         {
-            return sample * Dry + TransformSample(sample) * Wet;
+            return sample * _dry + TransformSample(sample) * _wet;
         }
     }
 }
