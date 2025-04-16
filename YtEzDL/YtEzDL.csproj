@@ -231,7 +231,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="README.MD" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UserControls\Player.resx">
